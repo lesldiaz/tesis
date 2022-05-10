@@ -1,0 +1,46 @@
+<app-menu></app-menu>
+<div class="container-fluid centro">
+  <div class="row" style="padding-top: 1rem">
+    <div class="col-sm-12">
+      <h3>Inicia Sesión</h3>
+    </div>
+  </div>
+  <div class="container inicio login">
+    <toaster-container></toaster-container>
+    <form [formGroup]="formularioLogin" (ngSubmit)="enviarFormularioLogin()" novalidate>
+      <div class="row">
+        <label for="nombreUsuario">Nombre de Usuario</label>
+        <input
+          type="text"
+          class="form-control"
+          id="nombreUsuario"
+          aria-describedby="nombreUsuarioHelp"
+          [formControlName]="'nombreUsuario'"
+          placeholder="Ingrese su nombre de usuario">
+      </div>
+      <div class="separador"></div>
+      <div class="row">
+        <label for="contrasenia">Contraseña</label>
+        <input
+          type="password"
+          class="form-control"
+          id="contrasenia"
+          aria-describedby="contraseniaHelp"
+          [formControlName]="'contrasenia'"
+          placeholder="Ingrese su contrasena">
+      </div>
+      <div class="separador"></div>
+      <div class="row" *ngIf="errorIniciarSesion">
+        <div class="col-sm-12">
+          <p class="text-danger">¡El usuario o la contraseña son incorrectos!</p>
+        </div>
+      </div>
+      <div class="separador"></div>
+      <div class="row justify-content-end">
+        <button class="btn btn-info" [disabled]="!formularioValido" (click)="enviarFormularioLogin()">Ingresar</button>
+<!--        <button class="btn btn-info" [routerLink]="'registro-usuario'">Registrarse</button>-->
+      </div>
+    </form>
+  </div>
+</div>
+<app-footer></app-footer>

@@ -1,54 +1,44 @@
-import {Column, Entity, ManyToOne, PrimaryGeneratedColumn} from 'typeorm';
+import {Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn} from 'typeorm';
+import { UsuarioSesionEntity } from '../usuario-sesion/usuario.sesion.entity';
 
 
 @Entity('usuario')
 export class UsuarioEntity {
     @PrimaryGeneratedColumn()
     id: number;
+
     @Column({
-        default: 1
+        name: 'nombre_usuario',
+        type: 'varchar',
+        length: 100,
+        nullable: false
     })
-    habilitado: boolean;
-    @Column()
-    age: number;
+    nombreUsuario: string;
+
     @Column({
-        length: 6
+        name: 'correo_electronico',
+        type: 'varchar',
+        length: 200,
+        nullable: false
     })
-    colorOjos: string;
+    correoElectronico: string;
+
     @Column({
-        length: 50
+        name: 'contrasenia',
+        type: 'varchar',
+        length: 150,
+        nullable: false
     })
-    nombre: string;
-    @Column({
-        length: 50
-    })
-    apellido: string;
-    @Column({
-        length: 15
-    })
-    genero: 'femenino' | 'masculino';
-    @Column({
-        length: 20
-    })
-    telefono: string;
-    @Column({
-        length: 100
-    })
-    direccion: string;
+    contrasenia: string;
+
     @Column({
         type: 'datetime'
     })
-    fechaRegistro: Date;
-    @Column()
-    latitud: number;
-    @Column()
-    longitud: number;
-    @Column({
-        nullable: true
-    })
-    calificacion: number = null;
-    @Column(({
-        length: 50
-    }))
-    favoriteFruit: string;
+    fechaRegistro: string;
+
+    // @OneToOne(
+    //     type => UsuarioSesionEntity,
+    //     usuarioS => usuarioS.usuario)
+    // @JoinColumn()
+    // usuarioSesion: UsuarioSesionEntity | number;
 }
