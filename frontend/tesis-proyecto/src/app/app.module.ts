@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import {HttpClientModule} from "@angular/common/http";
 import {FormsModule} from "@angular/forms";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-// @ts-ignore
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -22,6 +21,8 @@ import { RutaRequerimientoClienteComponent } from './rutas/ruta-requerimiento-cl
 import { RutaRequerimientoJuegoComponent } from './rutas/ruta-requerimiento-juego/ruta-requerimiento-juego.component';
 import { RutaValidacionComponent } from './rutas/ruta-validacion/ruta-validacion.component';
 import { FormularioLoginComponent } from './componentes/formulario-login/formulario-login.component';
+import { RutaParticipantesComponent } from './rutas/ruta-participantes/ruta-participantes.component';
+import { RutaParticipanteProyectoComponent } from './rutas/ruta-participante-proyecto/ruta-participante-proyecto.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,9 @@ import { FormularioLoginComponent } from './componentes/formulario-login/formula
     RutaRequerimientoClienteComponent,
     RutaRequerimientoJuegoComponent,
     RutaValidacionComponent,
-    FormularioLoginComponent
+    FormularioLoginComponent,
+    RutaParticipantesComponent,
+    RutaParticipanteProyectoComponent
   ],
   imports: [
     BrowserModule,

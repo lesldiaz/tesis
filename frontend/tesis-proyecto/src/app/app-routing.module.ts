@@ -12,81 +12,64 @@ import { RutaProyectosComponent } from './rutas/ruta-proyectos/ruta-proyectos.co
 import { RutaRequerimientoClienteComponent } from './rutas/ruta-requerimiento-cliente/ruta-requerimiento-cliente.component';
 import { RutaRequerimientoJuegoComponent } from './rutas/ruta-requerimiento-juego/ruta-requerimiento-juego.component';
 import { RutaValidacionComponent } from './rutas/ruta-validacion/ruta-validacion.component';
+import { RutaParticipanteProyectoComponent } from './rutas/ruta-participante-proyecto/ruta-participante-proyecto.component';
+import { RutaParticipantesComponent } from './rutas/ruta-participantes/ruta-participantes.component';
 const routes: Routes = [
   {
     component: RutaLoginUsuarioComponent,
-    path: 'login',
-    children:[
-      {
-        component: RutaInicioComponent,
-        path: 'inicio'
-      }
-    ]
+    path: 'login'
   },{
     component: RutaRegistroUsuarioComponent,
     path: 'registro'
   },
   {
     component: RutaInicioComponent,
-    path: 'inicio',
-    children: [
-      {
-        component: RutaAplicacionComponent,
-        path: 'aplicacion'
-      },
-      {
-        component: RutaManualUsuarioComponent,
-        path: 'manual'
-      },
-      {
-        component: RutaMetodologiaComponent,
-        path: 'metodologia'
-      },
-      {
-        component: RutaPerfilUsuarioComponent,
-        path: 'perfil'
-      }
-    ]
+    path: 'inicio'
+  }, {
+    component: RutaManualUsuarioComponent,
+    path: 'manual'
+  }, {
+    component: RutaMetodologiaComponent,
+    path: 'metodologia'
+  },
+  {
+    component: RutaPerfilUsuarioComponent,
+    path: 'perfil'
   },
   {
     component:RutaAplicacionComponent,
-    path:'aplicacion',
-    children: [
+    path:'aplicacion'
+  },
+  {
+    component: RutaNuevoProyectoComponent,
+    path: 'nuevoproyecto'
+  },
+  {
+    component: RutaProyectosComponent,
+    path: 'proyectos',
+    children:[
       {
-        component: RutaNuevoProyectoComponent,
-        path:'nuevoproy'
-      },
-      {
-        component: RutaProyectosComponent,
-        path: 'proyectos'
+        component: RutaParticipanteProyectoComponent,
+        path:'participanteproyecto'
       }
     ]
   },
   {
-    component: RutaNuevoProyectoComponent,
-    path: 'nuevoproy',
-    children: [
-      {
-        component: RutaRequerimientoClienteComponent,
-        path: 'reqcli',
-        children:[
-          {
-            component:RutaValidacionComponent,
-            path: 'validacion'
-          }
-        ]
-      },
-      {
-        component: RutaRequerimientoJuegoComponent,
-        path: 'reqjuego',
-        children:[
-          {
-            component:RutaValidacionComponent,
-            path: 'validacion'
-          }
-        ]
-      }
-    ]
+    component: RutaParticipantesComponent,
+    path: 'participantes'
+  },
+  {
+    component: RutaRequerimientoClienteComponent,
+    path: 'requerimientocliente',
+  },
+  {
+    component: RutaRequerimientoJuegoComponent,
+    path: 'requerimientojuego',
+
+  },
+  {
+    component:RutaValidacionComponent,
+    path: 'validacion'
   },
   {
     path:'',
