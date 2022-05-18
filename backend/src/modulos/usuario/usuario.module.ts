@@ -11,3 +11,4 @@ import {UsuarioEntity} from "./usuario.entity";
   exports: [UsuarioService],
 })
 export class UsuarioModule {}
+

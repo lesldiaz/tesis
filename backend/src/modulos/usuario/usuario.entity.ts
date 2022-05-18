@@ -8,28 +8,28 @@ export class UsuarioEntity {
     id: number;
 
     @Column({
-        name: 'nombre_usuario',
+        name: 'usuario',
         type: 'varchar',
-        length: 100,
+        length: 50,
         nullable: false
     })
     nombreUsuario: string;
 
     @Column({
-        name: 'correo_electronico',
+        name: 'email',
         type: 'varchar',
         length: 200,
         nullable: false
     })
-    correoElectronico: string;
+    email: string;
 
     @Column({
         name: 'contrasenia',
         type: 'varchar',
-        length: 150,
+        length: 50,
         nullable: false
     })
-    contrasenia: string;
+    contrasena: string;
 
     @Column({
         type: 'datetime'

@@ -1,8 +1,8 @@
 import {Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryColumn, PrimaryGeneratedColumn} from 'typeorm';
 
 
-@Entity('proyecto')
-export class ProyectoEntity {
+@Entity('requerimiento')
+export class RequerimientoEntity {
     @PrimaryColumn({
         type: 'varchar',
         length: 5
@@ -10,12 +10,12 @@ export class ProyectoEntity {
     id: string;
 
     @Column({
-        name: 'nombre',
+        name: 'titulo',
         type: 'varchar',
         length: 200,
         nullable: false
     })
-    nombre: string;
+    titulo: string;
 
     @Column({
         name: 'descripcion',
@@ -26,27 +26,18 @@ export class ProyectoEntity {
     descripcion: string;
 
     @Column({
+        name: 'prioridad',
+        type: 'tinyint',
+        default: 1
+    })
+    prioridad?: number = 1;
+
+    @Column({
         name: 'estado',
-        type: 'varchar',
-        length: 2,
-        default: 'I'
-    })
-    estado: 'I' | 'P' | 'F' = 'I';
-
-    @Column({
-        name: 'tipo_proyecto',
-        type: 'varchar',
-        length: 2,
-        default: 'C'
-    })
-    tipoProyecto: 'C' | 'J' = 'C';
-
-    @Column({
-        name: 'duplicado',
         type: 'tinyint',
         default: 0
     })
-    duplicado: 1 | 0 = 0;
+    estado?: 1 | 0 = 0;
 
     // @ManyToOne(
     //     type => EntidadSesionEntity,
