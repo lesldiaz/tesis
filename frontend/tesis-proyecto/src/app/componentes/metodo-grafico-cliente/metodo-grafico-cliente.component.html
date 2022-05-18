@@ -1,0 +1,47 @@
+<p>metodo-grafico-cliente works!</p>
+<div>
+  <form  #forma="ngForm">
+    <h3>Inicio de sesión - Formulario por template</h3>
+    <hr />
+    <label><b>ID</b></label>
+    <input type="text" name="id" class="form-label" disabled>
+    <label><b>ROL</b></label>
+    <select name="rol">
+      <option value="rol1">
+        rol 1<input>
+      </option>
+    </select>
+<div>
+  <label ><b>Titulo</b></label>
+  <input
+    type="text"
+    placeholder="Introduzca el t'itulo del requerimiento"
+    name="name"
+    minlength="5"
+
+    required
+
+  />
+
+  <label><b>Prioridad</b></label>
+  <label class="rating">
+    <input id="radio1" type="radio" name="estrellas" value="3"><!--
+    --><label class="radio" for="radio1">★</label><!--
+    --><input id="radio2" type="radio" name="estrellas" value="2"><!--
+    --><label class="radio" for="radio2">★</label><!--
+    --><input id="radio3" type="radio" name="estrellas" value="1"><!--
+    --><label class="radio" for="radio3">★</label>
+  </label>
+</div>
+    <label ><b>Descripcion</b></label>
+    <textarea
+      id="Textarea1"
+      rows="2"
+      class="form-control"
+    ></textarea>
+  </form>
+</div>
+<div>
+  <label><b>Ideas relacionadas</b></label>
+  <input hidden>
+</div>

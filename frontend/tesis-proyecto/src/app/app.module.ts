@@ -23,6 +23,9 @@ import { RutaValidacionComponent } from './rutas/ruta-validacion/ruta-validacion
 import { FormularioLoginComponent } from './componentes/formulario-login/formulario-login.component';
 import { RutaParticipantesComponent } from './rutas/ruta-participantes/ruta-participantes.component';
 import { RutaParticipanteProyectoComponent } from './rutas/ruta-participante-proyecto/ruta-participante-proyecto.component';
+import { MetodoGraficoClienteComponent } from './componentes/metodo-grafico-cliente/metodo-grafico-cliente.component';
+import { MetodoGraficoJuegoComponent } from './componentes/metodo-grafico-juego/metodo-grafico-juego.component';
+import { PostItComponent } from './componentes/post-it/post-it.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +45,10 @@ import { RutaParticipanteProyectoComponent } from './rutas/ruta-participante-pro
     RutaValidacionComponent,
     FormularioLoginComponent,
     RutaParticipantesComponent,
-    RutaParticipanteProyectoComponent
+    RutaParticipanteProyectoComponent,
+    MetodoGraficoClienteComponent,
+    MetodoGraficoJuegoComponent,
+    PostItComponent
   ],
   imports: [
     BrowserModule,
