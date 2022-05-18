@@ -1,4 +1,5 @@
 import {Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn} from 'typeorm';
+import { RequerimientoEntity } from '../requerimiento/requerimiento.entity';
 
 
 @Entity('resultado')
@@ -96,6 +97,13 @@ export class ResultadoEntity {
         length: 255,
     })
     observaciones: string;
+
+    @OneToOne(
+        type => RequerimientoEntity,
+        requerimiento => requerimiento.resultado
+    )
+    @JoinColumn()
+    requerimiento: RequerimientoEntity | number;
 
     // @ManyToOne(
     //     type => EntidadSesionEntity,

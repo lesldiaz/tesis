@@ -1,4 +1,5 @@
 import {Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn} from 'typeorm';
+import { RequerimientoEntity } from '../requerimiento/requerimiento.entity';
 
 
 @Entity('proposito')
@@ -20,6 +21,12 @@ export class PropositoEntity {
         default: 0
     })
     esPrincipal: 1 | 0 = 0;
+
+    @ManyToOne(
+        type => RequerimientoEntity,
+        requerimiento => requerimiento.proposito
+    )
+    requerimiento: RequerimientoEntity | number;
 
     // @ManyToOne(
     //     type => EntidadSesionEntity,

@@ -1,4 +1,5 @@
-import {Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn} from 'typeorm';
+import {Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn} from 'typeorm';
+import { RequerimientoEntity } from '../requerimiento/requerimiento.entity';
 
 
 @Entity('rol')
@@ -14,6 +15,11 @@ export class RolEntity {
     })
     nombre: string;
 
+    @OneToMany(
+        type => RequerimientoEntity,
+        requerimiento => requerimiento.rol
+    )
+    requerimiento: RequerimientoEntity[];
     // @ManyToOne(
     //     type => EntidadSesionEntity,
     //     entidad2 => entidad2.entidad)

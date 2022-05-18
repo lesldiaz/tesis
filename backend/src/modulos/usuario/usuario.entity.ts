@@ -1,4 +1,5 @@
-import {Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn} from 'typeorm';
+import {Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn} from 'typeorm';
+import { ProyectoEntity } from '../proyecto/proyecto.entity';
 import { UsuarioSesionEntity } from '../usuario-sesion/usuario.sesion.entity';
 
 
@@ -36,9 +37,15 @@ export class UsuarioEntity {
     })
     fechaRegistro: string;
 
-    // @OneToOne(
-    //     type => UsuarioSesionEntity,
-    //     usuarioS => usuarioS.usuario)
-    // @JoinColumn()
-    // usuarioSesion: UsuarioSesionEntity | number;
+    @OneToOne(
+        type => UsuarioSesionEntity,
+        usuarioS => usuarioS.usuario
+    )
+    usuarioSesion: UsuarioSesionEntity | number;
+
+    @OneToMany(
+        type => ProyectoEntity,
+        proyecto => proyecto.usuario
+    )
+    proyecto: ProyectoEntity[];
 }

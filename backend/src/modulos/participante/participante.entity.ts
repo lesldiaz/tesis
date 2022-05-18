@@ -1,4 +1,5 @@
-import {Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn} from 'typeorm';
+import {Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn} from 'typeorm';
+import { ParticipanteProyectoEntity } from '../participante-proyecto/participante-proyecto.entity';
 
 
 @Entity('participante')
@@ -29,6 +30,12 @@ export class ParticipanteEntity {
         nullable: true
     })
     funcion?: string;
+
+    @OneToMany(
+        type => ParticipanteProyectoEntity,
+        participanteProyecto => participanteProyecto.participante
+    )
+    participanteProyecto: ParticipanteProyectoEntity[];
     
     // @ManyToOne(
     //     type => EntidadSesionEntity,

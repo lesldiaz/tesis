@@ -1,4 +1,7 @@
-import {Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryColumn, PrimaryGeneratedColumn} from 'typeorm';
+import {Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryColumn, PrimaryGeneratedColumn} from 'typeorm';
+import { ParticipanteProyectoEntity } from '../participante-proyecto/participante-proyecto.entity';
+import { RequerimientoEntity } from '../requerimiento/requerimiento.entity';
+import { UsuarioEntity } from '../usuario/usuario.entity';
 
 
 @Entity('proyecto')
@@ -47,6 +50,24 @@ export class ProyectoEntity {
         default: 0
     })
     duplicado: 1 | 0 = 0;
+
+    @ManyToOne(
+        type => UsuarioEntity,
+        usuario => usuario.proyecto
+    )
+    usuario: UsuarioEntity | number;
+
+    @OneToMany(
+        type => RequerimientoEntity,
+        requerimiento => requerimiento.proyecto
+    )
+    requerimiento: RequerimientoEntity[];
+
+    @OneToMany(
+        type => ParticipanteProyectoEntity,
+        participanteProyecto => participanteProyecto.proyecto
+    )
+    participanteProyecto: ParticipanteProyectoEntity[];
 
     // @ManyToOne(
     //     type => EntidadSesionEntity,

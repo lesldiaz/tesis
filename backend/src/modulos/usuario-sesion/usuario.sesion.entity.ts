@@ -12,10 +12,9 @@ export class UsuarioSesionEntity {
     })
     fechaInicioSesion: string;
 
-    // @OneToOne(
-    //     type => UsuarioEntity,
-    //     usuario => usuario.usuarioSesion)
-    // @JoinColumn()
-    // usuario: UsuarioEntity | number;
+    @OneToOne(
+        type => UsuarioEntity,
+        usuario => usuario.usuarioSesion)
+    usuario: UsuarioEntity | number;
 
 }
