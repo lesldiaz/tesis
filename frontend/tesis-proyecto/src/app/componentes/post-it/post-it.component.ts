@@ -6,7 +6,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./post-it.component.css']
 })
 export class PostItComponent implements OnInit {
-  [x: string]: any;
+  notesContainer: any;
+  addNoteButton:any;
+  existingNotes: any;
+  arrayNotes:any;
+  notes: any;
+
 
   constructor() {
     }
@@ -14,51 +19,68 @@ export class PostItComponent implements OnInit {
   ngOnInit(): void {
 
   }
-  //getNote().forEach(note=>{
-  // const noteElement = createNoteElement( note.id, note.content);
-  // notesContainer.insertBefore(noteElemnt, addNoteButton);
-  //
-  // });
-
+  porCadaUno(){
+    this.notesContainer = document.getElementById("app");
+    this.addNoteButton = this.notesContainer.querySelector(".add-note");
+    this.arrayNotes = this.getNotes();
+    this.arrayNotes.forEach( (note: { id: number; content: string; }) => {
+      const noteElement = this.createNoteElement( note.id, note.content);
+      this.notesContainer.insertBefore(noteElement, this.addNoteButton);
+    });
+  }
   getNotes(){
     JSON.parse(localStorage.getItem("stickynotes-notes") || "[]");
+  }
+  saveNotes(notes:object){
+   // saveNotes(){
+    localStorage.setItem("stickynotes-notes",JSON.stringify(notes));
 
   }
-  //saveNotes(notes){
-    saveNotes(){
-   // localStorage.setItem("stickynotes-notes",JSON.stringify(notes));
-
-  }
-  //createNoteElement(id,content){
-    createNoteElement(){
-    const notesContainer = document.getElementById("app");
-    const addNoteButton = this['notesContainer'].querySelector(".add-note");
+  createNoteElement(id: number, content: string){
     const element = document.createElement("textarea");
     element.classList.add("note");
-    //element.value = content;
+    element.value = content;
     element.placeholder ="Empty sticky note";
     element.addEventListener("change",()=> {
-      //this.updateNote(id,element.value);
+      this.updateNote(id,element.value);
     });
     element.addEventListener("dblclick",()=>{
       const doDelete = confirm("Are you sure you wish to delete this sticky note?");
       if(doDelete){
-       // this.deleteNote(id,element);
+        this.deleteNote(id,element);
       }
     });
     return element;
   }
   addNote(){
+    this.notesContainer = document.getElementById("app");
+    this.addNoteButton = this.notesContainer.querySelector(".add-note");
+    this.existingNotes = this.getNotes();
+    const noteObject = {
+      id: Math.floor(Math.random()*100000),
+      content:""
+    };
+    const noteElement = this.createNoteElement(noteObject.id, noteObject.content);
+    this.notesContainer.insertBefore(noteElement, this.addNoteButton);
+    this.existingNotes.push(noteObject);
+    this.saveNotes(this.existingNotes);
+  }
+  updateNote(id:number, newContent:string){
+    this.notes = this.getNotes();
+    const targetNote = this.notes.filter((note: { id: number; }) => note.id == id)[0];
+    targetNote.content = newContent;
+    this.saveNotes(this.notes);
 
-  }
-  //updateNote(id, newContent){
-    updateNote(){
     console.log("updating note ...");
-    //console.log(id,newContent);
+    console.log(id,newContent);
   }
-  //deleteNote(id,element){
-    deleteNote(){
+  deleteNote(id:number,element:object){
+    this.notes = this.getNotes();
+    const target = this.notes.filter((note: { id: number; }) => note.id != id);
+    this.saveNotes(this.notes);
+    this.notesContainer.removeChild(element);
+
     console.log("delete note ...");
-    //console.log(id)26:34;
+    console.log(id);
   }
 }
