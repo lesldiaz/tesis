@@ -37,7 +37,7 @@ export class PostItComponent implements OnInit {
     const element = document.createElement("textarea");
     element.classList.add("note");
     element.value = content;
-    element.placeholder ="Empty sticky note";
+    element.placeholder ="Empty";
     element.addEventListener("change",()=> {
       this.updateNote(id,element.value);
     });
