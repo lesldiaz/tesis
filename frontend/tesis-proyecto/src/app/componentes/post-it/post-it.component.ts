@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
+
 @Component({
   selector: 'app-post-it',
   templateUrl: './post-it.component.html',
@@ -35,7 +36,7 @@ export class PostItComponent implements OnInit {
   }
   createNoteElement(id: number, content: string){
     const element = document.createElement("textarea");
-    element.classList.add("note");
+    element.classList.add("post-it");
     element.value = content;
     element.placeholder ="Empty";
     element.addEventListener("change",()=> {
@@ -49,6 +50,7 @@ export class PostItComponent implements OnInit {
     });
     return element;
   }
+
   addNote(){
     this.notesContainer = document.getElementById("app");
     this.addNoteButton = this.notesContainer.querySelector(".add-note");

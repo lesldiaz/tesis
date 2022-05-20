@@ -26,7 +26,9 @@ import { RutaParticipanteProyectoComponent } from './rutas/ruta-participante-pro
 import { MetodoGraficoClienteComponent } from './componentes/metodo-grafico-cliente/metodo-grafico-cliente.component';
 import { MetodoGraficoJuegoComponent } from './componentes/metodo-grafico-juego/metodo-grafico-juego.component';
 import { PostItComponent } from './componentes/post-it/post-it.component';
-
+import { BloquesGamePlayComponent } from './componentes/bloques-game-play/bloques-game-play.component';
+import {MatIconModule} from '@angular/material/icon';
+import {MatGridListModule} from '@angular/material/grid-list';
 @NgModule({
   declarations: [
     AppComponent,
@@ -48,7 +50,8 @@ import { PostItComponent } from './componentes/post-it/post-it.component';
     RutaParticipanteProyectoComponent,
     MetodoGraficoClienteComponent,
     MetodoGraficoJuegoComponent,
-    PostItComponent
+    PostItComponent,
+    BloquesGamePlayComponent
   ],
   imports: [
     BrowserModule,
@@ -57,6 +60,8 @@ import { PostItComponent } from './componentes/post-it/post-it.component';
     FormsModule, // permite funcionalidad de los formularios template
     BrowserAnimationsModule,
     NgbModule,
+    MatIconModule,
+    MatGridListModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
