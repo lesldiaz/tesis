@@ -23,9 +23,16 @@ export class BloquesGamePlayComponent implements OnInit {
     {text: 'Catorce', cols: 1, rows: 1, color: 'lightgreen'},
     {text: 'Quince', cols: 1, rows: 1, color: 'lightpink'},
   ];
+  test:any;
   constructor() { }
 
   ngOnInit(): void {
+  }
+  seleccionar(text:string){
+    console.log(text);
+   this.test = document.getElementById(text);
+   this.test.style.display = 'none';
+    console.log('se oculto');
   }
 
 }

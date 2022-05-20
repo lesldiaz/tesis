@@ -1,10 +1,12 @@
 <p>bloques-game-play works!</p>
 <mat-grid-list cols="5" rowHeight="100px">
+  <div  *ngFor="let tile of tiles" id='{{tile.text}}'>
   <mat-grid-tile
-    *ngFor="let tile of tiles"
     [colspan]="tile.cols"
     [rowspan]="tile.rows"
-    [style.background]="tile.color">
+    [style.background]="tile.color" (click)="seleccionar(tile.text)">
     {{tile.text}}
+
   </mat-grid-tile>
+  </div>
 </mat-grid-list>
