@@ -8,7 +8,8 @@
   padding: 24px;
   gap: 24px;
 }
-.post-it{
+
+:host ::ng-deep .post-it  {
   height: 200px;
   box-sizing: border-box;
   padding: 16px;
@@ -19,6 +20,8 @@
   font-family: sans-serif;
   font-size: 16px;
 }
+
+
 .add-note{
   height: 200px;
   border: none;
