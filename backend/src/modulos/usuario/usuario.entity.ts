@@ -1,12 +1,11 @@
+import { EntityGenerico } from 'src/constantes/clases-genericas/entity.generico';
 import {Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn} from 'typeorm';
 import { ProyectoEntity } from '../proyecto/proyecto.entity';
 import { UsuarioSesionEntity } from '../usuario-sesion/usuario.sesion.entity';
 
 
 @Entity('usuario')
-export class UsuarioEntity {
-    @PrimaryGeneratedColumn()
-    id: number;
+export class UsuarioEntity extends EntityGenerico{
 
     @Column({
         name: 'usuario',
@@ -31,11 +30,6 @@ export class UsuarioEntity {
         nullable: false
     })
     contrasena: string;
-
-    @Column({
-        type: 'datetime'
-    })
-    fechaRegistro: string;
 
     @OneToOne(
         type => UsuarioSesionEntity,

@@ -1,12 +1,11 @@
+import { EntityGenerico } from 'src/constantes/clases-genericas/entity.generico';
 import {Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn} from 'typeorm';
 import { BloqueEntity } from '../bloque/bloque.entity';
 import { RequerimientoEntity } from '../requerimiento/requerimiento.entity';
 
 
 @Entity('requerimiento-bloque')
-export class RequerimientoBloqueEntity {
-    @PrimaryGeneratedColumn()
-    id: number;
+export class RequerimientoBloqueEntity extends EntityGenerico{
 
     @ManyToOne(
         type => BloqueEntity,

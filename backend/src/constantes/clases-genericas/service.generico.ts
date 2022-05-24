@@ -1,12 +1,15 @@
 import { Like, Repository } from 'typeorm';
 import { RespuestaInterface } from '../../interfaces/respuesta.interface';
 import { RespuestaBuscarInterface } from '../../interfaces/respuesta.buscar.interface';
+import * as moment from 'moment';
 
 export class ServiceGeneral<Entity> {
     constructor(private readonly _repository: Repository<Entity>) {}
     async crear(objeto): Promise<Entity | string> {
         try {
             console.log(objeto);
+            objeto.createdAt = moment().format().toString();
+            objeto.updatedAt = moment().format().toString();
             return await this._repository.save(objeto);
         } catch (e) {
             return new Promise((resolve, reject) =>
@@ -17,14 +20,17 @@ export class ServiceGeneral<Entity> {
 
     async editar(
         id: number,
-        objeto: Entity,
+        objeto: Entity | any,
     ): Promise<RespuestaInterface<Entity> | string> {
         try {
             const existeObjeto = await this._repository.findOne(id);
             if (existeObjeto) {
+                objeto.updatedAt = moment().format().toString();
+                console.log(objeto.updatedAt);
                 const respuestaEditar = await this._repository.update(id, objeto);
+                console.log(respuestaEditar);
                 const actualizacionExitosa: boolean =
-                    respuestaEditar.raw.affectedRows > 0;
+                    respuestaEditar.affected > 0;
                 if (actualizacionExitosa) {
                     return new Promise(resolve =>
                         resolve({

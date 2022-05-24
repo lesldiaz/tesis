@@ -1,11 +1,10 @@
+import { EntityGenerico } from 'src/constantes/clases-genericas/entity.generico';
 import {Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn} from 'typeorm';
 import { ParticipanteProyectoEntity } from '../participante-proyecto/participante-proyecto.entity';
 
 
 @Entity('participante')
-export class ParticipanteEntity {
-    @PrimaryGeneratedColumn()
-    id: number;
+export class ParticipanteEntity extends EntityGenerico{
 
     @Column({
         name: 'nombre',

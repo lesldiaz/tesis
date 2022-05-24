@@ -1,3 +1,4 @@
+import { EntityGenerico } from 'src/constantes/clases-genericas/entity.generico';
 import {Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryColumn, PrimaryGeneratedColumn} from 'typeorm';
 import { ParticipanteProyectoEntity } from '../participante-proyecto/participante-proyecto.entity';
 import { RequerimientoEntity } from '../requerimiento/requerimiento.entity';
@@ -5,12 +6,13 @@ import { UsuarioEntity } from '../usuario/usuario.entity';
 
 
 @Entity('proyecto')
-export class ProyectoEntity {
-    @PrimaryColumn({
+export class ProyectoEntity extends EntityGenerico {
+    @Column({
         type: 'varchar',
-        length: 5
+        length: 5,
+        nullable: true
     })
-    id: string;
+    idProyecto: string;
 
     @Column({
         name: 'nombre',
