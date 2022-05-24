@@ -11,11 +11,13 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
 import {ARREGLO_PIPES} from './constantes/arreglo.pipes';
 import {ARREGLO_MODALES} from './constantes/arreglo.modales';
-import {MatDialogModule, MatFormFieldModule, MatOptionModule, MatProgressBarModule, MatSelectModule} from '@angular/material';
+import {MatDialogModule, MatFormFieldModule,
+  MatGridListModule, MatIconModule, MatOptionModule, MatProgressBarModule, MatSelectModule, MatTabsModule} from '@angular/material';
 import {TextMaskModule} from 'angular2-text-mask';
 import {CookieModule, CookieService} from 'ngx-cookie';
 import {ToasterModule} from 'angular2-toaster';
 import { ARREGLO_SERVICIOS } from './constantes/arreglo.services';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -40,6 +42,10 @@ import { ARREGLO_SERVICIOS } from './constantes/arreglo.services';
     MatFormFieldModule,
     MatOptionModule,
     MatSelectModule,
+    NgbModule,
+    MatIconModule,
+    MatGridListModule,
+    MatTabsModule,
     CookieModule.forRoot(),
     ToasterModule.forRoot()
   ],

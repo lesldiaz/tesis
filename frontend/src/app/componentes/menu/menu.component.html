@@ -18,8 +18,8 @@
             <a class="nav-link dropbtn disabled" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
                aria-expanded="false"><i class="fas fa-user"></i> {{nombreUsuario}}</a>
             <div class="dropdown-content">
-              <button class="link-boton"><i class="fas fa-user-cog"></i> Ver perfil</button>
-              <button class="link-boton" (click)="cerrarSesion()"><i class="fas fa-sign-out-alt"></i> Cerrar Sesion</button>
+                <button [routerLink]="['/usuario']" class="link-boton"><i class="fas fa-user-cog"></i> Ver perfil</button>
+                <button class="link-boton" (click)="cerrarSesion()"><i class="fas fa-sign-out-alt"></i> Cerrar Sesion</button>
             </div>
           </li>
         </ul>

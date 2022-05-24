@@ -1,0 +1,11 @@
+:host  ::ng-deep .pieza svg {
+  width: 150px;
+  height: 150px;
+  fill: rgb(240, 173, 78);
+  float:left;
+}
+:host  ::ng-deep .pieza svg text {
+  font-size: 2px;
+  fill: black;
+  padding: 16px;
+}

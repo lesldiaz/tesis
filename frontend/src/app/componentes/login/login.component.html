@@ -36,9 +36,12 @@
         </div>
       </div>
       <div class="separador"></div>
-      <div class="row justify-content-end">
-        <button class="btn btn-info" [disabled]="!formularioValido" (click)="enviarFormularioLogin()">Ingresar</button>
-<!--        <button class="btn btn-info" [routerLink]="'registro-usuario'">Registrarse</button>-->
+      <div class="row">
+        <div class="col-sm-9"></div>
+        <div class="col-sm-3 justify-content-end">
+          <button class="btn btn-info" [disabled]="!formularioValido" (click)="enviarFormularioLogin()">Ingresar</button>
+          <button class=" serparador-boton btn btn-info" [routerLink]="'registro'">Registrarse</button>
+        </div>
       </div>
     </form>
   </div>
