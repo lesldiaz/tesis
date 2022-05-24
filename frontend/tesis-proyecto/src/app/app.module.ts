@@ -4,6 +4,7 @@ import {HttpClientModule} from "@angular/common/http";
 import {FormsModule} from "@angular/forms";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -31,6 +32,10 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { PestanaComponent } from './componentes/pestana/pestana.component';
 import {MatTabsModule} from '@angular/material/tabs';
+import {MatStepperModule} from '@angular/material/stepper';
+import { FlujoTrabajoComponent } from './componentes/flujo-trabajo/flujo-trabajo.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -54,7 +59,8 @@ import {MatTabsModule} from '@angular/material/tabs';
     MetodoGraficoJuegoComponent,
     PostItComponent,
     BloquesGamePlayComponent,
-    PestanaComponent
+    PestanaComponent,
+    FlujoTrabajoComponent
   ],
   imports: [
     BrowserModule,
@@ -66,6 +72,9 @@ import {MatTabsModule} from '@angular/material/tabs';
     MatIconModule,
     MatGridListModule,
     MatTabsModule,
+    MatStepperModule,
+    MatFormFieldModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
