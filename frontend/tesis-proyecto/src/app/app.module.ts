@@ -29,6 +29,8 @@ import { PostItComponent } from './componentes/post-it/post-it.component';
 import { BloquesGamePlayComponent } from './componentes/bloques-game-play/bloques-game-play.component';
 import {MatIconModule} from '@angular/material/icon';
 import {MatGridListModule} from '@angular/material/grid-list';
+import { PestanaComponent } from './componentes/pestana/pestana.component';
+import {MatTabsModule} from '@angular/material/tabs';
 @NgModule({
   declarations: [
     AppComponent,
@@ -51,7 +53,8 @@ import {MatGridListModule} from '@angular/material/grid-list';
     MetodoGraficoClienteComponent,
     MetodoGraficoJuegoComponent,
     PostItComponent,
-    BloquesGamePlayComponent
+    BloquesGamePlayComponent,
+    PestanaComponent
   ],
   imports: [
     BrowserModule,
@@ -62,6 +65,7 @@ import {MatGridListModule} from '@angular/material/grid-list';
     NgbModule,
     MatIconModule,
     MatGridListModule,
+    MatTabsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
