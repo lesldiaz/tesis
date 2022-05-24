@@ -35,6 +35,8 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatStepperModule} from '@angular/material/stepper';
 import { FlujoTrabajoComponent } from './componentes/flujo-trabajo/flujo-trabajo.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
+import {MatRadioModule} from '@angular/material/radio';
 
 @NgModule({
   declarations: [
@@ -75,8 +77,12 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MatStepperModule,
     MatFormFieldModule,
     ReactiveFormsModule,
+    MatRadioModule,
   ],
-  providers: [],
+  providers: [{
+    provide: STEPPER_GLOBAL_OPTIONS,
+    useValue: { displayDefaultIndicatorType: false }
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
