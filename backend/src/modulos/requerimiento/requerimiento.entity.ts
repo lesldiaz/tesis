@@ -49,13 +49,17 @@ export class RequerimientoEntity extends EntityGenerico{
 
     @ManyToOne(
         type => RolEntity,
-        rol => rol.requerimiento
+        rol => rol.requerimiento, {
+            nullable: false
+        }
     )
     rol: RolEntity | number;
 
     @ManyToOne(
         type => ProyectoEntity,
-        proyecto => proyecto.requerimiento
+        proyecto => proyecto.requerimiento, {
+            nullable: false
+        }
     )
     proyecto: ProyectoEntity | number;
 

@@ -28,7 +28,6 @@ export class ServiceGeneral<Entity> {
                 objeto.updatedAt = moment().format().toString();
                 console.log(objeto.updatedAt);
                 const respuestaEditar = await this._repository.update(id, objeto);
-                console.log(respuestaEditar);
                 const actualizacionExitosa: boolean =
                     respuestaEditar.affected > 0;
                 if (actualizacionExitosa) {

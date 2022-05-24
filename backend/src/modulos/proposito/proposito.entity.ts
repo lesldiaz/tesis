@@ -23,7 +23,9 @@ export class PropositoEntity extends EntityGenerico {
 
     @ManyToOne(
         type => RequerimientoEntity,
-        requerimiento => requerimiento.proposito
+        requerimiento => requerimiento.proposito, {
+            nullable: false
+        }
     )
     requerimiento: RequerimientoEntity | number;
 

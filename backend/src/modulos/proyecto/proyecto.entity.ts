@@ -55,7 +55,10 @@ export class ProyectoEntity extends EntityGenerico {
 
     @ManyToOne(
         type => UsuarioEntity,
-        usuario => usuario.proyecto
+        usuario => usuario.proyecto,
+        {
+            nullable: false
+        }
     )
     usuario: UsuarioEntity | number;
 

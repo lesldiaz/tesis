@@ -9,13 +9,17 @@ export class RequerimientoBloqueEntity extends EntityGenerico{
 
     @ManyToOne(
         type => BloqueEntity,
-        bloque => bloque.requerimientoBloque
+        bloque => bloque.requerimientoBloque, {
+            nullable: false
+        }
     )
     bloque: number | BloqueEntity;
 
     @ManyToOne(
         type => RequerimientoEntity,
-        requerimiento => requerimiento.requerimientoBloque
+        requerimiento => requerimiento.requerimientoBloque, {
+            nullable: false
+        }
     )
     requerimiento: number | RequerimientoEntity;
 

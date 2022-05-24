@@ -9,13 +9,17 @@ export class ParticipanteProyectoEntity extends EntityGenerico{
 
     @ManyToOne(
         type => ProyectoEntity,
-        proyecto => proyecto.participanteProyecto
+        proyecto => proyecto.participanteProyecto, {
+            nullable: false
+        }
     )
     proyecto: ProyectoEntity | number;
 
     @ManyToOne(
         type => ParticipanteEntity,
-        participante => participante.participanteProyecto
+        participante => participante.participanteProyecto, {
+            nullable: false
+        }
     )
     participante: ParticipanteEntity | number;
     
