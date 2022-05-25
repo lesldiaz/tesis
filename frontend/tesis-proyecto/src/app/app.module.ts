@@ -25,6 +25,8 @@ import {MatOptionModule} from '@angular/material/core';
 import {TableModule} from 'primeng/table';
 import { ToasterModule } from 'angular2-toaster';
 import {MatStepperModule} from '@angular/material/stepper';
+import {MatRadioModule} from '@angular/material/radio';
+import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 
 @NgModule({
   declarations: [
@@ -55,8 +57,14 @@ import {MatStepperModule} from '@angular/material/stepper';
     CookieModule.forRoot(),
     ToasterModule.forRoot(),
     MatStepperModule
+    MatRadioModule,
   ],
-  providers: [
+  providers: [{
+      
+    provide: STEPPER_GLOBAL_OPTIONS,
+    useValue: { displayDefaultIndicatorType: false }
+  },
+  
     ...ARREGLO_SERVICIOS
   ],
   entryComponents: [
