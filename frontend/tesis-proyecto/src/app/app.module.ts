@@ -1,82 +1,68 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
 import {HttpClientModule} from "@angular/common/http";
 import {FormsModule} from "@angular/forms";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { ReactiveFormsModule } from '@angular/forms';
-
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { FormularioRegistroComponent } from './componentes/formulario-registro/formulario-registro.component';
-import { RutaLoginUsuarioComponent } from './rutas/ruta-login-usuario/ruta-login-usuario.component';
-import { RutaRegistroUsuarioComponent } from './rutas/ruta-registro-usuario/ruta-registro-usuario.component';
-import { RutaInicioComponent } from './rutas/ruta-inicio/ruta-inicio.component';
-import { RutaAplicacionComponent } from './rutas/ruta-aplicacion/ruta-aplicacion.component';
-import { RutaManualUsuarioComponent } from './rutas/ruta-manual-usuario/ruta-manual-usuario.component';
-import { RutaMetodologiaComponent } from './rutas/ruta-metodologia/ruta-metodologia.component';
-import { RutaPerfilUsuarioComponent } from './rutas/ruta-perfil-usuario/ruta-perfil-usuario.component';
-import { RutaProyectosComponent } from './rutas/ruta-proyectos/ruta-proyectos.component';
-import { RutaNuevoProyectoComponent } from './rutas/ruta-nuevo-proyecto/ruta-nuevo-proyecto.component';
-import { RutaRequerimientoClienteComponent } from './rutas/ruta-requerimiento-cliente/ruta-requerimiento-cliente.component';
-import { RutaRequerimientoJuegoComponent } from './rutas/ruta-requerimiento-juego/ruta-requerimiento-juego.component';
-import { RutaValidacionComponent } from './rutas/ruta-validacion/ruta-validacion.component';
-import { FormularioLoginComponent } from './componentes/formulario-login/formulario-login.component';
-import { RutaParticipantesComponent } from './rutas/ruta-participantes/ruta-participantes.component';
-import { RutaParticipanteProyectoComponent } from './rutas/ruta-participante-proyecto/ruta-participante-proyecto.component';
-import { MetodoGraficoClienteComponent } from './componentes/metodo-grafico-cliente/metodo-grafico-cliente.component';
-import { MetodoGraficoJuegoComponent } from './componentes/metodo-grafico-juego/metodo-grafico-juego.component';
-import { PostItComponent } from './componentes/post-it/post-it.component';
-import { BloquesGamePlayComponent } from './componentes/bloques-game-play/bloques-game-play.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {ReactiveFormsModule} from '@angular/forms';
+import {AppRoutingModule} from './app-routing.module';
+import {AppComponent} from './app.component';
+import {ARREGLO_SERVICIOS} from './constantes/arreglo.services';
+import {ARREGLO_MODALES} from './constantes/arreglo.modales';
+import {ARREGLO_PIPES} from './constantes/arreglo.pipes';
+import {ARREGLO_RUTA_COMPONENTES} from './constantes/arreglo.ruta.componentes';
+import {ARREGLO_COMPONENTES} from './constantes/arreglo.componentes';
+import {RouterModule} from '@angular/router';
+import {CookieModule} from 'ngx-cookie';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatSelectModule} from '@angular/material/select';
 import {MatIconModule} from '@angular/material/icon';
 import {MatGridListModule} from '@angular/material/grid-list';
-import { PestanaComponent } from './componentes/pestana/pestana.component';
-import {MatTabsModule} from '@angular/material/tabs';
+import {MatOptionModule} from '@angular/material/core';
+import {TableModule} from 'primeng/table';
+import { ToasterModule } from 'angular2-toaster';
 import {MatStepperModule} from '@angular/material/stepper';
-import { FlujoTrabajoComponent } from './componentes/flujo-trabajo/flujo-trabajo.component';
-import { MatFormFieldModule } from '@angular/material/form-field';
 
 @NgModule({
   declarations: [
     AppComponent,
-    FormularioRegistroComponent,
-    RutaLoginUsuarioComponent,
-    RutaRegistroUsuarioComponent,
-    RutaInicioComponent,
-    RutaAplicacionComponent,
-    RutaManualUsuarioComponent,
-    RutaMetodologiaComponent,
-    RutaPerfilUsuarioComponent,
-    RutaProyectosComponent,
-    RutaNuevoProyectoComponent,
-    RutaRequerimientoClienteComponent,
-    RutaRequerimientoJuegoComponent,
-    RutaValidacionComponent,
-    FormularioLoginComponent,
-    RutaParticipantesComponent,
-    RutaParticipanteProyectoComponent,
-    MetodoGraficoClienteComponent,
-    MetodoGraficoJuegoComponent,
-    PostItComponent,
-    BloquesGamePlayComponent,
-    PestanaComponent,
-    FlujoTrabajoComponent
+    ...ARREGLO_COMPONENTES,
+    ...ARREGLO_RUTA_COMPONENTES,
+    ...ARREGLO_PIPES,
+    ...ARREGLO_MODALES
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule, //importa el HttpClient
-    FormsModule, // permite funcionalidad de los formularios template
     BrowserAnimationsModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    RouterModule,
+    MatDialogModule,
+    FormsModule,
+    TableModule,
+    MatProgressBarModule,
+    MatFormFieldModule,
+    MatOptionModule,
+    MatSelectModule,
     NgbModule,
     MatIconModule,
     MatGridListModule,
     MatTabsModule,
-    MatStepperModule,
-    MatFormFieldModule,
-    ReactiveFormsModule,
+    CookieModule.forRoot(),
+    ToasterModule.forRoot(),
+    MatStepperModule
   ],
-  providers: [],
+  providers: [
+    ...ARREGLO_SERVICIOS
+  ],
+  entryComponents: [
+    ...ARREGLO_MODALES
+  ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

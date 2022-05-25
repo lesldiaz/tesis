@@ -14,68 +14,9 @@ import { RutaRequerimientoJuegoComponent } from './rutas/ruta-requerimiento-jueg
 import { RutaValidacionComponent } from './rutas/ruta-validacion/ruta-validacion.component';
 import { RutaParticipanteProyectoComponent } from './rutas/ruta-participante-proyecto/ruta-participante-proyecto.component';
 import { RutaParticipantesComponent } from './rutas/ruta-participantes/ruta-participantes.component';
+import { ARREGLO_RUTAS } from './constantes/arreglo.rutas';
 const routes: Routes = [
-  {
-    component: RutaLoginUsuarioComponent,
-    path: 'login'
-  },{
-    component: RutaRegistroUsuarioComponent,
-    path: 'registro'
-  },
-  {
-    component: RutaInicioComponent,
-    path: 'inicio'
-  }, {
-    component: RutaManualUsuarioComponent,
-    path: 'manual'
-  }, {
-    component: RutaMetodologiaComponent,
-    path: 'metodologia'
-  },
-  {
-    component: RutaPerfilUsuarioComponent,
-    path: 'perfil'
-  },
-  {
-    component:RutaAplicacionComponent,
-    path:'aplicacion'
-  },
-  {
-    component: RutaNuevoProyectoComponent,
-    path: 'nuevoproyecto'
-  },
-  {
-    component: RutaProyectosComponent,
-    path: 'proyectos',
-    children:[
-      {
-        component: RutaParticipanteProyectoComponent,
-        path:'participanteproyecto'
-      }
-    ]
-  },
-  {
-    component: RutaParticipantesComponent,
-    path: 'participantes'
-  },
-  {
-    component: RutaRequerimientoClienteComponent,
-    path: 'requerimientocliente',
-  },
-  {
-    component: RutaRequerimientoJuegoComponent,
-    path: 'requerimientojuego',
-
-  },
-  {
-    component:RutaValidacionComponent,
-    path: 'validacion'
-  },
-  {
-    path:'',
-    redirectTo:'/login',
-    pathMatch:'full'
-  }
+  ...ARREGLO_RUTAS
 ];
 
 @NgModule({

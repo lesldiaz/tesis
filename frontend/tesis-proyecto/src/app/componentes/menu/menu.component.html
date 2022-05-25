@@ -1,0 +1,30 @@
+<header>
+  <div class="row">
+    <div class="col-sm-12">
+      <nav class="navbar navbar-expand-lg navbar-dark menu">
+<!--        <div class="order-0">-->
+<!--          <a class="navbar-brand" href="#"><i class="fas fa-graduation-cap"></i></a>-->
+<!--          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"-->
+<!--                  aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">-->
+<!--            <span class="navbar-toggler-icon"></span>-->
+<!--          </button>-->
+<!--        </div>-->
+        <div class="collapse navbar-collapse justify-content-start order-2" id="navbarNavDropdown">
+          <h5>APLICATIVO PARA LA VALIDACIÓN DE REQUERIMIENTOS DE SOFTWARE</h5>
+        </div>
+      <div class="order-3">
+        <ul class="nav">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropbtn disabled" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+               aria-expanded="false"><i class="fas fa-user"></i> {{nombreUsuario}}</a>
+            <div class="dropdown-content">
+                <button [routerLink]="['/usuario']" class="link-boton"><i class="fas fa-user-cog"></i> Ver perfil</button>
+                <button class="link-boton" (click)="cerrarSesion()"><i class="fas fa-sign-out-alt"></i> Cerrar Sesion</button>
+            </div>
+          </li>
+        </ul>
+      </div>
+      </nav>
+    </div>
+  </div>
+</header>
