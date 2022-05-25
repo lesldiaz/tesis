@@ -23,10 +23,10 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatOptionModule} from '@angular/material/core';
 import {TableModule} from 'primeng/table';
-import { ToasterModule } from 'angular2-toaster';
+import {ToasterModule} from 'angular2-toaster';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatRadioModule} from '@angular/material/radio';
-import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
+import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 
 @NgModule({
   declarations: [
@@ -56,15 +56,14 @@ import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
     MatTabsModule,
     CookieModule.forRoot(),
     ToasterModule.forRoot(),
-    MatStepperModule
-    MatRadioModule,
+    MatStepperModule,
+    MatRadioModule
   ],
-  providers: [{
-      
-    provide: STEPPER_GLOBAL_OPTIONS,
-    useValue: { displayDefaultIndicatorType: false }
-  },
-  
+  providers: [
+    {
+      provide: STEPPER_GLOBAL_OPTIONS,
+      useValue: {displayDefaultIndicatorType: false}
+    },
     ...ARREGLO_SERVICIOS
   ],
   entryComponents: [
