@@ -19,4 +19,7 @@ export class FlujoTrabajoComponent implements OnInit {
       secondCtrl: ['', Validators.required],
     });
   }
+  eleccion(){
+
+  }
 }
