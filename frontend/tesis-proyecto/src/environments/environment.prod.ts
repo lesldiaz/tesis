@@ -1,3 +1,5 @@
 export const environment = {
-  production: true
+  production: true,
+  urlUsuario: 'http://localhost:3000/usuario/',
+  urlUsuarioSesion: 'http://localhost:3000/usuario-sesion/',
 };

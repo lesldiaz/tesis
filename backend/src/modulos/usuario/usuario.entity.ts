@@ -1,54 +1,45 @@
-import {Column, Entity, ManyToOne, PrimaryGeneratedColumn} from 'typeorm';
+import { EntityGenerico } from 'src/constantes/clases-genericas/entity.generico';
+import {Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn} from 'typeorm';
+import { ProyectoEntity } from '../proyecto/proyecto.entity';
+import { UsuarioSesionEntity } from '../usuario-sesion/usuario.sesion.entity';
 
 
 @Entity('usuario')
-export class UsuarioEntity {
-    @PrimaryGeneratedColumn()
-    id: number;
+export class UsuarioEntity extends EntityGenerico{
+
     @Column({
-        default: 1
+        name: 'usuario',
+        type: 'varchar',
+        length: 50,
+        nullable: false
     })
-    habilitado: boolean;
-    @Column()
-    age: number;
+    nombreUsuario: string;
+
     @Column({
-        length: 6
+        name: 'email',
+        type: 'varchar',
+        length: 200,
+        nullable: false
     })
-    colorOjos: string;
+    email: string;
+
     @Column({
-        length: 50
+        name: 'contrasenia',
+        type: 'varchar',
+        length: 50,
+        nullable: false
     })
-    nombre: string;
-    @Column({
-        length: 50
-    })
-    apellido: string;
-    @Column({
-        length: 15
-    })
-    genero: 'femenino' | 'masculino';
-    @Column({
-        length: 20
-    })
-    telefono: string;
-    @Column({
-        length: 100
-    })
-    direccion: string;
-    @Column({
-        type: 'datetime'
-    })
-    fechaRegistro: Date;
-    @Column()
-    latitud: number;
-    @Column()
-    longitud: number;
-    @Column({
-        nullable: true
-    })
-    calificacion: number = null;
-    @Column(({
-        length: 50
-    }))
-    favoriteFruit: string;
+    contrasena: string;
+
+    @OneToOne(
+        type => UsuarioSesionEntity,
+        usuarioS => usuarioS.usuario
+    )
+    usuarioSesion: UsuarioSesionEntity | number;
+
+    @OneToMany(
+        type => ProyectoEntity,
+        proyecto => proyecto.usuario
+    )
+    proyecto: ProyectoEntity[];
 }

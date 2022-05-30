@@ -1,6 +1,6 @@
-import { Controller } from '@nestjs/common';
+import {Controller} from '@nestjs/common';
+import {ControllerGeneral} from 'src/constantes/clases-genericas/controller.generico';
 import {UsuarioEntity} from "./usuario.entity";
-import {ControllerGeneral} from "../../constantes/clases-genericas/controller.generico";
 import {UsuarioService} from "./usuario.service";
 
 @Controller('usuario')

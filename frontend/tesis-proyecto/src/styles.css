@@ -1,7 +1,33 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+/*html, body { height: 100%; }*/
+/*body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }*/
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+/*html, body { height: 100%; }*/
+/*body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }*/
+
+/*html, body { height: 100%; }*/
+/*body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }*/
+
+a:link {
+  text-decoration: none
+}
+.inicio {
+  padding-top: 2rem;
+  padding-bottom: 4rem;
+}
+.negrilla {
+  font-weight: bold;
+}
+.separador{
+  margin-bottom: 2rem;
+}
+
+.ui-table .ui-table-tbody tr td {
+  width: 100%;
+}
+
+.ui-table .ui-table-tbody tr td.fila-seleccionada {
+  background-color: rgba(91, 192, 222, 0.26);
+}
+
