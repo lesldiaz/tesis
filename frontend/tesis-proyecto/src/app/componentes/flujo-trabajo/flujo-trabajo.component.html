@@ -27,7 +27,7 @@
             </mat-radio-button>
           </mat-radio-group>
           <div class="next-btt">
-            <button type="button" (click)="eleccion()">Next</button>
+            <button type="button" class="btn" (click)="eleccion()">Añadir Requerimientos</button>
           </div>
         </form>
       </div>
@@ -36,8 +36,8 @@
       </div>
       <div id="metodo-grafico" style="display: none">
         <app-pestana></app-pestana>
-        <div class="next-btt" [formGroup]="firstFormGroup">
-          <button type="button" mat-button matStepperNext>Next</button>
+        <div class="right" [formGroup]="firstFormGroup">
+          <button class="btn " type="button" mat-button matStepperNext>Next</button>
         </div>
       </div>
     </mat-step>
