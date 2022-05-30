@@ -27,6 +27,9 @@ import {ToasterModule} from 'angular2-toaster';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatRadioModule} from '@angular/material/radio';
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
+import { PlantillaClienteComponent } from './componentes/plantilla-cliente/plantilla-cliente.component';
+import { PestanaPlantillaComponent } from './componentes/pestana-plantilla/pestana-plantilla.component';
+import { PlantillaJuegoComponent } from './componentes/plantilla-juego/plantilla-juego.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +37,10 @@ import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
     ...ARREGLO_COMPONENTES,
     ...ARREGLO_RUTA_COMPONENTES,
     ...ARREGLO_PIPES,
-    ...ARREGLO_MODALES
+    ...ARREGLO_MODALES,
+    PlantillaClienteComponent,
+    PestanaPlantillaComponent,
+    PlantillaJuegoComponent
   ],
   imports: [
     BrowserModule,
