@@ -37,6 +37,9 @@ import { FlujoTrabajoComponent } from './componentes/flujo-trabajo/flujo-trabajo
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import {MatRadioModule} from '@angular/material/radio';
+import { PlantillaClienteComponent } from './componentes/plantilla-cliente/plantilla-cliente.component';
+import { PlantillaJuevoComponent } from './componentes/plantilla-juevo/plantilla-juevo.component';
+import { PestanaPlantillaComponent } from './componentes/pestana-plantilla/pestana-plantilla.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +65,10 @@ import {MatRadioModule} from '@angular/material/radio';
     PostItComponent,
     BloquesGamePlayComponent,
     PestanaComponent,
-    FlujoTrabajoComponent
+    FlujoTrabajoComponent,
+    PlantillaClienteComponent,
+    PlantillaJuevoComponent,
+    PestanaPlantillaComponent
   ],
   imports: [
     BrowserModule,
