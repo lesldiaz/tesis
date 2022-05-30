@@ -9,6 +9,10 @@ export class FlujoTrabajoComponent implements OnInit {
   firstFormGroup: FormGroup = new FormGroup({});
   secondFormGroup: FormGroup = new FormGroup({});
   isEditable = false;
+  radiobuttons: string | undefined;
+  divrbttn:any;
+  metodoGraf:any;
+
   constructor(private _formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
@@ -18,8 +22,19 @@ export class FlujoTrabajoComponent implements OnInit {
     this.secondFormGroup = this._formBuilder.group({
       secondCtrl: ['', Validators.required],
     });
+
   }
   eleccion(){
+    console.log(this.radiobuttons);
 
+    if(this.radiobuttons =="plantilla"){
+      console.log("escogio plantilla");
+    }
+    if(this.radiobuttons == "grafico") {
+      this.divrbttn = document.getElementById("radio-bttn");
+      this.divrbttn.style.display='none';
+      this.metodoGraf = document.getElementById("metodo-grafico");
+      this.metodoGraf.style.display='';
+    }
   }
 }
