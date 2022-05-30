@@ -10,16 +10,21 @@
   color: white;
   border-radius: 5px;
   text-decoration: none;
-  margin-top: 16px;
+  margin-top: 3px;
+  margin-left: 20px;
 }
-.form-control-file{
-  color: black;
-  border-color: lightseagreen;
-  border-radius: 10px;
+.file{
+  padding: 16px;
+  border: white;
+  background-color: white;
+}
+input[type="file"] {
+  display: none;
+}
+.custom-file-upload {
+  border: white;
+  display: inline-block;
+  padding: 6px 12px;
+  cursor: pointer;
+}
 
-}
-form-group{
-  background-color: lightseagreen;
-  border-color: lightseagreen;
-  border-radius: 10px;
-}
