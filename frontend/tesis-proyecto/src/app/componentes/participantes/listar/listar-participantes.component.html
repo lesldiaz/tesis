@@ -1,0 +1,80 @@
+<toaster-container></toaster-container>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12 cienporcierto">
+      <h2 style="text-align: center">Gestión de Participantes</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-2 cienporcierto">
+      <!--<button class="btn btn-block btn-info" (click)="abrirModalCrear()" type="button">Crear</button>-->
+    </div>
+    <div class="col-sm-10">
+      <form [formGroup]="formularioBuscarParticipante" novalidate>
+        <div class="row">
+          <div class="col-sm-4 cienporcierto">
+            <label for="terminoBusqueda">Buscar: </label>
+          </div>
+          <div class="col-sm-8 cienporcierto">
+            <input
+              type="text"
+              class="form-control"
+              id="terminoBusqueda"
+              [formControlName]="'terminoBusqueda'"
+              placeholder="Ingrese su termino de busqueda">
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <p-table [responsive]="true" [value]="participantes"
+               [paginator]="true"
+               [lazy]="true"
+               (onLazyLoad)="cargarMasDatos($event)"
+               [totalRecords]="total"
+               [rows]="5">
+        <ng-template pTemplate="caption">Participantes</ng-template>
+        <ng-template pTemplate="header">
+          <tr>
+            <th *ngFor="let col of cols">
+              {{col.header}}
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-participanteFila>
+          <tr>
+            <td [ngClass]="{'fila-seleccionada': filaSeleccionada === participanteFila.id}" *ngFor="let col of cols">
+              <div *ngIf="col.field === 'nombre'">
+                <span class="ui-column-title">{{col.header}}</span>
+                {{participanteFila[col.field]['nombre']}}
+              </div>
+              <div *ngIf="col.field === 'apellido'">
+                <span class="ui-column-title">{{col.header}}</span>
+                {{participanteFila[col.field]=== 'apellido' ? participanteFila[col.field]['apellido']: ''}}
+              </div>
+              <div *ngIf="col.field === 'funcion'">
+                <span class="ui-column-title">{{col.header}}</span>
+                {{participanteFila[col.field] ? participanteFila[col.field]['funcion']: 'Ninguna'}}
+              </div>
+              <div *ngIf="col.field === 'id'">
+                <span class="ui-column-title">{{col.header}}</span>
+                <!--<button (click)="abrirModalEditar(participanteFila)" class="btn btn-block btn-sm btn-info">Editar</button>
+                <button (click)="irAGestionAulas(participanteFila.id)" class="btn btn-block btn-sm btn-info">Gestionar Aulas</button>-->
+              </div>
+            </td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td [attr.colspan]="cols.length">
+              No existe resultados
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</div>
+

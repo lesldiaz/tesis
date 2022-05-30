@@ -1,0 +1,30 @@
+.titulo{
+  text-align: center;
+}
+.bttn{
+  text-align: left;
+}
+.btn{
+  padding: 10px;
+  background-color: lightseagreen;
+  color: white;
+  border-radius: 5px;
+  text-decoration: none;
+  margin-top: 3px;
+  margin-left: 20px;
+}
+.file{
+  padding: 16px;
+  border: white;
+  background-color: white;
+}
+input[type="file"] {
+  display: none;
+}
+.custom-file-upload {
+  border: white;
+  display: inline-block;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+

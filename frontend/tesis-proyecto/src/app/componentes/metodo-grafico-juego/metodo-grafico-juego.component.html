@@ -1,0 +1,30 @@
+<p>metodo-grafico-juego works!</p>
+<div class="container">
+  <form  #forma="ngForm">
+    <h3>Inicio de sesión - Formulario por template</h3>
+    <hr />
+    <div class="row">
+      <div class="col">
+        <label><b>ID</b></label>
+        <input type="text" name="id" class="form-label" disabled>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <label ><b>Descripcion</b></label>
+        <textarea
+          id="Textarea1"
+          rows="2"
+          class="form-control"
+        ></textarea>
+      </div>
+    </div>
+    <div>
+      <label><b>Bloques Gameplay</b></label>
+      <input hidden>
+      <div>
+        <app-bloques-game-play></app-bloques-game-play>
+      </div>
+    </div>
+  </form>
+</div>

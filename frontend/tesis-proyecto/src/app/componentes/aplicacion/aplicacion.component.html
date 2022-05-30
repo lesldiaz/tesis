@@ -1,0 +1,23 @@
+<app-menu></app-menu>
+<app-migaspan [conjuntoMigas]="migasPan"></app-migaspan>
+<div class="container aplicacion">
+  <toaster-container></toaster-container>
+  <div class="row justify-content-center">
+    <div class="col-sm-3">
+      <a href="#" [routerLink]="['/nuevoproyecto']">
+        <app-tarjeta-modulo [nombreModulo]="'Nuevo Proyecto'" [descripcion]="'Crea un Nuevo Proyecto'" [nombreImagenModulo]="'nuevo-proyecto.png'" ></app-tarjeta-modulo>
+      </a>
+    </div>
+    <div class="col-sm-3">
+      <a href="#" [routerLink]="['/proyectos']">
+        <app-tarjeta-modulo [nombreModulo]="'Proyectos'" [descripcion]="'Gestione los proyectos que posee'" [nombreImagenModulo]="'proyecto.png'" ></app-tarjeta-modulo>
+      </a>
+    </div>
+    <div class="col-sm-3">
+      <a href="#" [routerLink]="['/participantes']">
+        <app-tarjeta-modulo [nombreModulo]="'Participantes'" [descripcion]="'Gestione los participantes de sus proyectos'" [nombreImagenModulo]="'participantes.png'" ></app-tarjeta-modulo>
+      </a>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>

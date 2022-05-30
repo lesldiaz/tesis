@@ -1,0 +1,38 @@
+.mat-stepper-horizontal {
+  margin-top: 8px;
+}
+
+.mat-form-field {
+  margin-top: 16px;
+}
+.example-radio-group {
+  display: flex;
+  flex-direction: column;
+  margin: 15px ;
+  align-items: center;
+}
+
+.example-radio-button {
+  margin: 5px;
+}
+#radio-bttn{
+  text-align: center;
+}
+.btn{
+  padding: 10px;
+  background-color: lightseagreen;
+  color: white;
+  border-radius: 5px;
+  text-decoration: none;
+  margin-top: 8px;
+}
+.right{
+  text-align: right;
+}
+.new-rbttn{
+  align-content: center;
+  align-items: center;
+}
+.next-btt{
+ align-content: center;
+}
