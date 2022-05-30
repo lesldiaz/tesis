@@ -27,6 +27,8 @@ import {ToasterModule} from 'angular2-toaster';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatRadioModule} from '@angular/material/radio';
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
+import { ARREGLO_MODULOS } from './constantes/arreglo.modulos';
+
 
 @NgModule({
   declarations: [
@@ -37,6 +39,7 @@ import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
     ...ARREGLO_MODALES,
   ],
   imports: [
+    ...ARREGLO_MODULOS,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -57,7 +60,7 @@ import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
     CookieModule.forRoot(),
     ToasterModule.forRoot(),
     MatStepperModule,
-    MatRadioModule
+    MatRadioModule,
   ],
   providers: [
     {

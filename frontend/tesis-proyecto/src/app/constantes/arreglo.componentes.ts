@@ -21,6 +21,7 @@ import { FlujoTrabajoComponent } from '../componentes/flujo-trabajo/flujo-trabaj
 import { PlantillaClienteComponent } from '../componentes/plantilla-cliente/plantilla-cliente.component';
 import { PestanaPlantillaComponent } from '../componentes/pestana-plantilla/pestana-plantilla.component';
 import { PlantillaJuegoComponent } from '../componentes/plantilla-juego/plantilla-juego.component';
+import { ParticipantesComponent } from '../componentes/participantes/participantes.component';
 
 export const ARREGLO_COMPONENTES = [
   FooterComponent,
@@ -45,5 +46,6 @@ export const ARREGLO_COMPONENTES = [
   FlujoTrabajoComponent,
   PlantillaClienteComponent,
   PestanaPlantillaComponent,
-  PlantillaJuegoComponent
+  PlantillaJuegoComponent,
+  ParticipantesComponent,
 ];
