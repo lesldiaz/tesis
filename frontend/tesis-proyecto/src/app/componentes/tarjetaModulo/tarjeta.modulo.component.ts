@@ -3,7 +3,7 @@ import {Component, Input} from '@angular/core';
 @Component({
   selector: 'app-tarjeta-modulo',
   templateUrl: 'tarjeta.modulo.component.html',
-  styleUrls: ['tarjeta.modulo.component.sass']
+  styleUrls: ['tarjeta.modulo.component.css']
 })
 export class TarjetaModuloComponent {
   @Input() nombreImagenModulo: string = '';

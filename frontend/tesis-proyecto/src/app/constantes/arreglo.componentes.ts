@@ -22,6 +22,9 @@ import { PlantillaClienteComponent } from '../componentes/plantilla-cliente/plan
 import { PestanaPlantillaComponent } from '../componentes/pestana-plantilla/pestana-plantilla.component';
 import { PlantillaJuegoComponent } from '../componentes/plantilla-juego/plantilla-juego.component';
 import { ParticipantesComponent } from '../componentes/participantes/participantes.component';
+import { CrearEditarParticipanteComponent } from '../componentes/participantes/crear-editar/crear-editar-participante.component';
+import { ListarParticipantesComponent } from '../componentes/participantes/listar/listar-participantes.component';
+import { MigasPanComponent } from '../componentes/migaspan/migaspan.component';
 
 export const ARREGLO_COMPONENTES = [
   FooterComponent,
@@ -48,4 +51,7 @@ export const ARREGLO_COMPONENTES = [
   PestanaPlantillaComponent,
   PlantillaJuegoComponent,
   ParticipantesComponent,
+  ListarParticipantesComponent,
+  CrearEditarParticipanteComponent,
+  MigasPanComponent
 ];

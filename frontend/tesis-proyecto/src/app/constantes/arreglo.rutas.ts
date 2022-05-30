@@ -52,7 +52,7 @@ export const ARREGLO_RUTAS: Routes = [
     component: RutaProyectosComponent,
     children: [
       {
-        path: ':id/participanteproyecto',
+        path: 'participante-proyecto/:id',
         component: RutaParticipanteProyectoComponent
       }
     ]

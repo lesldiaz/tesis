@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'app-metodologia',
@@ -6,10 +7,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./metodologia.component.sass']
 })
 export class MetodologiaComponent implements OnInit {
-
+  migasPan: MenuItem[]=[];
   constructor() { }
 
   ngOnInit() {
+    this.migasPan = [
+      {
+        label: 'Metodología'
+      }
+    ];
   }
 
 }

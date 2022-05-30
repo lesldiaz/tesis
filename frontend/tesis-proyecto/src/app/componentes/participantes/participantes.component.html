@@ -1,12 +1,14 @@
 <app-menu></app-menu>
-<div class="row">
+<!--<div class="row">
   <div class="col-sm-12">
     <ol class="breadcrumb">
       <li class="breadcrumb-item">><a href="#" [routerLink]="['/inicio']">Inicio</a></li>
       <li class="breadcrumb-item active">Participantes</li>
     </ol>
   </div>
-</div>
+</div>-->
+<app-migaspan [conjuntoMigas]="migasPan"></app-migaspan>
 <div class="container inicio">
+  <app-listar-participantes></app-listar-participantes>
 </div>
 <app-footer></app-footer>

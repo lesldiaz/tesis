@@ -27,7 +27,8 @@ import {ToasterModule} from 'angular2-toaster';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatRadioModule} from '@angular/material/radio';
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
-import { ARREGLO_MODULOS } from './constantes/arreglo.modulos';
+import {BreadcrumbModule} from 'primeng/breadcrumb';
+import {MenuModule} from 'primeng/menu';
 
 
 @NgModule({
@@ -39,7 +40,6 @@ import { ARREGLO_MODULOS } from './constantes/arreglo.modulos';
     ...ARREGLO_MODALES,
   ],
   imports: [
-    ...ARREGLO_MODULOS,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -61,6 +61,8 @@ import { ARREGLO_MODULOS } from './constantes/arreglo.modulos';
     ToasterModule.forRoot(),
     MatStepperModule,
     MatRadioModule,
+    BreadcrumbModule,
+    MenuModule,
   ],
   providers: [
     {
