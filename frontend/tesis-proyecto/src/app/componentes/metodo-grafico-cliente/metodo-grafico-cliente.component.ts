@@ -6,10 +6,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./metodo-grafico-cliente.component.css']
 })
 export class MetodoGraficoClienteComponent implements OnInit {
-
+  roles:string[]=[];
   constructor() { }
 
   ngOnInit(): void {
   }
+  cambioRol(){
+    console.log('cambio')
 
+  }
 }

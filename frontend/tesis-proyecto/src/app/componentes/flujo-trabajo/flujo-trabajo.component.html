@@ -1,4 +1,4 @@
-<p>flujo-trabajo works!</p>
+<app-menu></app-menu>
 <div >
   <mat-stepper linear="true">
     <mat-step label="Agregar Requerimiento" [stepControl]="firstFormGroup" >
@@ -33,6 +33,9 @@
       </div>
       <div id="metodo-plantilla" style="display: none">
         <app-pestana-plantilla></app-pestana-plantilla>
+        <div id="select" class="right" [formGroup]="firstFormGroup">
+          <button class="btn " type="button" mat-button matStepperNext>Next</button>
+        </div>
       </div>
       <div id="metodo-grafico" style="display: none">
         <app-pestana></app-pestana>
@@ -57,3 +60,4 @@
   </mat-stepper>
 </div>
 
+<app-footer></app-footer>

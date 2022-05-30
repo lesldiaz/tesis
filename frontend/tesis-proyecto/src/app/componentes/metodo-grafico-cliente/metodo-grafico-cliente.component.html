@@ -10,11 +10,10 @@
       </div>
       <div class="col">
         <label><b>ROL</b></label>
-        <select name="rol">
-          <option value="rol1">
-            rol 1<input>
-          </option>
-        </select>
+        <input type="text" list="roles" (change)="cambioRol()" >
+        <datalist id="roles">
+          <option value="rol1"></option>
+        </datalist>
       </div>
     </div>
     <div class="row">
