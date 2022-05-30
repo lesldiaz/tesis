@@ -29,6 +29,10 @@ export class FlujoTrabajoComponent implements OnInit {
 
     if(this.radiobuttons =="plantilla"){
       console.log("escogio plantilla");
+      this.divrbttn = document.getElementById("radio-bttn");
+      this.divrbttn.style.display='none';
+      this.metodoGraf = document.getElementById("metodo-plantilla");
+      this.metodoGraf.style.display='';
     }
     if(this.radiobuttons == "grafico") {
       this.divrbttn = document.getElementById("radio-bttn");

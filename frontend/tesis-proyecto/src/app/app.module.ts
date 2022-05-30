@@ -38,8 +38,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import {MatRadioModule} from '@angular/material/radio';
 import { PlantillaClienteComponent } from './componentes/plantilla-cliente/plantilla-cliente.component';
-import { PlantillaJuevoComponent } from './componentes/plantilla-juevo/plantilla-juevo.component';
 import { PestanaPlantillaComponent } from './componentes/pestana-plantilla/pestana-plantilla.component';
+import { PlantillaJuegoComponent } from './componentes/plantilla-juego/plantilla-juego.component';
 
 @NgModule({
   declarations: [
@@ -67,8 +67,8 @@ import { PestanaPlantillaComponent } from './componentes/pestana-plantilla/pesta
     PestanaComponent,
     FlujoTrabajoComponent,
     PlantillaClienteComponent,
-    PlantillaJuevoComponent,
-    PestanaPlantillaComponent
+    PestanaPlantillaComponent,
+    PlantillaJuegoComponent
   ],
   imports: [
     BrowserModule,
