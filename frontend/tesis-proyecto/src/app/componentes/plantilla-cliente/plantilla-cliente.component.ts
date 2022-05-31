@@ -17,8 +17,9 @@ export class PlantillaClienteComponent implements OnInit {
     this.data=document.getElementById('upload');
     console.log('inicio');
     const value = this.change.value;
+    const value2= value.split('\\');
     console.log(value);
-    this.data.value=value;
+    this.data.value=value2.pop();
 
   }
 }
