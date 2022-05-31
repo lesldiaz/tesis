@@ -13,9 +13,12 @@ export class PlantillaClienteComponent implements OnInit {
   ngOnInit(): void {
   }
   funcion(){
+    this.change=document.getElementById('file-upload');
+    this.data=document.getElementById('upload');
     console.log('inicio');
-    console.log('null');
-
+    const value = this.change.value;
+    console.log(value);
+    this.data.value=value;
 
   }
 }
