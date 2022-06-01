@@ -13,6 +13,28 @@ export class ParticipanteService {
     this.url = environment.urlParticipante;
   }
 
+  /*getProfesionales(skip, take, busqueda?: object) {
+    if (!busqueda) {
+      const pathPaginacion = this.url + `profesional-utilidades/datos?skip=${skip}&take=${take}`;
+      return this._httpClient.get(pathPaginacion);
+    } else {
+      if (busqueda['usuario']) {
+        const pathBusquedaPaginacion = this.url + `profesional-utilidades/datos?usuario=${busqueda['usuario']}` + `&skip=${skip}&take=${take}`;
+        return this._httpClient.get(pathBusquedaPaginacion);
+      } else if (busqueda['horario']) {
+        const pathBusquedaPaginacion = this.url + `profesional-utilidades/datos?horario=${busqueda['horario']}` + `&skip=${skip}&take=${take}`;
+        return this._httpClient.get(pathBusquedaPaginacion);
+      } else if (busqueda['servicio']) {
+        const pathBusquedaPaginacion = this.url + `profesional-utilidades/datos?servicio=${busqueda['servicio']}` + `&skip=${skip}&take=${take}`;
+        return this._httpClient.get(pathBusquedaPaginacion);
+      } else {
+        const busquedaCentro = FUNCIONES_GENERALES.queryAObjeto(busqueda);
+        const pathBusquedaPaginacion = this.url + 'profesional-utilidades/datos' + busquedaCentro + `&skip=${skip}&take=${take}`;
+        return this._httpClient.get(pathBusquedaPaginacion);
+      }
+    }
+  }*/
+
   getAllParticipantes() {
     return this._httpClient.get(this.url);
   }

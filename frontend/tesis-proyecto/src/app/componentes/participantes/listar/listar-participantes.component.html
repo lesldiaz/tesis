@@ -63,18 +63,13 @@
               <div *ngIf="col.field === 'funcion'">
                 {{participanteFila[col.field] ? participanteFila[col.field] : 'Ninguna'}}
               </div>
-              <div *ngIf="col.field === 'id'">
-                <!--<button (click)="//abrirModalEditar(participanteFila)" class="btn btn-block btn-sm btn-info">Editar</button>-->
-                <div class="row">
-                  <div class="col-sm-12">
-                    <button class="btn btn-info">
-                      <i class="fa fa-pen texto-blanco" aria-hidden="true"></i>
-                    </button>
-                    <button class="btn btn-danger">
-                      <i class="fa fa-trash texto-blanco" aria-hidden="true"></i>
-                    </button>
-                  </div>
-                </div>
+              <div class="cienporcierto" *ngIf="col.field === 'id'">
+                <button class="btn btn-info cienporcierto">
+                  <i class="fa fa-pen texto-blanco" aria-hidden="true"></i>
+                </button>
+                <button class="btn btn-danger cienporcierto " style="margin-top: 0.5rem">
+                  <i class="fa fa-trash texto-blanco" aria-hidden="true"></i>
+                </button>
               </div>
             </td>
           </tr>
@@ -86,6 +81,7 @@
             </td>
           </tr>
         </ng-template>
+
       </p-table>
     </div>
   </div>

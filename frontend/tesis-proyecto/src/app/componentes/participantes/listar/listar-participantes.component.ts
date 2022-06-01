@@ -107,7 +107,7 @@ export class ListarParticipantesComponent implements OnInit {
           }
         );
     }
-  
+
     abrirModalEditar(filaParticipante) {
       const modalEditar = this._dialog.open(ModalCrearEditarParticipanteComponent, {
         width: '800px',
@@ -137,7 +137,7 @@ export class ListarParticipantesComponent implements OnInit {
           }
         );
     }
-    
+
       abrirModalAsignarRol(filaParticipante) {
         const modalAsignar = this._dialog.open(ModalAsignarRolParticipanteComponent, {
           width: '800px',
@@ -152,10 +152,7 @@ export class ListarParticipantesComponent implements OnInit {
               console.error('Error al cerrar modal editar', error);
             }
           );
-  
+
       }
     */
-  irAGestionProyectos(id: any) {
-    this._route.navigate(['/participante','participante-proyecto', id])
-  }
 }
