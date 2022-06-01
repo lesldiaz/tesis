@@ -40,6 +40,7 @@ import {MenuModule} from 'primeng/menu';
     ...ARREGLO_MODALES,
   ],
   imports: [
+    NgbModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,

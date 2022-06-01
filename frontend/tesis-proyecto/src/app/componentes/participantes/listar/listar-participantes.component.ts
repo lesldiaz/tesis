@@ -155,7 +155,7 @@ export class ListarParticipantesComponent implements OnInit {
   
       }
     */
-  irAGestionAulas(id: any) {
+  irAGestionProyectos(id: any) {
     this._route.navigate(['/participante','participante-proyecto', id])
   }
 }

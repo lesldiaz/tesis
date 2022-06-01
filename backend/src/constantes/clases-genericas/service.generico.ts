@@ -7,7 +7,6 @@ export class ServiceGeneral<Entity> {
     constructor(private readonly _repository: Repository<Entity>) {}
     async crear(objeto): Promise<Entity | string> {
         try {
-            console.log(objeto);
             objeto.createdAt = moment().format().toString();
             objeto.updatedAt = moment().format().toString();
             return await this._repository.save(objeto);
@@ -26,7 +25,6 @@ export class ServiceGeneral<Entity> {
             const existeObjeto = await this._repository.findOne(id);
             if (existeObjeto) {
                 objeto.updatedAt = moment().format().toString();
-                console.log(objeto.updatedAt);
                 const respuestaEditar = await this._repository.update(id, objeto);
                 const actualizacionExitosa: boolean =
                     respuestaEditar.affected > 0;

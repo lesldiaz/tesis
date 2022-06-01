@@ -1,6 +1,29 @@
 .cienporcierto{
   width: 100%;
   justify-content: center;
-  margin-bottom: auto;
-  margin-top: auto;
+}
+#labelbusqueda {
+  text-align-last: center;
+  padding-top: 0.5rem;
+  font-size: medium;
+}
+.texto-blanco {
+  color: white;
+}
+.separador{
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+.separadorlf{
+  padding-right: 0.1rem;
+  padding-left: 0.1rem;
+}
+.separador-top{
+  padding-top: 1rem;
+}
+.separador-botton{
+  padding-bottom: 1rem;
+}
+.negrilla {
+  font-weight: bold;
 }

@@ -1,33 +1,41 @@
-<toaster-container></toaster-container>
 <div class="container">
-  <div class="row">
-    <div class="col-sm-12 cienporcierto">
-      <h2 style="text-align: center">Gestión de Participantes</h2>
+  <!--  titulo gestion -->
+  <div class="row separador">
+    <div class="col-sm-12">
+      <h1 style="text-align: center">Gestión de Participantes</h1>
     </div>
   </div>
-  <div class="row">
-    <div class="col-sm-2 cienporcierto">
+  <!--  crear/buscar-->
+  <div class="row separador-botton">
+    <div class="col-sm-2">
       <!--<button class="btn btn-block btn-info" (click)="abrirModalCrear()" type="button">Crear</button>-->
+      <button class="btn texto-blanco cienporcierto btn-info" type="button">Crear</button>
     </div>
     <div class="col-sm-10">
       <form [formGroup]="formularioBuscarParticipante" novalidate>
         <div class="row">
-          <div class="col-sm-4 cienporcierto">
+          <div class="col-sm-2" id="labelbusqueda">
             <label for="terminoBusqueda">Buscar: </label>
           </div>
-          <div class="col-sm-8 cienporcierto">
+          <div class="col-sm-8">
             <input
               type="text"
               class="form-control"
               id="terminoBusqueda"
               [formControlName]="'terminoBusqueda'"
-              placeholder="Ingrese su termino de busqueda">
+              placeholder="Ingrese su término de búsqueda">
+          </div>
+          <div class="col-sm-2">
+            <button class="btn btn-info cienporcierto">
+              <i class="fa fa-search texto-blanco" aria-hidden="true"></i>
+            </button>
           </div>
         </div>
       </form>
     </div>
   </div>
-  <div class="row">
+  <!--  tabla-->
+  <div class="row separador-top">
     <div class="col-sm-12">
       <p-table [responsive]="true" [value]="participantes"
                [paginator]="true"
@@ -35,33 +43,38 @@
                (onLazyLoad)="cargarMasDatos($event)"
                [totalRecords]="total"
                [rows]="5">
-        <ng-template pTemplate="caption">Participantes</ng-template>
         <ng-template pTemplate="header">
           <tr>
-            <th *ngFor="let col of cols">
+            <th class="text-center" *ngFor="let col of cols">
               {{col.header}}
             </th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-participanteFila>
           <tr>
-            <td [ngClass]="{'fila-seleccionada': filaSeleccionada === participanteFila.id}" *ngFor="let col of cols">
+            <td *ngFor="let col of cols">
               <div *ngIf="col.field === 'nombre'">
-                <span class="ui-column-title">{{col.header}}</span>
-                {{participanteFila[col.field]['nombre']}}
+                {{participanteFila[col.field]}}
               </div>
               <div *ngIf="col.field === 'apellido'">
-                <span class="ui-column-title">{{col.header}}</span>
-                {{participanteFila[col.field]=== 'apellido' ? participanteFila[col.field]['apellido']: ''}}
+
+                {{participanteFila[col.field]}}
               </div>
               <div *ngIf="col.field === 'funcion'">
-                <span class="ui-column-title">{{col.header}}</span>
-                {{participanteFila[col.field] ? participanteFila[col.field]['funcion']: 'Ninguna'}}
+                {{participanteFila[col.field] ? participanteFila[col.field] : 'Ninguna'}}
               </div>
               <div *ngIf="col.field === 'id'">
-                <span class="ui-column-title">{{col.header}}</span>
-                <!--<button (click)="abrirModalEditar(participanteFila)" class="btn btn-block btn-sm btn-info">Editar</button>
-                <button (click)="irAGestionAulas(participanteFila.id)" class="btn btn-block btn-sm btn-info">Gestionar Aulas</button>-->
+                <!--<button (click)="//abrirModalEditar(participanteFila)" class="btn btn-block btn-sm btn-info">Editar</button>-->
+                <div class="row">
+                  <div class="col-sm-12">
+                    <button class="btn btn-info">
+                      <i class="fa fa-pen texto-blanco" aria-hidden="true"></i>
+                    </button>
+                    <button class="btn btn-danger">
+                      <i class="fa fa-trash texto-blanco" aria-hidden="true"></i>
+                    </button>
+                  </div>
+                </div>
               </div>
             </td>
           </tr>

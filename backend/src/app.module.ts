@@ -5,6 +5,8 @@ import {CONFIGURACIONES} from "./constantes/configuraciones";
 import {ENTIDADES} from "./constantes/entidades";
 import {TypeOrmModule} from "@nestjs/typeorm";
 import {MODULOS} from "./constantes/modulos";
+import { ParticipanteService } from './modulos/participante/participante.service';
+import { FUNCIONES_GENERALES } from './constantes/metodos/funciones-generales.metodo';
 
 @Module({
   imports: [
@@ -23,4 +25,25 @@ import {MODULOS} from "./constantes/modulos";
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule {
+  constructor(
+      private readonly _participanteService: ParticipanteService,
+  ) {
+    if (CONFIGURACIONES.crearDatosTest) {
+      this.datos();
+    } else {
+      console.info('Datos no creados');
+    }
+  }
+  async datos() {
+    try {
+      await FUNCIONES_GENERALES.crearDatos(
+          'datos-participante.json',
+          this._participanteService,
+      );
+      console.info('Datos cargados correctamente');
+    } catch (e) {
+      console.error('Error al crear datos', e);
+    }
+  }
+}
