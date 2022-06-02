@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {MenuItem} from 'primeng/api';
 
 @Component({
   selector: 'app-aplicacion',
@@ -6,10 +7,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./aplicacion.component.sass']
 })
 export class AplicacionComponent implements OnInit {
+  migasPan: MenuItem[] = [];
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
+    this.migasPan = [
+      {
+        label: 'Aplicación'
+      }
+    ];
   }
 
 }

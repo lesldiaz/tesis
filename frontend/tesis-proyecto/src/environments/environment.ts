@@ -6,6 +6,7 @@ export const environment = {
   production: false,
   urlUsuario: 'http://localhost:3000/usuario/',
   urlUsuarioSesion: 'http://localhost:3000/usuario-sesion/',
+  urlParticipante: 'http://localhost:3000/participante/',
 };
 
 /*

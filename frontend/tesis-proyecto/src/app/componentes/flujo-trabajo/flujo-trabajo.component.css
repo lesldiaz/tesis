@@ -15,8 +15,19 @@
 .example-radio-button {
   margin: 5px;
 }
-.radio-bttn{
+#radio-bttn{
   text-align: center;
+}
+.btn{
+  padding: 10px;
+  background-color: lightseagreen;
+  color: white;
+  border-radius: 5px;
+  text-decoration: none;
+  margin-top: 8px;
+}
+.right{
+  text-align: right;
 }
 .new-rbttn{
   align-content: center;

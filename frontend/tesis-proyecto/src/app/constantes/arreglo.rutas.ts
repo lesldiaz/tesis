@@ -50,18 +50,12 @@ export const ARREGLO_RUTAS: Routes = [
   {
     path: 'proyectos',
     component: RutaProyectosComponent,
-    children: [
-      {
-        path: ':id/participanteproyecto',
-        component: RutaParticipanteProyectoComponent
-      }
-    ]
   },
-  // {
-  //   path: 'proyectos/:id/participantes',
-  //   component: RutaParticipanteProyectoComponent,
-  //   pathMatch: 'full'
-  // },
+  {
+    path: 'proyectos/participantes/:id',
+    component: RutaParticipanteProyectoComponent,
+    pathMatch: 'full'
+  },
   {
     path: 'participantes',
     component: RutaParticipantesComponent
@@ -85,12 +79,12 @@ export const ARREGLO_RUTAS: Routes = [
   },
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'inicio',
     pathMatch: 'full'
   },
   {
     path: '**',
-    redirectTo: 'login',
+    redirectTo: 'inicio',
     pathMatch: 'full'
   }
 ];

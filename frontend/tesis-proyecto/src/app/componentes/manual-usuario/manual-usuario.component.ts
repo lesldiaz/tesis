@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'app-manual-usuario',
@@ -6,10 +7,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./manual-usuario.component.sass']
 })
 export class ManualUsuarioComponent implements OnInit {
-
+  migasPan: MenuItem[]= [];
   constructor() { }
 
   ngOnInit() {
+    this.migasPan = [
+      {
+        label: 'Manual de Usuario'
+      }
+    ];
   }
 
 }
