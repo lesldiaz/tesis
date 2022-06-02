@@ -38,6 +38,7 @@ import {MenuModule} from 'primeng/menu';
     ...ARREGLO_RUTA_COMPONENTES,
     ...ARREGLO_PIPES,
     ...ARREGLO_MODALES,
+    
   ],
   imports: [
     NgbModule,

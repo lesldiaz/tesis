@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToasterService } from 'angular2-toaster';
 import { debounceTime } from 'rxjs';
+import { ModalCrearEditarParticipanteComponent } from 'src/app/modales/modal-crear-editar-participante/modal-crear-editar-participante.component';
 import { ParticipanteService } from 'src/app/servicios/participante.service';
 
 @Component({
@@ -20,7 +21,6 @@ export class ListarParticipantesComponent implements OnInit {
     {field: 'id', header: 'Opciones'}
   ];
   total: number = 0;
-  filaSeleccionada: number = -1;
   formularioBuscarParticipante: FormGroup;
   constructor(private readonly _participanteService: ParticipanteService,
               private readonly _toasterService: ToasterService,
@@ -57,11 +57,9 @@ export class ListarParticipantesComponent implements OnInit {
       parametroRuta =>  {
         let getParticipantes$;
         if (parametroRuta) {
-          // getParticipantes$ = this._participanteService.getAllParticipantes($event.first, 5, parametroRuta);
-          getParticipantes$ = this._participanteService.getAllParticipantes();
+          getParticipantes$ = this._participanteService.getParticipantes($event.first, 5, parametroRuta);
         } else {
-          getParticipantes$ = this._participanteService.getAllParticipantes();
-          // getParticipantes$ = this._participanteService.getAllParticipantes($event.first, 5);
+          getParticipantes$ = this._participanteService.getParticipantes($event.first, 5);
         }
         getParticipantes$
           .subscribe(
@@ -77,7 +75,7 @@ export class ListarParticipantesComponent implements OnInit {
       }
     );
   }
-  /*
+ 
     abrirModalCrear() {
       const modalCrear = this._dialog.open(ModalCrearEditarParticipanteComponent, {
         width: '800px',
@@ -94,7 +92,6 @@ export class ListarParticipantesComponent implements OnInit {
                     if (this.participantes.length > 5) {
                       this.participantes.pop();
                     }
-                    this.filaSeleccionada = this.participantes[0].id;
                   },
                   error => {
                     console.error('Error al crear participante', error);
@@ -107,52 +104,52 @@ export class ListarParticipantesComponent implements OnInit {
           }
         );
     }
-
-    abrirModalEditar(filaParticipante) {
-      const modalEditar = this._dialog.open(ModalCrearEditarParticipanteComponent, {
-        width: '800px',
-        data: filaParticipante
-      });
-      modalEditar.afterClosed()
-        .subscribe(
-          participanteActualizado => {
-            if (participanteActualizado) {
-              this._participanteService.putParticipante(participanteActualizado, filaParticipante.id)
-                .subscribe(
-                  value => {
-                    filaParticipante.nombre = participanteActualizado.nombre;
-                    filaParticipante.apellido = participanteActualizado.apellido;
-                    filaParticipante.direccion = participanteActualizado.direccion;
-                    filaParticipante.telefono = participanteActualizado.telefono;
-                    this.filaSeleccionada = filaParticipante.id;
-                  },
-                  error => {
-                    console.error('Error al actualizar participante', error);
-                  }
-                );
-            }
-          },
-          error => {
-            console.error('Error al cerrar modal editar', error);
-          }
-        );
-    }
-
-      abrirModalAsignarRol(filaParticipante) {
-        const modalAsignar = this._dialog.open(ModalAsignarRolParticipanteComponent, {
-          width: '800px',
-          data: filaParticipante
-        });
-        modalAsignar.afterClosed()
-          .subscribe(
-            modalCerrado => {
-              this.filaSeleccionada = filaParticipante.id;
-            },
-            error => {
-              console.error('Error al cerrar modal editar', error);
-            }
-          );
-
-      }
-    */
+  /*
+     abrirModalEditar(filaParticipante) {
+       const modalEditar = this._dialog.open(ModalCrearEditarParticipanteComponent, {
+         width: '800px',
+         data: filaParticipante
+       });
+       modalEditar.afterClosed()
+         .subscribe(
+           participanteActualizado => {
+             if (participanteActualizado) {
+               this._participanteService.putParticipante(participanteActualizado, filaParticipante.id)
+                 .subscribe(
+                   value => {
+                     filaParticipante.nombre = participanteActualizado.nombre;
+                     filaParticipante.apellido = participanteActualizado.apellido;
+                     filaParticipante.direccion = participanteActualizado.direccion;
+                     filaParticipante.telefono = participanteActualizado.telefono;
+                     this.filaSeleccionada = filaParticipante.id;
+                   },
+                   error => {
+                     console.error('Error al actualizar participante', error);
+                   }
+                 );
+             }
+           },
+           error => {
+             console.error('Error al cerrar modal editar', error);
+           }
+         );
+     }
+ 
+       abrirModalAsignarRol(filaParticipante) {
+         const modalAsignar = this._dialog.open(ModalAsignarRolParticipanteComponent, {
+           width: '800px',
+           data: filaParticipante
+         });
+         modalAsignar.afterClosed()
+           .subscribe(
+             modalCerrado => {
+               this.filaSeleccionada = filaParticipante.id;
+             },
+             error => {
+               console.error('Error al cerrar modal editar', error);
+             }
+           );
+ 
+       }
+     */
 }

@@ -5,6 +5,6 @@ import {Pipe, PipeTransform} from '@angular/core';
 })
 export class TituloModalPipe implements PipeTransform {
   transform(input: boolean | object): any {
-    return !input ? 'Formulario de Crear' : 'Formulario de Editar';
+    return !input ? 'Crear' : 'Editar';
   }
 }

@@ -1,1 +1,50 @@
-<p>crear-editar works!</p>
+<form [formGroup]="formularioParticipante" (ngSubmit)="enviarFormularioParticipante()" novalidate>
+  <div class="row">
+    <label for="nombre">Nombre</label>
+    <input
+      type="text"
+      class="form-control"
+      id="nombre"
+      aria-describedby="nombrelHelp"
+      [formControlName]="'nombre'"
+      placeholder="Ingrese nombre">
+    <small id="nombreHelp" class="form-text text-muted">Ingrese nombre</small>
+    <div *ngIf="arregloMensajesErrorCampoNombre.length > 0" class="alert alert-info" role="alert">
+      <div *ngFor="let mensajeError of arregloMensajesErrorCampoNombre">
+        <div>{{mensajeError}}</div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <label for="apellido">Apellido</label>
+    <input
+      type="text"
+      class="form-control"
+      id="apellido"
+      aria-describedby="apellidolHelp"
+      [formControlName]="'apellido'"
+      placeholder="Ingrese apellido">
+    <small id="apellidoHelp" class="form-text text-muted">Ingrese apellido</small>
+    <div *ngIf="arregloMensajesErrorCampoApellido.length > 0" class="alert alert-info" role="alert">
+      <div *ngFor="let mensajeError of arregloMensajesErrorCampoApellido">
+        <div>{{mensajeError}}</div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <label for="funcion">Función</label>
+    <input
+      type="text"
+      class="form-control"
+      id="funcion"
+      aria-describedby="direccionlHelp"
+      [formControlName]="'funcion'"
+      placeholder="Ingrese funcion">
+    <small id="funcionHelp" class="form-text text-muted">Ingrese funcion</small>
+    <div *ngIf="arregloMensajesErrorCampoFuncion.length > 0" class="alert alert-info" role="alert">
+      <div *ngFor="let mensajeError of arregloMensajesErrorCampoFuncion">
+        <div>{{mensajeError}}</div>
+      </div>
+    </div>
+  </div>
+</form>
