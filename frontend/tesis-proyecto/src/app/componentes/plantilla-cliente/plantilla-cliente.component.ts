@@ -7,13 +7,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PlantillaClienteComponent implements OnInit {
   data:any;
+  change:any;
   constructor() { }
 
   ngOnInit(): void {
   }
-  subirArchivo(){
-    this.data= document.createElement('input')
-    this.data.setAttribute('type','file');
+  funcion(){
+    this.change=document.getElementById('file-upload');
+    this.data=document.getElementById('upload');
+    console.log('inicio');
+    const value = this.change.value;
+    const value2= value.split('\\');
+    console.log(value);
+    this.data.value=value2.pop();
 
   }
 }
