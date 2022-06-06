@@ -6,10 +6,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./pestana-plantilla.component.css']
 })
 export class PestanaPlantillaComponent implements OnInit {
-
+  requerimientosCargados: object[] = [];
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  recibirRequerimientos($event: object[]) {
+    this.requerimientosCargados = $event;
   }
 
 }

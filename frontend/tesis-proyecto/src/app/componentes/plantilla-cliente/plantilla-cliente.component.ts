@@ -1,7 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import { FUNCIONES_GENERALES } from 'src/app/constantes/funciones-generales';
-import { ExcelPlantillaHuInterface } from 'src/app/constantes/interfaces/excel-plantilla-hu.interface';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {FUNCIONES_GENERALES} from 'src/app/constantes/funciones-generales';
+import {ExcelPlantillaHuInterface} from 'src/app/constantes/interfaces/excel-plantilla-hu.interface';
 import * as XLSX from 'xlsx';
+
 //import * as fs from 'fs';
 @Component({
   selector: 'app-plantilla-cliente',
@@ -11,7 +12,9 @@ import * as XLSX from 'xlsx';
 export class PlantillaClienteComponent implements OnInit {
   data: any;
   change: any;
-  resultado: ExcelPlantillaHuInterface[]=[];
+  @Output() requerimientosCargados: EventEmitter<object[]> = new EventEmitter<object[]>();
+  nombreArchivo: string = 'Sin Selección';
+  resultado: ExcelPlantillaHuInterface[] = [];
 
   constructor() {
   }
@@ -31,6 +34,7 @@ export class PlantillaClienteComponent implements OnInit {
   }
 
   async onFileChange(event: any) {
+    this.nombreArchivo = event.target.files[0].name;
     const target: DataTransfer = <DataTransfer>(event.target);
     if (target.files.length !== 1) {
       throw new Error('Cannot use multiple files');
@@ -46,8 +50,8 @@ export class PlantillaClienteComponent implements OnInit {
 
       const data = XLSX.utils.sheet_to_json(ws, {range: 5}); // to get 2d array pass 2nd parameter as object {header: 1}
       this.resultado = FUNCIONES_GENERALES.tratamientoDatosExcel(data as any);
-      console.log(this.resultado)
+      this.requerimientosCargados.emit(this.resultado);
     }
 
- }
+  }
 }
