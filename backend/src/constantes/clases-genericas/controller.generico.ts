@@ -50,6 +50,15 @@ export class ControllerGeneral<Entidad> {
         }
     }
 
+    @Get('/personalizada/busqueda')
+    async buscarPorParametros(@Query() criterioBusqueda: any) {
+        try {
+            return await this._service.buscarPorParametros(criterioBusqueda);
+        } catch (e) {
+            throw new InternalServerErrorException(e);
+        }
+    }
+
     @Get()
     async listarTodos(@Query() paginacion: PaginacionInterface | object) {
         try {

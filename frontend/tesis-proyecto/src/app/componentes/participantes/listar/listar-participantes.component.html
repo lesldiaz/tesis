@@ -17,18 +17,13 @@
           <div class="col-sm-2" id="labelbusqueda">
             <label for="terminoBusqueda">Buscar: </label>
           </div>
-          <div class="col-sm-8">
+          <div class="col-sm-10">
             <input
               type="text"
               class="form-control"
               id="terminoBusqueda"
               [formControlName]="'terminoBusqueda'"
               placeholder="Ingrese su término de búsqueda">
-          </div>
-          <div class="col-sm-2">
-            <button class="btn btn-info cienporcierto">
-              <i class="fa fa-search texto-blanco" aria-hidden="true"></i>
-            </button>
           </div>
         </div>
       </form>
@@ -64,10 +59,10 @@
                 {{participanteFila[col.field] ? participanteFila[col.field] : 'Ninguna'}}
               </div>
               <div class="cienporcierto" *ngIf="col.field === 'id'">
-                <button class="btn btn-info cienporcierto">
-                  <i class="fa fa-pen texto-blanco" aria-hidden="true"></i>
+                <button (click)="abrirModalEditar(participanteFila)"class="btn btn-info cienporcierto">
+                  <i class="fa fa-pen texto-blanco"  aria-hidden="true"></i>
                 </button>
-                <button class="btn btn-danger cienporcierto " style="margin-top: 0.5rem">
+                <button (click)="abrirModalEliminar(participanteFila)"class="btn btn-danger cienporcierto " style="margin-top: 0.5rem">
                   <i class="fa fa-trash texto-blanco" aria-hidden="true"></i>
                 </button>
               </div>

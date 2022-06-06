@@ -25,6 +25,7 @@ import { ParticipantesComponent } from '../componentes/participantes/participant
 import { CrearEditarParticipanteComponent } from '../componentes/participantes/crear-editar/crear-editar-participante.component';
 import { ListarParticipantesComponent } from '../componentes/participantes/listar/listar-participantes.component';
 import { MigasPanComponent } from '../componentes/migaspan/migaspan.component';
+import { TablaPrevisualReqPlantillaComponent } from '../componentes/tabla-previsual-req-plantilla/tabla-previsual-req-plantilla.component';
 
 export const ARREGLO_COMPONENTES = [
   FooterComponent,
@@ -53,5 +54,6 @@ export const ARREGLO_COMPONENTES = [
   ParticipantesComponent,
   ListarParticipantesComponent,
   CrearEditarParticipanteComponent,
-  MigasPanComponent
+  MigasPanComponent,
+  TablaPrevisualReqPlantillaComponent,
 ];

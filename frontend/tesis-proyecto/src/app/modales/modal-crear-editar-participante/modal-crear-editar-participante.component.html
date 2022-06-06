@@ -1,15 +1,16 @@
 <h1 mat-dialog-title class="text-center">{{participanteCrearEditar | ldtitulomodal }} Participante</h1>
 <div mat-dialog-content>
-  <app-crear-editar-participante (participanteACrearOEditar)="recibirParticipante($event)" (habilitarBotonSubmit)="habilitarBoton($event)" [participanteEditar]="participanteCrearEditar"></app-crear-editar-participante>
+  <app-crear-editar-participante (participanteACrearOEditar)="recibirParticipante($event)"
+                                 (habilitarBotonSubmit)="habilitarBoton($event)"
+                                 [participanteEditar]="participanteCrearEditar"></app-crear-editar-participante>
 </div>
-<div class="row justify-content-end" mat-dialog-actions>
+<div mat-dialog-actions>
   <div class="col-sm-8"></div>
-  <div class="col-sm-2 justify-content-end">
-    <button class="btn btn-info" [disabled]="!habilitarBotonSubmit" (click)="enviarDatos()">Aceptar</button>
+  <div class="col-sm-2">
+    <button class="btn btn-info texto-blanco" [disabled]="!habilitarBotonSubmit" (click)="enviarDatos()">Aceptar
+    </button>
   </div>
-  <div class="col-sm-2 justify-content-start">
+  <div class="col-sm-2">
     <button class="btn btn-outline-dark" (click)="cancelarModal()">Cancelar</button>
   </div>
-
-
 </div>

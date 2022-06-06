@@ -1,4 +1,4 @@
-import { ExcelPlantillaHuInterface } from "./interfaces/excel-plantilla-hu.interface";
+import {ExcelPlantillaHuInterface} from "./interfaces/excel-plantilla-hu.interface";
 import * as XLSX from 'xlsx';
 
 export const FUNCIONES_GENERALES = {
@@ -6,39 +6,40 @@ export const FUNCIONES_GENERALES = {
     const parts = [];
     for (const key in objeto) {
       if (objeto.hasOwnProperty(key)) {
-        parts.push(encodeURIComponent(key) + '=' + encodeURIComponent(objeto[key]));
+        const busqueda = JSON.stringify(objeto[key]);
+        parts.push(encodeURIComponent(key) + '=' + encodeURIComponent(busqueda));
       }
     }
     return '?' + parts.join('&');
   },
-  tratamientoDatosExcel:(datos: object[])=> {
+  tratamientoDatosExcel: (datos: object[]) => {
     const datosTratados: ExcelPlantillaHuInterface[] = [];
     datos.map((valor: any) => {
       const requerimiento: ExcelPlantillaHuInterface = {}
-      if(valor['Descripción']){
+      if (valor['Descripción']) {
         requerimiento.identificador = valor['Identificador'];
         requerimiento.descripcion = valor['Descripción'];
         requerimiento.prioridad = valor['Prioridad'];
-        requerimiento.padre = valor['Padre']? valor['Padre']: null;
-        requerimiento.correcto = valor['CORRECTO']? valor['CORRECTO']: 0;
-        requerimiento.apropiado = valor['APROPIADO']? valor['APROPIADO']: 0;
-        requerimiento.verificable = valor['VERIFICABLE']? valor['VERIFICABLE']: 0;
-        requerimiento.factible = valor['FACTIBLE']? valor['FACTIBLE']: 0;
-        requerimiento.sinAmbiguedad = valor['SIN AMBIGÜEDAD']? valor['SIN AMBIGÜEDAD']: 0;
-        requerimiento.singular = valor['SINGULAR']? valor['SINGULAR']: 0;
-        requerimiento.trazable = valor['TRAZABILIDAD']? valor['TRAZABILIDAD']: 0;
-        requerimiento.modificable = valor['MODIFICABLE']? valor['MODIFICABLE']: 0;
-        requerimiento.consistente = valor['CONSISTENTE']? valor['CONSISTENTE']: 0;
-        requerimiento.conforme = valor['CONFORME']? valor['CONFORME']: 0;
-        requerimiento.necesario = valor['NECESARIO']? valor['NECESARIO']: 0;
+        requerimiento.padre = valor['Padre'] ? valor['Padre'] : null;
+        requerimiento.correcto = valor['CORRECTO'] ? valor['CORRECTO'] : 0;
+        requerimiento.apropiado = valor['APROPIADO'] ? valor['APROPIADO'] : 0;
+        requerimiento.verificable = valor['VERIFICABLE'] ? valor['VERIFICABLE'] : 0;
+        requerimiento.factible = valor['FACTIBLE'] ? valor['FACTIBLE'] : 0;
+        requerimiento.sinAmbiguedad = valor['SIN AMBIGÜEDAD'] ? valor['SIN AMBIGÜEDAD'] : 0;
+        requerimiento.singular = valor['SINGULAR'] ? valor['SINGULAR'] : 0;
+        requerimiento.trazable = valor['TRAZABILIDAD'] ? valor['TRAZABILIDAD'] : 0;
+        requerimiento.modificable = valor['MODIFICABLE'] ? valor['MODIFICABLE'] : 0;
+        requerimiento.consistente = valor['CONSISTENTE'] ? valor['CONSISTENTE'] : 0;
+        requerimiento.conforme = valor['CONFORME'] ? valor['CONFORME'] : 0;
+        requerimiento.necesario = valor['NECESARIO'] ? valor['NECESARIO'] : 0;
         //gameplay
-        if (valor['BLOQUES GAMEPLAY']){
-          requerimiento.bloqueGameplay1 = valor['BLOQUES GAMEPLAY']? valor['BLOQUES GAMEPLAY']: 'NINGUNO';
-          requerimiento.bloqueGameplay2 = valor['BLOQUES GAMEPLAY2']? valor['BLOQUES GAMEPLAY2']: 'NINGUNO';
-          requerimiento.bloqueGameplay3 = valor['BLOQUES GAMEPLAY3']? valor['BLOQUES GAMEPLAY3']: 'NINGUNO';
-          requerimiento.bloqueGameplay4 = valor['BLOQUES GAMEPLAY4']? valor['BLOQUES GAMEPLAY4']: 'NINGUNO';
-          requerimiento.bloqueGameplay5 = valor['BLOQUES GAMEPLAY5']? valor['BLOQUES GAMEPLAY5']: 'NINGUNO';
-          requerimiento.bloqueGameplay6 = valor['BLOQUES GAMEPLAY6']? valor['BLOQUES GAMEPLAY6']: 'NINGUNO';
+        if (valor['BLOQUES GAMEPLAY']) {
+          requerimiento.bloqueGameplay1 = valor['BLOQUES GAMEPLAY'] ? valor['BLOQUES GAMEPLAY'] : 'NINGUNO';
+          requerimiento.bloqueGameplay2 = valor['BLOQUES GAMEPLAY2'] ? valor['BLOQUES GAMEPLAY2'] : 'NINGUNO';
+          requerimiento.bloqueGameplay3 = valor['BLOQUES GAMEPLAY3'] ? valor['BLOQUES GAMEPLAY3'] : 'NINGUNO';
+          requerimiento.bloqueGameplay4 = valor['BLOQUES GAMEPLAY4'] ? valor['BLOQUES GAMEPLAY4'] : 'NINGUNO';
+          requerimiento.bloqueGameplay5 = valor['BLOQUES GAMEPLAY5'] ? valor['BLOQUES GAMEPLAY5'] : 'NINGUNO';
+          requerimiento.bloqueGameplay6 = valor['BLOQUES GAMEPLAY6'] ? valor['BLOQUES GAMEPLAY6'] : 'NINGUNO';
         }
         datosTratados.push(requerimiento)
       }
@@ -54,8 +55,8 @@ export const FUNCIONES_GENERALES = {
     }
     const reader: FileReader = new FileReader();
     reader.readAsBinaryString(target.files[0]);
-    let resultado: ExcelPlantillaHuInterface[]=[];
-     reader.onload = (e: any) => {
+    let resultado: ExcelPlantillaHuInterface[] = [];
+    reader.onload = (e: any) => {
       const binarystr: string = e.target.result;
       const wb: XLSX.WorkBook = XLSX.read(binarystr, {type: 'binary'});
 
@@ -66,5 +67,10 @@ export const FUNCIONES_GENERALES = {
       resultado = FUNCIONES_GENERALES.tratamientoDatosExcel(data as any);
     }
     return resultado; //como metodo no funciona xd
+  },
+  eliminarElemento: (array: any[], elemento: any) => {
+    array.indexOf(elemento) < 0 ? array : array.splice(array.indexOf(elemento), 1);
+    return array;
   }
+
 };

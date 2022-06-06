@@ -1,10 +1,12 @@
-import { Like, Repository } from 'typeorm';
-import { RespuestaInterface } from '../../interfaces/respuesta.interface';
-import { RespuestaBuscarInterface } from '../../interfaces/respuesta.buscar.interface';
+import {Like, Repository} from 'typeorm';
+import {RespuestaInterface} from '../../interfaces/respuesta.interface';
+import {RespuestaBuscarInterface} from '../../interfaces/respuesta.buscar.interface';
 import * as moment from 'moment';
 
 export class ServiceGeneral<Entity> {
-    constructor(private readonly _repository: Repository<Entity>) {}
+    constructor(private readonly _repository: Repository<Entity>) {
+    }
+
     async crear(objeto): Promise<Entity | string> {
         try {
             objeto.createdAt = moment().format().toString();
@@ -60,7 +62,7 @@ export class ServiceGeneral<Entity> {
             const encontrar = await this._repository.findOne(id);
             if (encontrar) {
                 const respuestaEliminar = await this._repository.delete(id);
-                const eliminaExitoso: boolean = respuestaEliminar.raw.affectedRows > 0;
+                const eliminaExitoso: boolean = respuestaEliminar.affected > 0;
                 if (eliminaExitoso) {
                     return new Promise(resolve =>
                         resolve({
@@ -121,10 +123,32 @@ export class ServiceGeneral<Entity> {
         query,
     ): Promise<RespuestaInterface<Entity[]> | string> {
         try {
-            const encontrar = await this._repository.findAndCount({
-                ...query,
-                order: { id: 'DESC' },
+            const orden: any = {id: 'DESC'};
+            const busqueda: any = JSON.parse(query.criterioBusqueda);
+            const skipQB = busqueda.skip;
+            const takeQB = busqueda.take;
+            delete busqueda['skip'];
+            delete busqueda['take'];
+            const atributos = Object.keys(busqueda);
+            atributos.forEach(atributo => {
+                busqueda[atributo] = Like(`%${busqueda[atributo]}%`);
             });
+            const whereOR = []
+            for (const property in busqueda) {
+                const whereORS = {}
+                whereORS[property] = busqueda[property]
+                whereOR.push(whereORS)
+            }
+            const opciones =
+                {
+                    where: [
+                        ...whereOR
+                    ],
+                    order: {...orden},
+                    skip: skipQB,
+                    take: takeQB
+                }
+            const encontrar = await this._repository.findAndCount(opciones);
             if (encontrar[1] > 0) {
                 const resultado: RespuestaBuscarInterface<Entity[]> = {
                     resultado: encontrar[0],
@@ -155,7 +179,7 @@ export class ServiceGeneral<Entity> {
         criteriosPaginacion?,
     ): Promise<RespuestaInterface<Entity[]> | string> {
         try {
-            const orden: any = { id: 'DESC' };
+            const orden: any = {id: 'DESC'};
             const busqueda: any = JSON.parse(JSON.stringify(criteriosPaginacion));
             delete busqueda['skip'];
             delete busqueda['take'];
@@ -166,8 +190,8 @@ export class ServiceGeneral<Entity> {
                     busqueda[atributo] = Like(`%${busqueda[atributo]}%`);
                 });
                 listarTodo = await this._repository.findAndCount({
-                    where: { ...busqueda },
-                    order: { ...orden },
+                    where: {...busqueda},
+                    order: {...orden},
                     skip: criteriosPaginacion.skip,
                     take: criteriosPaginacion.take,
                 });

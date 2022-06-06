@@ -23,13 +23,12 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatOptionModule} from '@angular/material/core';
 import {TableModule} from 'primeng/table';
-import {ToasterModule} from 'angular2-toaster';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatRadioModule} from '@angular/material/radio';
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 import {BreadcrumbModule} from 'primeng/breadcrumb';
 import {MenuModule} from 'primeng/menu';
-
+import {ToastrModule} from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -38,7 +37,6 @@ import {MenuModule} from 'primeng/menu';
     ...ARREGLO_RUTA_COMPONENTES,
     ...ARREGLO_PIPES,
     ...ARREGLO_MODALES,
-    
   ],
   imports: [
     NgbModule,
@@ -60,7 +58,7 @@ import {MenuModule} from 'primeng/menu';
     MatGridListModule,
     MatTabsModule,
     CookieModule.forRoot(),
-    ToasterModule.forRoot(),
+    ToastrModule.forRoot(),
     MatStepperModule,
     MatRadioModule,
     BreadcrumbModule,

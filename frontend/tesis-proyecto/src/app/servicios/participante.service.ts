@@ -7,6 +7,7 @@ import {ParticipanteInterface} from '../constantes/interfaces/participante.inter
 @Injectable()
 export class ParticipanteService {
   url;
+
   constructor(
     private readonly _httpClient: HttpClient
   ) {
@@ -18,9 +19,9 @@ export class ParticipanteService {
       const pathPaginacion = this.url + `?skip=${skip}&take=${take}`;
       return this._httpClient.get(pathPaginacion);
     } else {
-        const busquedaCentro = FUNCIONES_GENERALES.queryAObjeto(busqueda);
-        const pathBusquedaPaginacion = this.url + busquedaCentro + `&skip=${skip}&take=${take}`;
-        return this._httpClient.get(pathBusquedaPaginacion);
+      const busquedaParticipantes = FUNCIONES_GENERALES.queryAObjeto(busqueda);
+      const pathBusquedaPaginacion = this.url + 'personalizada/busqueda' + busquedaParticipantes;
+      return this._httpClient.get(pathBusquedaPaginacion);
     }
   }
 
@@ -34,6 +35,10 @@ export class ParticipanteService {
 
   putParticipante(nuevoParticipante: ParticipanteInterface, idParticipante: number) {
     return this._httpClient.put(this.url + idParticipante, nuevoParticipante);
+  }
+
+  deleteParticipante(idParticipante: number) {
+    return this._httpClient.delete(this.url + idParticipante);
   }
 
   getParticipante(id: number) {

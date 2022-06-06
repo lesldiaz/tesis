@@ -62,6 +62,9 @@ export class CrearEditarParticipanteComponent implements OnInit {
     this.escucharCambiosCampoFuncion();
     this.escucharCambiosCampoNombre();
     this.escucharCambiosFormulario();
+    if (this.participanteEditar) {
+      this.formularioParticipante.patchValue(this.participanteEditar);
+    }
   }
   // LLenar errores
   llenarMensajesErrorCampoNombre(controlNameNombre: AbstractControl) {
