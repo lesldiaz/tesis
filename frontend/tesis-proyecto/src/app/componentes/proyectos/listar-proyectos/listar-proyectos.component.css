@@ -10,6 +10,16 @@
 .texto-blanco {
   color: white;
 }
+.texto-rojo {
+  color: red;
+}
+.texto-botones {
+  color: #17a2b8;
+}
+.texto-excel {
+  color: #20C997;
+}
+
 .separador{
   padding-top: 1rem;
   padding-bottom: 1rem;
@@ -26,10 +36,4 @@
 }
 .negrilla {
   font-weight: bold;
-}
-.texto-rojo {
-  color: red;
-}
-.texto-botones {
-  color: #17a2b8;
 }

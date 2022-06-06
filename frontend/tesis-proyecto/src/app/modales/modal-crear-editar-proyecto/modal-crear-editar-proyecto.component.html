@@ -1,0 +1,16 @@
+<h1 mat-dialog-title class="text-center">{{proyectoCrearEditar | ldtitulomodal }} Proyecto</h1>
+<div mat-dialog-content>
+  <app-crear-editar-proyecto (proyectoACrearOEditar)="recibirProyecto($event)"
+                                 (habilitarBotonSubmit)="habilitarBoton($event)"
+                                 [proyectoEditar]="proyectoCrearEditar"></app-crear-editar-proyecto>
+</div>
+<div mat-dialog-actions>
+  <div class="col-sm-8"></div>
+  <div class="col-sm-2">
+    <button class="btn btn-info texto-blanco" [disabled]="!habilitarBotonSubmit" (click)="enviarDatos()">Aceptar
+    </button>
+  </div>
+  <div class="col-sm-2">
+    <button class="btn btn-outline-dark" (click)="cancelarModal()">Cancelar</button>
+  </div>
+</div>

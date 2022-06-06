@@ -9,9 +9,21 @@ export class ServiceGeneral<Entity> {
 
     async crear(objeto): Promise<Entity | string> {
         try {
-            objeto.createdAt = moment().format().toString();
-            objeto.updatedAt = moment().format().toString();
-            return await this._repository.save(objeto);
+            if (objeto.length > 1) {
+                objeto.forEach(async nuevo => {
+                    nuevo.createdAt = moment().format().toString();
+                    nuevo.updatedAt = moment().format().toString();
+                    await this._repository.save(nuevo);
+                });
+                return new Promise((resolve, reject) =>
+                    resolve('Completo'),
+                );
+            }else{
+                objeto.createdAt = moment().format().toString();
+                objeto.updatedAt = moment().format().toString();
+                return await this._repository.save(objeto);
+            }
+
         } catch (e) {
             return new Promise((resolve, reject) =>
                 reject(`Error de servidor. ${e.name}: ${e.message}`),

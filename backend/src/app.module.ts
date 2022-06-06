@@ -7,6 +7,8 @@ import {TypeOrmModule} from "@nestjs/typeorm";
 import {MODULOS} from "./constantes/modulos";
 import { ParticipanteService } from './modulos/participante/participante.service';
 import { FUNCIONES_GENERALES } from './constantes/metodos/funciones-generales.metodo';
+import { UsuarioService } from './modulos/usuario/usuario.service';
+import { ProyectoService } from './modulos/proyecto/proyecto.service';
 
 @Module({
   imports: [
@@ -28,6 +30,8 @@ import { FUNCIONES_GENERALES } from './constantes/metodos/funciones-generales.me
 export class AppModule {
   constructor(
       private readonly _participanteService: ParticipanteService,
+      private readonly _usuarioService: UsuarioService,
+      private readonly _proyectoService: ProyectoService,
   ) {
     if (CONFIGURACIONES.crearDatosTest) {
       this.datos();
@@ -40,6 +44,14 @@ export class AppModule {
       await FUNCIONES_GENERALES.crearDatos(
           'datos-participante.json',
           this._participanteService,
+      );
+      await FUNCIONES_GENERALES.crearDatos(
+          'datos-usuario.json',
+          this._usuarioService,
+      );
+      await FUNCIONES_GENERALES.crearDatos(
+          'datos-proyecto.json',
+          this._proyectoService,
       );
       console.info('Datos cargados correctamente');
     } catch (e) {

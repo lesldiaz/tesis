@@ -3,6 +3,8 @@ import {TituloModalPipe} from '../pipes/titulo-modal.pipe';
 import {TituloBotonModalPipe} from '../pipes/titulo-boton-modal.pipe';
 import {VerFormularioAsignarRolPipe} from '../pipes/ver-formulario-asignar-rol.pipe';
 import {EstadoAprobacionPipe} from '../pipes/estado.aprobacion.pipe';
+import {TipoProyectoPipe} from '../pipes/tipo-proyecto.pipe';
+import {EstadoProyectoPipe} from '../pipes/estado-proyecto.pipe';
 
 export const ARREGLO_PIPES = [
   EstadoPipe,
@@ -10,4 +12,6 @@ export const ARREGLO_PIPES = [
   TituloBotonModalPipe,
   VerFormularioAsignarRolPipe,
   EstadoAprobacionPipe,
+  TipoProyectoPipe,
+  EstadoProyectoPipe
 ];

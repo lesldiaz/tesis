@@ -2,7 +2,7 @@
   <!--  titulo gestion -->
   <div class="row separador">
     <div class="col-sm-12">
-      <h1 style="text-align: center">Gestión de Participantes</h1>
+      <h1 style="text-align: center">Gestión de Proyectos</h1>
     </div>
   </div>
   <!--  crear/buscar-->
@@ -48,15 +48,21 @@
         <ng-template pTemplate="body" let-participanteFila>
           <tr>
             <td *ngFor="let col of cols">
-              <div *ngIf="col.field === 'nombre'">
+              <div class="text-center" *ngIf="col.field === 'idProyecto'">
                 {{participanteFila[col.field]}}
               </div>
-              <div *ngIf="col.field === 'apellido'">
+              <div *ngIf="col.field === 'nombre'">
 
                 {{participanteFila[col.field]}}
               </div>
-              <div *ngIf="col.field === 'funcion'">
+              <div *ngIf="col.field === 'descripcion'">
                 {{participanteFila[col.field] ? participanteFila[col.field] : 'Ninguna'}}
+              </div>
+              <div *ngIf="col.field === 'proyecto'">
+                <p><b>Estado:</b> {{participanteFila['estado'] | ldestadoproyecto }}</p>
+
+                <p><b>Tipo de Proyecto:</b> {{participanteFila['tipoProyecto'] | ldtiproyecto}}</p>
+                <small *ngIf="participanteFila['duplicado']">Es un proyecto duplicado</small>
               </div>
               <div class="cienporcierto" *ngIf="col.field === 'id'">
                 <button
@@ -65,7 +71,28 @@
                   data-toggle="tooltip"
                   data-placement="top"
                   title="Editar">
-                  <i class="fa fa-pen texto-botones"  aria-hidden="true"></i>
+                  <i class="fa fa-pen texto-botones" aria-hidden="true"></i>
+                </button>
+                <button
+                  class="btn"
+                  data-toggle="tooltip"
+                  data-placement="top"
+                  title="Duplicar Proyecto">
+                  <i class="fa fa-clone texto-botones" aria-hidden="true"></i>
+                </button>
+                <button
+                  class="btn"
+                  data-toggle="tooltip"
+                  data-placement="top"
+                  title="Refinamiento">
+                  <i class="fa fa-gears texto-botones" aria-hidden="true"></i>
+                </button>
+                <button
+                  class="btn"
+                  data-toggle="tooltip"
+                  data-placement="top"
+                  title="Gestionar Participantes">
+                  <i class="fa fa-people-group texto-botones" aria-hidden="true"></i>
                 </button>
                 <button
                   (click)="abrirModalEliminar(participanteFila)"
@@ -74,6 +101,14 @@
                   data-placement="top"
                   title="Eliminar">
                   <i class="fa fa-trash texto-rojo" aria-hidden="true"></i>
+                </button>
+                <button
+                  *ngIf="participanteFila['estado']==='F'"
+                  class="btn"
+                  data-toggle="tooltip"
+                  data-placement="top"
+                  title="Descargar Resultados">
+                  <i class="fa fa-file-excel texto-excel" aria-hidden="true"></i>
                 </button>
               </div>
             </td>
