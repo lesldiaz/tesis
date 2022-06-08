@@ -9,6 +9,7 @@ import {ModalEliminarComponent} from '../modales/modal-eliminar/modal-eliminar.c
 import {
   ModalCrearEditarProyectoComponent
 } from '../modales/modal-crear-editar-proyecto/modal-crear-editar-proyecto.component';
+import {ModalDuplicarProyectoComponent} from '../modales/modal-duplicar-proyecto/modal-duplicar-proyecto.component';
 
 export const ARREGLO_MODALES = [
   ModalCrearEditarUsuarioComponent,
@@ -16,4 +17,5 @@ export const ARREGLO_MODALES = [
   ModalCrearEditarParticipanteComponent,
   ModalEliminarComponent,
   ModalCrearEditarProyectoComponent,
+  ModalDuplicarProyectoComponent,
 ];

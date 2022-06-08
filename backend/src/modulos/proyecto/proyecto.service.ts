@@ -1,10 +1,12 @@
 import {Injectable} from '@nestjs/common';
 import {ServiceGeneral} from "../../constantes/clases-genericas/service.generico";
 import {ProyectoEntity} from "./proyecto.entity";
-import {Repository} from "typeorm";
+import {Like, Repository} from "typeorm";
 import {InjectRepository} from "@nestjs/typeorm";
 import {FUNCIONES_GENERALES} from 'src/constantes/metodos/funciones-generales.metodo';
 import * as moment from 'moment';
+import {RespuestaInterface} from 'src/interfaces/respuesta.interface';
+import {RespuestaBuscarInterface} from 'src/interfaces/respuesta.buscar.interface';
 
 @Injectable()
 export class ProyectoService extends ServiceGeneral<ProyectoEntity> {
@@ -69,6 +71,90 @@ export class ProyectoService extends ServiceGeneral<ProyectoEntity> {
         } catch (e) {
             return new Promise((resolve, reject) =>
                 reject(`Error de servidor. ${e.name}: ${e.message}`),
+            );
+        }
+    }
+
+    async listarTodos(
+        criteriosPaginacion?,
+    ): Promise<RespuestaInterface<ProyectoEntity[]> | string> {
+        try {
+            const orden: any = {id: 'DESC'};
+            const opcionesBusqueda: any = {
+                skip: criteriosPaginacion.skip,
+                take: criteriosPaginacion.take,
+            }
+            delete criteriosPaginacion['skip'];
+            delete criteriosPaginacion['take'];
+            let listarTodo;
+            if (criteriosPaginacion) {
+                const atributosRep = Object.keys(criteriosPaginacion);
+                atributosRep.forEach(atributo => {
+                    if (atributo === 'usuario') {
+                        criteriosPaginacion[atributo] = JSON.parse(criteriosPaginacion[atributo]); // mandar con comillas el atributo
+                    } else if (atributo !== 'id') {
+                        criteriosPaginacion[atributo] = Like(`%${criteriosPaginacion[atributo]}%`);
+                    }
+                });
+                const whereOR = [];
+                for (const property in criteriosPaginacion) {
+                    const whereORS = {}
+                    if (property !== 'usuario') {
+                        whereORS[property] = criteriosPaginacion[property];
+                        if (criteriosPaginacion['usuario']) {
+                            whereORS['usuario'] = criteriosPaginacion['usuario'];
+                        }
+                        whereOR.push(whereORS);
+                    }
+                }
+                if(whereOR.length === 0 && criteriosPaginacion['usuario']){
+                    whereOR.push({
+                        usuario: criteriosPaginacion['usuario']
+                    });
+                }
+                console.log(whereOR);
+                listarTodo = await this._proyectoRepository.findAndCount({
+                    where: [
+                        ...whereOR
+                    ],
+                    relations: ['usuario', 'requerimiento', 'participanteProyecto'],
+                    order: {...orden},
+                    skip: opcionesBusqueda.skip,
+                    take: opcionesBusqueda.take
+                });
+            } else {
+                listarTodo = await this._proyectoRepository.findAndCount({
+                    relations: ['usuario', 'requerimiento', 'participanteProyecto'],
+                    ...criteriosPaginacion,
+                    order: {
+                        id: 'DESC',
+                    },
+                    skip: criteriosPaginacion.skip,
+                    take: criteriosPaginacion.take,
+                });
+            }
+            if (listarTodo[1] > 0) {
+                const resultado: RespuestaBuscarInterface<ProyectoEntity[]> = {
+                    resultado: listarTodo[0],
+                    totalResultados: listarTodo[1],
+                };
+                return new Promise(resolve =>
+                    resolve({
+                        mensaje: resultado,
+                        codigoRespuesta: 200,
+                    }),
+                );
+            } else {
+                return new Promise(resolve =>
+                    resolve({
+                        mensaje: 'No existen resultados',
+                        codigoRespuesta: 404,
+                    }),
+                );
+            }
+        } catch (e) {
+            return new Promise((resolve, reject) =>
+                reject(`Error de Servidor. ${e.name}: ${e.message}`),
             );
         }
     }

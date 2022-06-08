@@ -1,12 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
-import {ActivatedRoute, Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
-import { debounceTime } from 'rxjs';
-import { ModalCrearEditarProyectoComponent } from 'src/app/modales/modal-crear-editar-proyecto/modal-crear-editar-proyecto.component';
-import { ModalEliminarComponent } from 'src/app/modales/modal-eliminar/modal-eliminar.component';
-import { ProyectoService } from 'src/app/servicios/proyecto.service';
+import {Component, OnInit} from '@angular/core';
+import {FormControl, FormGroup} from '@angular/forms';
+import {MatDialog} from '@angular/material/dialog';
+import {ActivatedRoute, Router} from '@angular/router';
+import {ToastrService} from 'ngx-toastr';
+import {debounceTime} from 'rxjs';
+import {
+  ModalCrearEditarProyectoComponent
+} from 'src/app/modales/modal-crear-editar-proyecto/modal-crear-editar-proyecto.component';
+import { ModalDuplicarProyectoComponent } from 'src/app/modales/modal-duplicar-proyecto/modal-duplicar-proyecto.component';
+import {ModalEliminarComponent} from 'src/app/modales/modal-eliminar/modal-eliminar.component';
+import {ProyectoService} from 'src/app/servicios/proyecto.service';
 
 @Component({
   selector: 'app-listar-proyectos',
@@ -14,7 +17,8 @@ import { ProyectoService } from 'src/app/servicios/proyecto.service';
   styleUrls: ['./listar-proyectos.component.css']
 })
 export class ListarProyectosComponent implements OnInit {
-  participantes: any[] = [];
+  proyectos: any[] = [];
+  usuarioActual: number = -1;
   cols: any[] = [
     {field: 'idProyecto', header: 'Identificador'},
     {field: 'nombre', header: 'Nombre'},
@@ -23,16 +27,17 @@ export class ListarProyectosComponent implements OnInit {
     {field: 'id', header: 'Opciones'}
   ];
   total: number = 0;
-  formularioBuscarParticipante: FormGroup;
+  formularioBuscarProyecto: FormGroup;
 
-  constructor(private readonly _participanteService: ProyectoService,
+  constructor(private readonly _proyectoService: ProyectoService,
               private readonly _toasterService: ToastrService,
               private readonly _route: Router,
               private readonly _dialog: MatDialog,
               private readonly _activatedRoute: ActivatedRoute) {
-    this.formularioBuscarParticipante = new FormGroup({
+    this.formularioBuscarProyecto = new FormGroup({
       terminoBusqueda: new FormControl('')
     });
+    this.usuarioActual = 5;
   }
 
   ngOnInit(): void {
@@ -40,7 +45,7 @@ export class ListarProyectosComponent implements OnInit {
   }
 
   escucharCambiosCampoTerminoBusqueda() {
-    const campoTerminoBusqueda$ = this.formularioBuscarParticipante.get('terminoBusqueda');
+    const campoTerminoBusqueda$ = this.formularioBuscarProyecto.get('terminoBusqueda');
     campoTerminoBusqueda$?.valueChanges
       .pipe(
         debounceTime(1000)
@@ -50,12 +55,11 @@ export class ListarProyectosComponent implements OnInit {
         if (campoBusqueda) {
           const queryBusqueda = {
             nombre: campoBusqueda,
-            apellido: campoBusqueda,
-            funcion: campoBusqueda,
+            descripcion: campoBusqueda,
           };
-          this._route.navigate(['/participantes'], {queryParams: queryBusqueda});
+          this._route.navigate(['/proyectos'], {queryParams: queryBusqueda});
         } else {
-          this._route.navigate(['/participantes']);
+          this._route.navigate(['/proyectos']);
         }
       });
   }
@@ -63,26 +67,28 @@ export class ListarProyectosComponent implements OnInit {
   cargarMasDatos($event: any) {
     this._activatedRoute.queryParams.subscribe(
       parametroRuta => {
-        let getParticipantes$;
+        let getProyectos$;
         if (parametroRuta) {
           const criterioBusqueda = {
-            criterioBusqueda: {
-              ...parametroRuta,
-              skip: $event.first,
-              take: 5
+            ...parametroRuta,
+            usuario: {
+              id: this.usuarioActual
             }
           };
-          getParticipantes$ = this._participanteService.getParticipantes($event.first, 5, criterioBusqueda);
+          getProyectos$ = this._proyectoService.getProyectosFiltro($event.first, 5, criterioBusqueda);
         } else {
-          
-          getParticipantes$ = this._participanteService.getParticipantes($event.first, 5);
+          const criterioBusqueda = {
+            usuario: {
+              id: this.usuarioActual
+            }
+          };
+          getProyectos$ = this._proyectoService.getProyectosFiltro($event.first, 5, criterioBusqueda);
         }
-        getParticipantes$
+        getProyectos$
           .subscribe(
-            (participantes: any) => {
-              this.participantes = participantes.mensaje.resultado;
-              this.total = participantes.mensaje.totalResultados;
-              console.log(this.participantes)
+            (proyectos: any) => {
+              this.proyectos = proyectos.mensaje.resultado;
+              this.total = proyectos.mensaje.totalResultados;
             },
             (error: any) => {
               console.error(error);
@@ -90,7 +96,7 @@ export class ListarProyectosComponent implements OnInit {
           );
       }
     );
-    
+
   }
 
   abrirModalCrear() {
@@ -102,17 +108,17 @@ export class ListarProyectosComponent implements OnInit {
       .subscribe(
         respuestaModalCrear => {
           if (respuestaModalCrear) {
-            this._participanteService.postParticipante(respuestaModalCrear)
+            this._proyectoService.postProyecto(respuestaModalCrear)
               .subscribe(
                 value => {
-                  this.participantes.unshift(value);
-                  if (this.participantes.length > 5) {
-                    this.participantes.pop();
+                  this.proyectos.unshift(value);
+                  if (this.proyectos.length > 5) {
+                    this.proyectos.pop();
                   }
-                  this._toasterService.success('Registro creado correctamente','Éxito');
+                  this._toasterService.success('Registro creado correctamente', 'Éxito');
                 },
                 error => {
-                  console.error('Error al crear participante', error);
+                  console.error('Error al crear proyecto', error);
                 }
               );
           }
@@ -123,26 +129,25 @@ export class ListarProyectosComponent implements OnInit {
       );
   }
 
-
-  abrirModalEditar(filaParticipante: any) {
+  abrirModalEditar(filaProyecto: any) {
     const modalEditar = this._dialog.open(ModalCrearEditarProyectoComponent, {
       width: '600px',
-      data: filaParticipante
+      data: filaProyecto
     });
     modalEditar.afterClosed()
       .subscribe(
-        participanteActualizado => {
-          if (participanteActualizado) {
-            this._participanteService.putParticipante(participanteActualizado, filaParticipante.id)
+        proyectoActualizado => {
+          if (proyectoActualizado) {
+            this._proyectoService.putProyecto(proyectoActualizado, filaProyecto.id)
               .subscribe(
                 value => {
-                  filaParticipante.nombre = participanteActualizado.nombre;
-                  filaParticipante.apellido = participanteActualizado.apellido;
-                  filaParticipante.funcion = participanteActualizado.funcion;
-                  this._toasterService.success('Registro editado correctamente','Éxito');
+                  filaProyecto.nombre = proyectoActualizado.nombre;
+                  filaProyecto.apellido = proyectoActualizado.apellido;
+                  filaProyecto.funcion = proyectoActualizado.funcion;
+                  this._toasterService.success('Registro editado correctamente', 'Éxito');
                 },
                 error => {
-                  console.error('Error al actualizar participante', error);
+                  console.error('Error al actualizar proyecto', error);
                 }
               );
           }
@@ -152,30 +157,62 @@ export class ListarProyectosComponent implements OnInit {
         }
       );
   }
-
-  abrirModalEliminar(filaParticipante: any) {
+  
+  abrirModalDuplicar(filaProyecto: any) {
+    const modalEditar = this._dialog.open(ModalDuplicarProyectoComponent, {
+      width: '600px',
+      data: filaProyecto
+    });
+    modalEditar.afterClosed()
+      .subscribe(
+        proyectoADuplicar => {
+          if (proyectoADuplicar) {
+            const proyectoDuplicado = proyectoADuplicar
+            proyectoDuplicado.duplicado = 1;
+            this._proyectoService.postProyecto(proyectoDuplicado)
+              .subscribe(
+                value => {
+                  this.proyectos.unshift(proyectoDuplicado);
+                  if (this.proyectos.length > 5) {
+                    this.proyectos.pop();
+                  }
+                  this._toasterService.success('Registro duplicado correctamente', 'Éxito');
+                },
+                error => {
+                  console.error('Error al actualizar proyecto', error);
+                }
+              );
+          }
+        },
+        error => {
+          console.error('Error al cerrar modal editar', error);
+        }
+      );
+  }
+  
+  abrirModalEliminar(filaProyecto: any) {
     const modalEliminar = this._dialog.open(ModalEliminarComponent, {
       width: '600px',
-      data: filaParticipante
+      data: filaProyecto
     });
     modalEliminar.afterClosed()
       .subscribe(
-        participanteActualizado => {
-          if (participanteActualizado) {
-            this._participanteService.deleteParticipante(filaParticipante.id)
+        proyectoActualizado => {
+          if (proyectoActualizado) {
+            this._proyectoService.deleteProyecto(filaProyecto.id)
               .subscribe(
                 value => {
-                  //this.participantes = FUNCIONES_GENERALES.eliminarElemento(this.participantes, filaParticipante);
-                  this.participantes.indexOf(filaParticipante) < 0
-                    ? this.participantes
-                    : this.participantes.splice(this.participantes.indexOf(filaParticipante), 1);
-                  this.participantes = [...this.participantes];
-                  this._toasterService.info('Registro eliminado','Éxito');
+                  //this.proyectos = FUNCIONES_GENERALES.eliminarElemento(this.proyectos, filaProyecto);
+                  this.proyectos.indexOf(filaProyecto) < 0
+                    ? this.proyectos
+                    : this.proyectos.splice(this.proyectos.indexOf(filaProyecto), 1);
+                  this.proyectos = [...this.proyectos];
+                  this._toasterService.info('Registro eliminado', 'Éxito');
 
                 },
                 error => {
-                  this._toasterService.error('Ocurrió un error al eliminar','Error');
-                  console.error('Error al eliminar participante', error);
+                  this._toasterService.error('Ocurrió un error al eliminar', 'Error');
+                  console.error('Error al eliminar proyecto', error);
                 }
               );
           }

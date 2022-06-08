@@ -47,8 +47,6 @@ export const FUNCIONES_GENERALES = {
     return datosTratados;
   },
   leerPlantillaRequerimientos: (event: any) => {
-    //onFileChange(event: any)
-    //<input type="file" (change)="onFileChange($event)">
     const target: DataTransfer = <DataTransfer>(event.target);
     if (target.files.length !== 1) {
       throw new Error('Cannot use multiple files');

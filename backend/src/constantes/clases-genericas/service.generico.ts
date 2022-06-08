@@ -18,7 +18,7 @@ export class ServiceGeneral<Entity> {
                 return new Promise((resolve, reject) =>
                     resolve('Completo'),
                 );
-            }else{
+            } else {
                 objeto.createdAt = moment().format().toString();
                 objeto.updatedAt = moment().format().toString();
                 return await this._repository.save(objeto);
@@ -147,9 +147,9 @@ export class ServiceGeneral<Entity> {
             });
             const whereOR = []
             for (const property in busqueda) {
-                const whereORS = {}
-                whereORS[property] = busqueda[property]
-                whereOR.push(whereORS)
+                const whereORS = {};
+                whereORS[property] = busqueda[property];
+                whereOR.push(whereORS);
             }
             const opciones =
                 {
@@ -159,7 +159,7 @@ export class ServiceGeneral<Entity> {
                     order: {...orden},
                     skip: skipQB,
                     take: takeQB
-                }
+                };
             const encontrar = await this._repository.findAndCount(opciones);
             if (encontrar[1] > 0) {
                 const resultado: RespuestaBuscarInterface<Entity[]> = {
@@ -181,6 +181,7 @@ export class ServiceGeneral<Entity> {
                 );
             }
         } catch (e) {
+            console.error(e);
             return new Promise((resolve, reject) =>
                 reject(`Error de Servidor. ${e.name}: ${e.message}`),
             );

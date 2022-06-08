@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {FUNCIONES_GENERALES} from '../constantes/funciones-generales';
 import {ProyectoInterface} from '../constantes/interfaces/proyecto.interface';
+import { BusquedaProyectoInterface } from '../constantes/interfaces/busqueda-proyecto.interface';
 
 
 @Injectable()
@@ -15,34 +16,58 @@ export class ProyectoService {
     this.url = environment.urlProyecto;
   }
 
-  getParticipantes(skip: number, take: number, busqueda?: object) {
+  getProyectos(skip: number, take: number, busqueda?: object) {
     if (!busqueda) {
       const pathPaginacion = this.url + `?skip=${skip}&take=${take}`;
       return this._httpClient.get(pathPaginacion);
     } else {
-      const busquedaParticipantes = FUNCIONES_GENERALES.queryAObjeto(busqueda);
-      const pathBusquedaPaginacion = this.url + 'personalizada/busqueda' + busquedaParticipantes;
+      const busquedaProyectos = FUNCIONES_GENERALES.queryAObjeto(busqueda);
+      const pathBusquedaPaginacion = this.url + 'personalizada/busqueda' + busquedaProyectos;
       return this._httpClient.get(pathBusquedaPaginacion);
     }
   }
 
-  getAllParticipantes() {
+  getProyectosFiltro(skip: number, take: number, busqueda?: BusquedaProyectoInterface) {
+    if (!busqueda) {
+      const pathPaginacion = this.url + `?skip=${skip}&take=${take}`;
+      return this._httpClient.get(pathPaginacion);
+    } else {
+      if (busqueda.usuario) {
+        const busquedaPorUsuario = JSON.stringify(busqueda.usuario);
+        delete busqueda.usuario;
+        if (Object.keys(busqueda).length > 0){
+          const busquedaProyecto = FUNCIONES_GENERALES.queryAObjeto(busqueda);
+          const pathBusquedaPaginacion = this.url  + busquedaProyecto + `&usuario=${busquedaPorUsuario}`+ `&skip=${skip}&take=${take}`;
+          return this._httpClient.get(pathBusquedaPaginacion);
+        } else {
+          const pathBusquedaPaginacion = this.url + `?usuario=${busquedaPorUsuario}`+ `&skip=${skip}&take=${take}`;
+          return this._httpClient.get(pathBusquedaPaginacion);
+        }
+      } else {
+        const busquedaCentro = FUNCIONES_GENERALES.queryAObjeto(busqueda);
+        const pathBusquedaPaginacion = this.url + busquedaCentro + `&skip=${skip}&take=${take}`;
+        return this._httpClient.get(pathBusquedaPaginacion);
+      }
+    }
+  }
+
+  getAllProyectos() {
     return this._httpClient.get(this.url);
   }
 
-  postParticipante(nuevoParticipante: ProyectoInterface) {
-    return this._httpClient.post(this.url, nuevoParticipante);
+  postProyecto(nuevoProyecto: ProyectoInterface) {
+    return this._httpClient.post(this.url, nuevoProyecto);
   }
 
-  putParticipante(nuevoParticipante: ProyectoInterface, idParticipante: number) {
-    return this._httpClient.put(this.url + idParticipante, nuevoParticipante);
+  putProyecto(nuevoProyecto: ProyectoInterface, idProyecto: number) {
+    return this._httpClient.put(this.url + idProyecto, nuevoProyecto);
   }
 
-  deleteParticipante(idParticipante: number) {
-    return this._httpClient.delete(this.url + idParticipante);
+  deleteProyecto(idProyecto: number) {
+    return this._httpClient.delete(this.url + idProyecto);
   }
 
-  getParticipante(id: number) {
+  getProyecto(id: number) {
     return this._httpClient.get(this.url + id);
   }
 }

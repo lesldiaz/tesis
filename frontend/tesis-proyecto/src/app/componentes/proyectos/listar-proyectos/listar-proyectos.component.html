@@ -12,7 +12,7 @@
       <button class="btn texto-blanco cienporcierto btn-info" (click)="abrirModalCrear()" type="button">Crear</button>
     </div>
     <div class="col-sm-10">
-      <form [formGroup]="formularioBuscarParticipante" novalidate>
+      <form [formGroup]="formularioBuscarProyecto" novalidate>
         <div class="row">
           <div class="col-sm-2" id="labelbusqueda">
             <label for="terminoBusqueda">Buscar: </label>
@@ -32,7 +32,7 @@
   <!--  tabla-->
   <div class="row separador-top">
     <div class="col-sm-12">
-      <p-table [responsive]="true" [value]="participantes"
+      <p-table [responsive]="true" [value]="proyectos"
                [paginator]="true"
                [lazy]="true"
                (onLazyLoad)="cargarMasDatos($event)"
@@ -45,28 +45,28 @@
             </th>
           </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-participanteFila>
+        <ng-template pTemplate="body" let-proyectoFila>
           <tr>
             <td *ngFor="let col of cols">
               <div class="text-center" *ngIf="col.field === 'idProyecto'">
-                {{participanteFila[col.field]}}
+                {{proyectoFila[col.field]}}
               </div>
               <div *ngIf="col.field === 'nombre'">
 
-                {{participanteFila[col.field]}}
+                {{proyectoFila[col.field]}}
               </div>
               <div *ngIf="col.field === 'descripcion'">
-                {{participanteFila[col.field] ? participanteFila[col.field] : 'Ninguna'}}
+                {{proyectoFila[col.field] ? proyectoFila[col.field] : 'Ninguna'}}
               </div>
               <div *ngIf="col.field === 'proyecto'">
-                <p><b>Estado:</b> {{participanteFila['estado'] | ldestadoproyecto }}</p>
+                <p><b>Estado:</b> {{proyectoFila['estado'] | ldestadoproyecto }}</p>
 
-                <p><b>Tipo de Proyecto:</b> {{participanteFila['tipoProyecto'] | ldtiproyecto}}</p>
-                <small *ngIf="participanteFila['duplicado']">Es un proyecto duplicado</small>
+                <p><b>Tipo de Proyecto:</b> {{proyectoFila['tipoProyecto'] | ldtiproyecto}}</p>
+                <small *ngIf="proyectoFila['duplicado']">Es un proyecto duplicado</small>
               </div>
               <div class="cienporcierto" *ngIf="col.field === 'id'">
                 <button
-                  (click)="abrirModalEditar(participanteFila)"
+                  (click)="abrirModalEditar(proyectoFila)"
                   class="btn"
                   data-toggle="tooltip"
                   data-placement="top"
@@ -74,6 +74,7 @@
                   <i class="fa fa-pen texto-botones" aria-hidden="true"></i>
                 </button>
                 <button
+                  (click)="abrirModalDuplicar(proyectoFila)"
                   class="btn"
                   data-toggle="tooltip"
                   data-placement="top"
@@ -91,11 +92,11 @@
                   class="btn"
                   data-toggle="tooltip"
                   data-placement="top"
-                  title="Gestionar Participantes">
+                  title="Gestionar Proyectos">
                   <i class="fa fa-people-group texto-botones" aria-hidden="true"></i>
                 </button>
                 <button
-                  (click)="abrirModalEliminar(participanteFila)"
+                  (click)="abrirModalEliminar(proyectoFila)"
                   class="btn"
                   data-toggle="tooltip"
                   data-placement="top"
@@ -103,7 +104,7 @@
                   <i class="fa fa-trash texto-rojo" aria-hidden="true"></i>
                 </button>
                 <button
-                  *ngIf="participanteFila['estado']==='F'"
+                  *ngIf="proyectoFila['estado']==='F'"
                   class="btn"
                   data-toggle="tooltip"
                   data-placement="top"
