@@ -1,7 +1,9 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import {AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { debounceTime } from 'rxjs';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
+import {ActivatedRoute, Router} from '@angular/router';
+import {debounceTime} from 'rxjs';
+import { TipoProyectoInterface } from 'src/app/constantes/interfaces/tipo-proyecto.interface';
+
 
 @Component({
   selector: 'app-crear-editar-proyecto',
@@ -9,63 +11,66 @@ import { debounceTime } from 'rxjs';
   styleUrls: ['./crear-editar-proyecto.component.css']
 })
 export class CrearEditarProyectoComponent implements OnInit {
-  formularioParticipante: FormGroup;
+  formularioProyecto: FormGroup;
+  tiposProyecto: TipoProyectoInterface[] = [];
+  tipoProyectoSeleccionado: TipoProyectoInterface | undefined;
   @Input() proyectoEditar: any;
   @Output() proyectoACrearOEditar: EventEmitter<object> = new EventEmitter<object>();
   @Output() habilitarBotonSubmit: EventEmitter<boolean> = new EventEmitter<boolean>();
   arregloMensajesErrorCampoNombre: string [] = [];
-  arregloMensajesErrorCampoApellido: string [] = [];
-  arregloMensajesErrorCampoFuncion: string [] = [];
+  arregloMensajesErrorCampoDescripcion: string [] = [];
+  arregloMensajesErrorCampoTipoProyecto: string [] = [];
   mensajesErrorCampoNombre = {
     required: 'El campo nombre es requerido',
-    maxlength: 'El campo nombre debe contener máximo 200 caracteres',
-    pattern: 'El campo nombre debe contener solo letras'
+    maxlength: 'El campo nombre debe contener máximo 100 caracteres',
+    pattern: 'El campo nombre debe contener solo letras y números'
   };
-  mensajesErrorCampoApellido = {
-    required: 'El campo apellido es requerido',
-    maxlength: 'El campo apellido debe contener máximo 200 caracteres',
-    pattern: 'El campo apellido debe contener solo letras',
+  mensajesErrorCampoDescripcion = {
+    required: 'El campo descripción es requerido',
+    maxlength: 'El campo descripción debe contener máximo 255 caracteres',
   };
-  mensajesErrorCampoFuncion = {
-    required: 'El campo función es requerido',
-    maxlength: 'El campo función debe contener máximo 200 caracteres',
-    pattern: 'El campo función debe contener solo letras',
+  mensajesErrorCampoTipoProyecto = {
+    required: 'El tipo de proyecto es requerido'
   };
 
 
   formularioValido: any;
+
   constructor(
     private readonly _activatedRoute: ActivatedRoute,
     private readonly _route: Router) {
-    this.formularioParticipante = new FormGroup({
+    this.formularioProyecto = new FormGroup({
       nombre: new FormControl('', [
         Validators.required,
-        Validators.maxLength(200),
-        Validators.pattern('[a-zA-ZñÑáéíóúÁÉÍÓÚ\\s]+')
+        Validators.maxLength(100),
+        Validators.pattern('[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9\\s]+')
       ]),
-      apellido: new FormControl('', [
+      descripcion: new FormControl('', [
         Validators.required,
-        Validators.maxLength(200),
-        Validators.pattern('[a-zA-ZñÑáéíóúÁÉÍÓÚ\\s]+')
+        Validators.maxLength(255),
       ]),
-      funcion: new FormControl('', [
+      tipoProyecto: new FormControl('', [
         Validators.required,
-        Validators.maxLength(200),
-        Validators.pattern('[a-zA-ZñÑáéíóúÁÉÍÓÚ\\s]+')
+
       ])
     });
+    this.tiposProyecto = [
+      {nombre: 'Requerimientos de Cliente', codigo: 'C'},
+      {nombre: 'Requerimientos de Juego Serio', codigo: 'J'},
+    ];
     this.habilitarBotonSubmit.emit(false);
   }
 
   ngOnInit(): void {
-    this.escucharCambiosCampoApellido();
-    this.escucharCambiosCampoFuncion();
+    this.escucharCambiosCampoDescripcion();
+    this.escucharCambiosCampoTipoProyecto();
     this.escucharCambiosCampoNombre();
     this.escucharCambiosFormulario();
     if (this.proyectoEditar) {
-      this.formularioParticipante.patchValue(this.proyectoEditar);
+      this.formularioProyecto.patchValue(this.proyectoEditar);
     }
   }
+
   // LLenar errores
   llenarMensajesErrorCampoNombre(controlNameNombre: AbstractControl) {
     this.arregloMensajesErrorCampoNombre = [];
@@ -74,64 +79,71 @@ export class CrearEditarProyectoComponent implements OnInit {
         .map((error) => (this.mensajesErrorCampoNombre as any)[error]);
     }
   }
-  llenarMensajesErrorCampoApellido(controlNameApellido: AbstractControl) {
-    this.arregloMensajesErrorCampoApellido = [];
-    if (controlNameApellido.errors && (controlNameApellido.dirty || controlNameApellido.touched)) {
-      this.arregloMensajesErrorCampoApellido = Object.keys(controlNameApellido.errors)
-        .map((error) => (this.mensajesErrorCampoApellido as any)[error]);
+
+  llenarMensajesErrorCampoDescripcion(controlNameDescripcion: AbstractControl) {
+    this.arregloMensajesErrorCampoDescripcion = [];
+    if (controlNameDescripcion.errors && (controlNameDescripcion.dirty || controlNameDescripcion.touched)) {
+      this.arregloMensajesErrorCampoDescripcion = Object.keys(controlNameDescripcion.errors)
+        .map((error) => (this.mensajesErrorCampoDescripcion as any)[error]);
     }
   }
-  llenarMensajesErrorCampoFuncion(controlNameFuncion: AbstractControl) {
-    this.arregloMensajesErrorCampoFuncion = [];
-    if (controlNameFuncion.errors && (controlNameFuncion.dirty || controlNameFuncion.touched)) {
-      this.arregloMensajesErrorCampoFuncion = Object.keys(controlNameFuncion.errors)
-        .map((error: string) => (this.mensajesErrorCampoFuncion as any)[error]);
+
+  llenarMensajesErrorCampoTipoProyecto(controlNameTipoProyecto: AbstractControl) {
+    this.arregloMensajesErrorCampoTipoProyecto = [];
+    if (controlNameTipoProyecto.errors && (controlNameTipoProyecto.dirty || controlNameTipoProyecto.touched)) {
+      this.arregloMensajesErrorCampoTipoProyecto = Object.keys(controlNameTipoProyecto.errors)
+        .map((error: string) => (this.mensajesErrorCampoTipoProyecto as any)[error]);
     }
   }
+
   // Escucha cambios de campos
   escucharCambiosFormulario() {
-    this.formularioParticipante.valueChanges
+    this.formularioProyecto.valueChanges
       .pipe(
         debounceTime(1000)
       )
       .subscribe((valoresFormulario: any) => {
-        const esFormularioValido: boolean = this.formularioParticipante.valid;
-        if (!esFormularioValido && (this.formularioParticipante.touched  || this.formularioParticipante.dirty)) {
+        const esFormularioValido: boolean = this.formularioProyecto.valid;
+        if (!esFormularioValido && (this.formularioProyecto.touched || this.formularioProyecto.dirty)) {
           this.formularioValido = false;
         } else {
           this.formularioValido = true;
-          this.enviarFormularioParticipante();
+          this.enviarFormularioProyecto();
         }
       });
   }
+
   escucharCambiosCampoNombre() {
-    const campoNombre$ = this.formularioParticipante.get('nombre');
+    const campoNombre$ = this.formularioProyecto.get('nombre');
     campoNombre$?.valueChanges
       .pipe(
         debounceTime(1000)
       )
       .subscribe((valorNombre: string) => this.llenarMensajesErrorCampoNombre(campoNombre$));
   }
-  escucharCambiosCampoApellido() {
-    const campoApellido$ = this.formularioParticipante.get('apellido');
-    campoApellido$?.valueChanges
+
+  escucharCambiosCampoDescripcion() {
+    const campoDescripcion$ = this.formularioProyecto.get('descripcion');
+    campoDescripcion$?.valueChanges
       .pipe(
         debounceTime(1000)
       )
-      .subscribe((valorApellido: string) => this.llenarMensajesErrorCampoApellido(campoApellido$));
+      .subscribe((valorDescripcion: string) => this.llenarMensajesErrorCampoDescripcion(campoDescripcion$));
   }
-  escucharCambiosCampoFuncion() {
-    const campoFuncion$ = this.formularioParticipante.get('funcion');
-    campoFuncion$?.valueChanges
+
+  escucharCambiosCampoTipoProyecto() {
+    const campoTipoProyecto$ = this.formularioProyecto.get('tipoProyecto');
+    campoTipoProyecto$?.valueChanges
       .pipe(
         debounceTime(1000)
       )
-      .subscribe((valorFuncion: string) => this.llenarMensajesErrorCampoFuncion(campoFuncion$));
+      .subscribe((valorTipoProyecto: string) => this.llenarMensajesErrorCampoTipoProyecto(campoTipoProyecto$));
   }
+
   // Formulario
-  enviarFormularioParticipante() {
+  enviarFormularioProyecto() {
     if (this.formularioValido) {
-      this.proyectoACrearOEditar.emit(this.formularioParticipante.value);
+      this.proyectoACrearOEditar.emit(this.formularioProyecto.value);
       this.habilitarBotonSubmit.emit(true);
     } else {
       console.log('No esta controlado submit desde los inputs');

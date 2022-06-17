@@ -7,7 +7,9 @@ import {debounceTime} from 'rxjs';
 import {
   ModalCrearEditarProyectoComponent
 } from 'src/app/modales/modal-crear-editar-proyecto/modal-crear-editar-proyecto.component';
-import { ModalDuplicarProyectoComponent } from 'src/app/modales/modal-duplicar-proyecto/modal-duplicar-proyecto.component';
+import {
+  ModalDuplicarProyectoComponent
+} from 'src/app/modales/modal-duplicar-proyecto/modal-duplicar-proyecto.component';
 import {ModalEliminarComponent} from 'src/app/modales/modal-eliminar/modal-eliminar.component';
 import {ProyectoService} from 'src/app/servicios/proyecto.service';
 
@@ -37,7 +39,7 @@ export class ListarProyectosComponent implements OnInit {
     this.formularioBuscarProyecto = new FormGroup({
       terminoBusqueda: new FormControl('')
     });
-    this.usuarioActual = 5;
+    this.usuarioActual = 3;
   }
 
   ngOnInit(): void {
@@ -157,39 +159,45 @@ export class ListarProyectosComponent implements OnInit {
         }
       );
   }
-  
+
   abrirModalDuplicar(filaProyecto: any) {
-    const modalEditar = this._dialog.open(ModalDuplicarProyectoComponent, {
+    const modalDuplicar = this._dialog.open(ModalDuplicarProyectoComponent, {
       width: '600px',
       data: filaProyecto
     });
-    modalEditar.afterClosed()
+    modalDuplicar.afterClosed()
       .subscribe(
         proyectoADuplicar => {
           if (proyectoADuplicar) {
-            const proyectoDuplicado = proyectoADuplicar
+
+            const proyectoDuplicado = Object.assign({}, proyectoADuplicar);
             proyectoDuplicado.duplicado = 1;
+            proyectoDuplicado.nombre = proyectoDuplicado.nombre + ' - Copia';
+            proyectoDuplicado.usuario = proyectoDuplicado.usuario.id;
+            delete proyectoDuplicado.idProyecto
+            delete proyectoDuplicado.id
             this._proyectoService.postProyecto(proyectoDuplicado)
               .subscribe(
                 value => {
-                  this.proyectos.unshift(proyectoDuplicado);
+                  console.log(value);
+                  this.proyectos.unshift(value);
                   if (this.proyectos.length > 5) {
                     this.proyectos.pop();
                   }
                   this._toasterService.success('Registro duplicado correctamente', 'Éxito');
                 },
                 error => {
-                  console.error('Error al actualizar proyecto', error);
+                  console.error('Error al duplicar proyecto', error);
                 }
               );
           }
         },
         error => {
-          console.error('Error al cerrar modal editar', error);
+          console.error('Error al cerrar modal duplicar', error);
         }
       );
   }
-  
+
   abrirModalEliminar(filaProyecto: any) {
     const modalEliminar = this._dialog.open(ModalEliminarComponent, {
       width: '600px',

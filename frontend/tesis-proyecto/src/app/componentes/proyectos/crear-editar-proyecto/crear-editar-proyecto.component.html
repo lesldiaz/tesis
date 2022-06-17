@@ -1,4 +1,28 @@
-<form [formGroup]="formularioParticipante" (ngSubmit)="enviarFormularioParticipante()" novalidate>
+<form [formGroup]="formularioProyecto" (ngSubmit)="enviarFormularioProyecto()" novalidate>
+  <div class="row">
+    <div class="col-sm-2 centrarlabel">
+      <label>Tipo de Proyecto</label>
+    </div>
+    <div class="col-sm-10">
+      <p-dropdown
+        id="tipoProyecto"
+        [formControlName]="'tipoProyecto'"
+        [options]="tiposProyecto"
+        optionLabel="nombre"></p-dropdown>
+      <!--<
+        type="text"
+        class="form-control"
+        id="funcion"
+        aria-describedby="direccionlHelp"
+        [formControlName]="'funcion'"
+        placeholder="Ej. Desarrollador">-->
+      <!--<div *ngIf="arregloMensajesErrorCampoTipoProyecto.length > 0" class="alert alert-info" role="alert">
+        <div *ngFor="let mensajeError of arregloMensajesErrorCampoTipoProyecto">
+          <div>{{mensajeError}}</div>
+        </div>
+      </div>-->
+    </div>
+  </div>
   <div class="row">
     <div class="col-sm-2 centrarlabel">
       <label for="nombre">Nombre</label>
@@ -21,39 +45,19 @@
   </div>
   <div class="row">
     <div class="col-sm-2 centrarlabel">
-      <label for="apellido">Apellido</label>
+      <label for="descripcion">Descripción</label>
     </div>
     <div class="col-sm-10">
       <input
         type="text"
         class="form-control"
-        id="apellido"
-        aria-describedby="apellidolHelp"
-        [formControlName]="'apellido'"
-        placeholder="Ej. Perez">
-      <small id="apellidoHelp" class="form-text text-muted">Ingrese el apellido del participante</small>
-      <div *ngIf="arregloMensajesErrorCampoApellido.length > 0" class="alert alert-info" role="alert">
-        <div *ngFor="let mensajeError of arregloMensajesErrorCampoApellido">
-          <div>{{mensajeError}}</div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-sm-2 centrarlabel">
-      <label for="funcion">Función</label>
-    </div>
-    <div class="col-sm-10">
-      <input
-        type="text"
-        class="form-control"
-        id="funcion"
-        aria-describedby="direccionlHelp"
-        [formControlName]="'funcion'"
-        placeholder="Ej. Desarrollador">
-      <small id="funcionHelp" class="form-text text-muted">Ingrese la función que desenvolverá el participante</small>
-      <div *ngIf="arregloMensajesErrorCampoFuncion.length > 0" class="alert alert-info" role="alert">
-        <div *ngFor="let mensajeError of arregloMensajesErrorCampoFuncion">
+        id="descripcion"
+        aria-describedby="descripcionlHelp"
+        [formControlName]="'descripcion'"
+        placeholder="Ej. Proyecto para refinamiento de req. sw">
+      <small id="descripcionHelp" class="form-text text-muted">Ingrese la descripción del proyecto</small>
+      <div *ngIf="arregloMensajesErrorCampoDescripcion.length > 0" class="alert alert-info" role="alert">
+        <div *ngFor="let mensajeError of arregloMensajesErrorCampoDescripcion">
           <div>{{mensajeError}}</div>
         </div>
       </div>

@@ -29,6 +29,7 @@ import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 import {BreadcrumbModule} from 'primeng/breadcrumb';
 import {MenuModule} from 'primeng/menu';
 import {ToastrModule} from 'ngx-toastr';
+import { DropdownModule } from 'primeng/dropdown';
 
 @NgModule({
   declarations: [
@@ -63,6 +64,7 @@ import {ToastrModule} from 'ngx-toastr';
     MatRadioModule,
     BreadcrumbModule,
     MenuModule,
+    DropdownModule,
   ],
   providers: [
     {
