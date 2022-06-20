@@ -10,6 +10,8 @@ import { FUNCIONES_GENERALES } from './constantes/metodos/funciones-generales.me
 import { UsuarioService } from './modulos/usuario/usuario.service';
 import { ProyectoService } from './modulos/proyecto/proyecto.service';
 import { BloqueService } from './modulos/bloque/bloque.service';
+import { RequerimientoService } from './modulos/requerimiento/requerimiento.service';
+import { RolService } from './modulos/rol/rol.service';
 
 @Module({
   imports: [
@@ -34,6 +36,8 @@ export class AppModule {
       private readonly _usuarioService: UsuarioService,
       private readonly _proyectoService: ProyectoService,
       private readonly _bloqueService: BloqueService,
+      private readonly _rolService: RolService,
+      private readonly _requerimientoService: RequerimientoService,
   ) {
     if (CONFIGURACIONES.crearDatosTest) {
       this.datos();
@@ -51,6 +55,10 @@ export class AppModule {
           'datos-usuario.json',
           this._usuarioService,
       );
+      FUNCIONES_GENERALES.crearDatos(
+          'datos-rol.json',
+          this._rolService,
+      );
       await FUNCIONES_GENERALES.crearDatos(
           'datos-proyecto.json',
           this._proyectoService,
@@ -58,6 +66,10 @@ export class AppModule {
       await FUNCIONES_GENERALES.crearDatos(
           'datos-bloque.json',
           this._bloqueService,
+      );
+      await FUNCIONES_GENERALES.crearDatos(
+          'datos-requerimiento.json',
+          this._requerimientoService,
       );
       console.info('Datos cargados correctamente');
     } catch (e) {

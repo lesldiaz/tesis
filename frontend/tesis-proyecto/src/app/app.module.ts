@@ -30,7 +30,7 @@ import {BreadcrumbModule} from 'primeng/breadcrumb';
 import {MenuModule} from 'primeng/menu';
 import {ToastrModule} from 'ngx-toastr';
 import { DropdownModule } from 'primeng/dropdown';
-import { ToggleButtonModule } from 'primeng/togglebutton';
+import {CheckboxModule} from 'primeng/checkbox';
 import { RefinamientoComponent } from './componentes/refinamiento/refinamiento.component';
 
 @NgModule({
@@ -68,7 +68,7 @@ import { RefinamientoComponent } from './componentes/refinamiento/refinamiento.c
     BreadcrumbModule,
     MenuModule,
     DropdownModule,
-    ToggleButtonModule
+    CheckboxModule
   ],
   providers: [
     {

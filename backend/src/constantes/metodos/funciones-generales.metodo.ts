@@ -26,5 +26,11 @@ export const FUNCIONES_GENERALES = {
           const tipoProyecto = objeto.tipoProyecto;
           const nuevoIdProyecto = 'P' + tipoProyecto + idProNum;
           return nuevoIdProyecto;
+  },
+  generarIdRequerimiento: (objeto) => {
+    const idReqNum = objeto.id;
+    const tipoRequerimiento = objeto.tipoProyecto;
+    const nuevoIdRequerimiento = 'R' + tipoRequerimiento + idReqNum;
+    return nuevoIdRequerimiento;
   }
 };
