@@ -1,14 +1,23 @@
-import { EntityGenerico } from 'src/constantes/clases-genericas/entity.generico';
-import {Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryColumn, PrimaryGeneratedColumn} from 'typeorm';
-import { PropositoEntity } from '../proposito/proposito.entity';
-import { ProyectoEntity } from '../proyecto/proyecto.entity';
-import { RequerimientoBloqueEntity } from '../requerimiento-bloque/requerimiento-bloque.entity';
-import { ResultadoEntity } from '../resultado/resultado.entity';
-import { RolEntity } from '../rol/rol.entity';
+import {EntityGenerico} from 'src/constantes/clases-genericas/entity.generico';
+import {
+    Column,
+    Entity,
+    JoinColumn,
+    ManyToOne,
+    OneToMany,
+    OneToOne,
+    PrimaryColumn,
+    PrimaryGeneratedColumn
+} from 'typeorm';
+import {PropositoEntity} from '../proposito/proposito.entity';
+import {ProyectoEntity} from '../proyecto/proyecto.entity';
+import {RequerimientoBloqueEntity} from '../requerimiento-bloque/requerimiento-bloque.entity';
+import {ResultadoEntity} from '../resultado/resultado.entity';
+import {RolEntity} from '../rol/rol.entity';
 
 
 @Entity('requerimiento')
-export class RequerimientoEntity extends EntityGenerico{
+export class RequerimientoEntity extends EntityGenerico {
 
     @Column({
         type: 'varchar',
@@ -64,7 +73,6 @@ export class RequerimientoEntity extends EntityGenerico{
     proyecto: ProyectoEntity | number;
 
 
-
     @OneToOne(
         type => ResultadoEntity,
         resultado => resultado.requerimiento,
@@ -95,11 +103,13 @@ export class RequerimientoEntity extends EntityGenerico{
     )
     requerimientosHijo: RequerimientoEntity[];
 
-    @ManyToOne (
+    @ManyToOne(
         type => RequerimientoEntity,
-        requerimiento => requerimiento.requerimientosHijo
+        requerimiento => requerimiento.requerimientosHijo, {
+            nullable: true
+        }
     )
-    requerimientoPadre: RequerimientoEntity | number;
+    requerimientoPadre?: RequerimientoEntity | number;
 
     // fin relacion arbol
 

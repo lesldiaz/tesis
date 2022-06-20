@@ -9,6 +9,7 @@ import { ParticipanteService } from './modulos/participante/participante.service
 import { FUNCIONES_GENERALES } from './constantes/metodos/funciones-generales.metodo';
 import { UsuarioService } from './modulos/usuario/usuario.service';
 import { ProyectoService } from './modulos/proyecto/proyecto.service';
+import { BloqueService } from './modulos/bloque/bloque.service';
 
 @Module({
   imports: [
@@ -32,6 +33,7 @@ export class AppModule {
       private readonly _participanteService: ParticipanteService,
       private readonly _usuarioService: UsuarioService,
       private readonly _proyectoService: ProyectoService,
+      private readonly _bloqueService: BloqueService,
   ) {
     if (CONFIGURACIONES.crearDatosTest) {
       this.datos();
@@ -52,6 +54,10 @@ export class AppModule {
       await FUNCIONES_GENERALES.crearDatos(
           'datos-proyecto.json',
           this._proyectoService,
+      );
+      await FUNCIONES_GENERALES.crearDatos(
+          'datos-bloque.json',
+          this._bloqueService,
       );
       console.info('Datos cargados correctamente');
     } catch (e) {

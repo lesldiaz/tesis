@@ -8,6 +8,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 export class FlujoTrabajoComponent implements OnInit {
   firstFormGroup: FormGroup = new FormGroup({});
   secondFormGroup: FormGroup = new FormGroup({});
+  thirdFormGroup: FormGroup = new FormGroup({});
   isEditable = false;
   radiobuttons: string | undefined;
   divrbttn:any;

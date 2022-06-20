@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
+import { RequerimientoInterface } from 'src/app/constantes/interfaces/requerimiento.interface';
 
 @Component({
   selector: 'app-metodologia',
@@ -8,6 +9,32 @@ import { MenuItem } from 'primeng/api';
 })
 export class MetodologiaComponent implements OnInit {
   migasPan: MenuItem[]=[];
+  requerimientos: RequerimientoInterface[]=[
+    {
+      idRequerimiento: 'RC1',
+      titulo: 'xyz',
+      descripcion: 'FGSFDSFSDDFSSSF',
+      prioridad: 2,
+      estado: 0,
+      rol: { nombre : 'usuario'},
+      proyecto: 3,
+      resultado: {
+        correcto: 0,
+        apropiado: 0,
+        completo: 0,
+        verificable: 0,
+        factible: 0,
+        sinAmbiguedad: 0,
+        singular: 0,
+        trazable: 0,
+        modificable: 0,
+        consistente: 0,
+        conforme: 0,
+        necesario: 0,
+        observaciones: ''
+    }
+    }
+  ]
   constructor() { }
 
   ngOnInit() {

@@ -1,5 +1,9 @@
 .centrarlabel {
-  text-align-last: center;
+  text-align-last: initial;
   padding-top: 0.5rem;
   font-size: medium;
+}
+
+.separador {
+  margin-bottom: 1rem;
 }

@@ -1,33 +1,22 @@
 <form [formGroup]="formularioProyecto" (ngSubmit)="enviarFormularioProyecto()" novalidate>
-  <div class="row">
-    <div class="col-sm-2 centrarlabel">
+  <div class="row separador">
+    <div class="col-sm-4 centrarlabel">
       <label>Tipo de Proyecto</label>
     </div>
-    <div class="col-sm-10">
+    <div class="col-sm-8">
       <p-dropdown
         id="tipoProyecto"
         [formControlName]="'tipoProyecto'"
         [options]="tiposProyecto"
-        optionLabel="nombre"></p-dropdown>
-      <!--<
-        type="text"
-        class="form-control"
-        id="funcion"
-        aria-describedby="direccionlHelp"
-        [formControlName]="'funcion'"
-        placeholder="Ej. Desarrollador">-->
-      <!--<div *ngIf="arregloMensajesErrorCampoTipoProyecto.length > 0" class="alert alert-info" role="alert">
-        <div *ngFor="let mensajeError of arregloMensajesErrorCampoTipoProyecto">
-          <div>{{mensajeError}}</div>
-        </div>
-      </div>-->
+        optionLabel="nombre"
+      ></p-dropdown>
     </div>
   </div>
   <div class="row">
-    <div class="col-sm-2 centrarlabel">
+    <div class="col-sm-4 centrarlabel">
       <label for="nombre">Nombre</label>
     </div>
-    <div class="col-sm-10">
+    <div class="col-sm-8">
       <input
         type="text"
         class="form-control"
@@ -44,10 +33,10 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-sm-2 centrarlabel">
+    <div class="col-sm-4 centrarlabel">
       <label for="descripcion">Descripción</label>
     </div>
-    <div class="col-sm-10">
+    <div class="col-sm-8">
       <input
         type="text"
         class="form-control"

@@ -4,6 +4,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
 import {debounceTime} from 'rxjs';
+import {TipoProyectoInterface} from 'src/app/constantes/interfaces/tipo-proyecto.interface';
 import {
   ModalCrearEditarProyectoComponent
 } from 'src/app/modales/modal-crear-editar-proyecto/modal-crear-editar-proyecto.component';
@@ -19,6 +20,7 @@ import {ProyectoService} from 'src/app/servicios/proyecto.service';
   styleUrls: ['./listar-proyectos.component.css']
 })
 export class ListarProyectosComponent implements OnInit {
+  tiposProyecto: TipoProyectoInterface[] = [];
   proyectos: any[] = [];
   usuarioActual: number = -1;
   cols: any[] = [
@@ -39,6 +41,10 @@ export class ListarProyectosComponent implements OnInit {
     this.formularioBuscarProyecto = new FormGroup({
       terminoBusqueda: new FormControl('')
     });
+    this.tiposProyecto = [
+      {nombre: 'Requerimientos de Cliente', codigo: 'C'},
+      {nombre: 'Requerimientos de Juego Serio', codigo: 'J'},
+    ];
     this.usuarioActual = 3;
   }
 
@@ -110,6 +116,9 @@ export class ListarProyectosComponent implements OnInit {
       .subscribe(
         respuestaModalCrear => {
           if (respuestaModalCrear) {
+            console.log(respuestaModalCrear);
+            respuestaModalCrear.usuario = this.usuarioActual;
+            respuestaModalCrear.tipoProyecto = respuestaModalCrear.tipoProyecto.codigo;
             this._proyectoService.postProyecto(respuestaModalCrear)
               .subscribe(
                 value => {
@@ -132,6 +141,11 @@ export class ListarProyectosComponent implements OnInit {
   }
 
   abrirModalEditar(filaProyecto: any) {
+
+    filaProyecto.tipoProyecto =
+      this.tiposProyecto.find(valor => {
+        return valor.codigo === filaProyecto.tipoProyecto;
+      });
     const modalEditar = this._dialog.open(ModalCrearEditarProyectoComponent, {
       width: '600px',
       data: filaProyecto
@@ -140,15 +154,17 @@ export class ListarProyectosComponent implements OnInit {
       .subscribe(
         proyectoActualizado => {
           if (proyectoActualizado) {
+            proyectoActualizado.tipoProyecto = proyectoActualizado.tipoProyecto.codigo;
             this._proyectoService.putProyecto(proyectoActualizado, filaProyecto.id)
               .subscribe(
                 value => {
                   filaProyecto.nombre = proyectoActualizado.nombre;
-                  filaProyecto.apellido = proyectoActualizado.apellido;
-                  filaProyecto.funcion = proyectoActualizado.funcion;
+                  filaProyecto.descripcion = proyectoActualizado.descripcion;
+                  filaProyecto.tipoProyecto = proyectoActualizado.tipoProyecto;
                   this._toasterService.success('Registro editado correctamente', 'Éxito');
                 },
                 error => {
+                  this._toasterService.error('Error al actualizar', 'Error');
                   console.error('Error al actualizar proyecto', error);
                 }
               );

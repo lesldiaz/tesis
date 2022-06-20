@@ -30,6 +30,8 @@ import {BreadcrumbModule} from 'primeng/breadcrumb';
 import {MenuModule} from 'primeng/menu';
 import {ToastrModule} from 'ngx-toastr';
 import { DropdownModule } from 'primeng/dropdown';
+import { ToggleButtonModule } from 'primeng/togglebutton';
+import { RefinamientoComponent } from './componentes/refinamiento/refinamiento.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +40,7 @@ import { DropdownModule } from 'primeng/dropdown';
     ...ARREGLO_RUTA_COMPONENTES,
     ...ARREGLO_PIPES,
     ...ARREGLO_MODALES,
+    RefinamientoComponent,
   ],
   imports: [
     NgbModule,
@@ -65,6 +68,7 @@ import { DropdownModule } from 'primeng/dropdown';
     BreadcrumbModule,
     MenuModule,
     DropdownModule,
+    ToggleButtonModule
   ],
   providers: [
     {

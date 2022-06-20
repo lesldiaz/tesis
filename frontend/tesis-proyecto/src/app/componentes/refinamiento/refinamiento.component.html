@@ -1,0 +1,72 @@
+<p-table
+  [value]="requerimientos"
+  [columns]="cols"
+  [scrollable]="true"
+  styleClass="mt-3">
+  <ng-template pTemplate="header" let-columns>
+    <tr>
+      <th class="text-center" *ngFor="let col of cols">
+        {{col.header}}
+      </th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-requerimientoFila>
+    <tr>
+      <td class="text-center">
+        {{requerimientoFila['idRequerimiento']}}
+      </td>
+      <td class="text-center">
+        {{requerimientoFila['descripcion']}}
+      </td>
+      <td class="text-center">
+        {{requerimientoFila['prioridad']}}
+      </td>
+      <td class="text-center" >
+        {{requerimientoFila['requerimientoPadre'] ? requerimientoFila['requerimientoPadre'] : 'Ninguno'}}
+      </td>
+      <td class="text-center">
+        {{requerimientoFila['resultado']['correcto']}}
+      </td>
+      <td class="text-center">
+        {{requerimientoFila['resultado']['apropiado']}}
+      </td>
+      <td class="text-center">
+        {{requerimientoFila['resultado']['completo']}}
+      </td>
+      <td class="text-center">
+        {{requerimientoFila['resultado']['verificable']}}
+      </td>
+      <td class="text-center">
+        {{requerimientoFila['resultado']['factible']}}
+      </td>
+      <td class="text-center">
+        {{requerimientoFila['resultado']['sinAmbiguedad']}}
+      </td>
+      <td class="text-center">
+        {{requerimientoFila['resultado']['singular']}}
+      </td>
+      <td class="text-center">
+        {{requerimientoFila['resultado']['trazable']}}
+      </td>
+      <td class="text-center">
+        {{requerimientoFila['resultado']['modificable']}}
+      </td>
+      <td class="text-center">
+        {{requerimientoFila['resultado']['consistente']}}
+      </td>
+      <td class="text-center">
+        {{requerimientoFila['resultado']['conforme']}}
+      </td>
+      <td class="text-center">
+        {{requerimientoFila['resultado']['necesario']}}
+      </td>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="emptymessage">
+    <tr>
+      <td [attr.colspan]="cols.length+4">
+        No existe resultados
+      </td>
+    </tr>
+  </ng-template>
+</p-table>

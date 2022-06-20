@@ -50,10 +50,10 @@
         <button mat-button matStepperNext>Next</button>
       </div>
     </mat-step>
-    <mat-step label="Refinamiento" editable="false">
-      <p>You're welcome.</p>
+    <mat-step label="Refinamiento" [stepControl]="thirdFormGroup">
+      <app-refinamiento [requerimientos]="[]" [tipoRequerimientos]="'C'"></app-refinamiento>
     </mat-step>
-    <mat-step label="Resultados" editable="false">
+    <mat-step label="Resultados">
       <p>You're welcome.</p>
     </mat-step>
   </mat-stepper>
