@@ -1,12 +1,14 @@
 import {Injectable} from '@nestjs/common';
-import {Repository} from 'typeorm';
+import {Like, Repository} from 'typeorm';
 import {InjectRepository} from "@nestjs/typeorm";
 import {ServiceGeneral} from 'src/constantes/clases-genericas/service.generico';
 import {RequerimientoEntity} from './requerimiento.entity';
 import * as moment from 'moment';
-import { FUNCIONES_GENERALES } from 'src/constantes/metodos/funciones-generales.metodo';
-import { ProyectoEntity } from '../proyecto/proyecto.entity';
-import { ResultadoEntity } from '../resultado/resultado.entity';
+import {FUNCIONES_GENERALES} from 'src/constantes/metodos/funciones-generales.metodo';
+import {ProyectoEntity} from '../proyecto/proyecto.entity';
+import {ResultadoEntity} from '../resultado/resultado.entity';
+import {RespuestaInterface} from 'src/interfaces/respuesta.interface';
+import { RespuestaBuscarInterface } from 'src/interfaces/respuesta.buscar.interface';
 
 @Injectable()
 export class RequerimientoService extends ServiceGeneral<RequerimientoEntity> {
@@ -54,8 +56,8 @@ export class RequerimientoService extends ServiceGeneral<RequerimientoEntity> {
                     }
                     const resultado = {
                         requerimiento: requerimientoCreado.id,
-                        createdAt : moment().format().toString(),
-                        updatedAt : moment().format().toString()
+                        createdAt: moment().format().toString(),
+                        updatedAt: moment().format().toString()
                     };
                     const resultadoRequerimiento = await this._resultadoRepository.save(resultado);
                 });
@@ -96,6 +98,104 @@ export class RequerimientoService extends ServiceGeneral<RequerimientoEntity> {
         } catch (e) {
             return new Promise((resolve, reject) =>
                 reject(`Error de servidor. ${e.name}: ${e.message}`),
+            );
+        }
+    }
+
+    async listarTodos(
+        criteriosPaginacion?,
+    ): Promise<RespuestaInterface<RequerimientoEntity[]> | string> {
+        try {
+            const orden: any = {id: 'DESC'};
+            const opcionesBusqueda: any = {
+                skip: criteriosPaginacion.skip,
+                take: criteriosPaginacion.take,
+            }
+            delete criteriosPaginacion['skip'];
+            delete criteriosPaginacion['take'];
+            let listarTodo;
+            if (criteriosPaginacion) {
+                const atributosRep = Object.keys(criteriosPaginacion);
+                atributosRep.forEach(atributo => {
+                    if (atributo === 'proyecto') {
+                        criteriosPaginacion[atributo] = JSON.parse(criteriosPaginacion[atributo]); // mandar con comillas el atributo
+                    } else if (atributo !== 'id') {
+                        criteriosPaginacion[atributo] = Like(`%${criteriosPaginacion[atributo]}%`);
+                    }
+                });
+                const whereOR = [];
+                for (const property in criteriosPaginacion) {
+                    const whereORS = {}
+                    if (property !== 'proyecto') {
+                        whereORS[property] = criteriosPaginacion[property];
+                        if (criteriosPaginacion['proyecto']) {
+                            whereORS['proyecto'] = criteriosPaginacion['proyecto'];
+                        }
+                        whereOR.push(whereORS);
+                    }
+                }
+                if (whereOR.length === 0 && criteriosPaginacion['proyecto']) {
+                    whereOR.push({
+                        proyecto: criteriosPaginacion['proyecto']
+                    });
+                }
+                listarTodo = await this._requerimientoRepository.findAndCount({
+                    where: [
+                        ...whereOR
+                    ],
+                    relations: [
+                        'rol',
+                        'proyecto',
+                        'requerimientoPadre',
+                        'resultado',
+                        'requerimientoBloque',
+                        'proposito',
+                        'requerimientosHijo'
+                    ],
+                    order: {...orden},
+                    skip: opcionesBusqueda.skip,
+                    take: opcionesBusqueda.take
+                });
+            } else {
+                listarTodo = await this._requerimientoRepository.findAndCount({
+                    relations: ['rol',
+                        'proyecto',
+                        'requerimientoPadre',
+                        'resultado',
+                        'requerimientoBloque',
+                        'proposito',
+                        'requerimientosHijo'
+                    ],
+                    ...criteriosPaginacion,
+                    order: {
+                        id: 'DESC',
+                    },
+                    skip: criteriosPaginacion.skip,
+                    take: criteriosPaginacion.take,
+                });
+            }
+            if (listarTodo[1] > 0) {
+                const resultado: RespuestaBuscarInterface<RequerimientoEntity[]> = {
+                    resultado: listarTodo[0],
+                    totalResultados: listarTodo[1],
+                };
+                return new Promise(resolve =>
+                    resolve({
+                        mensaje: resultado,
+                        codigoRespuesta: 200,
+                    }),
+                );
+            } else {
+                return new Promise(resolve =>
+                    resolve({
+                        mensaje: 'No existen resultados',
+                        codigoRespuesta: 404,
+                    }),
+                );
+            }
+        } catch (e) {
+            return new Promise((resolve, reject) =>
+                reject(`Error de Servidor. ${e.name}: ${e.message}`),
             );
         }
     }

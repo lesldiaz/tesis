@@ -59,7 +59,8 @@ export class RequerimientoEntity extends EntityGenerico {
     @ManyToOne(
         type => RolEntity,
         rol => rol.requerimiento, {
-            nullable: false
+            nullable: false,
+            onDelete: 'CASCADE',
         }
     )
     rol: RolEntity | number;
@@ -67,31 +68,36 @@ export class RequerimientoEntity extends EntityGenerico {
     @ManyToOne(
         type => ProyectoEntity,
         proyecto => proyecto.requerimiento, {
-            nullable: false
+            nullable: false,
+            onDelete: 'CASCADE',
         }
     )
     proyecto: ProyectoEntity | number;
 
 
-    @OneToOne(
+    @OneToMany(
         type => ResultadoEntity,
         resultado => resultado.requerimiento,
         {
-            nullable: true
+            nullable: true,
+            cascade: true
         }
     )
-    @JoinColumn()
-    resultado: ResultadoEntity | number;
+    resultado: ResultadoEntity[];
 
     @OneToMany(
         type => RequerimientoBloqueEntity,
-        requerimientoBloque => requerimientoBloque.requerimiento
+        requerimientoBloque => requerimientoBloque.requerimiento, {
+            cascade: true,
+        }
     )
     requerimientoBloque: RequerimientoBloqueEntity[];
 
     @OneToMany(
         type => PropositoEntity,
-        proposito => proposito.requerimiento
+        proposito => proposito.requerimiento, {
+            cascade: true,
+        }
     )
     proposito: PropositoEntity[];
 
@@ -106,7 +112,8 @@ export class RequerimientoEntity extends EntityGenerico {
     @ManyToOne(
         type => RequerimientoEntity,
         requerimiento => requerimiento.requerimientosHijo, {
-            nullable: true
+            nullable: true,
+            onDelete: 'SET NULL',
         }
     )
     requerimientoPadre?: RequerimientoEntity | number;

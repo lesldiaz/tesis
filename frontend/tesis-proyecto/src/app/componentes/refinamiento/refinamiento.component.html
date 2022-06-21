@@ -5,6 +5,7 @@
       [columns]="cols"
       [responsive]="true"
       [scrollable]="true"
+      scrollDirection="both"
       styleClass="mt-3">
       <ng-template pTemplate="header">
         <tr>
@@ -28,46 +29,46 @@
             {{requerimientoFila['requerimientoPadre'] ? requerimientoFila['requerimientoPadre'] : 'Ninguno'}}
           </td>
           <td class="text-center">
-            <p-checkbox [value]="requerimientoFila['resultado']['correcto']" [binary]="true" (onChange)="cambiarCorrecto($event.checked, requerimientoFila.id)"></p-checkbox>
+            <input class="form-check-input" #correctoCheck type="checkbox"  [checked]="requerimientoFila['resultado']['correcto']" (change)="cambiarCorrecto(correctoCheck.checked, requerimientoFila)">
           </td>
           <td class="text-center">
-            {{requerimientoFila['resultado']['apropiado']}}
+            <input class="form-check-input" #apropiadoCheck type="checkbox"  [checked]="requerimientoFila['resultado']['apropiado']" (change)="cambiarApropiado(apropiadoCheck.checked, requerimientoFila)">
           </td>
           <td class="text-center">
-            {{requerimientoFila['resultado']['completo']}}
+            <input class="form-check-input" #completoCheck type="checkbox"  [checked]="requerimientoFila['resultado']['completo']" (change)="cambiarCompleto(completoCheck.checked, requerimientoFila)">
+            </td>
+          <td class="text-center">
+            <input class="form-check-input" #verificableCheck type="checkbox"  [checked]="requerimientoFila['resultado']['verificable']" (change)="cambiarVerificable(verificableCheck.checked, requerimientoFila)">
           </td>
           <td class="text-center">
-            {{requerimientoFila['resultado']['verificable']}}
+            <input class="form-check-input" #factibleCheck type="checkbox"  [checked]="requerimientoFila['resultado']['factible']" (change)="cambiarFactible(factibleCheck.checked, requerimientoFila)">
           </td>
           <td class="text-center">
-            {{requerimientoFila['resultado']['factible']}}
+            <input class="form-check-input" #sinAmbiguedadCheck type="checkbox"  [checked]="requerimientoFila['resultado']['sinAmbiguedad']" (change)="cambiarSinAmbiguedad(sinAmbiguedadCheck.checked, requerimientoFila)">
           </td>
           <td class="text-center">
-            {{requerimientoFila['resultado']['sinAmbiguedad']}}
+            <input class="form-check-input" #singularCheck type="checkbox"  [checked]="requerimientoFila['resultado']['singular']" (change)="cambiarSingular(singularCheck.checked, requerimientoFila)">
           </td>
           <td class="text-center">
-            {{requerimientoFila['resultado']['singular']}}
+            <input class="form-check-input" #trazableCheck type="checkbox"  [checked]="requerimientoFila['resultado']['trazable']" (change)="cambiarTrazable(trazableCheck.checked, requerimientoFila)">
           </td>
           <td class="text-center">
-            {{requerimientoFila['resultado']['trazable']}}
+            <input class="form-check-input" #modificableCheck type="checkbox"  [checked]="requerimientoFila['resultado']['modificable']" (change)="cambiarModificable(modificableCheck.checked, requerimientoFila)">
           </td>
           <td class="text-center">
-            {{requerimientoFila['resultado']['modificable']}}
+            <input class="form-check-input" #consistenteCheck type="checkbox"  [checked]="requerimientoFila['resultado']['consistente']" (change)="cambiarConsistente(consistenteCheck.checked, requerimientoFila)">
           </td>
           <td class="text-center">
-            {{requerimientoFila['resultado']['consistente']}}
+            <input class="form-check-input" #conformeCheck type="checkbox"  [checked]="requerimientoFila['resultado']['conforme']" (change)="cambiarConforme(conformeCheck.checked, requerimientoFila)">
           </td>
           <td class="text-center">
-            {{requerimientoFila['resultado']['conforme']}}
-          </td>
-          <td class="text-center">
-            {{requerimientoFila['resultado']['necesario']}}
+            <input class="form-check-input" #necesarioCheck type="checkbox"  [checked]="requerimientoFila['resultado']['necesario']" (change)="cambiarNecesario(necesarioCheck.checked, requerimientoFila)">
           </td>
         </tr>
       </ng-template>
       <ng-template pTemplate="emptymessage">
         <tr>
-          <td [attr.colspan]="cols.length+4">
+          <td [attr.colspan]="cols.length">
             No existe resultados
           </td>
         </tr>
@@ -75,4 +76,10 @@
     </p-table>
   </div>
 </div>
+<div class="row">
+  <div class="col-sm-2">
+    <button class="btn btn-outline-dark" (click)="refinar()">Refinar</button>
+  </div>
+</div>
+
 

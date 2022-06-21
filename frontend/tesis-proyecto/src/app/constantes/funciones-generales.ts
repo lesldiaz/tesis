@@ -1,5 +1,8 @@
 import {ExcelPlantillaHuInterface} from "./interfaces/excel-plantilla-hu.interface";
 import * as XLSX from 'xlsx';
+import {RequerimientoInterface} from "./interfaces/requerimiento.interface";
+import {ExcelPlantillaResInterface} from "./interfaces/excel-plantilla-res.interface";
+import {ResultadoInterface} from "./interfaces/resultado.interface";
 
 export const FUNCIONES_GENERALES = {
   queryAObjeto: (objeto: any) => {
@@ -69,6 +72,61 @@ export const FUNCIONES_GENERALES = {
   eliminarElemento: (array: any[], elemento: any) => {
     array.indexOf(elemento) < 0 ? array : array.splice(array.indexOf(elemento), 1);
     return array;
+  },
+  caracteristicasCumplidasCount: (resultado: ResultadoInterface): number => {
+    let caracteristicasNum = 0;
+    if (resultado.correcto) {
+      caracteristicasNum += 1;
+    }
+    if (resultado.apropiado) {
+      caracteristicasNum += 1;
+    }
+    if (resultado.completo) {
+      caracteristicasNum += 1;
+    }
+    if (resultado.verificable) {
+      caracteristicasNum += 1;
+    }
+    if (resultado.factible) {
+      caracteristicasNum += 1;
+    }
+    if (resultado.sinAmbiguedad) {
+      caracteristicasNum += 1;
+    }
+    if (resultado.singular) {
+      caracteristicasNum += 1;
+    }
+    if (resultado.trazable) {
+      caracteristicasNum += 1;
+    }
+    if (resultado.modificable) {
+      caracteristicasNum += 1;
+    }
+    if (resultado.consistente) {
+      caracteristicasNum += 1;
+    }
+    if (resultado.conforme) {
+      caracteristicasNum += 1;
+    }
+    if (resultado.necesario) {
+      caracteristicasNum += 1;
+    }
+    return caracteristicasNum;
+  },
+  generarObjetoResExcel: (requirementos: RequerimientoInterface[]) => {
+    const datosExcel: ExcelPlantillaResInterface[] = [];
+    requirementos.forEach((requerimiento: RequerimientoInterface) => {
+      const objetoExcel: ExcelPlantillaResInterface = {};
+      const resultado = (requerimiento.resultado as ResultadoInterface[])[0];
+      const numReqValidos = FUNCIONES_GENERALES.caracteristicasCumplidasCount(resultado);
+      objetoExcel.idRequerimiento = requerimiento.idRequerimiento as string;
+      objetoExcel.descripcion = requerimiento.descripcion;
+      objetoExcel.esValido = requerimiento.estado ? 'SI' : 'NO';
+      objetoExcel.caracteristicasCumplidas = numReqValidos
+      objetoExcel.observaciones = resultado.observaciones;
+      datosExcel.push(objetoExcel);
+    });
+    return datosExcel;
   }
 
 };

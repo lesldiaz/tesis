@@ -1,5 +1,5 @@
 import { EntityGenerico } from 'src/constantes/clases-genericas/entity.generico';
-import {Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn} from 'typeorm';
+import {Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn} from 'typeorm';
 import { RequerimientoEntity } from '../requerimiento/requerimiento.entity';
 
 
@@ -98,11 +98,12 @@ export class ResultadoEntity extends EntityGenerico{
     })
     observaciones?: string;
 
-    @OneToOne(
+    @ManyToOne(
         type => RequerimientoEntity,
-        requerimiento => requerimiento.resultado
+        requerimiento => requerimiento.resultado,{
+            onDelete: 'CASCADE',
+        }
     )
-    @JoinColumn()
     requerimiento: RequerimientoEntity | number;
 
     // @ManyToOne(

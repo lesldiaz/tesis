@@ -32,6 +32,7 @@ import {ToastrModule} from 'ngx-toastr';
 import { DropdownModule } from 'primeng/dropdown';
 import {CheckboxModule} from 'primeng/checkbox';
 import { RefinamientoComponent } from './componentes/refinamiento/refinamiento.component';
+import { ResultadoComponent } from './componentes/resultado/resultado.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { RefinamientoComponent } from './componentes/refinamiento/refinamiento.c
     ...ARREGLO_PIPES,
     ...ARREGLO_MODALES,
     RefinamientoComponent,
+    ResultadoComponent,
   ],
   imports: [
     NgbModule,

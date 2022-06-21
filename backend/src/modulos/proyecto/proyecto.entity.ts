@@ -57,20 +57,26 @@ export class ProyectoEntity extends EntityGenerico {
         type => UsuarioEntity,
         usuario => usuario.proyecto,
         {
-            nullable: false
+            nullable: false,
+            onDelete: 'CASCADE',
         }
     )
     usuario: UsuarioEntity | number;
 
     @OneToMany(
         type => RequerimientoEntity,
-        requerimiento => requerimiento.proyecto
+        requerimiento => requerimiento.proyecto, {
+            cascade:true
+        }
     )
     requerimiento: RequerimientoEntity[];
 
     @OneToMany(
         type => ParticipanteProyectoEntity,
-        participanteProyecto => participanteProyecto.proyecto
+        participanteProyecto => participanteProyecto.proyecto,
+        {
+            cascade:true
+        }
     )
     participanteProyecto: ParticipanteProyectoEntity[];
 

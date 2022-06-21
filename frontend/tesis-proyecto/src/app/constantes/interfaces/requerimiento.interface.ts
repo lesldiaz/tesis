@@ -2,14 +2,14 @@ import { ProyectoInterface } from "./proyecto.interface";
 import { ResultadoInterface } from "./resultado.interface";
 
 export interface RequerimientoInterface {
-  id: number;
+  id?: number;
   idRequerimiento?: string;
-  titulo: string;
-  descripcion: string;
+  titulo?: string;
+  descripcion?: string;
   prioridad?: number;
   estado?: 1 | 0;
-  rol: Object | number;
-  proyecto: ProyectoInterface | number;
-  resultado: ResultadoInterface | number;
+  rol?: Object | number;
+  proyecto?: ProyectoInterface | number;
+  resultado?: ResultadoInterface;
   requerimientoPadre?: number;
 }
