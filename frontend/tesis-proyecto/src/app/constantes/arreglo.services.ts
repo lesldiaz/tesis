@@ -1,3 +1,4 @@
+import { AuthService } from "../servicios/auth.service";
 import { CookieUsuarioService } from "../servicios/cookie.service";
 import { ParticipanteService } from "../servicios/participante.service";
 import { ProyectoService } from "../servicios/proyecto.service";
@@ -11,5 +12,6 @@ export const ARREGLO_SERVICIOS = [
   ParticipanteService,
   ProyectoService,
   ResultadoService,
-  RequerimientoService
+  RequerimientoService,
+  AuthService
 ]

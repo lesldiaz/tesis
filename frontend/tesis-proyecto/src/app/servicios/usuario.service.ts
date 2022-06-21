@@ -31,6 +31,10 @@ export class UsuarioService {
     return this._httpClient.post(this.url, nuevoUsuario);
   }
 
+  registro(nuevoUsuario: any) {
+    return this._httpClient.post(this.url+'registro', nuevoUsuario);
+  }
+
   putUsuarios(nuevoUsuario: any, idUsuario: number) {
     return this._httpClient.put(this.url + idUsuario, nuevoUsuario);
   }

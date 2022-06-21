@@ -141,14 +141,14 @@ export class ListarProyectosComponent implements OnInit {
   }
 
   abrirModalEditar(filaProyecto: any) {
-
-    filaProyecto.tipoProyecto =
+    const proyecto = JSON.parse(JSON.stringify(filaProyecto));
+    proyecto.tipoProyecto =
       this.tiposProyecto.find(valor => {
-        return valor.codigo === filaProyecto.tipoProyecto;
+        return valor.codigo === proyecto.tipoProyecto;
       });
     const modalEditar = this._dialog.open(ModalCrearEditarProyectoComponent, {
       width: '600px',
-      data: filaProyecto
+      data: proyecto
     });
     modalEditar.afterClosed()
       .subscribe(
@@ -186,7 +186,7 @@ export class ListarProyectosComponent implements OnInit {
         proyectoADuplicar => {
           if (proyectoADuplicar) {
 
-            const proyectoDuplicado = Object.assign({}, proyectoADuplicar);
+            const proyectoDuplicado = JSON.parse(JSON.stringify(proyectoADuplicar));
             proyectoDuplicado.duplicado = 1;
             proyectoDuplicado.nombre = proyectoDuplicado.nombre + ' - Copia';
             proyectoDuplicado.usuario = proyectoDuplicado.usuario.id;

@@ -1,1 +1,86 @@
-<p>registro-usuario works!</p>
+<div class="container-fluid centro">
+  <div class="row" style="padding-top: 1rem">
+    <div class="col-sm-12">
+      <h2>Inicia Sesión</h2>
+    </div>
+  </div>
+  <div class="container inicio login">
+    <form [formGroup]="formularioRegistro" (ngSubmit)="enviarFormularioRegistro()" novalidate>
+      <div class="row">
+        <div class="col-sm-4">
+          <label for="nombreUsuario">Nombre de Usuario</label>
+        </div>
+        <div class="col-sm-8">
+          <input
+            type="text"
+            class="form-control"
+            id="nombreUsuario"
+            aria-describedby="nombreUsuarioHelp"
+            [formControlName]="'nombreUsuario'"
+            placeholder="Ingrese su nombre de usuario">
+        </div>
+        <div *ngIf="arregloMensajesErrorCampoNombreUsuario.length > 0" class="alert alert-info" role="alert">
+          <div *ngFor="let mensajeError of arregloMensajesErrorCampoNombreUsuario">
+            <div>{{mensajeError}}</div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4">
+          <label for="email">Correo Electrónico</label>
+        </div>
+        <div class="col-sm-8">
+          <input
+            type="text"
+            class="form-control"
+            id="email"
+            aria-describedby="emailHelp"
+            [formControlName]="'email'"
+            placeholder="Ingrese su correo electrónico">
+        </div>
+        <div *ngIf="arregloMensajesErrorCampoEmail.length > 0" class="alert alert-info" role="alert">
+          <div *ngFor="let mensajeError of arregloMensajesErrorCampoEmail">
+            <div>{{mensajeError}}</div>
+          </div>
+        </div>
+      </div>
+      <div class="separador"></div>
+      <div class="row">
+        <div class="col-sm-4">
+          <label for="contrasena">Contraseña</label>
+        </div>
+        <div class="col-sm-8">
+          <input
+            type="password"
+            class="form-control"
+            id="contrasena"
+            aria-describedby="contrasenaHelp"
+            [formControlName]="'contrasena'"
+            placeholder="Ingrese su contraseña">
+        </div>
+        <div *ngIf="arregloMensajesErrorCampoContrasenia.length > 0" class="alert alert-info" role="alert">
+          <div *ngFor="let mensajeError of arregloMensajesErrorCampoContrasenia">
+            <div>{{mensajeError}}</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="separador"></div>
+      <div class="row" *ngIf="errorRegistro">
+        <div class="col-sm-12">
+          <p class="text-danger">¡El nombre de usuario ya esta en uso!</p>
+        </div>
+      </div>
+      <div class="separador"></div>
+      <div class="row">
+        <div class="col-sm-6"></div>
+        <div class="col-sm-3 justify-content-end">
+          <button class="btn btn-info" [disabled]="!formularioValido" (click)="enviarFormularioRegistro()">Registrarse</button>
+        </div>
+        <div class="col-sm-3 justify-content-end">
+          <button class=" serparador-boton btn btn-secondary"(click)="irALogin()">Regresar</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

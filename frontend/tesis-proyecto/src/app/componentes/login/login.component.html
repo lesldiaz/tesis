@@ -1,13 +1,16 @@
 <div class="container-fluid centro">
   <div class="row" style="padding-top: 1rem">
     <div class="col-sm-12">
-      <h3>Inicia Sesión</h3>
+      <h2>Inicia Sesión</h2>
     </div>
   </div>
   <div class="container inicio login">
     <form [formGroup]="formularioLogin" (ngSubmit)="enviarFormularioLogin()" novalidate>
       <div class="row">
-        <label for="nombreUsuario">Nombre de Usuario</label>
+        <div class="col-sm-4">
+          <label for="nombreUsuario">Nombre de Usuario</label>
+        </div>
+        <div class="col-sm-8">
         <input
           type="text"
           class="form-control"
@@ -15,10 +18,14 @@
           aria-describedby="nombreUsuarioHelp"
           [formControlName]="'nombreUsuario'"
           placeholder="Ingrese su nombre de usuario">
+        </div>
       </div>
       <div class="separador"></div>
       <div class="row">
-        <label for="contrasenia">Contraseña</label>
+        <div class="col-sm-4">
+          <label for="contrasenia">Contraseña</label>
+        </div>
+        <div class="col-sm-8">
         <input
           type="password"
           class="form-control"
@@ -26,6 +33,7 @@
           aria-describedby="contraseniaHelp"
           [formControlName]="'contrasenia'"
           placeholder="Ingrese su contrasena">
+        </div>
       </div>
       <div class="separador"></div>
       <div class="row" *ngIf="errorIniciarSesion">
@@ -35,10 +43,12 @@
       </div>
       <div class="separador"></div>
       <div class="row">
-        <div class="col-sm-9"></div>
+        <div class="col-sm-6"></div>
         <div class="col-sm-3 justify-content-end">
           <button class="btn btn-info" [disabled]="!formularioValido" (click)="enviarFormularioLogin()">Ingresar</button>
-          <button class=" serparador-boton btn btn-info" [routerLink]="'registro'">Registrarse</button>
+        </div>
+        <div class="col-sm-3 justify-content-end">
+          <button class=" serparador-boton btn btn-info" [routerLink]="'/registro'">Registrarse</button>
         </div>
       </div>
     </form>
