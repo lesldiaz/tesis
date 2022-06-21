@@ -23,7 +23,7 @@
             {{requerimientoFila['descripcion']}}
           </td>
           <td class="text-center">
-            {{requerimientoFila['prioridad']}}
+            {{requerimientoFila['prioridad']| ldprioridadreq}}
           </td>
           <td class="text-center">
             {{requerimientoFila['requerimientoPadre'] ? requerimientoFila['requerimientoPadre'] : 'Ninguno'}}

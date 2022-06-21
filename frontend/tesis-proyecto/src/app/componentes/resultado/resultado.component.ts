@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { FUNCIONES_GENERALES } from 'src/app/constantes/funciones-generales';
 import { ExcelPlantillaResInterface } from 'src/app/constantes/interfaces/excel-plantilla-res.interface';
@@ -6,12 +6,14 @@ import { RequerimientoInterface } from 'src/app/constantes/interfaces/requerimie
 import { ResultadoInterface } from 'src/app/constantes/interfaces/resultado.interface';
 import { RequerimientoService } from 'src/app/servicios/requerimiento.service';
 import * as FileSaver from 'file-saver';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-resultado',
   templateUrl: './resultado.component.html',
   styleUrls: ['./resultado.component.css']
 })
 export class ResultadoComponent implements OnInit {
+  @Input() idProyecto: number | undefined;
   requerimientos: RequerimientoInterface[] = [];
   requerimientosClonados: ExcelPlantillaResInterface[] = [];
   cols: any[] = [
@@ -24,12 +26,13 @@ export class ResultadoComponent implements OnInit {
   constructor(
     private readonly _requerimientoService: RequerimientoService,
     private readonly _toasterService: ToastrService,
+    private readonly _route: Router,
   ) { }
 
   ngOnInit(): void {
     const criterioBusqueda = {
       proyecto: {
-        id: 5
+        id: this.idProyecto
       }
     };
     let getProyectos$ = this._requerimientoService.getRequerimientosFiltro(0, 0, criterioBusqueda);
@@ -72,4 +75,7 @@ export class ResultadoComponent implements OnInit {
     FileSaver.saveAs(data, fileName + '_' + new Date().getTime() + EXCEL_EXTENSION);
   }
 
+  irAProyectos() {
+    this._route.navigate(['/proyectos']);
+  }
 }

@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {ToastrService} from 'ngx-toastr';
 import {RequerimientoInterface} from 'src/app/constantes/interfaces/requerimiento.interface';
 import {ResultadoInterface} from 'src/app/constantes/interfaces/resultado.interface';
+import { ProyectoService } from 'src/app/servicios/proyecto.service';
 import {RequerimientoService} from 'src/app/servicios/requerimiento.service';
 import {ResultadoService} from 'src/app/servicios/resultado.service';
 
@@ -12,6 +13,7 @@ import {ResultadoService} from 'src/app/servicios/resultado.service';
 })
 export class RefinamientoComponent implements OnInit {
   @Input() requerimientos: RequerimientoInterface[] = [];
+  @Input() idProyecto: number | undefined;
   @Input() tipoRequerimientos: 'J' | 'C' = 'C';
   cols: any[] = [
     {field: 'idRequerimiento', header: 'Identificador'},
@@ -35,6 +37,7 @@ export class RefinamientoComponent implements OnInit {
   constructor(
     private readonly _resultadoService: ResultadoService,
     private readonly _requerimientoService: RequerimientoService,
+    private readonly _proyectoService: ProyectoService,
     private readonly _toasterService: ToastrService,) {
     this
   }
@@ -42,7 +45,7 @@ export class RefinamientoComponent implements OnInit {
   ngOnInit(): void {
     const criterioBusqueda = {
       proyecto: {
-        id: 5
+        id: this.idProyecto
       }
     };
     let getProyectos$ = this._requerimientoService.getRequerimientosFiltro(0, 0, criterioBusqueda);
@@ -320,6 +323,17 @@ export class RefinamientoComponent implements OnInit {
         .subscribe(
           value => {
             (requerimiento.resultado as ResultadoInterface).observaciones = observacionesFinales;
+          },
+          error => {
+            this._toasterService.error('Error al actualizar', 'Error');
+            console.error('Error al actualizar requerimiento', error);
+          }
+        );
+      this._proyectoService.putProyecto({
+        estado: 'F'
+      }, this.idProyecto as number)
+        .subscribe(
+          value => {
           },
           error => {
             this._toasterService.error('Error al actualizar', 'Error');

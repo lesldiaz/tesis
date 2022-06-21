@@ -12,7 +12,7 @@ export class ModalCrearEditarProyectoComponent implements OnInit {
   habilitarBotonSubmit = false;
   constructor(
     @Inject(MAT_DIALOG_DATA) private readonly _data: any,
-    private readonly _dialogRef: MatDialogRef<ListarProyectosComponent>
+    private readonly _dialogRef: MatDialogRef<any>
   ) { }
 
   ngOnInit(): void {

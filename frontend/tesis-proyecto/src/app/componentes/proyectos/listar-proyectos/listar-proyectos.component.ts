@@ -246,4 +246,27 @@ export class ListarProyectosComponent implements OnInit {
         }
       );
   }
+
+  /*exportExcel() {
+    import("xlsx").then(xlsx => {
+      const cabecera = [
+        ["Identificador", "Descripción", "Válido", "Características Cumplidas", "Observaciones"]
+      ];
+      const worksheet = xlsx.utils.json_to_sheet(this.requerimientosClonados);
+      //['!cols'] = [{ width: 20 }, { width: 20 }, { width: 150 } ];
+      xlsx.utils.sheet_add_aoa(worksheet, cabecera);
+      xlsx.utils.sheet_add_json(worksheet, this.requerimientosClonados, { origin: 'A2', skipHeader: true });
+      const workbook = { Sheets: { 'Resultado': worksheet }, SheetNames: ['Resultado'] };
+      const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
+      this.saveAsExcelFile(excelBuffer, "resultados");
+    });
+  }
+  saveAsExcelFile(buffer: any, fileName: string): void {
+    let EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+    let EXCEL_EXTENSION = '.xlsx';
+    const data: Blob = new Blob([buffer], {
+      type: EXCEL_TYPE
+    });
+    FileSaver.saveAs(data, fileName + '_' + new Date().getTime() + EXCEL_EXTENSION);
+  }*/
 }

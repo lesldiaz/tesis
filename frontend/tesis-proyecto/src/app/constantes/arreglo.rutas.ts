@@ -44,8 +44,9 @@ export const ARREGLO_RUTAS: Routes = [
     component: RutaAplicacionComponent
   },
   {
-    path: 'nuevoproyecto',
-    component: RutaNuevoProyectoComponent
+    path: 'nuevoproyecto/:id',
+    component: RutaNuevoProyectoComponent,
+    pathMatch: 'full'
   },
   {
     path: 'proyectos',
