@@ -33,6 +33,8 @@ import { DropdownModule } from 'primeng/dropdown';
 import {CheckboxModule} from 'primeng/checkbox';
 import { RefinamientoComponent } from './componentes/refinamiento/refinamiento.component';
 import { ResultadoComponent } from './componentes/resultado/resultado.component';
+import { TablaReqBloqueComponent } from './componentes/tabla-req-bloque/tabla-req-bloque.component';
+import { TablaReqGamePlayComponent } from './componentes/tabla-req-game-play/tabla-req-game-play.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +45,8 @@ import { ResultadoComponent } from './componentes/resultado/resultado.component'
     ...ARREGLO_MODALES,
     RefinamientoComponent,
     ResultadoComponent,
+    TablaReqBloqueComponent,
+    TablaReqGamePlayComponent,
   ],
   imports: [
     NgbModule,
