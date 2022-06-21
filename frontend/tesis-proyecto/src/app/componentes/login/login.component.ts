@@ -6,6 +6,8 @@ import {UsuarioService} from '../../servicios/usuario.service';
 import {CookieUsuarioService} from '../../servicios/cookie.service';
 import {MatDialog} from '@angular/material/dialog';
 import {AuthService} from 'src/app/servicios/auth.service';
+import {UsuarioSesionService} from 'src/app/servicios/usuario-sesion.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-login',
@@ -30,6 +32,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private readonly _usuarioService: UsuarioService,
+    private readonly _usuarioSesionService: UsuarioSesionService,
     private _authService: AuthService,
     private readonly _route: Router
   ) {
@@ -107,7 +110,17 @@ export class LoginComponent implements OnInit {
         .pipe(first())
         .subscribe(
           usuarioLogeado => {
-            this._route.navigate(['inicio']);
+            //ver si sesion existe y si no editar
+            this._usuarioSesionService.postSesionUsuarios(
+              {
+                usuario: usuarioLogeado.id,
+                fechaInicioSesionActual: moment().format().toString()
+              }
+            ).subscribe(value => {
+                this._route.navigate(['inicio']);
+              }
+            );
+
           },
           error => {
             console.log(error)

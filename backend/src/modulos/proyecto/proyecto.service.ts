@@ -47,7 +47,6 @@ export class ProyectoService extends ServiceGeneral<ProyectoEntity> {
                 objeto.createdAt = moment().format().toString();
                 objeto.updatedAt = moment().format().toString();
                 const proyectoCreado = await this._proyectoRepository.save(objeto);
-                console.log(proyectoCreado)
                 proyectoCreado.idProyecto = FUNCIONES_GENERALES.generarIdProyecto(proyectoCreado);
                 const respuestaEditar =
                     await this._proyectoRepository
@@ -112,7 +111,6 @@ export class ProyectoService extends ServiceGeneral<ProyectoEntity> {
                         usuario: criteriosPaginacion['usuario']
                     });
                 }
-                console.log(whereOR);
                 listarTodo = await this._proyectoRepository.findAndCount({
                     where: [
                         ...whereOR

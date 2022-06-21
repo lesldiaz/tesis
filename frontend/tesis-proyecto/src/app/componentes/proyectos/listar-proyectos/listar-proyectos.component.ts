@@ -5,6 +5,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
 import {debounceTime} from 'rxjs';
 import {TipoProyectoInterface} from 'src/app/constantes/interfaces/tipo-proyecto.interface';
+import {UsuarioInterface} from 'src/app/constantes/interfaces/usuario.interface';
 import {
   ModalCrearEditarProyectoComponent
 } from 'src/app/modales/modal-crear-editar-proyecto/modal-crear-editar-proyecto.component';
@@ -12,6 +13,7 @@ import {
   ModalDuplicarProyectoComponent
 } from 'src/app/modales/modal-duplicar-proyecto/modal-duplicar-proyecto.component';
 import {ModalEliminarComponent} from 'src/app/modales/modal-eliminar/modal-eliminar.component';
+import { AuthService } from 'src/app/servicios/auth.service';
 import {ProyectoService} from 'src/app/servicios/proyecto.service';
 
 @Component({
@@ -22,7 +24,7 @@ import {ProyectoService} from 'src/app/servicios/proyecto.service';
 export class ListarProyectosComponent implements OnInit {
   tiposProyecto: TipoProyectoInterface[] = [];
   proyectos: any[] = [];
-  usuarioActual: number = -1;
+  usuarioActual: UsuarioInterface;
   cols: any[] = [
     {field: 'idProyecto', header: 'Identificador'},
     {field: 'nombre', header: 'Nombre'},
@@ -33,11 +35,13 @@ export class ListarProyectosComponent implements OnInit {
   total: number = 0;
   formularioBuscarProyecto: FormGroup;
 
-  constructor(private readonly _proyectoService: ProyectoService,
-              private readonly _toasterService: ToastrService,
-              private readonly _route: Router,
-              private readonly _dialog: MatDialog,
-              private readonly _activatedRoute: ActivatedRoute) {
+  constructor(
+    private readonly _authService: AuthService,
+    private readonly _proyectoService: ProyectoService,
+    private readonly _toasterService: ToastrService,
+    private readonly _route: Router,
+    private readonly _dialog: MatDialog,
+    private readonly _activatedRoute: ActivatedRoute) {
     this.formularioBuscarProyecto = new FormGroup({
       terminoBusqueda: new FormControl('')
     });
@@ -45,7 +49,8 @@ export class ListarProyectosComponent implements OnInit {
       {nombre: 'Requerimientos de Cliente', codigo: 'C'},
       {nombre: 'Requerimientos de Juego Serio', codigo: 'J'},
     ];
-    this.usuarioActual = 3;
+
+    this.usuarioActual = this._authService.currentUserValue as UsuarioInterface;
   }
 
   ngOnInit(): void {
@@ -80,14 +85,14 @@ export class ListarProyectosComponent implements OnInit {
           const criterioBusqueda = {
             ...parametroRuta,
             usuario: {
-              id: this.usuarioActual
+              id: this.usuarioActual.id
             }
           };
           getProyectos$ = this._proyectoService.getProyectosFiltro($event.first, 5, criterioBusqueda);
         } else {
           const criterioBusqueda = {
             usuario: {
-              id: this.usuarioActual
+              id: this.usuarioActual.id
             }
           };
           getProyectos$ = this._proyectoService.getProyectosFiltro($event.first, 5, criterioBusqueda);
@@ -117,7 +122,7 @@ export class ListarProyectosComponent implements OnInit {
         respuestaModalCrear => {
           if (respuestaModalCrear) {
             console.log(respuestaModalCrear);
-            respuestaModalCrear.usuario = this.usuarioActual;
+            respuestaModalCrear.usuario = this.usuarioActual.id;
             respuestaModalCrear.tipoProyecto = respuestaModalCrear.tipoProyecto.codigo;
             this._proyectoService.postProyecto(respuestaModalCrear)
               .subscribe(

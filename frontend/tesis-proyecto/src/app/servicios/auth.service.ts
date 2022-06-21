@@ -4,15 +4,20 @@ import {BehaviorSubject, Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {UsuarioInterface} from '../constantes/interfaces/usuario.interface';
 import {environment} from 'src/environments/environment';
+import {UsuarioSesionService} from './usuario-sesion.service';
 
 @Injectable()
 export class AuthService {
   url;
+  urlSesion;
   private currentUserSubject: BehaviorSubject<UsuarioInterface | undefined>;
   public currentUser: Observable<UsuarioInterface | undefined>;
 
-  constructor(private _httpClient: HttpClient) {
+  constructor(
+    private readonly _httpClient: HttpClient,
+  ) {
     this.url = environment.urlUsuario;
+    this.urlSesion = environment.urlUsuarioSesion;
     this.currentUserSubject = new BehaviorSubject<UsuarioInterface | undefined>(JSON.parse(localStorage.getItem('currentUser') as string));
     this.currentUser = this.currentUserSubject.asObservable();
   }
@@ -27,8 +32,10 @@ export class AuthService {
         nombreUsuario: username,
         contrasena: password
       })
-      .pipe(map((user: UsuarioInterface | any) => {
-        // store user details and jwt token in local storage to keep user logged in between page refreshes
+      .pipe(map( (user: UsuarioInterface | any) => {
+        delete user['contrasena'];
+        delete user['createdAt'];
+        delete user['updatedAt'];
         localStorage.setItem('currentUser', JSON.stringify(user));
         this.currentUserSubject.next(user);
         return user;
