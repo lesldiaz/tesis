@@ -6,13 +6,23 @@
     <div class="row">
       <div class="col">
         <label><b>ID</b></label>
-        <input type="text" name="id" class="form-label" disabled>
+        <input type="text" id="id" class="form-label" disabled>
       </div>
       <div class="col">
         <label><b>ROL</b></label>
         <input id="rol" type="text" list="roles"  >
         <datalist id="roles">
         </datalist>
+      </div>
+      <div class="col">
+        <label><b>PADRE</b></label>
+        <mat-select [(value)]="selected">
+          <mat-option>None</mat-option>
+          <mat-option value="option1">Option 1</mat-option>
+          <mat-option value="option2">Option 2</mat-option>
+          <mat-option value="option3">Option 3</mat-option>
+        </mat-select>
+
       </div>
       <div class="col">
         <button type="button" (click)="cambioRol()">
@@ -34,8 +44,7 @@
         <input
           type="text"
           placeholder="Introduzca el titulo del requerimiento"
-          name="titulo"
-          minlength="5"
+          id="titulo"
           required
         />
       </div>
@@ -56,7 +65,7 @@
       <div class="col">
         <label ><b>Descripcion</b></label>
         <textarea
-          id="Textarea1"
+          id="textarea1"
           rows="2"
           class="form-control"
         ></textarea>

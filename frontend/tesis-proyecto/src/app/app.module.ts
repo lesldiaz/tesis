@@ -32,6 +32,8 @@ import {ToastrModule} from 'ngx-toastr';
 import { DropdownModule } from 'primeng/dropdown';
 import { ToggleButtonModule } from 'primeng/togglebutton';
 import { RefinamientoComponent } from './componentes/refinamiento/refinamiento.component';
+import { TablaReqBloqueComponent } from './componentes/tabla-req-bloque/tabla-req-bloque.component';
+import { TablaReqGamePlayComponent } from './componentes/tabla-req-game-play/tabla-req-game-play.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +43,8 @@ import { RefinamientoComponent } from './componentes/refinamiento/refinamiento.c
     ...ARREGLO_PIPES,
     ...ARREGLO_MODALES,
     RefinamientoComponent,
+    TablaReqBloqueComponent,
+    TablaReqGamePlayComponent,
   ],
   imports: [
     NgbModule,

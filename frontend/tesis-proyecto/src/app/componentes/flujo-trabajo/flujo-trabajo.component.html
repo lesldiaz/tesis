@@ -43,15 +43,19 @@
         </div>
       </div>
     </mat-step>
-    <mat-step label="Visualización de requerimiento"  [stepControl]="secondFormGroup" >
-      <p>Socialize with each other.</p>
-      <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button matStepperNext>Next</button>
-      </div>
+    <mat-step label="Visualización de requerimiento"   >
+      <p >Socialize with each other.</p>
+        <div >
+          <button class="btn " type="button" mat-button matStepperPrevious>Back</button>
+          <button class="btn " type="button" mat-button matStepperNext>Next</button>
+        </div>
     </mat-step>
-    <mat-step label="Refinamiento" [stepControl]="thirdFormGroup">
+    <mat-step label="Refinamiento" >
       <app-refinamiento [requerimientos]="[]" [tipoRequerimientos]="'C'"></app-refinamiento>
+      <div >
+        <button class="btn " type="button" mat-button matStepperPrevious>Back</button>
+        <button class="btn " type="button" mat-button matStepperNext>Next</button>
+      </div>
     </mat-step>
     <mat-step label="Resultados">
       <p>You're welcome.</p>
