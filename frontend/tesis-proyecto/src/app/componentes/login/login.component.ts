@@ -8,6 +8,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {AuthService} from 'src/app/servicios/auth.service';
 import {UsuarioSesionService} from 'src/app/servicios/usuario-sesion.service';
 import * as moment from 'moment';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -34,7 +35,8 @@ export class LoginComponent implements OnInit {
     private readonly _usuarioService: UsuarioService,
     private readonly _usuarioSesionService: UsuarioSesionService,
     private _authService: AuthService,
-    private readonly _route: Router
+    private readonly _route: Router,
+  private readonly _toasterService: ToastrService,
   ) {
     this.formularioLogin = new FormGroup({
       nombreUsuario: new FormControl('', [
@@ -102,28 +104,28 @@ export class LoginComponent implements OnInit {
   }
 
 // Formulario
-  enviarFormularioLogin() {
+   enviarFormularioLogin() {
     if (this.formularioValido) {
       const nombreUsuario = this.formularioLogin.get('nombreUsuario')?.value;
       const contrasena = this.formularioLogin.get('contrasenia')?.value;
       this._authService.login(nombreUsuario, contrasena)
         .pipe(first())
         .subscribe(
-          usuarioLogeado => {
-            //ver si sesion existe y si no editar
-            this._usuarioSesionService.postSesionUsuarios(
+          async usuarioLogeado => {
+            await this._usuarioSesionService.postSesionUsuarios(
               {
                 usuario: usuarioLogeado.id,
                 fechaInicioSesionActual: moment().format().toString()
               }
             ).subscribe(value => {
+                this._toasterService.success('Bienvenido '+nombreUsuario+'!', 'Éxito');
                 this._route.navigate(['inicio']);
               }
             );
 
           },
           error => {
-            console.log(error)
+            this._toasterService.error('Ocurrió un error', 'Error');
             this.errorIniciarSesion = true;
           });
     }

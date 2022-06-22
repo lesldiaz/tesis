@@ -16,7 +16,7 @@ export class UsuarioSesionEntity extends EntityGenerico {
     })
     fechaInicioSesionAnterior: string;
 
-    @OneToOne(
+    @ManyToOne(
         type => UsuarioEntity,
         usuario => usuario.usuarioSesion)
     usuario: UsuarioEntity | number;

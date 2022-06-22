@@ -1,47 +1,62 @@
 [
   {
+    "id" : 1,
     "nombre": "Responder"
   },
   {
+    "id" : 2,
     "nombre": "Gestionar"
   },
   {
+    "id" : 3,
     "nombre": "Tener suerte"
   },
   {
+    "id" : 4,
     "nombre": "Disparar"
   },
   {
+    "id" : 5,
     "nombre": "Crear"
   },
   {
+    "id" : 6,
     "nombre": "Bloquear"
   },
   {
+    "id" : 7,
     "nombre": "Recoger"
   },
   {
+    "id" : 8,
     "nombre": "Destruir"
   },
   {
+    "id" : 9,
     "nombre": "Mover"
   },
   {
+    "id" : 10,
     "nombre": "Evitar"
   },
   {
+    "id" : 11,
     "nombre": "Mantener"
   },
   {
+    "id" : 12,
     "nombre": "Posición"
   },
   {
+    "id" : 13,
     "nombre": "Tiempo"
   },
   {
+    "id" : 14,
     "nombre": "Puntuación"
   },
   {
+    "id" : 15,
     "nombre": "Juguete"
   }
 ]

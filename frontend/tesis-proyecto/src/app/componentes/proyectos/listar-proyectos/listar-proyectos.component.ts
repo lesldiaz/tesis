@@ -13,7 +13,7 @@ import {
   ModalDuplicarProyectoComponent
 } from 'src/app/modales/modal-duplicar-proyecto/modal-duplicar-proyecto.component';
 import {ModalEliminarComponent} from 'src/app/modales/modal-eliminar/modal-eliminar.component';
-import { AuthService } from 'src/app/servicios/auth.service';
+import {AuthService} from 'src/app/servicios/auth.service';
 import {ProyectoService} from 'src/app/servicios/proyecto.service';
 
 @Component({
@@ -127,9 +127,13 @@ export class ListarProyectosComponent implements OnInit {
             this._proyectoService.postProyecto(respuestaModalCrear)
               .subscribe(
                 value => {
-                  this.proyectos.unshift(value);
-                  if (this.proyectos.length > 5) {
-                    this.proyectos.pop();
+                  if (this.proyectos.length > 0) {
+                    this.proyectos.unshift(value);
+                    if (this.proyectos.length > 5) {
+                      this.proyectos.pop();
+                    }
+                  } else {
+                    this.proyectos.push(value);
                   }
                   this._toasterService.success('Registro creado correctamente', 'Éxito');
                 },

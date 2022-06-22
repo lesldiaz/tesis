@@ -68,7 +68,11 @@ import { TablaReqGamePlayComponent } from './componentes/tabla-req-game-play/tab
     MatGridListModule,
     MatTabsModule,
     CookieModule.forRoot(),
-    ToastrModule.forRoot(),
+    ToastrModule.forRoot(
+      {
+        preventDuplicates: true,
+      }
+    ),
     MatStepperModule,
     MatRadioModule,
     BreadcrumbModule,

@@ -31,11 +31,11 @@ export class UsuarioEntity extends EntityGenerico{
     })
     contrasena: string;
 
-    @OneToOne(
+    @OneToMany(
         type => UsuarioSesionEntity,
         usuarioS => usuarioS.usuario
     )
-    usuarioSesion: UsuarioSesionEntity | number;
+    usuarioSesion: UsuarioSesionEntity [];
 
     @OneToMany(
         type => ProyectoEntity,

@@ -18,7 +18,7 @@ export class UsuarioSesionService {
   }
 
   postSesionUsuarios(nuevoUsuario: any) {
-    return this._httpClient.post(this.url, nuevoUsuario);
+    return this._httpClient.post(this.url+'custom', nuevoUsuario);
   }
 
   putSesionUsuarios(nuevoUsuario: any, idUsuario: number) {
