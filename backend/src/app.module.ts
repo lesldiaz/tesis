@@ -25,6 +25,7 @@ import { RolService } from './modulos/rol/rol.service';
       database: CONFIGURACIONES.bdd.database,
       entities: [...ENTIDADES],
       synchronize: CONFIGURACIONES.bdd.synchronize,
+      dropSchema: CONFIGURACIONES.bdd.dropSchema,
     }),
   ],
   controllers: [AppController],
