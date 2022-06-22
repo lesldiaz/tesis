@@ -39,6 +39,10 @@ export class CrearEditarProyectoComponent implements OnInit {
   constructor(
     private readonly _activatedRoute: ActivatedRoute,
     private readonly _route: Router) {
+    this.tiposProyecto = [
+      {nombre: 'Requerimientos de Cliente', codigo: 'C'},
+      {nombre: 'Requerimientos de Juego Serio', codigo: 'J'},
+    ];
     this.formularioProyecto = new FormGroup({
       nombre: new FormControl('', [
         Validators.required,
@@ -54,10 +58,6 @@ export class CrearEditarProyectoComponent implements OnInit {
 
       ])
     });
-    this.tiposProyecto = [
-      {nombre: 'Requerimientos de Cliente', codigo: 'C'},
-      {nombre: 'Requerimientos de Juego Serio', codigo: 'J'},
-    ];
     this.habilitarBotonSubmit.emit(false);
   }
 

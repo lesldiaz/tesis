@@ -5,6 +5,7 @@
     </div>
     <div class="col-sm-8">
       <p-dropdown
+        placeholder="Selecciona el tipo de proyecto"
         id="tipoProyecto"
         [formControlName]="'tipoProyecto'"
         [options]="tiposProyecto"
@@ -23,8 +24,8 @@
         id="nombre"
         aria-describedby="nombrelHelp"
         [formControlName]="'nombre'"
-        placeholder="Ej. Juan">
-      <small id="nombreHelp" class="form-text text-muted">Ingrese el nombre del participante</small>
+        placeholder="Ej. Validacion de requerimientos">
+      <small id="nombreHelp" class="form-text text-muted">Ingrese el nombre del proyecto</small>
       <div *ngIf="arregloMensajesErrorCampoNombre.length > 0" class="alert alert-info" role="alert">
         <div *ngFor="let mensajeError of arregloMensajesErrorCampoNombre">
           <div>{{mensajeError}}</div>
