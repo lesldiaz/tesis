@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, SimpleChanges } from '@angular/core';
 
 
 @Component({
@@ -12,7 +12,12 @@ export class PostItComponent implements OnInit {
   existingNotes: any;
   arrayNotes:any;
   notes: any;
+  posit: any[]=[];
 
+  @Output()devuelveDatos:EventEmitter<any> = new EventEmitter();
+
+  @Input()
+  bnd:boolean=false;
 
   constructor() {
     }
@@ -32,6 +37,7 @@ export class PostItComponent implements OnInit {
   saveNotes(notes:object){
    // saveNotes(){
     localStorage.setItem("stickynotes-notes",JSON.stringify(notes));
+
 
   }
   createNoteElement(id: number, content: string){
@@ -59,7 +65,7 @@ export class PostItComponent implements OnInit {
       id: Math.floor(Math.random()*100000),
       content:""
     };
-    console.log(noteObject.id);
+    //console.log(noteObject.id);
     const noteElement = this.createNoteElement(noteObject.id, noteObject.content);
     this.notesContainer.insertBefore(noteElement, this.addNoteButton);
     this.existingNotes.push(noteObject);
@@ -71,17 +77,44 @@ export class PostItComponent implements OnInit {
     const targetNote = this.notes.filter((note: { id: number; }) => note.id == id)[0];
     targetNote.content = newContent;
     this.saveNotes(this.notes);
-
     console.log("updating note ...");
-    console.log(id,newContent);
+    //console.log(id,newContent);
+    const index = this.posit.findIndex((element) => element.id === id);
+    if(index != -1){
+      this.posit[index]={"id":id,"contenido":newContent};
+    }else{
+      this.posit.push({"id":id,"contenido":newContent});
+    }
+
   }
   deleteNote(id:number,element:object){
     this.notes = JSON.parse(localStorage.getItem("stickynotes-notes") || "[]");;
     const target = this.notes.filter((note: { id: number; }) => note.id != id);
     this.saveNotes(this.notes);
     this.notesContainer.removeChild(element);
-
+    const index = this.posit.findIndex((element) => element.id === id);
+    this.posit.splice(index,1);
+    //this.addNewItem(this.posit);
     console.log("delete note ...");
-    console.log(id);
+    //console.log(id);
   }
+  ngOnChanges(changes: SimpleChanges) {
+    if(this.bnd == true){
+      this.addNewItem(this.posit);
+      this.limpiar();
+    }
+  }
+  addNewItem(obj:object) {
+    this.devuelveDatos.emit(obj);
+  }
+  limpiar(){
+    this.notesContainer = document.getElementById("app");
+    const element = document.getElementsByClassName('post-it');
+    while(element[0]){
+      this.notesContainer.removeChild(element[0]);
+    }
+    this.posit=[];
+    this.bnd=false;
+  }
+
 }

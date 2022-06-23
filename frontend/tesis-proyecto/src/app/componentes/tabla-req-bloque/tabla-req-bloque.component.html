@@ -1,8 +1,7 @@
 <p>tabla-req-bloque works!</p>
-<table class="default">
+<table>
 
   <tr>
-
     <th>OPCIONES</th>
     <th>ID</th>
     <th>ROL</th>
@@ -10,31 +9,23 @@
     <th>TÍTULO</th>
     <th>PRIORIDAD</th>
     <th>DESCRIPCION</th>
+    <th>IDEAS</th>
 
   </tr>
-  <tr>
+  <tr *ngFor="let dato of datos">
     <td>
       <button>
         Seleccionar
       </button>
     </td>
-    <td>
-      R01
-    </td>
-    <td>
-      Rol 01
-    </td>
-    <td>
-      padre 01
-    </td>
-    <td>
-      titulo 01
-    </td>
-    <td>
-      alta
-    </td>
-    <td>
-      descripcion 1
-    </td>
+    <td>{{dato.id}}</td>
+    <td>{{dato.rol}}</td>
+    <td>{{dato.padre}}</td>
+    <td>{{dato.titulo}}</td>
+    <td>{{dato.prioridad}}</td>
+    <td>{{dato.descripcion}}</td>
+    <td *ngFor="let pos of dato.postit">
+      <p *ngFor="let obj of pos">{{obj.contenido}}<br></p>
+        </td>
   </tr>
 </table>
