@@ -24,6 +24,16 @@ export class RequerimientoService extends ServiceGeneral<RequerimientoEntity> {
     }
 
     async crearMasivo(datosAGuardar: any): Promise<RespuestaInterface<any> | string> {
+        const requermientosClonados = JSON.parse(JSON.stringify(datosAGuardar));
+        /*cosas que guardar
+       * ver tipo proyecto
+       * segun eso guardar:
+       * js: proposito, bloques, rol
+       * c: lo normal del requerimiento
+       * para los padre e hijos hacer un duplicado del array y eliminar todas las referencias a padre
+       * ver el tipo de proyecto antes de crear todo lo de arriba, es para el identificador
+       * nada mas creo xdd
+       * */
             try {
                 if(datosAGuardar.length){
                     const idProyecto = (datosAGuardar[0] as any).proyecto;
@@ -37,22 +47,6 @@ export class RequerimientoService extends ServiceGeneral<RequerimientoEntity> {
                 );
 
         }
-        const requermientosClonados = JSON.parse(JSON.stringify(datosAGuardar));
-        /*cosas que guardar
-        * ver tipo proyecto
-        * segun eso guardar:
-        * js: proposito, bloques, rol
-        * c: lo normal del requerimiento
-        * para los padre e hijos hacer un duplicado del array y eliminar todas las referencias a padre
-        * ver el tipo de proyecto antes de crear todo lo de arriba, es para el identificador
-        * nada mas creo xdd
-        * */
-        return new Promise(resolve =>
-            resolve({
-                mensaje: 'Eliminado correctamente',
-                codigoRespuesta: 200,
-            }),
-        );
     }
 
     async crear(objeto): Promise<RequerimientoEntity | string> {
