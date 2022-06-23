@@ -8,7 +8,7 @@ import {FUNCIONES_GENERALES} from 'src/constantes/metodos/funciones-generales.me
 import {ProyectoEntity} from '../proyecto/proyecto.entity';
 import {ResultadoEntity} from '../resultado/resultado.entity';
 import {RespuestaInterface} from 'src/interfaces/respuesta.interface';
-import { RespuestaBuscarInterface } from 'src/interfaces/respuesta.buscar.interface';
+import {RespuestaBuscarInterface} from 'src/interfaces/respuesta.buscar.interface';
 
 @Injectable()
 export class RequerimientoService extends ServiceGeneral<RequerimientoEntity> {
@@ -21,6 +21,38 @@ export class RequerimientoService extends ServiceGeneral<RequerimientoEntity> {
         private readonly _resultadoRepository: Repository<ResultadoEntity>,
     ) {
         super(_requerimientoRepository);
+    }
+
+    async crearMasivo(datosAGuardar: any): Promise<RespuestaInterface<any> | string> {
+            try {
+                if(datosAGuardar.length){
+                    const idProyecto = (datosAGuardar[0] as any).proyecto;
+                    const proyecto = await this._proyectoRepository.findOne(idProyecto);
+
+
+                }
+            } catch (e) {
+                return new Promise((resolve, reject) =>
+                    reject(`Error de Servidor. ${e.name}: ${e.message}`),
+                );
+
+        }
+        const requermientosClonados = JSON.parse(JSON.stringify(datosAGuardar));
+        /*cosas que guardar
+        * ver tipo proyecto
+        * segun eso guardar:
+        * js: proposito, bloques, rol
+        * c: lo normal del requerimiento
+        * para los padre e hijos hacer un duplicado del array y eliminar todas las referencias a padre
+        * ver el tipo de proyecto antes de crear todo lo de arriba, es para el identificador
+        * nada mas creo xdd
+        * */
+        return new Promise(resolve =>
+            resolve({
+                mensaje: 'Eliminado correctamente',
+                codigoRespuesta: 200,
+            }),
+        );
     }
 
     async crear(objeto): Promise<RequerimientoEntity | string> {

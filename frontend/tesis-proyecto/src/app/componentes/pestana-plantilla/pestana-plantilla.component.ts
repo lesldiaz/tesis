@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-pestana-plantilla',
@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./pestana-plantilla.component.css']
 })
 export class PestanaPlantillaComponent implements OnInit {
+  @Output() requerimientosCargadosPPC: EventEmitter<object[]> = new EventEmitter<object[]>();
   requerimientosCargados: object[] = [];
   constructor() { }
 
@@ -14,6 +15,7 @@ export class PestanaPlantillaComponent implements OnInit {
 
   recibirRequerimientos($event: object[]) {
     this.requerimientosCargados = $event;
+    this.requerimientosCargadosPPC.emit(this.requerimientosCargados);
   }
 
 }

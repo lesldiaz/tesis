@@ -30,9 +30,9 @@ export class RequerimientoEntity extends EntityGenerico {
         name: 'titulo',
         type: 'varchar',
         length: 200,
-        nullable: false
+        nullable: true
     })
-    titulo: string;
+    titulo?: string;
 
     @Column({
         name: 'descripcion',
@@ -59,11 +59,11 @@ export class RequerimientoEntity extends EntityGenerico {
     @ManyToOne(
         type => RolEntity,
         rol => rol.requerimiento, {
-            nullable: false,
+            nullable: true,
             onDelete: 'CASCADE',
         }
     )
-    rol: RolEntity | number;
+    rol?: RolEntity | number;
 
     @ManyToOne(
         type => ProyectoEntity,
@@ -79,7 +79,6 @@ export class RequerimientoEntity extends EntityGenerico {
         type => ResultadoEntity,
         resultado => resultado.requerimiento,
         {
-            nullable: true,
             cascade: true
         }
     )
@@ -91,7 +90,7 @@ export class RequerimientoEntity extends EntityGenerico {
             cascade: true,
         }
     )
-    requerimientoBloque: RequerimientoBloqueEntity[];
+    requerimientoBloque?: RequerimientoBloqueEntity[];
 
     @OneToMany(
         type => PropositoEntity,
@@ -99,7 +98,7 @@ export class RequerimientoEntity extends EntityGenerico {
             cascade: true,
         }
     )
-    proposito: PropositoEntity[];
+    proposito?: PropositoEntity[];
 
     //relacion arbol
 

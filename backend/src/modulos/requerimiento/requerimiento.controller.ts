@@ -1,4 +1,4 @@
-import {Controller, Get, InternalServerErrorException, Query} from '@nestjs/common';
+import {Body, Controller, Get, InternalServerErrorException, Post, Query} from '@nestjs/common';
 import {ControllerGeneral} from 'src/constantes/clases-genericas/controller.generico';
 import { PaginacionInterface } from 'src/interfaces/paginacion.interface';
 import {RequerimientoEntity} from './requerimiento.entity';
@@ -19,6 +19,16 @@ export class RequerimientoController extends ControllerGeneral<RequerimientoEnti
                 paginacion,
             );
         } catch (e) {
+            throw new InternalServerErrorException(e);
+        }
+    }
+
+    @Post('carga-masiva')
+    async crearMasivo(@Body() datosAGuardar) {
+        try {
+            return await this._requerimientoService.crearMasivo(datosAGuardar);
+        } catch (e) {
+            console.error('Error', e);
             throw new InternalServerErrorException(e);
         }
     }

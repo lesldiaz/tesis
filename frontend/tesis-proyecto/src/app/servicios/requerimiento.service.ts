@@ -5,6 +5,7 @@ import {FUNCIONES_GENERALES} from '../constantes/funciones-generales';
 import {ProyectoInterface} from '../constantes/interfaces/proyecto.interface';
 import { BusquedaProyectoInterface } from '../constantes/interfaces/busqueda-proyecto.interface';
 import { RequerimientoInterface } from '../constantes/interfaces/requerimiento.interface';
+import { ExcelPlantillaHuInterface } from '../constantes/interfaces/excel-plantilla-hu.interface';
 
 
 @Injectable()
@@ -58,6 +59,9 @@ export class RequerimientoService {
 
   postRequerimiento(nuevoRequerimiento: RequerimientoInterface) {
     return this._httpClient.post(this.url, nuevoRequerimiento);
+  }
+  postRequerimientosExcel(nuevosRequerimientos: ExcelPlantillaHuInterface[]) {
+    return this._httpClient.post(this.url+'carga-masiva', nuevosRequerimientos);
   }
 
   putRequerimiento(nuevoRequerimiento: RequerimientoInterface, idRequerimiento: number) {

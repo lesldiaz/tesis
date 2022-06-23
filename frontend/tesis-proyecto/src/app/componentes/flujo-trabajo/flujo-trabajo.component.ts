@@ -1,6 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {MatStepper} from '@angular/material/stepper';
 import {ActivatedRoute} from '@angular/router';
+import {ToastrService} from 'ngx-toastr';
+import {ExcelPlantillaHuInterface} from 'src/app/constantes/interfaces/excel-plantilla-hu.interface';
+import {RequerimientoService} from 'src/app/servicios/requerimiento.service';
 
 @Component({
   selector: 'app-flujo-trabajo',
@@ -9,6 +13,7 @@ import {ActivatedRoute} from '@angular/router';
 })
 export class FlujoTrabajoComponent implements OnInit {
   idProyecto: number | undefined;
+  requerimientosCargados: object[] = [];
   firstFormGroup: FormGroup = new FormGroup({});
   secondFormGroup: FormGroup = new FormGroup({});
   thirdFormGroup: FormGroup = new FormGroup({});
@@ -16,9 +21,12 @@ export class FlujoTrabajoComponent implements OnInit {
   radiobuttons: string | undefined;
   divrbttn: any;
   metodoGraf: any;
+  @ViewChild('stepper') private myStepper: MatStepper | undefined;
 
   constructor(
     private readonly _activatedRoute: ActivatedRoute,
+    private readonly _toasterService: ToastrService,
+    private readonly _requerimientoService: RequerimientoService,
     private _formBuilder: FormBuilder) {
   }
 
@@ -32,10 +40,14 @@ export class FlujoTrabajoComponent implements OnInit {
     this._activatedRoute.params.subscribe(
       parametroRuta => {
         this.idProyecto = parametroRuta['id'];
-        console.log(this.idProyecto)
       }
     );
 
+  }
+
+  recibirRequerimientos($event: object[]) {
+    this.requerimientosCargados = $event;
+    console.log(this.requerimientosCargados);
   }
 
   eleccion() {
@@ -54,5 +66,21 @@ export class FlujoTrabajoComponent implements OnInit {
       this.metodoGraf = document.getElementById("metodo-grafico");
       this.metodoGraf.style.display = '';
     }
+  }
+
+  guardarRequerimientosIngresados() {
+    this.requerimientosCargados.forEach((requerimiento: ExcelPlantillaHuInterface) => {
+      requerimiento['proyecto'] = +(this.idProyecto as number);
+    });
+    this._requerimientoService.postRequerimientosExcel(this.requerimientosCargados)
+      .subscribe(
+      valor => {
+        console.log('gjhghgj');
+        (this.myStepper as MatStepper).next();
+      },
+      error => {
+        console.log(error)
+        this._toasterService.error('Ocurrió un error al guardar los requerimientos ingresados', 'Error')
+      });
   }
 }

@@ -21,4 +21,5 @@ export interface ExcelPlantillaHuInterface {
   consistente?: number;
   conforme?: number;
   necesario?: number;
+  proyecto?: number;
 }

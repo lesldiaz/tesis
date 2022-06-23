@@ -52,6 +52,5 @@ export class PlantillaClienteComponent implements OnInit {
       this.resultado = FUNCIONES_GENERALES.tratamientoDatosExcel(data as any);
       this.requerimientosCargados.emit(this.resultado);
     }
-
   }
 }
