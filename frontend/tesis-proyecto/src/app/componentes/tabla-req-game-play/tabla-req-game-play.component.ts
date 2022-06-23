@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-tabla-req-game-play',
@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./tabla-req-game-play.component.css']
 })
 export class TablaReqGamePlayComponent implements OnInit {
+  @Input()
+  datos:any[]=[];
 
   constructor() { }
 

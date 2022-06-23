@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-bloques-game-play',
@@ -26,6 +26,12 @@ export class BloquesGamePlayComponent implements OnInit {
   test:any;
   block: string[] = [];
   notesContainer: any;
+
+  @Output()devuelveDatos:EventEmitter<any> = new EventEmitter();
+
+  @Input()
+  bnd:boolean=false;
+
   constructor() { }
 
   ngOnInit(): void {
@@ -71,6 +77,27 @@ export class BloquesGamePlayComponent implements OnInit {
   updatebloq(text:string){
     this.test = document.getElementById(text);
     this.test.style.display = '';
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if(this.bnd == true){
+      this.addNewItem(this.block);
+      this.limpiar();
+    }
+  }
+  addNewItem(obj:object) {
+    this.devuelveDatos.emit(obj);
+  }
+  limpiar(){
+    const element = document.getElementsByClassName("pieza");
+    while(element[0]){
+      this.notesContainer.removeChild(element[0]);
+    }
+    for(let i=0;i<this.block.length;i++){
+      this.updatebloq(this.block[i]);
+    }
+    this.bnd=false;
+    this.block=[];
   }
 
 }

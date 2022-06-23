@@ -6,10 +6,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./pestana.component.css']
 })
 export class PestanaComponent implements OnInit {
-
+  
   constructor() { }
 
   ngOnInit(): void {
   }
-
 }

@@ -75,9 +75,10 @@
       <label><b>Ideas relacionadas</b></label>
       <input hidden>
       <div>
-        <app-post-it></app-post-it>
+        <app-post-it (devuelveDatos)="mostrarPostIt($event)" [bnd]="bandera"></app-post-it>
       </div>
     </div>
   </form>
 </div>
 
+<app-tabla-req-bloque [datos]="datos"></app-tabla-req-bloque>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-tabla-req-bloque',
@@ -6,10 +6,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./tabla-req-bloque.component.css']
 })
 export class TablaReqBloqueComponent implements OnInit {
-
+  @Input()
+  datos:any[]=[];
+  
   constructor() { }
 
   ngOnInit(): void {
+
   }
+  
+
 
 }

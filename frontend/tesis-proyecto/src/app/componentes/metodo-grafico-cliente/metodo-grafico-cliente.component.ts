@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-metodo-grafico-cliente',
@@ -17,9 +17,9 @@ export class MetodoGraficoClienteComponent implements OnInit {
   var = 0;
   selected = 'option2';
   datos:object[]=[];
+  posit:any[]=[];
+  bandera:boolean=false;
 
-  @Input()
-  posit: object[]=[];
 
   constructor() { }
 
@@ -30,7 +30,7 @@ export class MetodoGraficoClienteComponent implements OnInit {
     this.container=document.getElementById('rol');
     this.rolesop =document.getElementById('roles');
     const option = document.createElement('option');
-    console.log(this.container.value);
+    //console.log(this.container.value);
     this.var=0;
     if(this.roles.length==0){
       this.roles.push(this.container.value);
@@ -42,22 +42,34 @@ export class MetodoGraficoClienteComponent implements OnInit {
           this.var = this.var + 1;
         }
       }
-      console.log(this.var);
+      //console.log(this.var);
         if(this.var == 0){
           this.roles.push(this.container.value);
           option.value=this.container.value;
           this.rolesop.appendChild(option);
         }
     }
-    console.log(this.roles);
+    //console.log(this.roles);
+    this.bandera=true;
     this.guardarInput();
+  }
+
+  mostrarPostIt(event:any){
+    //console.log(event);
+    this.posit.push(event);
   }
   guardarInput(){
     this.identificador = document.getElementById('id');
     this.container = document.getElementById('rol');
     this.padre = this.selected;
     this.titulo = document.getElementById('titulo');
-    this.prioridad = document.getElementsByClassName('rating')
+    this.prioridad = document.getElementsByName("estrellas");
+    let radio;
+    for(var i = 0; i < this.prioridad.length; i++){
+      if(this.prioridad[i].checked){
+        radio=this.prioridad[i].value;
+      }
+    }
     this.description = document.getElementById('textarea1');
 
     if(this.identificador.value == ""){
@@ -66,20 +78,38 @@ export class MetodoGraficoClienteComponent implements OnInit {
         "rol":this.container.value,
         "padre":this.padre,
         "titulo":this.titulo.value,
-        "prioridad":this.prioridad.value,
-        "descipcion":this.description.value
+        "prioridad":radio,
+        "descripcion":this.description.value,
+        "postit":this.posit
       });
     }else{
       this.datos.push({"id":this.identificador.value,
         "rol":this.container.value,
         "padre":this.padre,
         "titulo":this.titulo.value,
-        "prioridad":this.prioridad.value,
-        "descipcion":this.description.value
+        "prioridad":radio,
+        "descripcion":this.description.value,
+        "postit":this.posit
       });
     }
+    //console.log(this.datos);
 
-    console.log(this.datos);
+    this.limpiar();
 
   }
+
+  limpiar(){
+
+    this.prioridad = document.getElementsByName('estrellas');
+    for(var i =0;i< 3; i++){
+      this.prioridad[i].checked="false";
+    }
+    this.identificador.value = "";
+    this.container.value='';
+    this.selected='option2';
+    this.titulo.value='';
+    this.description.value='';
+
+  }
+
 }

@@ -9,3 +9,7 @@
   fill: black;
   padding: 16px;
 }
+#bloq{
+  display: grid;
+  grid-template-columns: repeat(auto-fill,150px);
+}

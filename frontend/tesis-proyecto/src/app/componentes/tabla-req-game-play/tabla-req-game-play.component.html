@@ -1,1 +1,23 @@
 <p>tabla-req-game-play works!</p>
+<table>
+
+  <tr>
+    <th>OPCIONES</th>
+    <th>ID</th>
+    <th>DESCRIPCION</th>
+    <th>BLOQUES</th>
+
+  </tr>
+  <tr *ngFor="let dato of datos">
+    <td>
+      <button>
+        Seleccionar
+      </button>
+    </td>
+    <td>{{dato.id}}</td>
+    <td>{{dato.descripcion}}</td>
+    <td *ngFor="let pos of dato.bloque">
+      <p *ngFor="let obj of pos">{{obj}}<br></p>
+    </td>
+  </tr>
+</table>

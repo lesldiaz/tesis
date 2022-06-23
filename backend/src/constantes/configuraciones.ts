@@ -9,6 +9,6 @@ export const CONFIGURACIONES = {
             synchronize: true, // consumir la base, no crear --> false
             dropSchema: false, // only developer mode
         },
-        crearDatosTest: false
+        crearDatosTest: true
     }
 ;
