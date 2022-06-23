@@ -2,10 +2,10 @@ export const CONFIGURACIONES = {
         bdd: {
             type: 'mysql',
             host: 'localhost',
-            port: 49158,
+            port: 3306,
             username: 'root',
-            password: 'mysqlpw',
-            database: 'mysql',
+            password: 'root2022',
+            database: 'vraw',
             synchronize: true, // consumir la base, no crear --> false
             dropSchema: true, // only developer mode
         },
