@@ -1,22 +1,49 @@
 <div class="row">
   <div class="col-sm-12">
-    <p-table [responsive]="true" [value]="datos"
+    <p-toolbar styleClass="mb-4">
+      <ng-template pTemplate="right">
+        <button class="btn btn-azul mr-3"><i class="fa fa-pencil"></i></button>
+        <button class="btn btn-rojo" [disabled]="!selectedRequerimientos || !selectedRequerimientos.length">
+          <i class="fa fa-trash"></i>
+        </button>
+      </ng-template>
+    </p-toolbar>
+    <p-table [responsive]="true"
+             [value]="requerimientos"
              [paginator]="true"
              [lazy]="true"
              (onLazyLoad)="cargarMasDatos($event)"
+             [(selection)]="selectedRequerimientos"
+             dataKey="id"
              [totalRecords]="total"
              [rows]="5">
       <ng-template pTemplate="header">
         <tr>
-          <th *ngFor="let col of cols">
-            {{col.header}}
+          <th style="width: 3rem">
+            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
           </th>
+          <th class="text-center">Identificador</th>
+          <th class="text-center">Descripción</th>
+          <th class="text-center">Prioridad</th>
+          <th class="text-center">Padre</th>
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-datoFila>
         <tr>
-          <td *ngFor="let col of cols">
-              {{datoFila[col.field]}}
+          <td>
+            <p-tableCheckbox [value]="datoFila"></p-tableCheckbox>
+          </td>
+          <td class="text-center">
+            {{datoFila['idRequerimiento']}}
+          </td>
+          <td class="text-center">
+            {{datoFila['descripcion']}}
+          </td>
+          <td class="text-center">
+            {{datoFila['prioridad']| ldprioridadreq}}
+          </td>
+          <td class="text-center">
+            {{datoFila['requerimientoPadre'] ? datoFila['requerimientoPadre'] : 'Ninguno'}}
           </td>
         </tr>
       </ng-template>

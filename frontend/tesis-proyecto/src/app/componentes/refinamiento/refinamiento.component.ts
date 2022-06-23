@@ -15,11 +15,8 @@ export class RefinamientoComponent implements OnInit {
   @Input() requerimientos: RequerimientoInterface[] = [];
   @Input() idProyecto: number | undefined;
   @Input() tipoRequerimientos: 'J' | 'C' = 'C';
+  display: boolean = false;
   cols: any[] = [
-    {field: 'idRequerimiento', header: 'Identificador'},
-    {field: 'descripcion', header: 'Descripción'},
-    {field: 'prioridad', header: 'Prioridad'},
-    {field: 'requerimientoPadre', header: 'Padre'},
     {field: 'resultado', header: 'Correcto'},
     {field: 'resultado', header: 'Apropiado'},
     {field: 'resultado', header: 'Completo'},
@@ -62,6 +59,9 @@ export class RefinamientoComponent implements OnInit {
           console.error(error);
         }
       );
+  }
+  showDialog() {
+    this.display = true;
   }
 
   cambiarCorrecto(estado: any, requerimiento: RequerimientoInterface) {

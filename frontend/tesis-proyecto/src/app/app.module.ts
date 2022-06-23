@@ -27,14 +27,17 @@ import {MatStepperModule} from '@angular/material/stepper';
 import {MatRadioModule} from '@angular/material/radio';
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 import {BreadcrumbModule} from 'primeng/breadcrumb';
+import {ToolbarModule} from 'primeng/toolbar';
 import {MenuModule} from 'primeng/menu';
 import {ToastrModule} from 'ngx-toastr';
-import { DropdownModule } from 'primeng/dropdown';
+import {DropdownModule} from 'primeng/dropdown';
 import {CheckboxModule} from 'primeng/checkbox';
-import { RefinamientoComponent } from './componentes/refinamiento/refinamiento.component';
-import { ResultadoComponent } from './componentes/resultado/resultado.component';
-import { TablaReqBloqueComponent } from './componentes/tabla-req-bloque/tabla-req-bloque.component';
-import { TablaReqGamePlayComponent } from './componentes/tabla-req-game-play/tabla-req-game-play.component';
+import {RefinamientoComponent} from './componentes/refinamiento/refinamiento.component';
+import {ResultadoComponent} from './componentes/resultado/resultado.component';
+import {TablaReqBloqueComponent} from './componentes/tabla-req-bloque/tabla-req-bloque.component';
+import {TablaReqGamePlayComponent} from './componentes/tabla-req-game-play/tabla-req-game-play.component';
+import {DialogModule} from 'primeng/dialog';
+import {ScrollPanelModule} from 'primeng/scrollpanel';
 
 @NgModule({
   declarations: [
@@ -78,7 +81,10 @@ import { TablaReqGamePlayComponent } from './componentes/tabla-req-game-play/tab
     BreadcrumbModule,
     MenuModule,
     DropdownModule,
-    CheckboxModule
+    CheckboxModule,
+    ToolbarModule,
+    DialogModule,
+    ScrollPanelModule,
   ],
   providers: [
     {

@@ -1,3 +1,12 @@
+<p-dialog [modal]="true" [closable]="true" position="top" [(visible)]="display">
+  <ng-template pTemplate="header">
+    Header content here
+  </ng-template>
+  Content
+  <ng-template pTemplate="footer">
+    //buttons
+  </ng-template>
+</p-dialog>
 <div class="row">
   <div class="col-sm-12">
     <p-table
@@ -9,59 +18,63 @@
       styleClass="mt-3">
       <ng-template pTemplate="header">
         <tr>
-          <th class="text-center" *ngFor="let col of cols">
-            {{col.header}}
+          <th pFrozenColumn style="width: 8rem;" class="text-center">Identificador</th>
+          <th pFrozenColumn style="width: 20rem;" class="text-center">Descripción</th>
+          <th pFrozenColumn style="width: 6rem;" class="text-center">Prioridad</th>
+          <th pFrozenColumn style="width: 6rem;" class="text-center">Padre</th>
+          <th class="text-center" style="width: 8rem;" *ngFor="let col of cols">
+            <a (click)="showDialog()">{{col.header}}</a>
           </th>
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-requerimientoFila>
         <tr>
-          <td class="text-center">
+          <td style="width: 8rem;" pFrozenColumn class="text-center">
             {{requerimientoFila['idRequerimiento']}}
           </td>
-          <td class="text-center">
+          <td style="width: 20rem;" pFrozenColumn class="text-center">
             {{requerimientoFila['descripcion']}}
           </td>
-          <td class="text-center">
+          <td style="width: 6rem;" pFrozenColumn class="text-center">
             {{requerimientoFila['prioridad']| ldprioridadreq}}
           </td>
-          <td class="text-center">
+          <td style="width: 6rem;" pFrozenColumn class="text-center">
             {{requerimientoFila['requerimientoPadre'] ? requerimientoFila['requerimientoPadre'] : 'Ninguno'}}
           </td>
-          <td class="text-center">
+          <td style="width: 8rem;" class="text-center">
             <input class="form-check-input" #correctoCheck type="checkbox"  [checked]="requerimientoFila['resultado']['correcto']" (change)="cambiarCorrecto(correctoCheck.checked, requerimientoFila)">
           </td>
-          <td class="text-center">
+          <td style="width: 8rem;" class="text-center">
             <input class="form-check-input" #apropiadoCheck type="checkbox"  [checked]="requerimientoFila['resultado']['apropiado']" (change)="cambiarApropiado(apropiadoCheck.checked, requerimientoFila)">
           </td>
-          <td class="text-center">
+          <td style="width: 8rem;" class="text-center">
             <input class="form-check-input" #completoCheck type="checkbox"  [checked]="requerimientoFila['resultado']['completo']" (change)="cambiarCompleto(completoCheck.checked, requerimientoFila)">
             </td>
-          <td class="text-center">
+          <td style="width: 8rem;" class="text-center">
             <input class="form-check-input" #verificableCheck type="checkbox"  [checked]="requerimientoFila['resultado']['verificable']" (change)="cambiarVerificable(verificableCheck.checked, requerimientoFila)">
           </td>
-          <td class="text-center">
+          <td style="width: 8rem;" class="text-center">
             <input class="form-check-input" #factibleCheck type="checkbox"  [checked]="requerimientoFila['resultado']['factible']" (change)="cambiarFactible(factibleCheck.checked, requerimientoFila)">
           </td>
-          <td class="text-center">
+          <td style="width: 8rem;" class="text-center">
             <input class="form-check-input" #sinAmbiguedadCheck type="checkbox"  [checked]="requerimientoFila['resultado']['sinAmbiguedad']" (change)="cambiarSinAmbiguedad(sinAmbiguedadCheck.checked, requerimientoFila)">
           </td>
-          <td class="text-center">
+          <td style="width: 8rem;" class="text-center">
             <input class="form-check-input" #singularCheck type="checkbox"  [checked]="requerimientoFila['resultado']['singular']" (change)="cambiarSingular(singularCheck.checked, requerimientoFila)">
           </td>
-          <td class="text-center">
+          <td style="width: 8rem;" class="text-center">
             <input class="form-check-input" #trazableCheck type="checkbox"  [checked]="requerimientoFila['resultado']['trazable']" (change)="cambiarTrazable(trazableCheck.checked, requerimientoFila)">
           </td>
-          <td class="text-center">
+          <td style="width: 8rem;" class="text-center">
             <input class="form-check-input" #modificableCheck type="checkbox"  [checked]="requerimientoFila['resultado']['modificable']" (change)="cambiarModificable(modificableCheck.checked, requerimientoFila)">
           </td>
-          <td class="text-center">
+          <td style="width: 8rem;" class="text-center">
             <input class="form-check-input" #consistenteCheck type="checkbox"  [checked]="requerimientoFila['resultado']['consistente']" (change)="cambiarConsistente(consistenteCheck.checked, requerimientoFila)">
           </td>
-          <td class="text-center">
+          <td style="width: 8rem;" class="text-center">
             <input class="form-check-input" #conformeCheck type="checkbox"  [checked]="requerimientoFila['resultado']['conforme']" (change)="cambiarConforme(conformeCheck.checked, requerimientoFila)">
           </td>
-          <td class="text-center">
+          <td style="width: 8rem;" class="text-center">
             <input class="form-check-input" #necesarioCheck type="checkbox"  [checked]="requerimientoFila['resultado']['necesario']" (change)="cambiarNecesario(necesarioCheck.checked, requerimientoFila)">
           </td>
         </tr>
@@ -81,5 +94,4 @@
     <button class="btn btn-outline-dark" (click)="refinar()">Refinar</button>
   </div>
 </div>
-
 
