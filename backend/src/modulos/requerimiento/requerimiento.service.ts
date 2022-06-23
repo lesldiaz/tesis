@@ -34,17 +34,90 @@ export class RequerimientoService extends ServiceGeneral<RequerimientoEntity> {
        * ver el tipo de proyecto antes de crear todo lo de arriba, es para el identificador
        * nada mas creo xdd
        * */
-            try {
-                if(datosAGuardar.length){
-                    const idProyecto = (datosAGuardar[0] as any).proyecto;
-                    const proyecto = await this._proyectoRepository.findOne(idProyecto);
-
+        try {
+            if (datosAGuardar.length) {
+                const idProyecto = (datosAGuardar[0] as any).proyecto;
+                const proyecto = await this._proyectoRepository.findOne(idProyecto);
+                const tipoProyecto = proyecto.tipoProyecto;
+                if (tipoProyecto === 'C') {
+                    datosAGuardar.forEach(async requerimiento => {
+                        switch (requerimiento.prioridad) {
+                            case 'ALTA':
+                                requerimiento.prioridad = 3;
+                                break;
+                            case 'MEDIA':
+                                requerimiento.prioridad = 2;
+                                break;
+                            default:
+                                requerimiento.prioridad = 1;
+                                break;
+                        }
+                        const requerimientoGuardar = {
+                            descripcion: requerimiento.descripcion,
+                            prioridad: requerimiento.prioridad,
+                            proyecto: requerimiento.proyecto,
+                            requerimientoPadre: requerimiento.padre ? requerimiento.padre : null,
+                            createdAt: moment().format().toString(),
+                            updatedAt: moment().format().toString()
+                        }
+                        //guardar req esqueleto
+                        const requerimientoCreado = await this._requerimientoRepository.save(requerimientoGuardar);
+                        //generar id requerimiento
+                        requerimientoCreado.idRequerimiento =
+                            FUNCIONES_GENERALES
+                                .generarIdRequerimiento(
+                                    {
+                                        id: requerimientoCreado.id,
+                                        tipoProyecto
+                                    }
+                                );
+                        console.log(requerimientoCreado)
+                        // editar padre aqui - pendiente
+                        //editar idReq generado
+                        const respuestaEditar =
+                            await this._requerimientoRepository
+                                .update(
+                                    requerimientoCreado.id,
+                                    {
+                                        idRequerimiento: requerimientoCreado.idRequerimiento
+                                    });
+                        const actualizacionExitosa: boolean =
+                            respuestaEditar.affected > 0;
+                        if (!actualizacionExitosa) {
+                            return new Promise((resolve, reject) =>
+                                reject('Ocurrió un error al crear id del requerimiento'),
+                            );
+                        }
+                        // guardar datos resultado previo
+                        const resultado = {
+                            requerimiento: requerimientoCreado.id,
+                            correcto: requerimiento.correcto,
+                            apropiado: requerimiento.apropiado,
+                            completo: requerimiento.completo,
+                            verificable: requerimiento.verificable,
+                            factible: requerimiento.factible,
+                            sinAmbiguedad: requerimiento.sinAmbiguedad,
+                            singular: requerimiento.singular,
+                            trazable: requerimiento.trazable,
+                            modificable: requerimiento.modificable,
+                            consistente: requerimiento.consistente,
+                            conforme: requerimiento.conforme,
+                            necesario: requerimiento.necesario,
+                        }
+                        const resultadoRequerimiento = await this._resultadoRepository.save(resultado);
+                        return requerimientoCreado;
+                    });
+                } else {
 
                 }
-            } catch (e) {
                 return new Promise((resolve, reject) =>
-                    reject(`Error de Servidor. ${e.name}: ${e.message}`),
+                    resolve({mensaje: 'Completo', codigoRespuesta: 200}),
                 );
+            }
+        } catch (e) {
+            return new Promise((resolve, reject) =>
+                reject(`Error de Servidor. ${e.name}: ${e.message}`),
+            );
 
         }
     }
@@ -172,11 +245,9 @@ export class RequerimientoService extends ServiceGeneral<RequerimientoEntity> {
                     relations: [
                         'rol',
                         'proyecto',
-                        'requerimientoPadre',
                         'resultado',
                         'requerimientoBloque',
                         'proposito',
-                        'requerimientosHijo'
                     ],
                     order: {...orden},
                     skip: opcionesBusqueda.skip,
@@ -186,11 +257,9 @@ export class RequerimientoService extends ServiceGeneral<RequerimientoEntity> {
                 listarTodo = await this._requerimientoRepository.findAndCount({
                     relations: ['rol',
                         'proyecto',
-                        'requerimientoPadre',
                         'resultado',
                         'requerimientoBloque',
                         'proposito',
-                        'requerimientosHijo'
                     ],
                     ...criteriosPaginacion,
                     order: {

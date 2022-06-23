@@ -39,8 +39,10 @@ export class ResultadoComponent implements OnInit {
     getProyectos$
       .subscribe(
         (proyectos: any) => {
-          this.requerimientos = proyectos.mensaje.resultado;
-          this.requerimientosClonados = FUNCIONES_GENERALES.generarObjetoResExcel(this.requerimientos);
+          if(typeof proyectos.mensaje !== 'string'){
+            this.requerimientos = proyectos.mensaje.resultado;
+            this.requerimientosClonados = FUNCIONES_GENERALES.generarObjetoResExcel(this.requerimientos);
+          }
          /* this.requerimientos.map(requerimiento => {
             requerimiento.resultado = (requerimiento.resultado as ResultadoInterface[])[0];
           })*/
@@ -73,9 +75,5 @@ export class ResultadoComponent implements OnInit {
       type: EXCEL_TYPE
     });
     FileSaver.saveAs(data, fileName + '_' + new Date().getTime() + EXCEL_EXTENSION);
-  }
-
-  irAProyectos() {
-    this._route.navigate(['/proyectos']);
   }
 }

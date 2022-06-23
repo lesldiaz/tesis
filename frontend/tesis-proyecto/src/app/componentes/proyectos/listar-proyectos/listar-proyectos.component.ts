@@ -278,4 +278,8 @@ export class ListarProyectosComponent implements OnInit {
     });
     FileSaver.saveAs(data, fileName + '_' + new Date().getTime() + EXCEL_EXTENSION);
   }*/
+
+  irANuevoProyecto(idProyecto: number) {
+    this._route.navigate(['/nuevoproyecto',idProyecto]);
+  }
 }

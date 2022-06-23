@@ -46,19 +46,22 @@
     <mat-step label="Visualización de requerimiento"   >
       <app-tabla-previsual-req-plantilla [idProyecto]="idProyecto"></app-tabla-previsual-req-plantilla>
         <div >
-          <button class="btn " type="button" mat-button matStepperPrevious>Back</button>
-          <button class="btn " type="button" mat-button matStepperNext>Next</button>
+          <button class="btn " type="button" mat-button matStepperPrevious>Regresar</button>
+          <button class="btn " type="button" mat-button matStepperNext>Continuar</button>
         </div>
     </mat-step>
     <mat-step label="Refinamiento" >
       <app-refinamiento [idProyecto]="idProyecto" [tipoRequerimientos]="'C'"></app-refinamiento>
       <div >
-        <button class="btn " type="button" mat-button matStepperPrevious>Back</button>
-        <button class="btn " type="button" mat-button matStepperNext>Next</button>
+        <button class="btn " type="button" mat-button matStepperPrevious>Regresar</button>
+        <button class="btn " type="button" (click)="refinar()" mat-button >Continuar</button>
       </div>
     </mat-step>
     <mat-step label="Resultados">
       <app-resultado [idProyecto]="idProyecto"></app-resultado>
+      <div >
+        <button class="btn " type="button" (click)="irAProyectos()" mat-button >Finalizar</button>
+      </div>
     </mat-step>
   </mat-stepper>
 </div>

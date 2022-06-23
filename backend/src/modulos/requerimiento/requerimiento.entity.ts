@@ -102,20 +102,25 @@ export class RequerimientoEntity extends EntityGenerico {
 
     //relacion arbol
 
-    @OneToMany(
+  /*  @OneToMany(
         type => RequerimientoEntity,
         requerimiento => requerimiento.requerimientoPadre
     )
-    requerimientosHijo: RequerimientoEntity[];
+    requerimientosHijo: RequerimientoEntity[];*/
 
-    @ManyToOne(
+    /*@ManyToOne(
         type => RequerimientoEntity,
         requerimiento => requerimiento.requerimientosHijo, {
             nullable: true,
             onDelete: 'SET NULL',
         }
-    )
-    requerimientoPadre?: RequerimientoEntity | number;
+    )*/
+    @Column({
+        name: 'requerimientoPadreID',
+        type: 'integer',
+        nullable: true
+    })
+    requerimientoPadre?: number;
 
     // fin relacion arbol
 

@@ -49,10 +49,12 @@ export class RefinamientoComponent implements OnInit {
     getProyectos$
       .subscribe(
         (proyectos: any) => {
-          this.requerimientos = proyectos.mensaje.resultado;
-          this.requerimientos.map(requerimiento => {
-            requerimiento.resultado = (requerimiento.resultado as ResultadoInterface[])[0];
-          });
+          if(typeof proyectos.mensaje !== 'string'){
+            this.requerimientos = proyectos.mensaje?.resultado;
+            this.requerimientos.map(requerimiento => {
+              requerimiento.resultado = (requerimiento.resultado as ResultadoInterface[])[0];
+            });
+          }
           //this.total = proyectos.mensaje.totalResultados;
         },
         (error: any) => {

@@ -7,7 +7,7 @@ export const CONFIGURACIONES = {
             password: 'root2022',
             database: 'vraw',
             synchronize: true, // consumir la base, no crear --> false
-            dropSchema: false, // only developer mode
+            dropSchema: true, // only developer mode
         },
         crearDatosTest: true
     }

@@ -35,11 +35,15 @@ export class TablaPrevisualReqPlantillaComponent implements OnInit {
     getProyectos$
       .subscribe(
         (proyectos: any) => {
-          this.requerimientos = proyectos.mensaje.resultado;
-          this.requerimientos.map(requerimiento => {
-            requerimiento.resultado = (requerimiento.resultado as ResultadoInterface[])[0];
-          });
-          this.total = proyectos.mensaje.totalResultados;
+          if(typeof proyectos.mensaje !== 'string'){
+            this.requerimientos = proyectos.mensaje.resultado;
+            this.requerimientos.map(requerimiento => {
+              requerimiento.resultado = (requerimiento.resultado as ResultadoInterface[])[0];
+            });
+            this.total = proyectos.mensaje.totalResultados;
+          } else {
+            this.total = 0;
+          }
         },
         (error: any) => {
           console.error(error);
