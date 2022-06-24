@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { FUNCIONES_GENERALES } from 'src/app/constantes/funciones-generales';
 import { ExcelPlantillaResInterface } from 'src/app/constantes/interfaces/excel-plantilla-res.interface';
@@ -39,13 +39,13 @@ export class ResultadoComponent implements OnInit {
     getProyectos$
       .subscribe(
         (proyectos: any) => {
-          if(typeof proyectos.mensaje !== 'string'){
+          if (typeof proyectos.mensaje !== 'string') {
             this.requerimientos = proyectos.mensaje.resultado;
             this.requerimientosClonados = FUNCIONES_GENERALES.generarObjetoResExcel(this.requerimientos);
           }
-         /* this.requerimientos.map(requerimiento => {
-            requerimiento.resultado = (requerimiento.resultado as ResultadoInterface[])[0];
-          })*/
+          /* this.requerimientos.map(requerimiento => {
+             requerimiento.resultado = (requerimiento.resultado as ResultadoInterface[])[0];
+           })*/
           //this.total = proyectos.mensaje.totalResultados;
         },
         (error: any) => {

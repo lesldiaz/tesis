@@ -194,11 +194,11 @@ export class ListarProyectosComponent implements OnInit {
       .subscribe(
         proyectoADuplicar => {
           if (proyectoADuplicar) {
-
             const proyectoDuplicado = JSON.parse(JSON.stringify(proyectoADuplicar));
             proyectoDuplicado.duplicado = 1;
             proyectoDuplicado.nombre = proyectoDuplicado.nombre + ' - Copia';
             proyectoDuplicado.usuario = proyectoDuplicado.usuario.id;
+            proyectoDuplicado.estado = proyectoDuplicado.estado === 'F'? 'P': proyectoDuplicado.estado;
             delete proyectoDuplicado.idProyecto
             delete proyectoDuplicado.id
             this._proyectoService.postProyecto(proyectoDuplicado)

@@ -67,6 +67,9 @@ export class RequerimientoService {
   putRequerimiento(nuevoRequerimiento: RequerimientoInterface, idRequerimiento: number) {
     return this._httpClient.put(this.url + idRequerimiento, nuevoRequerimiento);
   }
+  putRefinamiento(idProyecto: object) {
+    return this._httpClient.put(this.url + 'refinamiento', idProyecto);
+  }
 
   deleteRequerimiento(idRequerimiento: number) {
     return this._httpClient.delete(this.url + idRequerimiento);

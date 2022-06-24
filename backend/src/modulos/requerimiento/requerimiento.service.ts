@@ -71,7 +71,6 @@ export class RequerimientoService extends ServiceGeneral<RequerimientoEntity> {
                                         tipoProyecto
                                     }
                                 );
-                        console.log(requerimientoCreado)
                         // editar padre aqui - pendiente
                         //editar idReq generado
                         const respuestaEditar =
@@ -288,6 +287,81 @@ export class RequerimientoService extends ServiceGeneral<RequerimientoEntity> {
                     }),
                 );
             }
+        } catch (e) {
+            return new Promise((resolve, reject) =>
+                reject(`Error de Servidor. ${e.name}: ${e.message}`),
+            );
+        }
+    }
+
+    async refinamiento(objeto: any): Promise<RespuestaInterface<any> | string>{
+        try {
+            const idProyecto = objeto.idProyecto;
+            const requerimientosARefinar = await this._requerimientoRepository.find({
+                where: {
+                    proyecto: {
+                        id: idProyecto
+                    }
+                },
+                relations : [
+                    'rol',
+                    'proyecto',
+                    'resultado',
+                    'requerimientoBloque',
+                    'proposito'
+                ]
+            });
+            const requerimientosClonados = JSON.parse(JSON.stringify(requerimientosARefinar));
+            requerimientosClonados.map(requerimiento => {
+                requerimiento.resultado = requerimiento.resultado[0];
+            });
+            requerimientosClonados.forEach(async requerimientoARefinar => {
+                let observacionesFinales = '';
+                const resultados = requerimientoARefinar.resultado;
+                const validacionMin =
+                    resultados.correcto
+                    && resultados.apropiado
+                    && resultados.completo
+                    && resultados.verificable
+                    && resultados.factible;
+                if (validacionMin) {
+                    await this._requerimientoRepository.update(requerimientoARefinar.id,{
+                        estado: 1
+                    });
+                    observacionesFinales = observacionesFinales +
+                        'El requerimiento cumple con las características mínimas para ser considerado bien formado.';
+                } else {
+                    observacionesFinales = observacionesFinales +
+                        'Características no cumplidas: ';
+                    const reqNoCumplidos: string[] = [];
+                    if (!resultados.correcto) {
+                        reqNoCumplidos.push('Correcto');
+                    }
+                    if(!resultados.apropiado){
+                        reqNoCumplidos.push('Apropiado');
+                    }
+                    if(!resultados.completo){
+                        reqNoCumplidos.push('Completo');
+                    }
+                    if(!resultados.verificable){
+                        reqNoCumplidos.push('Verificable');
+                    }
+                    if(!resultados.factible){
+                        reqNoCumplidos.push('Factible');
+                    }
+                    observacionesFinales = observacionesFinales + reqNoCumplidos.join(', ');
+                }
+                const observacion = {
+                    observaciones: observacionesFinales
+                }
+                await this._resultadoRepository.update(resultados.id, observacion);
+            });
+            await this._proyectoRepository.update(idProyecto,{
+                estado: 'F'
+            })
+            return new Promise((resolve, reject) =>
+                resolve({mensaje: 'Completo', codigoRespuesta:200}),
+            );
         } catch (e) {
             return new Promise((resolve, reject) =>
                 reject(`Error de Servidor. ${e.name}: ${e.message}`),

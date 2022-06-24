@@ -1,6 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
-import { ResultadoInterface } from 'src/app/constantes/interfaces/resultado.interface';
-import { RequerimientoService } from 'src/app/servicios/requerimiento.service';
+import {Component, Input, OnChanges, OnInit} from '@angular/core';
+import {ResultadoInterface} from 'src/app/constantes/interfaces/resultado.interface';
+import {RequerimientoService} from 'src/app/servicios/requerimiento.service';
 
 @Component({
   selector: 'app-tabla-previsual-req-plantilla',
@@ -9,8 +9,9 @@ import { RequerimientoService } from 'src/app/servicios/requerimiento.service';
 })
 export class TablaPrevisualReqPlantillaComponent implements OnInit {
   @Input() idProyecto: number | undefined;
+  @Input() buscarRequerimientos: boolean = false;
   requerimientos: any[] = [];
-  selectedRequerimientos: any[]=[];
+  selectedRequerimientos: any[] = [];
   cols: any[] = [
     {field: 'identificador', header: 'Identificador'},
     {field: 'descripcion', header: 'Descripción'},
@@ -26,29 +27,29 @@ export class TablaPrevisualReqPlantillaComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const criterioBusqueda = {
-      proyecto: {
-        id: this.idProyecto
-      }
-    };
-    let getProyectos$ = this._requerimientoService.getRequerimientosFiltro(0, 5, criterioBusqueda);
-    getProyectos$
-      .subscribe(
-        (proyectos: any) => {
-          if(typeof proyectos.mensaje !== 'string'){
-            this.requerimientos = proyectos.mensaje.resultado;
-            this.requerimientos.map(requerimiento => {
-              requerimiento.resultado = (requerimiento.resultado as ResultadoInterface[])[0];
-            });
-            this.total = proyectos.mensaje.totalResultados;
-          } else {
-            this.total = 0;
-          }
-        },
-        (error: any) => {
-          console.error(error);
+      const criterioBusqueda = {
+        proyecto: {
+          id: this.idProyecto
         }
-      );
+      };
+      let getProyectos$ = this._requerimientoService.getRequerimientosFiltro(0, 5, criterioBusqueda);
+      getProyectos$
+        .subscribe(
+          (proyectos: any) => {
+            if (typeof proyectos.mensaje !== 'string') {
+              this.requerimientos = proyectos.mensaje.resultado;
+              this.requerimientos.map(requerimiento => {
+                requerimiento.resultado = (requerimiento.resultado as ResultadoInterface[])[0];
+              });
+              this.total = proyectos.mensaje.totalResultados;
+            } else {
+              this.total = 0;
+            }
+          },
+          (error: any) => {
+            console.error(error);
+          }
+        );
   }
 
   cargarMasDatos($event: any) {
