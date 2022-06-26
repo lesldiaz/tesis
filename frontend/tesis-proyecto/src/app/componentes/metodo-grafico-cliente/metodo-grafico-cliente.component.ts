@@ -16,9 +16,12 @@ export class MetodoGraficoClienteComponent implements OnInit {
   description:any;
   var = 0;
   selected = 'option2';
-  datos:object[]=[];
+  datos:any[]=[];
   posit:any[]=[];
+  blockEnvio:any[]=[];
   bandera:boolean=false;
+  event:any;
+  eliminarImg:any;
 
 
   constructor() { }
@@ -27,6 +30,7 @@ export class MetodoGraficoClienteComponent implements OnInit {
   }
   cambioRol(){
     console.log('cambio')
+    this.eliminarImg=document.getElementById('eliminar');
     this.container=document.getElementById('rol');
     this.rolesop =document.getElementById('roles');
     const option = document.createElement('option');
@@ -55,8 +59,10 @@ export class MetodoGraficoClienteComponent implements OnInit {
   }
 
   mostrarPostIt(event:any){
+    this.event=event;
     //console.log(event);
-    this.posit.push(event);
+    this.bandera=false;
+
   }
   guardarInput(){
     this.identificador = document.getElementById('id');
@@ -71,6 +77,7 @@ export class MetodoGraficoClienteComponent implements OnInit {
       }
     }
     this.description = document.getElementById('textarea1');
+    this.posit.push(this.event);
 
     if(this.identificador.value == ""){
       const id =Math.floor(Math.random()*100000);
@@ -83,14 +90,7 @@ export class MetodoGraficoClienteComponent implements OnInit {
         "postit":this.posit
       });
     }else{
-      this.datos.push({"id":this.identificador.value,
-        "rol":this.container.value,
-        "padre":this.padre,
-        "titulo":this.titulo.value,
-        "prioridad":radio,
-        "descripcion":this.description.value,
-        "postit":this.posit
-      });
+      this.actualizar(radio);
     }
     //console.log(this.datos);
 
@@ -101,7 +101,7 @@ export class MetodoGraficoClienteComponent implements OnInit {
   limpiar(){
 
     this.prioridad = document.getElementsByName('estrellas');
-    for(var i =0;i< 3; i++){
+    for(var i =0;i< this.prioridad.length; i++){
       this.prioridad[i].checked="false";
     }
     this.identificador.value = "";
@@ -109,7 +109,77 @@ export class MetodoGraficoClienteComponent implements OnInit {
     this.selected='option2';
     this.titulo.value='';
     this.description.value='';
+    this.bandera=true;
+    this.posit=[];
+    this.blockEnvio=[];
+    this.eliminarImg.style.display='none';
+  }
+  select(event:any){
+    console.log('seleccionar')
+    this.identificador.value = event.id;
+    this.container.value=event.rol;
+    this.selected=event.padre;
+    this.titulo.value=event.titulo;
+    console.log(event.prioridad)
+    for(var i = 0; i <this.prioridad.length;i++){
+      if(this.prioridad[i].value==event.prioridad){
+        this.prioridad[i].checked='true';
+      }
+    }
+    this.description.value=event.descripcion;
+    for(let post of event.postit){
+      for(let pst of post){
+        console.log(pst);
+        this.blockEnvio.push(pst);
+      }
+    }
+    console.log(this.blockEnvio)
+    this.eliminarImg.style.display='';
+    this.bandera=false;
 
+  }
+  actualizar(radio:any){
+    for(let i=0; i<this.datos.length;i++){
+      const index = i;
+      //console.log(index);
+      //console.log(this.datos[i]);
+      //console.log(this.datos[i].id);
+      if(this.datos[i].id==this.identificador.value){
+        this.datos[i]={
+          "id":this.identificador.value,
+          "rol":this.container.value,
+          "padre":this.padre,
+          "titulo":this.titulo.value,
+          "prioridad":radio,
+          "descripcion":this.description.value,
+          "postit":this.posit};
+      }
+    }
+    //console.log(this.datos)
+    this.limpiar();
+  }
+  eliminar(){
+    for(let i=0; i<this.datos.length;i++){
+      const index = i;
+      if(this.datos[i].id==this.identificador.value){
+        this.datos.splice(i,1);
+      }
+    }
+    this.limpiar();
+
+  }
+  cancelar(){
+    this.eliminarImg=document.getElementById('eliminar');
+    this.identificador = document.getElementById('id');
+    this.container = document.getElementById('rol');
+    this.padre = this.selected;
+    this.titulo = document.getElementById('titulo');
+    this.prioridad = document.getElementsByName("estrellas");
+    for(var i =0;i< 3; i++){
+      this.prioridad[i].checked="false";
+    }
+    this.description = document.getElementById('textarea1');
+    this.limpiar();
   }
 
 }
