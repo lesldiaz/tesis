@@ -13,11 +13,15 @@ export class PostItComponent implements OnInit {
   arrayNotes:any;
   notes: any;
   posit: any[]=[];
+  cont:number=0;
 
   @Output()devuelveDatos:EventEmitter<any> = new EventEmitter();
 
   @Input()
   bnd:boolean=false;
+
+  @Input()
+  blockRec:any;
 
   constructor() {
     }
@@ -103,6 +107,18 @@ export class PostItComponent implements OnInit {
       //this.addNewItem(this.posit);
       this.limpiar();
     }
+    if(this.blockRec.length!=0){
+      console.log(this.cont);
+      if(this.cont==0){
+        for(var i=0;i<this.blockRec.length;i++){
+          const noteElement = this.createNoteElement(this.blockRec[i].id,this.blockRec[i].contenido);
+          this.notesContainer.insertBefore(noteElement, this.addNoteButton);
+          this.posit.push(this.blockRec[i]);
+          //console.log("id:"+this.blockRec[i].id+"contenido:"+this.blockRec[i].contenido);
+        }
+        this.cont++;
+      }
+    }
   }
   addNewItem(obj:object) {
     this.devuelveDatos.emit(obj);
@@ -115,6 +131,8 @@ export class PostItComponent implements OnInit {
     }
     this.posit=[];
     this.bnd=false;
+    this.cont=0;
+    localStorage.setItem("stickynotes-notes", "[]");
   }
 
 }

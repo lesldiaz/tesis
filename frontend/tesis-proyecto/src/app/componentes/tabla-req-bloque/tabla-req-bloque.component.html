@@ -14,7 +14,7 @@
   </tr>
   <tr *ngFor="let dato of datos">
     <td>
-      <button>
+      <button (click)="select(dato.id,dato.rol,dato.padre,dato.titulo,dato.prioridad,dato.descripcion,dato.postit)">
         Seleccionar
       </button>
     </td>

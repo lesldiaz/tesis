@@ -51,6 +51,7 @@ export class MetodoGraficoJuegoComponent implements OnInit {
     this.block=[];
     this.bandera=true;
     this.blockEnvio=[];
+    this.eliminarImg.style.display='none';
 
   }
 
