@@ -26,11 +26,16 @@ export class BloquesGamePlayComponent implements OnInit {
   test:any;
   block: string[] = [];
   notesContainer: any;
+  cont:number=0;
+
 
   @Output()devuelveDatos:EventEmitter<any> = new EventEmitter();
 
   @Input()
   bnd:boolean=false;
+
+  @Input()
+  blockRec:any;
 
   constructor() { }
 
@@ -42,14 +47,15 @@ export class BloquesGamePlayComponent implements OnInit {
     this.test.style.display = 'none';
     //console.log('se oculto');
     this.block.push(text);
-    //console.log(this.block);
+    console.log(this.block);
     this.bloques(text);
+    this.addNewItem(this.block);
   }
   bloques(text:string){
     this.notesContainer = document.getElementById("bloq");
     const noteElement = this.createElement(text);
     this.notesContainer.appendChild(noteElement)
-    console.log(text);
+    //console.log(text);
   }
   createElement( content: string){
     const element = document.createElement("div");
@@ -73,18 +79,33 @@ export class BloquesGamePlayComponent implements OnInit {
     this.notesContainer.removeChild(element);
     this.updatebloq(text);
     console.log(this.block);
+    this.addNewItem(this.block);
   }
   updatebloq(text:string){
     this.test = document.getElementById(text);
     this.test.style.display = '';
   }
 
-  ngOnChanges(changes: SimpleChanges) {
+  ngDoCheck() {
     if(this.bnd == true){
-      this.addNewItem(this.block);
+      //this.addNewItem(this.block);
       this.limpiar();
     }
+
+      if(this.blockRec.length!=0){
+        console.log(this.cont);
+        if(this.cont==0){
+          for( let block of this.blockRec){
+            console.log("block"+block)
+            this.seleccionar(block);
+          }
+          this.cont++;
+        }
+
+
+    }
   }
+
   addNewItem(obj:object) {
     this.devuelveDatos.emit(obj);
   }
@@ -96,9 +117,11 @@ export class BloquesGamePlayComponent implements OnInit {
     for(let i=0;i<this.block.length;i++){
       this.updatebloq(this.block[i]);
     }
-    this.bnd=false;
     this.block=[];
+    this.bnd=false;
+    this.cont=0;
   }
+
 
 }
 export interface Tile {

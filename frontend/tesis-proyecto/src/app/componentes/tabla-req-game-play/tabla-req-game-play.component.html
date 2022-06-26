@@ -10,7 +10,7 @@
   </tr>
   <tr *ngFor="let dato of datos">
     <td>
-      <button>
+      <button (click)="select(dato.id,dato.descripcion,dato.bloque)">
         Seleccionar
       </button>
     </td>

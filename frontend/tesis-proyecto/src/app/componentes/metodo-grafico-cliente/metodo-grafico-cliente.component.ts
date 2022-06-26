@@ -19,6 +19,7 @@ export class MetodoGraficoClienteComponent implements OnInit {
   datos:object[]=[];
   posit:any[]=[];
   bandera:boolean=false;
+  event:any;
 
 
   constructor() { }
@@ -55,8 +56,10 @@ export class MetodoGraficoClienteComponent implements OnInit {
   }
 
   mostrarPostIt(event:any){
+    this.event=event;
     //console.log(event);
-    this.posit.push(event);
+    this.bandera=false;
+
   }
   guardarInput(){
     this.identificador = document.getElementById('id');
@@ -71,6 +74,7 @@ export class MetodoGraficoClienteComponent implements OnInit {
       }
     }
     this.description = document.getElementById('textarea1');
+    this.posit.push(this.event);
 
     if(this.identificador.value == ""){
       const id =Math.floor(Math.random()*100000);
@@ -109,6 +113,8 @@ export class MetodoGraficoClienteComponent implements OnInit {
     this.selected='option2';
     this.titulo.value='';
     this.description.value='';
+    this.bandera=true;
+    this.posit=[];
 
   }
 

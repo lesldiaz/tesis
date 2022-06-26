@@ -85,7 +85,7 @@ export class PostItComponent implements OnInit {
     }else{
       this.posit.push({"id":id,"contenido":newContent});
     }
-
+    this.addNewItem(this.posit);
   }
   deleteNote(id:number,element:object){
     this.notes = JSON.parse(localStorage.getItem("stickynotes-notes") || "[]");;
@@ -94,13 +94,13 @@ export class PostItComponent implements OnInit {
     this.notesContainer.removeChild(element);
     const index = this.posit.findIndex((element) => element.id === id);
     this.posit.splice(index,1);
-    //this.addNewItem(this.posit);
+    this.addNewItem(this.posit);
     console.log("delete note ...");
     //console.log(id);
   }
-  ngOnChanges(changes: SimpleChanges) {
+  ngDoCheck() {
     if(this.bnd == true){
-      this.addNewItem(this.posit);
+      //this.addNewItem(this.posit);
       this.limpiar();
     }
   }
