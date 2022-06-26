@@ -82,6 +82,7 @@
                   <i class="fa fa-clone texto-botones" aria-hidden="true"></i>
                 </button>
                 <button
+                  [disabled]="proyectoFila['estado']==='F'"
                   (click)="irANuevoProyecto(proyectoFila.id)"
                   class="btn"
                   data-toggle="tooltip"
