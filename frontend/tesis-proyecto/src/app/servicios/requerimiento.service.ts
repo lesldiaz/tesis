@@ -60,6 +60,9 @@ export class RequerimientoService {
   postRequerimiento(nuevoRequerimiento: RequerimientoInterface) {
     return this._httpClient.post(this.url, nuevoRequerimiento);
   }
+  postRequerimientoMetodoGraficoB(nuevoRequerimiento: RequerimientoInterface) {
+    return this._httpClient.post(this.url+'add-reqb', nuevoRequerimiento);
+  }
   postRequerimientosExcel(nuevosRequerimientos: ExcelPlantillaHuInterface[]) {
     return this._httpClient.post(this.url+'carga-masiva', nuevosRequerimientos);
   }
@@ -73,6 +76,10 @@ export class RequerimientoService {
 
   deleteRequerimiento(idRequerimiento: number) {
     return this._httpClient.delete(this.url + idRequerimiento);
+  }
+
+  deleteRequerimientosMasivo(requerimientos: any[]) {
+    return this._httpClient.post(this.url + 'eliminar-masivo', requerimientos);
   }
 
   getRequerimiento(id: number) {

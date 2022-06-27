@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-pestana',
@@ -6,9 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./pestana.component.css']
 })
 export class PestanaComponent implements OnInit {
-  
+  @Input() idProyecto: number | undefined;
   constructor() { }
 
   ngOnInit(): void {
+
   }
 }

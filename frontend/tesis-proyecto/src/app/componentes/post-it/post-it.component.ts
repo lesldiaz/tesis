@@ -1,4 +1,5 @@
 import { Component, OnInit, Output, EventEmitter, Input, SimpleChanges } from '@angular/core';
+import { ConfirmationService } from 'primeng/api';
 
 
 @Component({
@@ -23,7 +24,9 @@ export class PostItComponent implements OnInit {
   @Input()
   blockRec:any;
 
-  constructor() {
+  constructor(
+    private readonly confirmationService: ConfirmationService
+  ) {
     }
 
   ngOnInit(): void {
@@ -33,8 +36,8 @@ export class PostItComponent implements OnInit {
     this.notesContainer = document.getElementById("app");
     this.addNoteButton = this.notesContainer.querySelector(".add-note");
     this.arrayNotes = JSON.parse(localStorage.getItem("stickynotes-notes") || "[]");
-    this.arrayNotes.forEach( (note: { id: number; content: string; }) => {
-      const noteElement = this.createNoteElement( note.id, note.content);
+    this.arrayNotes.forEach( (note: { id: number; descripcion: string; }) => {
+      const noteElement = this.createNoteElement( note.id, note.descripcion);
       this.notesContainer.insertBefore(noteElement, this.addNoteButton);
     });
   }
@@ -44,19 +47,25 @@ export class PostItComponent implements OnInit {
 
 
   }
-  createNoteElement(id: number, content: string){
+  createNoteElement(id: number, descripcion: string){
     const element = document.createElement("textarea");
     element.classList.add('post-it');
-    element.value = content;
+    element.value = descripcion;
     element.placeholder ="Empty";
     element.addEventListener("change",()=> {
       this.updateNote(id,element.value);
     });
     element.addEventListener("dblclick",()=>{
-      const doDelete = confirm("Are you sure you wish to delete this sticky note?");
-      if(doDelete){
-        this.deleteNote(id,element);
-      }
+      this.confirmationService.confirm({
+        message: '¿Esta seguro que desea eliminar este propósito?',
+        header: 'Eliminar',
+        acceptLabel: 'Eliminar',
+        rejectLabel: 'Cancelar',
+        icon: 'pi pi-exclamation-triangle',
+        accept: () => {
+          this.deleteNote(id,element);
+        }
+      });
     });
     return element;
   }
@@ -67,10 +76,10 @@ export class PostItComponent implements OnInit {
     this.existingNotes =JSON.parse(localStorage.getItem("stickynotes-notes") || "[]");
     const noteObject = {
       id: Math.floor(Math.random()*100000),
-      content:""
+      descripcion:""
     };
     //console.log(noteObject.id);
-    const noteElement = this.createNoteElement(noteObject.id, noteObject.content);
+    const noteElement = this.createNoteElement(noteObject.id, noteObject.descripcion);
     this.notesContainer.insertBefore(noteElement, this.addNoteButton);
     this.existingNotes.push(noteObject);
 
@@ -79,15 +88,15 @@ export class PostItComponent implements OnInit {
   updateNote(id:number, newContent:string){
     this.notes = JSON.parse(localStorage.getItem("stickynotes-notes") || "[]");
     const targetNote = this.notes.filter((note: { id: number; }) => note.id == id)[0];
-    targetNote.content = newContent;
+    targetNote.descripcion = newContent;
     this.saveNotes(this.notes);
     console.log("updating note ...");
     //console.log(id,newContent);
     const index = this.posit.findIndex((element) => element.id === id);
     if(index != -1){
-      this.posit[index]={"id":id,"contenido":newContent};
+      this.posit[index]={"id":id,"descripcion":newContent};
     }else{
-      this.posit.push({"id":id,"contenido":newContent});
+      this.posit.push({"id":id,"descripcion":newContent});
     }
     this.addNewItem(this.posit);
   }

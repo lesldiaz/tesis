@@ -1,7 +1,28 @@
-<p>tabla-req-bloque works!</p>
-<table>
 
-  <tr>
+<p-table
+  [value]="requerimientos"
+  [responsive]="true"
+  [paginator]="true"
+  [lazy]="true"
+  (onLazyLoad)="cargarMasDatos($event)"
+  [(selection)]="selectedRequerimientos"
+  dataKey="id"
+  [rows]="5"
+  styleClass="mt-3"
+
+>
+  <ng-template pTemplate="header">
+    <tr>
+      <th style="width: 3rem">
+        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+      </th>
+      <th class="text-center">Identificador</th>
+      <th class="text-center">Descripción</th>
+      <th class="text-center">Información Relevante</th>
+      <th class="text-center">Ideas</th>
+    </tr>
+  </ng-template>
+  <!--<tr>
     <th>OPCIONES</th>
     <th>ID</th>
     <th>ROL</th>
@@ -11,21 +32,40 @@
     <th>DESCRIPCION</th>
     <th>IDEAS</th>
 
-  </tr>
-  <tr *ngFor="let dato of datos">
-    <td>
-      <button (click)="select(dato.id,dato.rol,dato.padre,dato.titulo,dato.prioridad,dato.descripcion,dato.postit)">
-        Seleccionar
-      </button>
-    </td>
-    <td>{{dato.id}}</td>
-    <td>{{dato.rol}}</td>
-    <td>{{dato.padre}}</td>
-    <td>{{dato.titulo}}</td>
-    <td>{{dato.prioridad}}</td>
-    <td>{{dato.descripcion}}</td>
-    <td *ngFor="let pos of dato.postit">
-      <p *ngFor="let obj of pos">{{obj.contenido}}<br></p>
-        </td>
-  </tr>
-</table>
+  </tr>-->
+  <ng-template pTemplate="body" let-datoFila>
+    <tr>
+      <td>
+        <p-tableCheckbox [value]="datoFila"></p-tableCheckbox>
+      </td>
+      <td class="text-center">
+        {{datoFila['idRequerimiento']}}
+      </td>
+      <td class="text-center">
+        <b>Titulo:</b> {{datoFila['titulo']}}
+        <br>
+        <b>Descripción:</b> {{datoFila['descripcion']}}
+      </td>
+      <td class="text-center">
+        <b>Prioridad:</b>{{datoFila['prioridad']| ldprioridadreq}}<br>
+        <b>Rol:</b>{{datoFila['rol'].nombre}}<br>
+        <b>Padre:</b>{{datoFila['requerimientoPadre'] ? datoFila['requerimientoPadre'] : 'Ninguno'}}
+      </td>
+      <td class="text-center" *ngFor="let pos of datoFila['proposito']">
+        <div *ngIf="datoFila['proposito'].length">
+          <p *ngFor="let obj of pos">{{obj.descripcion}}</p><br>
+        </div>
+        <div *ngIf="!datoFila['proposito'].length">
+          Ninguno
+        </div>
+      </td>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="emptymessage">
+    <tr>
+      <td [attr.colspan]="5">
+        No existe resultados
+      </td>
+    </tr>
+  </ng-template>
+</p-table>

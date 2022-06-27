@@ -9,6 +9,8 @@ import {ProyectoEntity} from '../proyecto/proyecto.entity';
 import {ResultadoEntity} from '../resultado/resultado.entity';
 import {RespuestaInterface} from 'src/interfaces/respuesta.interface';
 import {RespuestaBuscarInterface} from 'src/interfaces/respuesta.buscar.interface';
+import {RolEntity} from '../rol/rol.entity';
+import {PropositoEntity} from '../proposito/proposito.entity';
 
 @Injectable()
 export class RequerimientoService extends ServiceGeneral<RequerimientoEntity> {
@@ -19,6 +21,10 @@ export class RequerimientoService extends ServiceGeneral<RequerimientoEntity> {
         private readonly _proyectoRepository: Repository<ProyectoEntity>,
         @InjectRepository(ResultadoEntity)
         private readonly _resultadoRepository: Repository<ResultadoEntity>,
+        @InjectRepository(RolEntity)
+        private readonly _rolRepository: Repository<RolEntity>,
+        @InjectRepository(PropositoEntity)
+        private readonly _propositoRepository: Repository<PropositoEntity>,
     ) {
         super(_requerimientoRepository);
     }
@@ -200,6 +206,71 @@ export class RequerimientoService extends ServiceGeneral<RequerimientoEntity> {
         }
     }
 
+    async crearModoGrafico(objeto): Promise<RequerimientoEntity | string> {
+        try {
+            objeto.createdAt = moment().format().toString();
+            objeto.updatedAt = moment().format().toString();
+            const propositos = objeto.proposito;
+            const rol = objeto.rol;
+            if (typeof rol === 'string') {
+                const rolCreado = await this._rolRepository.save({
+                    nombre: rol,
+                    createdAt: moment().format().toString(),
+                    updatedAt: moment().format().toString(),
+                });
+                objeto.rol = rolCreado.id;
+            }
+            delete objeto.proposito;
+
+            const proyecto = await this._proyectoRepository.findOne(objeto.proyecto);
+            const requerimientoCreado = await this._requerimientoRepository.save(objeto);
+            requerimientoCreado.idRequerimiento =
+                FUNCIONES_GENERALES
+                    .generarIdRequerimiento(
+                        {
+                            id: requerimientoCreado.id,
+                            tipoProyecto: proyecto.tipoProyecto
+                        }
+                    );
+            const respuestaEditar =
+                await this._requerimientoRepository
+                    .update(
+                        requerimientoCreado.id,
+                        {
+                            idRequerimiento: requerimientoCreado.idRequerimiento
+                        });
+            const actualizacionExitosa: boolean =
+                respuestaEditar.affected > 0;
+            if (!actualizacionExitosa) {
+                return new Promise((resolve, reject) =>
+                    reject('Ocurrió un error al crear id del requerimiento'),
+                );
+            }
+            const resultadoRequerimiento = await this._resultadoRepository.save(
+                {
+                    createdAt: moment().format().toString(),
+                    updatedAt: moment().format().toString(),
+                    requerimiento: requerimientoCreado.id
+                }
+            );
+            if (propositos[0].length) {
+                propositos[0].forEach(async proposito => {
+                    const resultadoRequerimiento = await this._propositoRepository.save({
+                        createdAt: moment().format().toString(),
+                        updatedAt: moment().format().toString(),
+                        requerimiento: requerimientoCreado.id,
+                        descripcion: proposito.descripcion
+                    });
+                })
+            }
+            return requerimientoCreado;
+        } catch (e) {
+            return new Promise((resolve, reject) =>
+                reject(`Error de servidor. ${e.name}: ${e.message}`),
+            );
+        }
+    }
+
     async listarTodos(
         criteriosPaginacion?,
     ): Promise<RespuestaInterface<RequerimientoEntity[]> | string> {
@@ -294,7 +365,7 @@ export class RequerimientoService extends ServiceGeneral<RequerimientoEntity> {
         }
     }
 
-    async refinamiento(objeto: any): Promise<RespuestaInterface<any> | string>{
+    async refinamiento(objeto: any): Promise<RespuestaInterface<any> | string> {
         try {
             const idProyecto = objeto.idProyecto;
             const requerimientosARefinar = await this._requerimientoRepository.find({
@@ -303,7 +374,7 @@ export class RequerimientoService extends ServiceGeneral<RequerimientoEntity> {
                         id: idProyecto
                     }
                 },
-                relations : [
+                relations: [
                     'rol',
                     'proyecto',
                     'resultado',
@@ -325,7 +396,7 @@ export class RequerimientoService extends ServiceGeneral<RequerimientoEntity> {
                     && resultados.verificable
                     && resultados.factible;
                 if (validacionMin) {
-                    await this._requerimientoRepository.update(requerimientoARefinar.id,{
+                    await this._requerimientoRepository.update(requerimientoARefinar.id, {
                         estado: 1
                     });
                     observacionesFinales = observacionesFinales +
@@ -337,16 +408,16 @@ export class RequerimientoService extends ServiceGeneral<RequerimientoEntity> {
                     if (!resultados.correcto) {
                         reqNoCumplidos.push('Correcto');
                     }
-                    if(!resultados.apropiado){
+                    if (!resultados.apropiado) {
                         reqNoCumplidos.push('Apropiado');
                     }
-                    if(!resultados.completo){
+                    if (!resultados.completo) {
                         reqNoCumplidos.push('Completo');
                     }
-                    if(!resultados.verificable){
+                    if (!resultados.verificable) {
                         reqNoCumplidos.push('Verificable');
                     }
-                    if(!resultados.factible){
+                    if (!resultados.factible) {
                         reqNoCumplidos.push('Factible');
                     }
                     observacionesFinales = observacionesFinales + reqNoCumplidos.join(', ');
@@ -356,12 +427,50 @@ export class RequerimientoService extends ServiceGeneral<RequerimientoEntity> {
                 }
                 await this._resultadoRepository.update(resultados.id, observacion);
             });
-            await this._proyectoRepository.update(idProyecto,{
+            await this._proyectoRepository.update(idProyecto, {
                 estado: 'F'
             })
             return new Promise((resolve, reject) =>
-                resolve({mensaje: 'Completo', codigoRespuesta:200}),
+                resolve({mensaje: 'Completo', codigoRespuesta: 200}),
             );
+        } catch (e) {
+            return new Promise((resolve, reject) =>
+                reject(`Error de Servidor. ${e.name}: ${e.message}`),
+            );
+        }
+    }
+
+    async buscarPorIdFull(id: number): Promise<RespuestaInterface<RequerimientoEntity> | string> {
+        try {
+            const encontrar = await this._requerimientoRepository.findOne(id,
+                {
+                    relations: [
+                        'rol',
+                        'proyecto',
+                        'resultado',
+                        'requerimientoBloque',
+                        'proposito',
+                    ]
+                });
+            if (encontrar) {
+                const resultado: RespuestaBuscarInterface<RequerimientoEntity> = {
+                    resultado: encontrar,
+                    totalResultados: 1,
+                };
+                return new Promise(resolve =>
+                    resolve({
+                        mensaje: resultado,
+                        codigoRespuesta: 200,
+                    }),
+                );
+            } else {
+                return new Promise(resolve =>
+                    resolve({
+                        mensaje: 'Id no existe',
+                        codigoRespuesta: 404,
+                    }),
+                );
+            }
         } catch (e) {
             return new Promise((resolve, reject) =>
                 reject(`Error de Servidor. ${e.name}: ${e.message}`),

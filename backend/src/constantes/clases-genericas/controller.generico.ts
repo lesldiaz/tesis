@@ -22,6 +22,15 @@ export class ControllerGeneral<Entidad> {
             throw new InternalServerErrorException(e);
         }
     }
+    @Post('eliminar-masivo')
+    async eliminarMasivo(@Body() datosAGuardar) {
+        try {
+            return await this._service.eliminarMasivo(datosAGuardar);
+        } catch (e) {
+            console.error('Error', e);
+            throw new InternalServerErrorException(e);
+        }
+    }
 
     @Put(':id')
     async editar(@Body() datosActualizar, @Param('id') id: number) {

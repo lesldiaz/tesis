@@ -1,9 +1,13 @@
+<p-confirmDialog></p-confirmDialog>
 <div class="row">
   <div class="col-sm-12">
     <p-toolbar styleClass="mb-4">
       <ng-template pTemplate="right">
         <button class="btn btn-azul mr-3"><i class="fa fa-pencil"></i></button>
-        <button class="btn btn-rojo" [disabled]="!selectedRequerimientos || !selectedRequerimientos.length">
+        <button
+          class="btn btn-rojo"
+          [disabled]="!selectedRequerimientos || !selectedRequerimientos.length"
+        (click)="eliminarMasivo()">
           <i class="fa fa-trash"></i>
         </button>
       </ng-template>

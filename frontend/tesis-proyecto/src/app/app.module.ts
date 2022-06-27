@@ -38,6 +38,8 @@ import {TablaReqBloqueComponent} from './componentes/tabla-req-bloque/tabla-req-
 import {TablaReqGamePlayComponent} from './componentes/tabla-req-game-play/tabla-req-game-play.component';
 import {DialogModule} from 'primeng/dialog';
 import {ScrollPanelModule} from 'primeng/scrollpanel';
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
+import {RatingModule} from 'primeng/rating';
 
 @NgModule({
   declarations: [
@@ -85,6 +87,8 @@ import {ScrollPanelModule} from 'primeng/scrollpanel';
     ToolbarModule,
     DialogModule,
     ScrollPanelModule,
+    ConfirmDialogModule,
+    RatingModule
   ],
   providers: [
     {

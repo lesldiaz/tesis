@@ -102,6 +102,40 @@ export class ServiceGeneral<Entity> {
         }
     }
 
+    async eliminarMasivo(aEliminar: any): Promise<RespuestaInterface<Entity> | string> {
+        try {
+            aEliminar.forEach(async objetoAEliminar => {
+                const encontrar = await this._repository.findOne(objetoAEliminar as number);
+                if (encontrar) {
+                    const respuestaEliminar = await this._repository.delete(aEliminar as number);
+                    const eliminaExitoso: boolean = respuestaEliminar.affected > 0;
+                    if (!eliminaExitoso) {
+                        return new Promise((resolve, reject) =>
+                            reject('Ocurrió un error al eliminar'),
+                        );
+                    }
+                } else {
+                    return new Promise(resolve =>
+                        resolve({
+                            mensaje: 'Id no encontrado ',
+                            codigoRespuesta: 404,
+                        }),
+                    );
+                }
+            });
+            return new Promise(resolve =>
+                resolve({
+                    mensaje: 'Eliminados correctamente',
+                    codigoRespuesta: 200,
+                }),
+            );
+        } catch (e) {
+            return new Promise((resolve, reject) =>
+                reject(`Error de Servidor. ${e.name}: ${e.message}`),
+            );
+        }
+    }
+
     async buscarPorId(id: number): Promise<RespuestaInterface<Entity> | string> {
         try {
             const encontrar = await this._repository.findOne(id);

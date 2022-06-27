@@ -21,8 +21,8 @@ export class FlujoTrabajoComponent implements OnInit {
   requerimientosCargados: object[] = [];
   requerimientosRefinados: RequerimientoInterface[] = [];
   firstFormGroup: FormGroup = new FormGroup({});
-  secondFormGroup: FormGroup = new FormGroup({});
-  thirdFormGroup: FormGroup = new FormGroup({});
+  /*secondFormGroup: FormGroup = new FormGroup({});
+  thirdFormGroup: FormGroup = new FormGroup({});*/
   isEditable = false;
   radiobuttons: string | undefined;
   divrbttn: any;
@@ -45,9 +45,9 @@ export class FlujoTrabajoComponent implements OnInit {
     this.firstFormGroup = this._formBuilder.group({
       firstCtrl: ['', Validators.required],
     });
-    this.secondFormGroup = this._formBuilder.group({
+   /* this.secondFormGroup = this._formBuilder.group({
       secondCtrl: ['', Validators.required],
-    });
+    });*/
     this._activatedRoute.params.subscribe(
       parametroRuta => {
         this.idProyecto = parametroRuta['id'];

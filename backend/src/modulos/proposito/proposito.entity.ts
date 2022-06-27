@@ -12,7 +12,7 @@ export class PropositoEntity extends EntityGenerico {
         length: 255,
         nullable: false
     })
-    descripción: string;
+    descripcion: string;
 
     @Column({
         name: 'es_principal',

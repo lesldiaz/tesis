@@ -1,75 +1,79 @@
-<p>metodo-grafico-cliente works!</p>
-<div class="container">
+<div class="container-fluid">
   <form  #forma="ngForm">
-    <h3>Inicio de sesión - Formulario por template</h3>
-    <hr />
+    <hr/>
     <div class="row">
-      <div class="col">
-        <label><b>ID</b></label>
-        <input type="text" id="id" class="form-label" disabled>
+      <div class="col-sm-3">
+        <label><b>Identificador</b></label>
+        <input
+          type="text"
+          pInputText
+          class="form-control"
+          id="id"
+          [disabled]="true">
       </div>
-      <div class="col">
-        <label><b>ROL</b></label>
-        <input id="rol" type="text" list="roles"  >
-        <datalist id="roles">
-        </datalist>
+      <div class="col-sm-3">
+        <b>Rol</b>
+        <p-dropdown
+          name="selectRol"
+          placeholder="Seleccione un rol"
+          [options]="roles"
+          [(ngModel)]="rolSeleccionado"
+          [editable]="true"
+          optionLabel="nombre"
+          optionValue="id"></p-dropdown>
       </div>
-      <div class="col">
-        <label><b>PADRE</b></label>
-        <mat-select [(value)]="selected">
-          <mat-option>None</mat-option>
-          <mat-option value="option1">Option 1</mat-option>
-          <mat-option value="option2">Option 2</mat-option>
-          <mat-option value="option3">Option 3</mat-option>
-        </mat-select>
+      <div class="col-sm-3">
+        <b>Padre</b>
+        <p-dropdown
+          name="selectPadre"
+          placeholder="Seleccione un padre"
+          [options]="datos"
+          [filter]="true"
+          filterBy="descripcion"
+          emptyMessage="No existen registros"
+          emptyFilterMessage="No existen resultados"
+          [(ngModel)]="reqPadreSeleccionado"
+          optionLabel="descripcion"
+          optionValue="id"></p-dropdown>
 
       </div>
-      <div class="col">
-        <button type="button" id="eliminar" style="display: none" (click)="eliminar()">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
-            <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
-          </svg>
+      <div class="col-sm-3 align-content-end">
+        <button type="button" class="btn" id="eliminar" style="display: none" (click)="eliminar()">
+          <i class="fa fa-trash"></i>
         </button>
-        <button type="button" (click)="cambioRol()">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="16" fill="currentColor" class="bi bi-upload" viewBox="0 0 16 16">
-            <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
-            <path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708l3-3z"/>
-          </svg>
+        <button type="button" class="btn" (click)="guardarInput()">
+          <i class="fa fa-floppy-disk"></i>
         </button>
-        <button type="button" (click)="cancelar()">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
-            <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
-          </svg>
+        <button type="button" class="btn" (click)="cancelar()">
+          <i class="fa fa-ban"></i>
         </button>
       </div>
     </div>
     <div class="row">
-      <div class="col">
+      <div class="col-sm-9">
         <label ><b>Titulo</b></label>
         <input
           type="text"
+          class="form-control"
           placeholder="Introduzca el titulo del requerimiento"
           id="titulo"
           required
         />
       </div>
-      <div class="col">
-        <label><b>Prioridad</b></label>
-        <label class="rating">
-          <input id="radio1" type="radio" name="estrellas" value="3"><!--
-    --><label class="radio" for="radio1">★</label><!--
-    --><input id="radio2" type="radio" name="estrellas" value="2"><!--
-    --><label class="radio" for="radio2">★</label><!--
-    --><input id="radio3" type="radio" name="estrellas" value="1"><!--
-    --><label class="radio" for="radio3">★</label>
-        </label>
+      <div class="col-sm-3">
+        <b>Prioridad</b>
+        <p-rating
+          name="prioridad"
+          [cancel]="false"
+          [stars]="3"
+          [(ngModel)]="prioridad"></p-rating>
       </div>
-
     </div>
     <div class="row">
-      <div class="col">
-        <label ><b>Descripcion</b></label>
+      <div class="col-sm-12">
+        <label><b>Descripción</b></label>
         <textarea
+          class="form-control"
           id="textarea1"
           rows="2"
           class="form-control"
@@ -78,12 +82,14 @@
     </div>
     <div>
       <label><b>Ideas relacionadas</b></label>
-      <input hidden>
       <div>
         <app-post-it (devuelveDatos)="mostrarPostIt($event)" [bnd]="bandera" [blockRec]="blockEnvio"></app-post-it>
       </div>
     </div>
   </form>
 </div>
-
-<app-tabla-req-bloque (devuelveDatos)="select($event)" [datos]="datos"></app-tabla-req-bloque>
+<div class="row">
+  <div class="col-sm-12">
+    <app-tabla-req-bloque (devuelveDatos)="select($event)" [datos]="datos"></app-tabla-req-bloque>
+  </div>
+</div>
