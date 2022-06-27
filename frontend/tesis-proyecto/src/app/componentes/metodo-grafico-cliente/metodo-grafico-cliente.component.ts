@@ -84,7 +84,6 @@ export class MetodoGraficoClienteComponent implements OnInit {
       this._requerimientoService.postRequerimientoMetodoGraficoB(requerimientoGuardar)
         .subscribe(async (requerimiento: any) => {
           if (requerimiento) {
-            console.log(requerimiento);
             requerimientoGuardar['idRequerimiento'] = requerimiento.idRequerimiento;
             requerimientoGuardar['rol'] = this.roles.find(rol => rol.id === requerimiento.rol);
             this.datos.push(requerimientoGuardar);
@@ -101,9 +100,9 @@ export class MetodoGraficoClienteComponent implements OnInit {
 
   limpiar() {
     this.prioridad = 1;
+    this.rolSeleccionado = {};
+    this.reqPadreSeleccionado = {};
     this.identificador.value = "";
-    /* this.container.value='';
-     this.selected='option2';*/
     this.titulo.value = '';
     this.description.value = '';
     this.bandera = true;
@@ -113,18 +112,16 @@ export class MetodoGraficoClienteComponent implements OnInit {
   }
 
   select(event: any) {
-    this.identificador.value = event.id;
-    /*this.container.value=event.rol;
-    this.selected=event.padre;*/
+    this.identificador.value = event.idRequerimiento;
+    this.reqPadreSeleccionado = event.requerimientoPadre;
+    this.prioridad = event.prioridad
     this.titulo.value = event.titulo;
     this.description.value = event.descripcion;
     for (let post of event.postit) {
       for (let pst of post) {
-        console.log(pst);
         this.blockEnvio.push(pst);
       }
     }
-    console.log(this.blockEnvio)
     this.eliminarImg.style.display = '';
     this.bandera = false;
 

@@ -9,7 +9,7 @@ import { RequerimientoInterface } from 'src/app/constantes/interfaces/requerimie
 export class TablaReqBloqueComponent implements OnInit {
   @Input()
   datos: RequerimientoInterface[]=[];
-  selectedRequerimientos: RequerimientoInterface[]=[];
+  selectedRequerimiento: RequerimientoInterface | undefined;
   requerimientos: RequerimientoInterface[]=[];
 
   @Output()devuelveDatos:EventEmitter<any> = new EventEmitter();
@@ -19,25 +19,8 @@ export class TablaReqBloqueComponent implements OnInit {
   ngOnInit(): void {
     this.requerimientos = this.datos;
   }
-  select(id:string,rol:string,padre:string,titulo:string,prioridad:any,descripcion:string,postit:any){
-    const datoTab ={
-      "id":id,
-      "rol":rol,
-      "padre":padre,
-      "titulo":titulo,
-      "prioridad":prioridad,
-      "descripcion":descripcion,
-      "postit":postit
-    }
-    this.addNewItem(datoTab);
-    console.log(datoTab);
-  }
-  addNewItem(obj:object) {
-    this.devuelveDatos.emit(obj);
-  }
 
-
-  cargarMasDatos($event: any) {
-
+  onRowSelect(event: any) {
+    this.devuelveDatos.emit(event.data);
   }
 }
