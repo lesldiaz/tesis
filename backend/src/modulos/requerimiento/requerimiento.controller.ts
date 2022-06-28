@@ -43,6 +43,16 @@ export class RequerimientoController extends ControllerGeneral<RequerimientoEnti
         }
     }
 
+    @Post('upd-reqb')
+    async editarReModoGrafico(@Body() datosAGuardar) {
+        try {
+            return await this._requerimientoService.editarModoGrafico(datosAGuardar);
+        } catch (e) {
+            console.error('Error', e);
+            throw new InternalServerErrorException(e);
+        }
+    }
+
     @Get(':id')
     async buscarPorId(@Param('id') id: number) {
         try {

@@ -3,9 +3,9 @@ import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {FUNCIONES_GENERALES} from '../constantes/funciones-generales';
 import {ProyectoInterface} from '../constantes/interfaces/proyecto.interface';
-import { BusquedaProyectoInterface } from '../constantes/interfaces/busqueda-proyecto.interface';
-import { RequerimientoInterface } from '../constantes/interfaces/requerimiento.interface';
-import { ExcelPlantillaHuInterface } from '../constantes/interfaces/excel-plantilla-hu.interface';
+import {BusquedaProyectoInterface} from '../constantes/interfaces/busqueda-proyecto.interface';
+import {RequerimientoInterface} from '../constantes/interfaces/requerimiento.interface';
+import {ExcelPlantillaHuInterface} from '../constantes/interfaces/excel-plantilla-hu.interface';
 
 
 @Injectable()
@@ -37,12 +37,12 @@ export class RequerimientoService {
       if (busqueda.usuario) {
         const busquedaPorUsuario = JSON.stringify(busqueda.usuario);
         delete busqueda.usuario;
-        if (Object.keys(busqueda).length > 0){
+        if (Object.keys(busqueda).length > 0) {
           const busquedaRequerimiento = FUNCIONES_GENERALES.queryAObjeto(busqueda);
-          const pathBusquedaPaginacion = this.url  + busquedaRequerimiento + `&usuario=${busquedaPorUsuario}`+ `&skip=${skip}&take=${take}`;
+          const pathBusquedaPaginacion = this.url + busquedaRequerimiento + `&usuario=${busquedaPorUsuario}` + `&skip=${skip}&take=${take}`;
           return this._httpClient.get(pathBusquedaPaginacion);
         } else {
-          const pathBusquedaPaginacion = this.url + `?usuario=${busquedaPorUsuario}`+ `&skip=${skip}&take=${take}`;
+          const pathBusquedaPaginacion = this.url + `?usuario=${busquedaPorUsuario}` + `&skip=${skip}&take=${take}`;
           return this._httpClient.get(pathBusquedaPaginacion);
         }
       } else {
@@ -60,16 +60,23 @@ export class RequerimientoService {
   postRequerimiento(nuevoRequerimiento: RequerimientoInterface) {
     return this._httpClient.post(this.url, nuevoRequerimiento);
   }
+
   postRequerimientoMetodoGraficoB(nuevoRequerimiento: RequerimientoInterface) {
-    return this._httpClient.post(this.url+'add-reqb', nuevoRequerimiento);
+    return this._httpClient.post(this.url + 'add-reqb', nuevoRequerimiento);
   }
+
   postRequerimientosExcel(nuevosRequerimientos: ExcelPlantillaHuInterface[]) {
-    return this._httpClient.post(this.url+'carga-masiva', nuevosRequerimientos);
+    return this._httpClient.post(this.url + 'carga-masiva', nuevosRequerimientos);
   }
 
   putRequerimiento(nuevoRequerimiento: RequerimientoInterface, idRequerimiento: number) {
     return this._httpClient.put(this.url + idRequerimiento, nuevoRequerimiento);
   }
+
+  putRequerimientoMetodoGraficoB(nuevoRequerimiento: RequerimientoInterface) {
+    return this._httpClient.post(this.url + 'upd-reqb', nuevoRequerimiento);
+  }
+
   putRefinamiento(idProyecto: object) {
     return this._httpClient.put(this.url + 'refinamiento', idProyecto);
   }

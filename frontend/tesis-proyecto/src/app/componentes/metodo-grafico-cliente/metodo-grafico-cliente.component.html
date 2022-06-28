@@ -1,86 +1,157 @@
-<div class="container-fluid">
+<div class="container">
   <form  #forma="ngForm">
     <hr/>
     <div class="row">
       <div class="col-sm-3">
-        <label><b>Identificador</b></label>
-        <input
-          type="text"
-          pInputText
-          class="form-control"
-          id="id"
-          [disabled]="true">
+        <div class="row">
+          <div class="col-sm-4" style="width: 100%">
+            <b class="text-center">Identificador</b>
+          </div>
+          <div class="col-sm-8" style="width: 100%">
+            <input
+              type="text"
+              pInputText
+              class="form-control"
+              id="id"
+              [disabled]="true">
+          </div>
+        </div>
       </div>
       <div class="col-sm-3">
-        <b>Rol</b>
-        <p-dropdown
-          name="selectRol"
-          placeholder="Seleccione un rol"
-          [options]="roles"
-          [(ngModel)]="rolSeleccionado"
-          [editable]="true"
-          optionLabel="nombre"
-          optionValue="id"></p-dropdown>
+        <div class="row">
+          <div class="col-sm-4" style="width: 100%">
+            <b class="text-center">Rol</b>
+          </div>
+          <div class="col-sm-8" style="width: 100%">
+            <p-dropdown
+              name="selectRol"
+              dataKey="rol"
+              placeholder="Seleccione un rol"
+              [options]="roles"
+              [(ngModel)]="rolSeleccionado"
+              [editable]="true"
+              optionLabel="nombre"
+              optionValue="id"></p-dropdown>
+          </div>
+        </div>
       </div>
       <div class="col-sm-3">
-        <b>Padre</b>
-        <p-dropdown
-          name="selectPadre"
-          placeholder="Seleccione un padre"
-          [options]="datos"
-          [filter]="true"
-          filterBy="descripcion"
-          emptyMessage="No existen registros"
-          emptyFilterMessage="No existen resultados"
-          [(ngModel)]="reqPadreSeleccionado"
-          optionLabel="descripcion"
-          optionValue="id"></p-dropdown>
-
+        <div class="row">
+          <div class="col-sm-4"  style="width: 100%">
+            <b class="text-center">Padre</b>
+          </div>
+          <div class="col-sm-8" style="width: 100%">
+            <p-dropdown
+              name="selectPadre"
+              dataKey="padre"
+              placeholder="Seleccione un padre"
+              [options]="datos"
+              [(ngModel)]="reqPadreSeleccionado"
+              [showClear]="true"
+              [filter]="true"
+              filterBy="descripcion"
+              emptyMessage="Sin registros"
+              emptyFilterMessage="Sin resultados"
+              optionLabel="descripcion"
+              optionValue="id"></p-dropdown>
+          </div>
+        </div>
       </div>
-      <div class="col-sm-3 align-content-end">
-        <button type="button" class="btn" id="eliminar" style="display: none" (click)="eliminar()">
-          <i class="fa fa-trash"></i>
-        </button>
-        <button type="button" class="btn" (click)="guardarInput()">
-          <i class="fa fa-floppy-disk"></i>
-        </button>
-        <button type="button" class="btn" (click)="cancelar()">
-          <i class="fa fa-ban"></i>
-        </button>
+      <div class="col-sm-3">
+        <div class="row" style="width: 100%">
+          <div class="col-sm-4">
+            <button
+              type="button"
+              class="btn"
+              data-toggle="tooltip"
+              data-placement="top"
+              title="Guardar"
+              (click)="guardarRequerimiento()">
+              <i class="fa fa-floppy-disk"></i>
+            </button>
+          </div>
+          <div class="col-sm-4" >
+            <button
+              data-toggle="tooltip"
+              data-placement="top"
+              title="Limpiar Formulario"
+              type="button"
+              class="btn"
+              (click)="cancelar()">
+              <i class="fa fa-ban"></i>
+            </button>
+          </div>
+          <div class="col-sm-4">
+            <button
+              type="button"
+              class="btn"
+              id="eliminar"
+              data-toggle="tooltip"
+              data-placement="top"
+              title="Eliminar"
+              *ngIf="requerimientoSeleccionado" (click)="eliminar()">
+              <i class="fa fa-trash"></i>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
+
+    <div style="margin-top: 1rem"></div>
     <div class="row">
       <div class="col-sm-9">
-        <label ><b>Titulo</b></label>
-        <input
-          type="text"
-          class="form-control"
-          placeholder="Introduzca el titulo del requerimiento"
-          id="titulo"
-          required
-        />
+        <div class="row">
+          <div class="col-sm-4" style="width: 100%">
+            <b class="text-center">Titulo</b>
+          </div>
+          <div class="col-sm-8" style="width: 100%">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Introduzca el titulo del requerimiento"
+              id="titulo"
+              required
+            />
+          </div>
+        </div>
       </div>
       <div class="col-sm-3">
-        <b>Prioridad</b>
-        <p-rating
-          name="prioridad"
-          [cancel]="false"
-          [stars]="3"
-          [(ngModel)]="prioridad"></p-rating>
+        <div class="row">
+          <div class="col-sm-4" style="width: 100%">
+            <b class="text-center">Prioridad</b>
+          </div>
+          <div class="col-sm-8" style="width: 100%">
+            <p-rating
+              name="prioridad"
+              [cancel]="false"
+              [stars]="3"
+              [(ngModel)]="prioridad"></p-rating>
+          </div>
+        </div>
       </div>
     </div>
+
+    <div style="margin-top: 1rem"></div>
+
     <div class="row">
       <div class="col-sm-12">
-        <label><b>Descripción</b></label>
-        <textarea
-          class="form-control"
-          id="textarea1"
-          rows="2"
-          class="form-control"
-        ></textarea>
+        <div class="row">
+          <div class="col-sm-4" style="width: 100%">
+            <b class="text-center">Descripción</b>
+          </div>
+          <div class="col-sm-8" style="width: 100%">
+             <textarea
+               class="form-control"
+               id="textarea1"
+               rows="2"
+               class="form-control"
+             ></textarea>
+          </div>
+        </div>
       </div>
     </div>
-    <div>
+    <div style="margin-top: 1rem"></div>
+    <div class="row">
       <label><b>Ideas relacionadas</b></label>
       <div>
         <app-post-it (devuelveDatos)="mostrarPostIt($event)" [bnd]="bandera" [blockRec]="blockEnvio"></app-post-it>
@@ -90,6 +161,6 @@
 </div>
 <div class="row">
   <div class="col-sm-12">
-    <app-tabla-req-bloque (devuelveDatos)="select($event)" [datos]="datos"></app-tabla-req-bloque>
+    <app-tabla-req-bloque (devuelveDatos)="recuperarSeleccionado($event)" [datos]="datos"></app-tabla-req-bloque>
   </div>
 </div>

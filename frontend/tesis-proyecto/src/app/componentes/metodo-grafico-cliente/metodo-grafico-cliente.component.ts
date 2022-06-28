@@ -1,5 +1,6 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {ToastrService} from 'ngx-toastr';
+import { FUNCIONES_GENERALES } from 'src/app/constantes/funciones-generales';
 import {RequerimientoInterface} from 'src/app/constantes/interfaces/requerimiento.interface';
 import {RolInterface} from 'src/app/constantes/interfaces/rol.interface';
 import {RequerimientoService} from 'src/app/servicios/requerimiento.service';
@@ -13,9 +14,11 @@ import {RolService} from 'src/app/servicios/rol.service';
 export class MetodoGraficoClienteComponent implements OnInit {
   @Input() idProyecto: number | undefined;
   roles: RolInterface[] = [];
+  requerimientoSeleccionado: RequerimientoInterface | undefined;
   requerimientosPadre: RequerimientoInterface[] = [];
   rolSeleccionado: RolInterface | undefined;
   identificador: any;
+  idRequerimientosSeleccionado: number | undefined;
   titulo: any;
   prioridad = 1;
   description: any;
@@ -25,7 +28,6 @@ export class MetodoGraficoClienteComponent implements OnInit {
   blockEnvio: any[] = [];
   bandera: boolean = false;
   event: any;
-  eliminarImg: any;
   reqPadreSeleccionado: RequerimientoInterface | undefined;
 
 
@@ -66,7 +68,7 @@ export class MetodoGraficoClienteComponent implements OnInit {
     this.bandera = false;
   }
 
-  guardarInput() {
+  guardarRequerimiento() {
     this.identificador = document.getElementById('id');
     this.titulo = document.getElementById('titulo');
     this.description = document.getElementById('textarea1');
@@ -84,6 +86,7 @@ export class MetodoGraficoClienteComponent implements OnInit {
       this._requerimientoService.postRequerimientoMetodoGraficoB(requerimientoGuardar)
         .subscribe(async (requerimiento: any) => {
           if (requerimiento) {
+            requerimientoGuardar['id'] = requerimiento.id;
             requerimientoGuardar['idRequerimiento'] = requerimiento.idRequerimiento;
             requerimientoGuardar['rol'] = this.roles.find(rol => rol.id === requerimiento.rol);
             this.datos.push(requerimientoGuardar);
@@ -100,72 +103,80 @@ export class MetodoGraficoClienteComponent implements OnInit {
 
   limpiar() {
     this.prioridad = 1;
-    this.rolSeleccionado = {};
-    this.reqPadreSeleccionado = {};
+    this.requerimientoSeleccionado = undefined;
+    this.rolSeleccionado = undefined;
+    this.reqPadreSeleccionado = undefined;
     this.identificador.value = "";
     this.titulo.value = '';
     this.description.value = '';
     this.bandera = true;
     this.posit = [];
     this.blockEnvio = [];
-    this.eliminarImg.style.display = 'none';
   }
 
-  select(event: any) {
-    this.identificador.value = event.idRequerimiento;
-    this.reqPadreSeleccionado = event.requerimientoPadre;
-    this.prioridad = event.prioridad
-    this.titulo.value = event.titulo;
-    this.description.value = event.descripcion;
-    for (let post of event.postit) {
+  recuperarSeleccionado($event: any) {
+    this.requerimientoSeleccionado =  $event as RequerimientoInterface;
+    this.idRequerimientosSeleccionado = $event.id;
+    this.identificador.value = this.requerimientoSeleccionado.idRequerimiento;
+    this.reqPadreSeleccionado = this.requerimientoSeleccionado.requerimientoPadre as RequerimientoInterface;
+    this.rolSeleccionado = this.roles.find(rol => rol.id === ((this.requerimientoSeleccionado as RequerimientoInterface).rol as RolInterface).id);
+    this.prioridad = this.requerimientoSeleccionado.prioridad as number;
+    this.titulo.value = this.requerimientoSeleccionado.titulo;
+    this.description.value = this.requerimientoSeleccionado.descripcion;
+    for (let post of (this.requerimientoSeleccionado as any).proposito) {
       for (let pst of post) {
         this.blockEnvio.push(pst);
       }
     }
-    this.eliminarImg.style.display = '';
     this.bandera = false;
-
   }
 
   actualizar() {
-    for (let i = 0; i < this.datos.length; i++) {
-      const index = i;
-      //console.log(index);
-      //console.log(this.datos[i]);
-      //console.log(this.datos[i].id);
-      if (this.datos[i].id == this.identificador.value) {
-        this.datos[i] = {
-          "id": this.identificador.value,
-          "rol": this.rolSeleccionado,
-          "padre": this.reqPadreSeleccionado,
-          "titulo": this.titulo.value,
-          "prioridad": this.prioridad,
-          "descripcion": this.description.value,
-          "postit": this.posit
-        };
-      }
-    }
-    //console.log(this.datos)
+    const requerimientoEditar: RequerimientoInterface = {
+      id: this.idRequerimientosSeleccionado,
+      idRequerimiento: this.identificador.value,
+      titulo: this.titulo.value,
+      rol: this.rolSeleccionado, //comprobar si es id o string nuevo
+      prioridad: this.prioridad,
+      descripcion: this.description.value,
+      requerimientoPadre: this.reqPadreSeleccionado as number,
+      proposito: [...this.posit],
+      proyecto: this.idProyecto as number,
+    };
+    this._requerimientoService.putRequerimientoMetodoGraficoB(requerimientoEditar)
+      .subscribe(async (requerimiento: any) => {
+        if (requerimiento) {
+          this.datos.map(
+            (requerimiento, indice) => {
+              if (requerimiento.id === this.idRequerimientosSeleccionado){
+                this.datos[indice] =  requerimientoEditar;
+              }
+            }
+          );
+          this._toasterService.success('Requerimiento editado correctamente', 'Éxito');
+        }
+      }, error => {
+        this._toasterService.error('Ocurrió un error al editar', 'Error');
+      })
     this.limpiar();
   }
 
   eliminar() {
-    for (let i = 0; i < this.datos.length; i++) {
-      const index = i;
-      if (this.datos[i].id == this.identificador.value) {
-        this.datos.splice(i, 1);
-      }
-    }
+   this._requerimientoService.deleteRequerimiento(this.idRequerimientosSeleccionado as number)
+     .subscribe(value => {
+       const requerimientoEliminar = this.datos.find(requerimiento => requerimiento.id === this.idRequerimientosSeleccionado);
+       this.datos.indexOf(requerimientoEliminar) < 0
+         ? this.datos
+         : this.datos.splice(this.datos.indexOf(requerimientoEliminar), 1);
+       this._toasterService.info('Eliminado correctamente', 'Éxito');
+     })
     this.limpiar();
-
   }
 
   cancelar() {
-    this.eliminarImg = document.getElementById('eliminar');
     this.identificador = document.getElementById('id');
     this.titulo = document.getElementById('titulo');
     this.description = document.getElementById('textarea1');
     this.limpiar();
   }
-
 }

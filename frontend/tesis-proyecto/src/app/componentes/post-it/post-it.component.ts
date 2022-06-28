@@ -120,7 +120,7 @@ export class PostItComponent implements OnInit {
       console.log(this.cont);
       if(this.cont==0){
         for(var i=0;i<this.blockRec.length;i++){
-          const noteElement = this.createNoteElement(this.blockRec[i].id,this.blockRec[i].contenido);
+          const noteElement = this.createNoteElement(this.blockRec[i].id,this.blockRec[i].descripcion);
           this.notesContainer.insertBefore(noteElement, this.addNoteButton);
           this.posit.push(this.blockRec[i]);
           //console.log("id:"+this.blockRec[i].id+"contenido:"+this.blockRec[i].contenido);

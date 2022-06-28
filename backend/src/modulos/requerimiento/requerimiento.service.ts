@@ -271,6 +271,53 @@ export class RequerimientoService extends ServiceGeneral<RequerimientoEntity> {
         }
     }
 
+    async editarModoGrafico(objeto): Promise<RespuestaInterface<any> | string> {
+        try {
+            objeto.updatedAt = moment().format().toString();
+            const propositos = objeto.proposito;
+            const rol = objeto.rol;
+            if (typeof rol === 'string') {
+                const rolCreado = await this._rolRepository.save({
+                    nombre: rol,
+                    createdAt: moment().format().toString(),
+                    updatedAt: moment().format().toString(),
+                });
+                objeto.rol = rolCreado.id;
+            } else {
+                objeto.rol = objeto.rol.id;
+            }
+            delete objeto.proposito;
+            console.log(objeto);
+            const requerimientoEditado = await this._requerimientoRepository.update(objeto.id, objeto);
+            console.log(requerimientoEditado);
+            const actualizacionExitosa: boolean =
+                requerimientoEditado.affected > 0;
+            if (!actualizacionExitosa) {
+                return new Promise((resolve, reject) =>
+                    reject('Ocurrió un error al editar el requerimiento'),
+                );
+            }
+            if (propositos[0].length) {
+                await this._propositoRepository.delete({ requerimiento: objeto.id});
+                propositos[0].forEach(async proposito => {
+                    const resultadoRequerimiento = await this._propositoRepository.save({
+                        createdAt: moment().format().toString(),
+                        updatedAt: moment().format().toString(),
+                        requerimiento: objeto.id,
+                        descripcion: proposito.descripcion
+                    });
+                })
+            }
+            return new Promise((resolve, reject) =>
+                resolve({ mensaje: `Editado Correctamente`, codigoRespuesta: 200}),
+            );
+        } catch (e) {
+            return new Promise((resolve, reject) =>
+                reject(`Error de servidor. ${e.name}: ${e.message}`),
+            );
+        }
+    }
+
     async listarTodos(
         criteriosPaginacion?,
     ): Promise<RespuestaInterface<RequerimientoEntity[]> | string> {
