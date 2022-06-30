@@ -40,6 +40,7 @@ import {DialogModule} from 'primeng/dialog';
 import {ScrollPanelModule} from 'primeng/scrollpanel';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {RatingModule} from 'primeng/rating';
+import { APP_BASE_HREF } from '@angular/common';
 
 @NgModule({
   declarations: [

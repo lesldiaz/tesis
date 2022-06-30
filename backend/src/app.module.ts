@@ -12,9 +12,14 @@ import { ProyectoService } from './modulos/proyecto/proyecto.service';
 import { BloqueService } from './modulos/bloque/bloque.service';
 import { RequerimientoService } from './modulos/requerimiento/requerimiento.service';
 import { RolService } from './modulos/rol/rol.service';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 @Module({
   imports: [
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'frontend'),
+    }),
     ...MODULOS,
     TypeOrmModule.forRoot({
       type: 'mysql',
