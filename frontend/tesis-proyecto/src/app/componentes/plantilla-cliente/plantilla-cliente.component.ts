@@ -3,34 +3,20 @@ import {FUNCIONES_GENERALES} from 'src/app/constantes/funciones-generales';
 import {ExcelPlantillaHuInterface} from 'src/app/constantes/interfaces/excel-plantilla-hu.interface';
 import * as XLSX from 'xlsx';
 
-//import * as fs from 'fs';
 @Component({
   selector: 'app-plantilla-cliente',
   templateUrl: './plantilla-cliente.component.html',
   styleUrls: ['./plantilla-cliente.component.css']
 })
 export class PlantillaClienteComponent implements OnInit {
-  data: any;
-  change: any;
   @Output() requerimientosCargados: EventEmitter<object[]> = new EventEmitter<object[]>();
-  nombreArchivo: string = 'Sin Selección';
+  nombreArchivo = 'Sin Selección';
   resultado: ExcelPlantillaHuInterface[] = [];
 
   constructor() {
   }
 
   ngOnInit(): void {
-  }
-
-  funcion() {
-    this.change = document.getElementById('file-upload');
-    this.data = document.getElementById('upload');
-    console.log('inicio');
-    const value = this.change.value;
-    const value2 = value.split('\\');
-    console.log(value);
-    this.data.value = value2.pop();
-
   }
 
   async onFileChange(event: any) {

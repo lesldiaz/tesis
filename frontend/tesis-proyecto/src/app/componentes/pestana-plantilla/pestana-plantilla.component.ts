@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-pestana-plantilla',
@@ -6,16 +6,23 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
   styleUrls: ['./pestana-plantilla.component.css']
 })
 export class PestanaPlantillaComponent implements OnInit {
-  @Output() requerimientosCargadosPPC: EventEmitter<object[]> = new EventEmitter<object[]>();
-  requerimientosCargados: object[] = [];
+  @Input() tipoProyecto: 'C' | 'J' = 'C';
+  @Output() requerimientosCargadosPC: EventEmitter<object[]> = new EventEmitter<object[]>();
+  @Output() requerimientosCargadosPJ: EventEmitter<object[]> = new EventEmitter<object[]>();
+  requerimientosCargadosC: object[] = [];
+  requerimientosCargadosJ: object[] = [];
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  recibirRequerimientos($event: object[]) {
-    this.requerimientosCargados = $event;
-    this.requerimientosCargadosPPC.emit(this.requerimientosCargados);
+  recibirRequerimientosC($event: object[]) {
+    this.requerimientosCargadosC = $event;
+    this.requerimientosCargadosPC.emit(this.requerimientosCargadosC);
+  }
+  recibirRequerimientosJ($event: object[]) {
+    this.requerimientosCargadosJ = $event;
+    this.requerimientosCargadosPJ.emit(this.requerimientosCargadosJ);
   }
 
 }

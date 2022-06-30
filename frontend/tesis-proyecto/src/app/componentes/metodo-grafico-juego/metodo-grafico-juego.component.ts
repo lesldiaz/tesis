@@ -1,4 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {Component, OnInit, Input} from '@angular/core';
+import {ToastrService} from 'ngx-toastr';
+import {RequerimientoInterface} from 'src/app/constantes/interfaces/requerimiento.interface';
+import {RequerimientoService} from 'src/app/servicios/requerimiento.service';
+import {RequerimientoBloqueService} from 'src/app/servicios/requerimiento-bloque.service';
+import { ResultadoInterface } from 'src/app/constantes/interfaces/resultado.interface';
 
 @Component({
   selector: 'app-metodo-grafico-juego',
@@ -6,96 +11,145 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./metodo-grafico-juego.component.css']
 })
 export class MetodoGraficoJuegoComponent implements OnInit {
+  @Input() idProyecto: number | undefined;
+  requerimientoSeleccionado: RequerimientoInterface | undefined;
+  idRequerimientosSeleccionado: number | undefined;
+  datos: RequerimientoInterface[] = [];
+  block: any[] = [];
+  blockEnvio: any[] = [];
+  bandera: boolean = false;
+  identificador: any;
+  descripcion: any;
+  event: any;
 
-  datos:any[]=[];
-  block:any[]=[];
-  blockEnvio:any[]=[];
-  bandera:boolean=false;
-  identificador:any;
-  descripcion:any;
-  event:any;
-  eliminarImg:any;
-  constructor() { }
-
-
+  constructor(
+    private readonly _requerimientoBloqueService: RequerimientoBloqueService,
+    private readonly _requerimientoService: RequerimientoService,
+    private readonly _toasterService: ToastrService
+  ) {
+  }
 
   ngOnInit(): void {
+    const criterioBusqueda = {
+      proyecto: {
+        id: this.idProyecto
+      }
+    };
+    let getProyectos$ = this._requerimientoService.getRequerimientosFiltro(0, 5, criterioBusqueda);
+    getProyectos$
+      .subscribe(
+        (proyectos: any) => {
+          if (typeof proyectos.mensaje !== 'string') {
+            const requerimientosProyecto = proyectos.mensaje.resultado;
+            requerimientosProyecto.forEach(
+              (requerimiento: any) => {
+                if (requerimiento.esReqBloque){
+                  this.datos.push(requerimiento);
+                }
+              }
+            );
+          }
+        },
+        (error: any) => {
+          console.error(error);
+        }
+      );
+  }
 
+  mostrarPostIt(event: any) {
+    this.event = event;
+    this.bandera = false;
   }
-  mostrarPostIt(event:any){
-    this.event=event;
-    //console.log(event);
-    this.bandera=false;
-  }
-  guardar(){
-    this.eliminarImg=document.getElementById('eliminar');
+
+  guardar() {
     this.identificador = document.getElementById('id');
     this.descripcion = document.getElementById('textarea1');
     this.block.push(this.event);
-    console.log(this.block);
-    if(this.identificador.value == ""){
-      const id =Math.floor(Math.random()*100000);
-      this.datos.push({"id":id,
-        "descripcion":this.descripcion.value,
-        "bloque":this.block
-      });
-    }else {
+    if (this.identificador.value == "") {
+      const requerimientoGuardar: RequerimientoInterface = {
+        descripcion: this.descripcion.value,
+        requerimientoBloque: [...this.block],
+        proyecto: this.idProyecto as number,
+      }
+      this._requerimientoService.postRequerimientoMetodoGraficoJ(requerimientoGuardar)
+        .subscribe(async (requerimiento: any) => {
+          if (requerimiento) {
+            requerimientoGuardar['id'] = requerimiento.id;
+            requerimientoGuardar['idRequerimiento'] = requerimiento.idRequerimiento;
+            this.datos.push(requerimientoGuardar);
+            this._toasterService.success('Requerimiento guardado correctamente', 'Éxito');
+          }
+        }, error => {
+          this._toasterService.error('Ocurrió un error al guardar', 'Error');
+        });
+    } else {
       this.actualizar();
     }
-
     this.limpiar();
   }
-  limpiar(){
-    this.identificador.value = "";
-    this.descripcion.value='';
-    this.block=[];
-    this.bandera=true;
-    this.blockEnvio=[];
-    this.eliminarImg.style.display='none';
 
+  limpiar() {
+    this.identificador.value = "";
+    this.descripcion.value = '';
+    this.block = [];
+    this.bandera = true;
+    this.blockEnvio = [];
   }
 
-  select(event:any){
-    console.log('seleccionar')
-    this.identificador.value = event.id;
-    this.descripcion.value= event.descripcion;
-    for(let block of event.bloque){
-      for(let bl of block){
-        //console.log(bl);
+  recuperarSeleccionado(event: any) {
+    this.requerimientoSeleccionado = event as RequerimientoInterface;
+    this.idRequerimientosSeleccionado = event.id;
+    this.identificador.value = event.idRequerimiento;
+    this.descripcion.value = event.descripcion;
+    for (let block of event.requerimientoBloque) {
+      for (let bl of block) {
         this.blockEnvio.push(bl);
       }
     }
-    this.eliminarImg.style.display='';
-    this.bandera=false;
-
+    this.bandera = false;
   }
-  actualizar(){
-    for(let i=0; i<this.datos.length;i++){
-      const index = i;
-      //console.log(index);
-      //console.log(this.datos[i]);
-      //console.log(this.datos[i].id);
-      if(this.datos[i].id==this.identificador.value){
-        this.datos[i]={"id":this.identificador.value,
-          "descripcion":this.descripcion.value,
-          "bloque":this.block};
-      }
-    }
-    //console.log(this.datos)
+
+  actualizar() {
+    const requerimientoEditar: RequerimientoInterface = {
+      id: this.idRequerimientosSeleccionado,
+      idRequerimiento: this.identificador.value,
+      descripcion: this.descripcion.value,
+      requerimientoBloque: [...this.block],
+      proyecto: this.idProyecto as number,
+    };
+    this._requerimientoService.putRequerimientoMetodoGraficoJ(requerimientoEditar)
+      .subscribe(async (requerimiento: any) => {
+        if (requerimiento) {
+          this.datos.map(
+            (requerimiento, indice) => {
+              if (requerimiento.id === this.idRequerimientosSeleccionado) {
+                this.datos[indice] = requerimientoEditar;
+              }
+            }
+          );
+          this._toasterService.success('Requerimiento editado correctamente', 'Éxito');
+        }
+      }, error => {
+        this._toasterService.error('Ocurrió un error al editar', 'Error');
+      });
     this.limpiar();
   }
-  eliminar(){
-    for(let i=0; i<this.datos.length;i++){
-      const index = i;
-      if(this.datos[i].id==this.identificador.value){
-        this.datos.splice(i,1);
-      }
-    }
+
+  eliminar() {
+    this._requerimientoService.deleteRequerimiento(this.idRequerimientosSeleccionado as number)
+      .subscribe(value => {
+        const requerimientoEliminar = this.datos.find(requerimiento => requerimiento.id === this.idRequerimientosSeleccionado);
+        this.datos.indexOf(requerimientoEliminar as RequerimientoInterface) < 0
+          ? this.datos
+          : this.datos.splice(this.datos.indexOf(requerimientoEliminar as RequerimientoInterface), 1);
+        this.requerimientoSeleccionado = undefined;
+        this._toasterService.info('Eliminado correctamente', 'Éxito');
+      });
     this.limpiar();
 
   }
-  cancelar(){
-    this.eliminarImg=document.getElementById('eliminar');
+
+  cancelar() {
     this.identificador = document.getElementById('id');
     this.descripcion = document.getElementById('textarea1');
     this.limpiar();

@@ -64,6 +64,9 @@ export class RequerimientoService {
   postRequerimientoMetodoGraficoB(nuevoRequerimiento: RequerimientoInterface) {
     return this._httpClient.post(this.url + 'add-reqb', nuevoRequerimiento);
   }
+  postRequerimientoMetodoGraficoJ(nuevoRequerimiento: RequerimientoInterface) {
+    return this._httpClient.post(this.url + 'add-reqj', nuevoRequerimiento);
+  }
 
   postRequerimientosExcel(nuevosRequerimientos: ExcelPlantillaHuInterface[]) {
     return this._httpClient.post(this.url + 'carga-masiva', nuevosRequerimientos);
@@ -76,7 +79,9 @@ export class RequerimientoService {
   putRequerimientoMetodoGraficoB(nuevoRequerimiento: RequerimientoInterface) {
     return this._httpClient.post(this.url + 'upd-reqb', nuevoRequerimiento);
   }
-
+  putRequerimientoMetodoGraficoJ(nuevoRequerimiento: RequerimientoInterface) {
+    return this._httpClient.post(this.url + 'upd-reqj', nuevoRequerimiento);
+  }
   putRefinamiento(idProyecto: object) {
     return this._httpClient.put(this.url + 'refinamiento', idProyecto);
   }

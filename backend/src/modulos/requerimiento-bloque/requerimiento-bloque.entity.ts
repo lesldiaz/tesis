@@ -10,7 +10,8 @@ export class RequerimientoBloqueEntity extends EntityGenerico{
     @ManyToOne(
         type => BloqueEntity,
         bloque => bloque.requerimientoBloque, {
-            nullable: false
+            nullable: false,
+            onDelete: 'CASCADE',
         }
     )
     bloque: number | BloqueEntity;
@@ -18,7 +19,8 @@ export class RequerimientoBloqueEntity extends EntityGenerico{
     @ManyToOne(
         type => RequerimientoEntity,
         requerimiento => requerimiento.requerimientoBloque, {
-            nullable: false
+            nullable: false,
+            onDelete: 'CASCADE',
         }
     )
     requerimiento: number | RequerimientoEntity;

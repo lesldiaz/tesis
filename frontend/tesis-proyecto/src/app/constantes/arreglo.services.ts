@@ -8,6 +8,8 @@ import { ResultadoService } from "../servicios/resultado.service";
 import { RolService } from "../servicios/rol.service";
 import { UsuarioSesionService } from "../servicios/usuario-sesion.service";
 import { UsuarioService } from "../servicios/usuario.service";
+import { BloqueService } from "../servicios/bloque.service";
+import { RequerimientoBloqueService } from "../servicios/requerimiento-bloque.service";
 
 export const ARREGLO_SERVICIOS = [
   ConfirmationService,
@@ -19,5 +21,7 @@ export const ARREGLO_SERVICIOS = [
   RequerimientoService,
   AuthService,
   RolService,
-  UsuarioSesionService
+  UsuarioSesionService,
+  BloqueService,
+  RequerimientoBloqueService
 ]

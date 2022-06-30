@@ -1,23 +1,39 @@
-<p>tabla-req-game-play works!</p>
-<table>
-
-  <tr>
-    <th>OPCIONES</th>
-    <th>ID</th>
-    <th>DESCRIPCION</th>
-    <th>BLOQUES</th>
-
-  </tr>
-  <tr *ngFor="let dato of datos">
-    <td>
-      <button (click)="select(dato.id,dato.descripcion,dato.bloque)">
-        Seleccionar
-      </button>
-    </td>
-    <td>{{dato.id}}</td>
-    <td>{{dato.descripcion}}</td>
-    <td *ngFor="let pos of dato.bloque">
-      <p *ngFor="let obj of pos">{{obj}}<br></p>
-    </td>
-  </tr>
-</table>
+<p-table
+  [value]="requerimientos"
+  [responsive]="true"
+  selectionMode="single"
+  (onRowSelect)="onRowSelect($event)"
+  [(selection)]="selectedRequerimiento"
+  dataKey="id"
+  styleClass="mt-3"
+>
+  <ng-template pTemplate="header">
+    <tr>
+      <th class="text-center">Identificador</th>
+      <th class="text-center">Descripción</th>
+      <th class="text-center">Bloques</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-datoFila>
+    <tr [pSelectableRow]="datoFila">
+      <td class="text-center">
+        {{datoFila['idRequerimiento']}}
+      </td>
+      <td class="text-center">
+         {{datoFila['descripcion']}}
+      </td>
+      <td class="text-center">
+        <div *ngFor="let pos of datoFila['requerimientoBloque']">
+          <p>{{pos.bloque.nombre}}</p>
+        </div>
+      </td>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="emptymessage">
+    <tr>
+      <td [attr.colspan]="3">
+        No existe resultados
+      </td>
+    </tr>
+  </ng-template>
+</p-table>

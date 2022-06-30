@@ -1,3 +1,4 @@
+<app-migaspan [conjuntoMigas]="migasPan"></app-migaspan>
 <div>
   <mat-stepper linear="true" #stepper>
     <mat-step label="Agregar Requerimiento" [stepControl]="firstFormGroup">
@@ -36,17 +37,21 @@
         </form>
       </div>
       <div id="metodo-plantilla" style="display: none">
-        <app-pestana-plantilla (requerimientosCargadosPPC)="recibirRequerimientos($event)"></app-pestana-plantilla>
+        <app-pestana-plantilla
+          [tipoProyecto]="tipoProyecto"
+          (requerimientosCargadosPC)="recibirRequerimientosC($event)"
+          (requerimientosCargadosPJ)="recibirRequerimientosJ($event)"
+        ></app-pestana-plantilla>
         <div id="select" class="right" [formGroup]="firstFormGroup">
           <button class="btn" type="button" (click)="guardarRequerimientosIngresados()" mat-button>Continuar</button>
         </div>
       </div>
-      <div id="metodo-grafico" style="display: none">
+     <!-- <div id="metodo-grafico" style="display: none">
         <app-pestana [idProyecto]="idProyecto"></app-pestana>
         <div class="right" [formGroup]="firstFormGroup">
           <button class="btn " type="button" mat-button matStepperNext>Next</button>
         </div>
-      </div>
+      </div>-->
     </mat-step>
     <mat-step label="Visualización de requerimiento" #paso_2>
       <ng-container *ngIf="stepper.selected == paso_2">
@@ -54,7 +59,9 @@
           <button class="btn " type="button" mat-button matStepperPrevious>Regresar</button>
           <button class="btn " type="button" mat-button matStepperNext>Continuar</button>
         </div>
-        <app-tabla-previsual-req-plantilla [idProyecto]="idProyecto"></app-tabla-previsual-req-plantilla>
+        <div id="metodo-grafico">
+          <app-pestana [idProyecto]="idProyecto"></app-pestana>
+        </div>
       </ng-container>
     </mat-step>
     <mat-step label="Refinamiento" #paso_3>

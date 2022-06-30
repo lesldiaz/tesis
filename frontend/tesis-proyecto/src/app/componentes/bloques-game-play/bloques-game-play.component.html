@@ -1,13 +1,13 @@
+<p-confirmDialog></p-confirmDialog>
 <div>
   <div>
     <mat-grid-list cols="5" rowHeight="25px">
-      <div  *ngFor="let tile of tiles" id='{{tile.text}}'>
+      <div  *ngFor="let tile of tiles" id='{{tile.id}}'>
         <mat-grid-tile
           [colspan]="tile.cols"
           [rowspan]="tile.rows"
-          [style.background]="tile.color" (click)="seleccionar(tile.text)">
-          {{tile.text}}
-
+          [style.background]="tile.color" (click)="seleccionar(tile)">
+          {{tile.nombre}}
         </mat-grid-tile>
       </div>
     </mat-grid-list>

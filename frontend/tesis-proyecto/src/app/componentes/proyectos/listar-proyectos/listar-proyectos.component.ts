@@ -198,7 +198,7 @@ export class ListarProyectosComponent implements OnInit {
             proyectoDuplicado.duplicado = 1;
             proyectoDuplicado.nombre = proyectoDuplicado.nombre + ' - Copia';
             proyectoDuplicado.usuario = proyectoDuplicado.usuario.id;
-            proyectoDuplicado.estado = proyectoDuplicado.estado === 'F'? 'P': proyectoDuplicado.estado;
+            proyectoDuplicado.estado = proyectoDuplicado.estado === 'F' ? 'P' : proyectoDuplicado.estado;
             delete proyectoDuplicado.idProyecto
             delete proyectoDuplicado.id
             this._proyectoService.postProyecto(proyectoDuplicado)

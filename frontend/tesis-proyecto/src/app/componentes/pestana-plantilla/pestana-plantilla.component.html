@@ -1,8 +1,8 @@
 <mat-tab-group animationDuration="0ms" mat-align-tabs="center">
-  <mat-tab label="Cliente">
-    <app-plantilla-cliente (requerimientosCargados)="recibirRequerimientos($event)"></app-plantilla-cliente>
+  <mat-tab  label="Cliente">
+    <app-plantilla-cliente (requerimientosCargados)="recibirRequerimientosC($event)"></app-plantilla-cliente>
   </mat-tab>
-  <mat-tab label="GamePlay">
-    <app-plantilla-juego></app-plantilla-juego>
+  <mat-tab  [disabled]="tipoProyecto =='C'" label="GamePlay">
+    <app-plantilla-juego (requerimientosCargados)="recibirRequerimientosJ($event)"></app-plantilla-juego>
   </mat-tab>
 </mat-tab-group>

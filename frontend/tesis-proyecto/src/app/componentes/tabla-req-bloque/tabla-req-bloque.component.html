@@ -6,9 +6,7 @@
   (onRowSelect)="onRowSelect($event)"
   [(selection)]="selectedRequerimiento"
   dataKey="id"
-  [rows]="5"
   styleClass="mt-3"
-
 >
   <ng-template pTemplate="header">
     <tr>
@@ -18,17 +16,6 @@
       <th class="text-center">Ideas</th>
     </tr>
   </ng-template>
-  <!--<tr>
-    <th>OPCIONES</th>
-    <th>ID</th>
-    <th>ROL</th>
-    <th>PADRE</th>
-    <th>TÍTULO</th>
-    <th>PRIORIDAD</th>
-    <th>DESCRIPCION</th>
-    <th>IDEAS</th>
-
-  </tr>-->
   <ng-template pTemplate="body" let-datoFila>
     <tr [pSelectableRow]="datoFila">
       <td class="text-center">
@@ -44,12 +31,9 @@
         <b>Rol: </b>{{datoFila['rol'].nombre}}<br>
         <b>Padre: </b>{{datoFila['requerimientoPadre'] ? datoFila['requerimientoPadre'] : 'Ninguno'}}
       </td>
-      <td class="text-center" *ngFor="let pos of datoFila['proposito']">
-        <div *ngIf="datoFila['proposito'].length">
-          <p *ngFor="let obj of pos">{{obj.descripcion}}</p><br>
-        </div>
-        <div *ngIf="!datoFila['proposito'].length">
-          Ninguno
+      <td class="text-center">
+        <div *ngFor="let pos of datoFila['proposito']">
+          <p>{{pos.descripcion}}</p>
         </div>
       </td>
     </tr>

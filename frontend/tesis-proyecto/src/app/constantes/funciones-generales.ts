@@ -37,12 +37,12 @@ export const FUNCIONES_GENERALES = {
         requerimiento.necesario = valor['NECESARIO'] ? valor['NECESARIO'] : 0;
         //gameplay
         if (valor['BLOQUES GAMEPLAY']) {
-          requerimiento.bloqueGameplay1 = valor['BLOQUES GAMEPLAY'] ? valor['BLOQUES GAMEPLAY'] : 'NINGUNO';
-          requerimiento.bloqueGameplay2 = valor['BLOQUES GAMEPLAY2'] ? valor['BLOQUES GAMEPLAY2'] : 'NINGUNO';
-          requerimiento.bloqueGameplay3 = valor['BLOQUES GAMEPLAY3'] ? valor['BLOQUES GAMEPLAY3'] : 'NINGUNO';
-          requerimiento.bloqueGameplay4 = valor['BLOQUES GAMEPLAY4'] ? valor['BLOQUES GAMEPLAY4'] : 'NINGUNO';
-          requerimiento.bloqueGameplay5 = valor['BLOQUES GAMEPLAY5'] ? valor['BLOQUES GAMEPLAY5'] : 'NINGUNO';
-          requerimiento.bloqueGameplay6 = valor['BLOQUES GAMEPLAY6'] ? valor['BLOQUES GAMEPLAY6'] : 'NINGUNO';
+          requerimiento.bloqueGameplay1 = valor['BLOQUES GAMEPLAY'] ? valor['BLOQUES GAMEPLAY'] : 'NINGUNA';
+          requerimiento.bloqueGameplay2 = valor['BLOQUES GAMEPLAY2'] ? valor['BLOQUES GAMEPLAY2'] : 'NINGUNA';
+          requerimiento.bloqueGameplay3 = valor['BLOQUES GAMEPLAY3'] ? valor['BLOQUES GAMEPLAY3'] : 'NINGUNA';
+          requerimiento.bloqueGameplay4 = valor['BLOQUES GAMEPLAY4'] ? valor['BLOQUES GAMEPLAY4'] : 'NINGUNA';
+          requerimiento.bloqueGameplay5 = valor['BLOQUES GAMEPLAY5'] ? valor['BLOQUES GAMEPLAY5'] : 'NINGUNA';
+          requerimiento.bloqueGameplay6 = valor['BLOQUES GAMEPLAY6'] ? valor['BLOQUES GAMEPLAY6'] : 'NINGUNA';
         }
         datosTratados.push(requerimiento)
       }
@@ -127,6 +127,11 @@ export const FUNCIONES_GENERALES = {
       datosExcel.push(objetoExcel);
     });
     return datosExcel;
-  }
-
+  },
+  generarLightColorHex: () => {
+    let color = "#";
+    for (let i = 0; i < 3; i++)
+      color += ("0" + Math.floor(((1 + Math.random()) * Math.pow(16, 2)) / 2).toString(16)).slice(-2);
+    return color;
+  },
 };

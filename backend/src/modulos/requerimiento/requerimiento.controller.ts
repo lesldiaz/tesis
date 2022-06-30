@@ -53,6 +53,26 @@ export class RequerimientoController extends ControllerGeneral<RequerimientoEnti
         }
     }
 
+    @Post('add-reqj')
+    async agregarReModoGraficoJ(@Body() datosAGuardar) {
+        try {
+            return await this._requerimientoService.crearModoGraficoJ(datosAGuardar);
+        } catch (e) {
+            console.error('Error', e);
+            throw new InternalServerErrorException(e);
+        }
+    }
+
+    @Post('upd-reqj')
+    async editarReModoGraficoJ(@Body() datosAGuardar) {
+        try {
+            return await this._requerimientoService.editarModoGraficoJ(datosAGuardar);
+        } catch (e) {
+            console.error('Error', e);
+            throw new InternalServerErrorException(e);
+        }
+    }
+
     @Get(':id')
     async buscarPorId(@Param('id') id: number) {
         try {

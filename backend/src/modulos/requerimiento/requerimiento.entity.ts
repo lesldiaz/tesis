@@ -56,6 +56,13 @@ export class RequerimientoEntity extends EntityGenerico {
     })
     estado?: 1 | 0 = 0;
 
+    @Column({
+        name: 'esReqBloque',
+        type: 'tinyint',
+        default: 0
+    })
+    esReqBloque?: 1 | 0 = 0; // 1 es de bloque 0 es normal de cliente
+
     @ManyToOne(
         type => RolEntity,
         rol => rol.requerimiento, {

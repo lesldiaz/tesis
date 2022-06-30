@@ -11,6 +11,8 @@ import {RespuestaInterface} from 'src/interfaces/respuesta.interface';
 import {RespuestaBuscarInterface} from 'src/interfaces/respuesta.buscar.interface';
 import {RolEntity} from '../rol/rol.entity';
 import {PropositoEntity} from '../proposito/proposito.entity';
+import {BloqueEntity} from '../bloque/bloque.entity';
+import { RequerimientoBloqueEntity } from '../requerimiento-bloque/requerimiento-bloque.entity';
 
 @Injectable()
 export class RequerimientoService extends ServiceGeneral<RequerimientoEntity> {
@@ -25,6 +27,10 @@ export class RequerimientoService extends ServiceGeneral<RequerimientoEntity> {
         private readonly _rolRepository: Repository<RolEntity>,
         @InjectRepository(PropositoEntity)
         private readonly _propositoRepository: Repository<PropositoEntity>,
+        @InjectRepository(BloqueEntity)
+        private readonly _bloqueRepository: Repository<BloqueEntity>,
+        @InjectRepository(RequerimientoBloqueEntity)
+        private readonly _requerimientoBloqueRepository: Repository<RequerimientoBloqueEntity>,
     ) {
         super(_requerimientoRepository);
     }
@@ -45,8 +51,9 @@ export class RequerimientoService extends ServiceGeneral<RequerimientoEntity> {
                 const idProyecto = (datosAGuardar[0] as any).proyecto;
                 const proyecto = await this._proyectoRepository.findOne(idProyecto);
                 const tipoProyecto = proyecto.tipoProyecto;
-                if (tipoProyecto === 'C') {
-                    datosAGuardar.forEach(async requerimiento => {
+                const bloquesExistentes = await this._bloqueRepository.find();
+                datosAGuardar.forEach(async requerimiento => {
+                    if (tipoProyecto === 'C') {
                         switch (requerimiento.prioridad) {
                             case 'ALTA':
                                 requerimiento.prioridad = 3;
@@ -58,63 +65,86 @@ export class RequerimientoService extends ServiceGeneral<RequerimientoEntity> {
                                 requerimiento.prioridad = 1;
                                 break;
                         }
-                        const requerimientoGuardar = {
-                            descripcion: requerimiento.descripcion,
-                            prioridad: requerimiento.prioridad,
-                            proyecto: requerimiento.proyecto,
-                            requerimientoPadre: requerimiento.padre ? requerimiento.padre : null,
-                            createdAt: moment().format().toString(),
-                            updatedAt: moment().format().toString()
-                        }
-                        //guardar req esqueleto
-                        const requerimientoCreado = await this._requerimientoRepository.save(requerimientoGuardar);
-                        //generar id requerimiento
-                        requerimientoCreado.idRequerimiento =
-                            FUNCIONES_GENERALES
-                                .generarIdRequerimiento(
-                                    {
-                                        id: requerimientoCreado.id,
-                                        tipoProyecto
-                                    }
-                                );
-                        // editar padre aqui - pendiente
-                        //editar idReq generado
-                        const respuestaEditar =
-                            await this._requerimientoRepository
-                                .update(
-                                    requerimientoCreado.id,
-                                    {
-                                        idRequerimiento: requerimientoCreado.idRequerimiento
-                                    });
-                        const actualizacionExitosa: boolean =
-                            respuestaEditar.affected > 0;
-                        if (!actualizacionExitosa) {
-                            return new Promise((resolve, reject) =>
-                                reject('Ocurrió un error al crear id del requerimiento'),
+                    }
+                    const requerimientoGuardar = {
+                        descripcion: requerimiento.descripcion,
+                        prioridad: requerimiento.prioridad,
+                        proyecto: requerimiento.proyecto,
+                        requerimientoPadre: requerimiento.padre ? requerimiento.padre : null,
+                        createdAt: moment().format().toString(),
+                        updatedAt: moment().format().toString()
+                    }
+                    //guardar req esqueleto
+                    if (tipoProyecto === 'J'){
+                        requerimiento.esReqBloque = 1;
+                    }
+                    const requerimientoCreado = await this._requerimientoRepository.save(requerimientoGuardar);
+                    //generar id requerimiento
+                    requerimientoCreado.idRequerimiento =
+                        FUNCIONES_GENERALES
+                            .generarIdRequerimiento(
+                                {
+                                    id: requerimientoCreado.id,
+                                    tipoProyecto
+                                }
                             );
+                    // editar padre aqui - pendiente
+                    //editar idReq generado
+                    const respuestaEditar =
+                        await this._requerimientoRepository
+                            .update(
+                                requerimientoCreado.id,
+                                {
+                                    idRequerimiento: requerimientoCreado.idRequerimiento
+                                });
+                    const actualizacionExitosa: boolean =
+                        respuestaEditar.affected > 0;
+                    if (!actualizacionExitosa) {
+                        return new Promise((resolve, reject) =>
+                            reject('Ocurrió un error al crear id del requerimiento'),
+                        );
+                    }
+                    // guardar bloques si el proyecto es juegoserio
+                    if (tipoProyecto === 'J') {
+                        const bloquesGameplayAgregar = [];
+                        for (let i = 1; i <= 6; i++) {
+                            if (requerimiento[`bloqueGameplay${i}`]) {
+                                const bloque = bloquesExistentes
+                                    .find(bloque => (bloque.nombre).toUpperCase() === requerimiento[`bloqueGameplay${i}`]);
+                                if (bloque) {
+                                    const bloqueRequerimiento = {
+                                        createdAt: moment().format().toString(),
+                                        updatedAt: moment().format().toString(),
+                                        bloque: bloque.id,
+                                        requerimiento: requerimientoCreado.id,
+                                    }
+                                    bloquesGameplayAgregar.push(bloqueRequerimiento);
+                                }
+                            }
                         }
-                        // guardar datos resultado previo
-                        const resultado = {
-                            requerimiento: requerimientoCreado.id,
-                            correcto: requerimiento.correcto,
-                            apropiado: requerimiento.apropiado,
-                            completo: requerimiento.completo,
-                            verificable: requerimiento.verificable,
-                            factible: requerimiento.factible,
-                            sinAmbiguedad: requerimiento.sinAmbiguedad,
-                            singular: requerimiento.singular,
-                            trazable: requerimiento.trazable,
-                            modificable: requerimiento.modificable,
-                            consistente: requerimiento.consistente,
-                            conforme: requerimiento.conforme,
-                            necesario: requerimiento.necesario,
-                        }
-                        const resultadoRequerimiento = await this._resultadoRepository.save(resultado);
-                        return requerimientoCreado;
-                    });
-                } else {
-
-                }
+                        //guardar bloques
+                        await this._requerimientoBloqueRepository.save(bloquesGameplayAgregar);
+                    }
+                    // guardar datos resultado previo
+                    const resultado = {
+                        requerimiento: requerimientoCreado.id,
+                        correcto: requerimiento.correcto,
+                        apropiado: requerimiento.apropiado,
+                        completo: requerimiento.completo,
+                        verificable: requerimiento.verificable,
+                        factible: requerimiento.factible,
+                        sinAmbiguedad: requerimiento.sinAmbiguedad,
+                        singular: requerimiento.singular,
+                        trazable: requerimiento.trazable,
+                        modificable: requerimiento.modificable,
+                        consistente: requerimiento.consistente,
+                        conforme: requerimiento.conforme,
+                        necesario: requerimiento.necesario,
+                    }
+                    const resultadoRequerimiento = await this._resultadoRepository.save(resultado);
+                    return requerimientoCreado;
+                });
+                //sin prioridad-padre-tiene-bloquesgp
                 return new Promise((resolve, reject) =>
                     resolve({mensaje: 'Completo', codigoRespuesta: 200}),
                 );
@@ -253,7 +283,7 @@ export class RequerimientoService extends ServiceGeneral<RequerimientoEntity> {
                     requerimiento: requerimientoCreado.id
                 }
             );
-            if (propositos[0].length) {
+            if (propositos[0]) {
                 propositos[0].forEach(async proposito => {
                     const resultadoRequerimiento = await this._propositoRepository.save({
                         createdAt: moment().format().toString(),
@@ -298,7 +328,7 @@ export class RequerimientoService extends ServiceGeneral<RequerimientoEntity> {
                 );
             }
             if (propositos[0].length) {
-                await this._propositoRepository.delete({ requerimiento: objeto.id});
+                await this._propositoRepository.delete({requerimiento: objeto.id});
                 propositos[0].forEach(async proposito => {
                     const resultadoRequerimiento = await this._propositoRepository.save({
                         createdAt: moment().format().toString(),
@@ -309,7 +339,98 @@ export class RequerimientoService extends ServiceGeneral<RequerimientoEntity> {
                 })
             }
             return new Promise((resolve, reject) =>
-                resolve({ mensaje: `Editado Correctamente`, codigoRespuesta: 200}),
+                resolve({mensaje: `Editado Correctamente`, codigoRespuesta: 200}),
+            );
+        } catch (e) {
+            return new Promise((resolve, reject) =>
+                reject(`Error de servidor. ${e.name}: ${e.message}`),
+            );
+        }
+    }
+
+    async crearModoGraficoJ(objeto): Promise<RequerimientoEntity | string> {
+        try {
+            objeto.createdAt = moment().format().toString();
+            objeto.updatedAt = moment().format().toString();
+            const requerimientosBloque = objeto.requerimientoBloque;
+            objeto.esReqBloque = 1;
+            delete objeto['requerimientoBloque'];
+            const proyecto = await this._proyectoRepository.findOne(objeto.proyecto);
+            const requerimientoCreado = await this._requerimientoRepository.save(objeto);
+            requerimientoCreado.idRequerimiento =
+                FUNCIONES_GENERALES
+                    .generarIdRequerimiento(
+                        {
+                            id: requerimientoCreado.id,
+                            tipoProyecto: proyecto.tipoProyecto
+                        }
+                    );
+            const respuestaEditar =
+                await this._requerimientoRepository
+                    .update(
+                        requerimientoCreado.id,
+                        {
+                            idRequerimiento: requerimientoCreado.idRequerimiento
+                        });
+            const actualizacionExitosa: boolean =
+                respuestaEditar.affected > 0;
+            if (!actualizacionExitosa) {
+                return new Promise((resolve, reject) =>
+                    reject('Ocurrió un error al crear id del requerimiento'),
+                );
+            }
+            const resultadoRequerimiento = await this._resultadoRepository.save(
+                {
+                    createdAt: moment().format().toString(),
+                    updatedAt: moment().format().toString(),
+                    requerimiento: requerimientoCreado.id
+                }
+            );
+            console.log(requerimientosBloque);
+            if (requerimientosBloque[0].length) {
+                requerimientosBloque[0].forEach(async bloque => {
+                    const resultadoRequerimiento = await this._requerimientoBloqueRepository.save({
+                        createdAt: moment().format().toString(),
+                        updatedAt: moment().format().toString(),
+                        requerimiento: requerimientoCreado.id,
+                        bloque: bloque.id
+                    });
+                })
+            }
+            return requerimientoCreado;
+        } catch (e) {
+            return new Promise((resolve, reject) =>
+                reject(`Error de servidor. ${e.name}: ${e.message}`),
+            );
+        }
+    }
+
+    async editarModoGraficoJ(objeto): Promise<RespuestaInterface<any> | string> {
+        try {
+            objeto.updatedAt = moment().format().toString();
+            const bloques = objeto.requerimientoBloque;
+            delete objeto['requerimientoBloque'];
+            const requerimientoEditado = await this._requerimientoRepository.update(objeto.id, objeto);
+            const actualizacionExitosa: boolean =
+                requerimientoEditado.affected > 0;
+            if (!actualizacionExitosa) {
+                return new Promise((resolve, reject) =>
+                    reject('Ocurrió un error al editar el requerimiento'),
+                );
+            }
+            if (bloques[0].length) {
+                await this._propositoRepository.delete({requerimiento: objeto.id});
+                bloques[0].forEach(async bloque => {
+                    const resultadoRequerimiento = await this._requerimientoBloqueRepository.save({
+                        createdAt: moment().format().toString(),
+                        updatedAt: moment().format().toString(),
+                        requerimiento: objeto.id,
+                        bloque: bloque.id
+                    });
+                })
+            }
+            return new Promise((resolve, reject) =>
+                resolve({mensaje: `Editado Correctamente`, codigoRespuesta: 200}),
             );
         } catch (e) {
             return new Promise((resolve, reject) =>
@@ -364,6 +485,7 @@ export class RequerimientoService extends ServiceGeneral<RequerimientoEntity> {
                         'proyecto',
                         'resultado',
                         'requerimientoBloque',
+                        'requerimientoBloque.bloque',
                         'proposito',
                     ],
                     order: {...orden},
@@ -376,6 +498,7 @@ export class RequerimientoService extends ServiceGeneral<RequerimientoEntity> {
                         'proyecto',
                         'resultado',
                         'requerimientoBloque',
+                        'requerimientoBloque.bloque',
                         'proposito',
                     ],
                     ...criteriosPaginacion,
@@ -422,11 +545,8 @@ export class RequerimientoService extends ServiceGeneral<RequerimientoEntity> {
                     }
                 },
                 relations: [
-                    'rol',
                     'proyecto',
-                    'resultado',
-                    'requerimientoBloque',
-                    'proposito'
+                    'resultado'
                 ]
             });
             const requerimientosClonados = JSON.parse(JSON.stringify(requerimientosARefinar));
@@ -496,6 +616,7 @@ export class RequerimientoService extends ServiceGeneral<RequerimientoEntity> {
                         'proyecto',
                         'resultado',
                         'requerimientoBloque',
+                        'requerimientoBloque.bloque',
                         'proposito',
                     ]
                 });

@@ -42,6 +42,7 @@
           </div>
           <div class="col-sm-8" style="width: 100%">
             <p-dropdown
+              [virtualScroll]="true"
               name="selectPadre"
               dataKey="padre"
               placeholder="Seleccione un padre"
@@ -59,7 +60,7 @@
       </div>
       <div class="col-sm-3">
         <div class="row" style="width: 100%">
-          <div class="col-sm-4">
+          <div class="col-sm-4" style="margin-top: 1rem">
             <button
               type="button"
               class="btn"
@@ -70,7 +71,7 @@
               <i class="fa fa-floppy-disk"></i>
             </button>
           </div>
-          <div class="col-sm-4" >
+          <div class="col-sm-4" style="margin-top: 1rem" >
             <button
               data-toggle="tooltip"
               data-placement="top"
@@ -81,7 +82,7 @@
               <i class="fa fa-ban"></i>
             </button>
           </div>
-          <div class="col-sm-4">
+          <div class="col-sm-4" style="margin-top: 1rem">
             <button
               type="button"
               class="btn"
@@ -152,7 +153,7 @@
     </div>
     <div style="margin-top: 1rem"></div>
     <div class="row">
-      <label><b>Ideas relacionadas</b></label>
+      <b class="text-center">Ideas relacionadas</b>
       <div>
         <app-post-it (devuelveDatos)="mostrarPostIt($event)" [bnd]="bandera" [blockRec]="blockEnvio"></app-post-it>
       </div>
@@ -161,6 +162,6 @@
 </div>
 <div class="row">
   <div class="col-sm-12">
-    <app-tabla-req-bloque (devuelveDatos)="recuperarSeleccionado($event)" [datos]="datos"></app-tabla-req-bloque>
+    <app-tabla-req-bloque [idProyecto]="idProyecto" (devuelveDatos)="recuperarSeleccionado($event)" [datos]="datos"></app-tabla-req-bloque>
   </div>
 </div>

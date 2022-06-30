@@ -49,15 +49,23 @@ export class MetodoGraficoClienteComponent implements OnInit {
       );
     const criterioBusqueda = {
       proyecto: {
-        id: 2
+        id: this.idProyecto
       }
     };
-    let getReq$ = this._requerimientoService.getRequerimientosFiltro(0, 5, criterioBusqueda);
+    let getReq$ = this._requerimientoService.getRequerimientosFiltro(0, 0, criterioBusqueda);
     getReq$
       .subscribe(
         (proyectos: any) => {
           if (typeof proyectos.mensaje !== 'string') {
             this.requerimientosPadre = proyectos.mensaje.resultado;
+            const requerimientosProyecto = proyectos.mensaje.resultado;
+            requerimientosProyecto.forEach(
+              (requerimiento: any) => {
+                if (!requerimiento.esReqBloque){
+                  this.datos.push(requerimiento);
+                }
+              }
+            );
           }
         }
       );
@@ -94,7 +102,7 @@ export class MetodoGraficoClienteComponent implements OnInit {
           }
         }, error => {
           this._toasterService.error('Ocurrió un error al guardar', 'Error');
-        })
+        });
     } else {
       this.actualizar();
     }
@@ -157,7 +165,7 @@ export class MetodoGraficoClienteComponent implements OnInit {
         }
       }, error => {
         this._toasterService.error('Ocurrió un error al editar', 'Error');
-      })
+      });
     this.limpiar();
   }
 
@@ -168,8 +176,9 @@ export class MetodoGraficoClienteComponent implements OnInit {
        this.datos.indexOf(requerimientoEliminar) < 0
          ? this.datos
          : this.datos.splice(this.datos.indexOf(requerimientoEliminar), 1);
+       this.requerimientoSeleccionado = undefined;
        this._toasterService.info('Eliminado correctamente', 'Éxito');
-     })
+     });
     this.limpiar();
   }
 

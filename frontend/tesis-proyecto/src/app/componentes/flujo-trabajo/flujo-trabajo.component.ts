@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MatStepper} from '@angular/material/stepper';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
+import { MenuItem } from 'primeng/api';
 import {ExcelPlantillaHuInterface} from 'src/app/constantes/interfaces/excel-plantilla-hu.interface';
 import {RequerimientoInterface} from 'src/app/constantes/interfaces/requerimiento.interface';
 import {ResultadoInterface} from 'src/app/constantes/interfaces/resultado.interface';
@@ -16,9 +17,13 @@ import {ResultadoService} from 'src/app/servicios/resultado.service';
   styleUrls: ['./flujo-trabajo.component.css']
 })
 export class FlujoTrabajoComponent implements OnInit {
+  migasPan: MenuItem[]= [];
   idProyecto: number | undefined;
+  tipoProyecto: 'C' | 'J' = 'C';
   pasoActual = 1;
   requerimientosCargados: object[] = [];
+  requerimientosCargadosC: object[] = [];
+  requerimientosCargadosJ: object[] = [];
   requerimientosRefinados: RequerimientoInterface[] = [];
   firstFormGroup: FormGroup = new FormGroup({});
   /*secondFormGroup: FormGroup = new FormGroup({});
@@ -42,21 +47,33 @@ export class FlujoTrabajoComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.migasPan = [
+      {
+        label: 'Refinamiento'
+      }
+    ];
     this.firstFormGroup = this._formBuilder.group({
       firstCtrl: ['', Validators.required],
     });
-   /* this.secondFormGroup = this._formBuilder.group({
-      secondCtrl: ['', Validators.required],
-    });*/
     this._activatedRoute.params.subscribe(
       parametroRuta => {
         this.idProyecto = parametroRuta['id'];
       }
     );
+    this._proyectoService.getProyecto(this.idProyecto as number)
+      .subscribe(
+        (proyecto: any) => {
+          this.tipoProyecto = proyecto.tipoProyecto
+        }
+      );
   }
 
-  recibirRequerimientos($event: object[]) {
-    this.requerimientosCargados = $event;
+  recibirRequerimientosC($event: object[]) {
+    this.requerimientosCargadosC = $event;
+  }
+
+  recibirRequerimientosJ($event: object[]) {
+    this.requerimientosCargadosJ = $event;
   }
 
   eleccion() {
@@ -67,14 +84,19 @@ export class FlujoTrabajoComponent implements OnInit {
       this.metodoGraf.style.display = '';
     }
     if (this.radiobuttons == "grafico") {
-      this.divrbttn = document.getElementById("radio-bttn");
+      (this.myStepper as MatStepper).next();
+      /*this.divrbttn = document.getElementById("radio-bttn");
       this.divrbttn.style.display = 'none';
       this.metodoGraf = document.getElementById("metodo-grafico");
-      this.metodoGraf.style.display = '';
+      this.metodoGraf.style.display = '';*/
     }
   }
 
   guardarRequerimientosIngresados() {
+    this.requerimientosCargados = [
+      ...this.requerimientosCargadosC,
+      ...this.requerimientosCargadosJ
+    ];
     this.requerimientosCargados.forEach((requerimiento: ExcelPlantillaHuInterface) => {
       requerimiento['proyecto'] = +(this.idProyecto as number);
     });
@@ -94,7 +116,7 @@ export class FlujoTrabajoComponent implements OnInit {
       .subscribe(value => {
         (this.myStepper as MatStepper).next();
       }, (error) => {
-          this._toasterService.error('Ocurrió un error al refinar', 'Error')
+        this._toasterService.error('Ocurrió un error al refinar', 'Error')
       });
 
   }
