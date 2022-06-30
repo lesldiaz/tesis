@@ -386,14 +386,13 @@ export class RequerimientoService extends ServiceGeneral<RequerimientoEntity> {
                     requerimiento: requerimientoCreado.id
                 }
             );
-            console.log(requerimientosBloque);
-            if (requerimientosBloque[0].length) {
-                requerimientosBloque[0].forEach(async bloque => {
+            if (requerimientosBloque.length) {
+                requerimientosBloque.forEach(async reqBloque => {
                     const resultadoRequerimiento = await this._requerimientoBloqueRepository.save({
                         createdAt: moment().format().toString(),
                         updatedAt: moment().format().toString(),
                         requerimiento: requerimientoCreado.id,
-                        bloque: bloque.id
+                        bloque: reqBloque.bloque.id
                     });
                 })
             }
@@ -418,14 +417,14 @@ export class RequerimientoService extends ServiceGeneral<RequerimientoEntity> {
                     reject('Ocurrió un error al editar el requerimiento'),
                 );
             }
-            if (bloques[0].length) {
+            if (bloques.length) {
                 await this._propositoRepository.delete({requerimiento: objeto.id});
-                bloques[0].forEach(async bloque => {
+                bloques.forEach(async reqBloque => {
                     const resultadoRequerimiento = await this._requerimientoBloqueRepository.save({
                         createdAt: moment().format().toString(),
                         updatedAt: moment().format().toString(),
                         requerimiento: objeto.id,
-                        bloque: bloque.id
+                        bloque: reqBloque.bloque.id
                     });
                 })
             }

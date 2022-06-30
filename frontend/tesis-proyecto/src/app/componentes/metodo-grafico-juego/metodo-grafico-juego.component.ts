@@ -65,10 +65,19 @@ export class MetodoGraficoJuegoComponent implements OnInit {
     this.identificador = document.getElementById('id');
     this.descripcion = document.getElementById('textarea1');
     this.block.push(this.event);
+    console.log(this.block);
+    const bloquesIngresados: any[] = [];
+    this.block[0]
+      .forEach((bloque: any) => {
+          const reqBloque = {
+            bloque: bloque
+          }
+          bloquesIngresados.push(reqBloque);
+    });
     if (this.identificador.value == "") {
       const requerimientoGuardar: RequerimientoInterface = {
         descripcion: this.descripcion.value,
-        requerimientoBloque: [...this.block],
+        requerimientoBloque: bloquesIngresados,
         proyecto: this.idProyecto as number,
       }
       this._requerimientoService.postRequerimientoMetodoGraficoJ(requerimientoGuardar)
@@ -97,24 +106,33 @@ export class MetodoGraficoJuegoComponent implements OnInit {
   }
 
   recuperarSeleccionado(event: any) {
+    console.log(event);
+    this.identificador = document.getElementById('id');
+    this.descripcion = document.getElementById('textarea1');
     this.requerimientoSeleccionado = event as RequerimientoInterface;
     this.idRequerimientosSeleccionado = event.id;
     this.identificador.value = event.idRequerimiento;
     this.descripcion.value = event.descripcion;
     for (let block of event.requerimientoBloque) {
-      for (let bl of block) {
-        this.blockEnvio.push(bl);
-      }
+        this.blockEnvio.push(block.bloque);
     }
     this.bandera = false;
   }
 
   actualizar() {
+    const bloquesActualizados: any[] = [];
+    this.block[0]
+      .forEach((bloque: any) => {
+        const reqBloque = {
+          bloque: bloque
+        }
+        bloquesActualizados.push(reqBloque);
+      });
     const requerimientoEditar: RequerimientoInterface = {
       id: this.idRequerimientosSeleccionado,
       idRequerimiento: this.identificador.value,
       descripcion: this.descripcion.value,
-      requerimientoBloque: [...this.block],
+      requerimientoBloque: bloquesActualizados,
       proyecto: this.idProyecto as number,
     };
     this._requerimientoService.putRequerimientoMetodoGraficoJ(requerimientoEditar)
