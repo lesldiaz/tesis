@@ -283,8 +283,8 @@ export class RequerimientoService extends ServiceGeneral<RequerimientoEntity> {
                     requerimiento: requerimientoCreado.id
                 }
             );
-            if (propositos[0]) {
-                propositos[0].forEach(async proposito => {
+            if (propositos) {
+                propositos.forEach(async proposito => {
                     const resultadoRequerimiento = await this._propositoRepository.save({
                         createdAt: moment().format().toString(),
                         updatedAt: moment().format().toString(),
@@ -327,9 +327,9 @@ export class RequerimientoService extends ServiceGeneral<RequerimientoEntity> {
                     reject('Ocurrió un error al editar el requerimiento'),
                 );
             }
-            if (propositos[0].length) {
+            if (propositos.length) {
                 await this._propositoRepository.delete({requerimiento: objeto.id});
-                propositos[0].forEach(async proposito => {
+                propositos.forEach(async proposito => {
                     const resultadoRequerimiento = await this._propositoRepository.save({
                         createdAt: moment().format().toString(),
                         updatedAt: moment().format().toString(),

@@ -40,6 +40,7 @@ import {DialogModule} from 'primeng/dialog';
 import {ScrollPanelModule} from 'primeng/scrollpanel';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {RatingModule} from 'primeng/rating';
+import { PerfilUsuarioComponent } from './componentes/perfil-usuario/perfil-usuario.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import {RatingModule} from 'primeng/rating';
     ResultadoComponent,
     TablaReqBloqueComponent,
     TablaReqGamePlayComponent,
+    PerfilUsuarioComponent,
   ],
   imports: [
     NgbModule,

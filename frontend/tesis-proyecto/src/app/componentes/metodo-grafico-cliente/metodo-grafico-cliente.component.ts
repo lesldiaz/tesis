@@ -1,6 +1,6 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {ToastrService} from 'ngx-toastr';
-import { FUNCIONES_GENERALES } from 'src/app/constantes/funciones-generales';
+import {FUNCIONES_GENERALES} from 'src/app/constantes/funciones-generales';
 import {RequerimientoInterface} from 'src/app/constantes/interfaces/requerimiento.interface';
 import {RolInterface} from 'src/app/constantes/interfaces/rol.interface';
 import {RequerimientoService} from 'src/app/servicios/requerimiento.service';
@@ -61,7 +61,7 @@ export class MetodoGraficoClienteComponent implements OnInit {
             const requerimientosProyecto = proyectos.mensaje.resultado;
             requerimientosProyecto.forEach(
               (requerimiento: any) => {
-                if (!requerimiento.esReqBloque){
+                if (!requerimiento.esReqBloque) {
                   this.datos.push(requerimiento);
                 }
               }
@@ -88,7 +88,7 @@ export class MetodoGraficoClienteComponent implements OnInit {
         prioridad: this.prioridad,
         descripcion: this.description.value,
         requerimientoPadre: this.reqPadreSeleccionado as number,
-        proposito: [...this.posit],
+        proposito: this.posit[0],
         proyecto: this.idProyecto as number,
       };
       this._requerimientoService.postRequerimientoMetodoGraficoB(requerimientoGuardar)
@@ -123,7 +123,7 @@ export class MetodoGraficoClienteComponent implements OnInit {
   }
 
   recuperarSeleccionado($event: any) {
-    this.requerimientoSeleccionado =  $event as RequerimientoInterface;
+    this.requerimientoSeleccionado = $event as RequerimientoInterface;
     this.idRequerimientosSeleccionado = $event.id;
     this.identificador.value = this.requerimientoSeleccionado.idRequerimiento;
     this.reqPadreSeleccionado = this.requerimientoSeleccionado.requerimientoPadre as RequerimientoInterface;
@@ -132,9 +132,7 @@ export class MetodoGraficoClienteComponent implements OnInit {
     this.titulo.value = this.requerimientoSeleccionado.titulo;
     this.description.value = this.requerimientoSeleccionado.descripcion;
     for (let post of (this.requerimientoSeleccionado as any).proposito) {
-      for (let pst of post) {
-        this.blockEnvio.push(pst);
-      }
+      this.blockEnvio.push(post);
     }
     this.bandera = false;
   }
@@ -148,7 +146,7 @@ export class MetodoGraficoClienteComponent implements OnInit {
       prioridad: this.prioridad,
       descripcion: this.description.value,
       requerimientoPadre: this.reqPadreSeleccionado as number,
-      proposito: [...this.posit],
+      proposito: this.posit[0],
       proyecto: this.idProyecto as number,
     };
     this._requerimientoService.putRequerimientoMetodoGraficoB(requerimientoEditar)
@@ -156,8 +154,8 @@ export class MetodoGraficoClienteComponent implements OnInit {
         if (requerimiento) {
           this.datos.map(
             (requerimiento, indice) => {
-              if (requerimiento.id === this.idRequerimientosSeleccionado){
-                this.datos[indice] =  requerimientoEditar;
+              if (requerimiento.id === this.idRequerimientosSeleccionado) {
+                this.datos[indice] = requerimientoEditar;
               }
             }
           );
@@ -170,15 +168,15 @@ export class MetodoGraficoClienteComponent implements OnInit {
   }
 
   eliminar() {
-   this._requerimientoService.deleteRequerimiento(this.idRequerimientosSeleccionado as number)
-     .subscribe(value => {
-       const requerimientoEliminar = this.datos.find(requerimiento => requerimiento.id === this.idRequerimientosSeleccionado);
-       this.datos.indexOf(requerimientoEliminar) < 0
-         ? this.datos
-         : this.datos.splice(this.datos.indexOf(requerimientoEliminar), 1);
-       this.requerimientoSeleccionado = undefined;
-       this._toasterService.info('Eliminado correctamente', 'Éxito');
-     });
+    this._requerimientoService.deleteRequerimiento(this.idRequerimientosSeleccionado as number)
+      .subscribe(value => {
+        const requerimientoEliminar = this.datos.find(requerimiento => requerimiento.id === this.idRequerimientosSeleccionado);
+        this.datos.indexOf(requerimientoEliminar) < 0
+          ? this.datos
+          : this.datos.splice(this.datos.indexOf(requerimientoEliminar), 1);
+        this.requerimientoSeleccionado = undefined;
+        this._toasterService.info('Eliminado correctamente', 'Éxito');
+      });
     this.limpiar();
   }
 
