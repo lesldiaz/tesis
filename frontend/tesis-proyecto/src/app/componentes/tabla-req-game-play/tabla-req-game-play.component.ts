@@ -22,21 +22,6 @@ export class TablaReqGamePlayComponent implements OnInit {
 
   ngOnInit(): void {
     this.requerimientos = this.datos;
-    const criterioBusqueda = {
-      proyecto: {
-        id: this.idProyecto
-      }
-    };
-    let getReq$ = this._requerimientoService.getRequerimientosFiltro(0, 5, criterioBusqueda);
-    getReq$
-      .subscribe(
-        (proyectos: any) => {
-          if (typeof proyectos.mensaje !== 'string') {
-            this.requerimientos = proyectos.mensaje.resultado;
-            //this.datos = proyectos.mensaje.resultado;
-          }
-        }
-      );
   }
   onRowSelect(event: any) {
     this.devuelveDatos.emit(event.data);

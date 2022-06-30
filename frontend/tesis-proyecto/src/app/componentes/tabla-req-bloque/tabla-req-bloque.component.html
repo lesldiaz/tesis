@@ -22,13 +22,14 @@
         {{datoFila['idRequerimiento']}}
       </td>
       <td class="text-center">
-        <b>Titulo:</b> {{datoFila['titulo']}}
-        <br>
+        <div *ngIf="datoFila['titulo']">
+          <b>Titulo:</b> {{datoFila['titulo']}}<br>
+        </div>
         <b>Descripción:</b> {{datoFila['descripcion']}}
       </td>
       <td class="text-center">
         <b>Prioridad: </b>{{datoFila['prioridad']| ldprioridadreq}}<br>
-        <b>Rol: </b>{{datoFila['rol'].nombre}}<br>
+        <b>Rol: </b>{{datoFila['rol']? datoFila['rol'].nombre : 'Ninguno'}}<br>
         <b>Padre: </b>{{datoFila['requerimientoPadre'] ? datoFila['requerimientoPadre'] : 'Ninguno'}}
       </td>
       <td class="text-center">

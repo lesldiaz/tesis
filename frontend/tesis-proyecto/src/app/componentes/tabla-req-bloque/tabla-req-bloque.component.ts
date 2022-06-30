@@ -22,23 +22,6 @@ export class TablaReqBloqueComponent implements OnInit {
 
   ngOnInit(): void {
     this.requerimientos = this.datos;
-    const criterioBusqueda = {
-      proyecto: {
-        id: this.idProyecto
-      }
-    };
-    let getProyectos$ = this._requerimientoService.getRequerimientosFiltro(0, 5, criterioBusqueda);
-    getProyectos$
-      .subscribe(
-        (proyectos: any) => {
-          if (typeof proyectos.mensaje !== 'string') {
-            this.datos = proyectos.mensaje.resultado;
-          }
-        },
-        (error: any) => {
-          console.error(error);
-        }
-      );
   }
 
   onRowSelect(event: any) {

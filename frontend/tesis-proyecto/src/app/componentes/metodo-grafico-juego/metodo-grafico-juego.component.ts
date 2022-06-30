@@ -3,7 +3,7 @@ import {ToastrService} from 'ngx-toastr';
 import {RequerimientoInterface} from 'src/app/constantes/interfaces/requerimiento.interface';
 import {RequerimientoService} from 'src/app/servicios/requerimiento.service';
 import {RequerimientoBloqueService} from 'src/app/servicios/requerimiento-bloque.service';
-import { ResultadoInterface } from 'src/app/constantes/interfaces/resultado.interface';
+import {ResultadoInterface} from 'src/app/constantes/interfaces/resultado.interface';
 
 @Component({
   selector: 'app-metodo-grafico-juego',
@@ -12,6 +12,7 @@ import { ResultadoInterface } from 'src/app/constantes/interfaces/resultado.inte
 })
 export class MetodoGraficoJuegoComponent implements OnInit {
   @Input() idProyecto: number | undefined;
+  @Input() datosBloque: RequerimientoInterface[] | undefined;
   requerimientoSeleccionado: RequerimientoInterface | undefined;
   idRequerimientosSeleccionado: number | undefined;
   datos: RequerimientoInterface[] = [];
@@ -35,25 +36,7 @@ export class MetodoGraficoJuegoComponent implements OnInit {
         id: this.idProyecto
       }
     };
-    let getProyectos$ = this._requerimientoService.getRequerimientosFiltro(0, 5, criterioBusqueda);
-    getProyectos$
-      .subscribe(
-        (proyectos: any) => {
-          if (typeof proyectos.mensaje !== 'string') {
-            const requerimientosProyecto = proyectos.mensaje.resultado;
-            requerimientosProyecto.forEach(
-              (requerimiento: any) => {
-                if (requerimiento.esReqBloque){
-                  this.datos.push(requerimiento);
-                }
-              }
-            );
-          }
-        },
-        (error: any) => {
-          console.error(error);
-        }
-      );
+    this.datos = this.datosBloque as RequerimientoInterface[];
   }
 
   mostrarPostIt(event: any) {
@@ -69,11 +52,11 @@ export class MetodoGraficoJuegoComponent implements OnInit {
     const bloquesIngresados: any[] = [];
     this.block[0]
       .forEach((bloque: any) => {
-          const reqBloque = {
-            bloque: bloque
-          }
-          bloquesIngresados.push(reqBloque);
-    });
+        const reqBloque = {
+          bloque: bloque
+        }
+        bloquesIngresados.push(reqBloque);
+      });
     if (this.identificador.value == "") {
       const requerimientoGuardar: RequerimientoInterface = {
         descripcion: this.descripcion.value,
@@ -98,6 +81,7 @@ export class MetodoGraficoJuegoComponent implements OnInit {
   }
 
   limpiar() {
+    this.requerimientoSeleccionado = undefined;
     this.identificador.value = "";
     this.descripcion.value = '';
     this.block = [];
@@ -106,7 +90,6 @@ export class MetodoGraficoJuegoComponent implements OnInit {
   }
 
   recuperarSeleccionado(event: any) {
-    console.log(event);
     this.identificador = document.getElementById('id');
     this.descripcion = document.getElementById('textarea1');
     this.requerimientoSeleccionado = event as RequerimientoInterface;
@@ -114,7 +97,7 @@ export class MetodoGraficoJuegoComponent implements OnInit {
     this.identificador.value = event.idRequerimiento;
     this.descripcion.value = event.descripcion;
     for (let block of event.requerimientoBloque) {
-        this.blockEnvio.push(block.bloque);
+      this.blockEnvio.push(block.bloque);
     }
     this.bandera = false;
   }

@@ -12,7 +12,7 @@ import {RespuestaBuscarInterface} from 'src/interfaces/respuesta.buscar.interfac
 import {RolEntity} from '../rol/rol.entity';
 import {PropositoEntity} from '../proposito/proposito.entity';
 import {BloqueEntity} from '../bloque/bloque.entity';
-import { RequerimientoBloqueEntity } from '../requerimiento-bloque/requerimiento-bloque.entity';
+import {RequerimientoBloqueEntity} from '../requerimiento-bloque/requerimiento-bloque.entity';
 
 @Injectable()
 export class RequerimientoService extends ServiceGeneral<RequerimientoEntity> {
@@ -37,15 +37,6 @@ export class RequerimientoService extends ServiceGeneral<RequerimientoEntity> {
 
     async crearMasivo(datosAGuardar: any): Promise<RespuestaInterface<any> | string> {
         const requermientosClonados = JSON.parse(JSON.stringify(datosAGuardar));
-        /*cosas que guardar
-       * ver tipo proyecto
-       * segun eso guardar:
-       * js: proposito, bloques, rol
-       * c: lo normal del requerimiento
-       * para los padre e hijos hacer un duplicado del array y eliminar todas las referencias a padre
-       * ver el tipo de proyecto antes de crear todo lo de arriba, es para el identificador
-       * nada mas creo xdd
-       * */
         try {
             if (datosAGuardar.length) {
                 const idProyecto = (datosAGuardar[0] as any).proyecto;
@@ -53,18 +44,16 @@ export class RequerimientoService extends ServiceGeneral<RequerimientoEntity> {
                 const tipoProyecto = proyecto.tipoProyecto;
                 const bloquesExistentes = await this._bloqueRepository.find();
                 datosAGuardar.forEach(async requerimiento => {
-                    if (tipoProyecto === 'C') {
-                        switch (requerimiento.prioridad) {
-                            case 'ALTA':
-                                requerimiento.prioridad = 3;
-                                break;
-                            case 'MEDIA':
-                                requerimiento.prioridad = 2;
-                                break;
-                            default:
-                                requerimiento.prioridad = 1;
-                                break;
-                        }
+                    switch (requerimiento.prioridad) {
+                        case 'ALTA':
+                            requerimiento.prioridad = 3;
+                            break;
+                        case 'MEDIA':
+                            requerimiento.prioridad = 2;
+                            break;
+                        default:
+                            requerimiento.prioridad = 1;
+                            break;
                     }
                     const requerimientoGuardar = {
                         descripcion: requerimiento.descripcion,
@@ -75,9 +64,6 @@ export class RequerimientoService extends ServiceGeneral<RequerimientoEntity> {
                         updatedAt: moment().format().toString()
                     }
                     //guardar req esqueleto
-                    if (tipoProyecto === 'J'){
-                        requerimiento.esReqBloque = 1;
-                    }
                     const requerimientoCreado = await this._requerimientoRepository.save(requerimientoGuardar);
                     //generar id requerimiento
                     requerimientoCreado.idRequerimiento =
@@ -90,13 +76,22 @@ export class RequerimientoService extends ServiceGeneral<RequerimientoEntity> {
                             );
                     // editar padre aqui - pendiente
                     //editar idReq generado
+                    let requerimientoEditar;
+                    if (requerimiento.banderaCJ === 1) {
+                        requerimientoEditar = {
+                            idRequerimiento: requerimientoCreado.idRequerimiento,
+                            esReqBloque: 1
+                        };
+                    } else {
+                        requerimientoEditar = {
+                            idRequerimiento: requerimientoCreado.idRequerimiento
+                        }
+                    }
                     const respuestaEditar =
                         await this._requerimientoRepository
                             .update(
                                 requerimientoCreado.id,
-                                {
-                                    idRequerimiento: requerimientoCreado.idRequerimiento
-                                });
+                                requerimientoEditar);
                     const actualizacionExitosa: boolean =
                         respuestaEditar.affected > 0;
                     if (!actualizacionExitosa) {
@@ -327,7 +322,7 @@ export class RequerimientoService extends ServiceGeneral<RequerimientoEntity> {
                     reject('Ocurrió un error al editar el requerimiento'),
                 );
             }
-            if (propositos.length) {
+            if (propositos) {
                 await this._propositoRepository.delete({requerimiento: objeto.id});
                 propositos.forEach(async proposito => {
                     const resultadoRequerimiento = await this._propositoRepository.save({
@@ -386,7 +381,7 @@ export class RequerimientoService extends ServiceGeneral<RequerimientoEntity> {
                     requerimiento: requerimientoCreado.id
                 }
             );
-            if (requerimientosBloque.length) {
+            if (requerimientosBloque) {
                 requerimientosBloque.forEach(async reqBloque => {
                     const resultadoRequerimiento = await this._requerimientoBloqueRepository.save({
                         createdAt: moment().format().toString(),
@@ -417,7 +412,7 @@ export class RequerimientoService extends ServiceGeneral<RequerimientoEntity> {
                     reject('Ocurrió un error al editar el requerimiento'),
                 );
             }
-            if (bloques.length) {
+            if (bloques) {
                 await this._propositoRepository.delete({requerimiento: objeto.id});
                 bloques.forEach(async reqBloque => {
                     const resultadoRequerimiento = await this._requerimientoBloqueRepository.save({

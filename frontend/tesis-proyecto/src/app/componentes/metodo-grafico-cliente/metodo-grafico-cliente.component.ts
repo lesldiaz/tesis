@@ -13,10 +13,11 @@ import {RolService} from 'src/app/servicios/rol.service';
 })
 export class MetodoGraficoClienteComponent implements OnInit {
   @Input() idProyecto: number | undefined;
+  @Input() datosCliente: RequerimientoInterface[] | undefined;
   roles: RolInterface[] = [];
   requerimientoSeleccionado: RequerimientoInterface | undefined;
   requerimientosPadre: RequerimientoInterface[] = [];
-  rolSeleccionado: RolInterface | undefined;
+  rolSeleccionado: RolInterface | any;
   identificador: any;
   idRequerimientosSeleccionado: number | undefined;
   titulo: any;
@@ -28,7 +29,7 @@ export class MetodoGraficoClienteComponent implements OnInit {
   blockEnvio: any[] = [];
   bandera: boolean = false;
   event: any;
-  reqPadreSeleccionado: RequerimientoInterface | undefined;
+  reqPadreSeleccionado: RequerimientoInterface | any;
 
 
   constructor(
@@ -47,28 +48,8 @@ export class MetodoGraficoClienteComponent implements OnInit {
           }
         }
       );
-    const criterioBusqueda = {
-      proyecto: {
-        id: this.idProyecto
-      }
-    };
-    let getReq$ = this._requerimientoService.getRequerimientosFiltro(0, 0, criterioBusqueda);
-    getReq$
-      .subscribe(
-        (proyectos: any) => {
-          if (typeof proyectos.mensaje !== 'string') {
-            this.requerimientosPadre = proyectos.mensaje.resultado;
-            const requerimientosProyecto = proyectos.mensaje.resultado;
-            requerimientosProyecto.forEach(
-              (requerimiento: any) => {
-                if (!requerimiento.esReqBloque) {
-                  this.datos.push(requerimiento);
-                }
-              }
-            );
-          }
-        }
-      );
+    this.datos = this.datosCliente as RequerimientoInterface[];
+    this.requerimientosPadre = this.datosCliente as RequerimientoInterface[];
   }
 
   mostrarPostIt(event: any) {
@@ -124,10 +105,27 @@ export class MetodoGraficoClienteComponent implements OnInit {
 
   recuperarSeleccionado($event: any) {
     this.requerimientoSeleccionado = $event as RequerimientoInterface;
+    const rolSelect = this.roles.find(rol => {
+      if (this.requerimientoSeleccionado?.rol) {
+       if (rol.id === (this.requerimientoSeleccionado.rol as RolInterface).id) {
+         return rol;
+       }
+       else {
+         return '';
+       }
+      } else {
+        return '';
+      }
+    });
+    const reqPadreSelect = this.requerimientoSeleccionado?.requerimientoPadre as RequerimientoInterface;
+    this.identificador = document.getElementById('id');
+    this.titulo = document.getElementById('titulo');
+    this.description = document.getElementById('textarea1');
+    this.posit.push(this.event);
     this.idRequerimientosSeleccionado = $event.id;
     this.identificador.value = this.requerimientoSeleccionado.idRequerimiento;
-    this.reqPadreSeleccionado = this.requerimientoSeleccionado.requerimientoPadre as RequerimientoInterface;
-    this.rolSeleccionado = this.roles.find(rol => rol.id === ((this.requerimientoSeleccionado as RequerimientoInterface).rol as RolInterface).id);
+    this.reqPadreSeleccionado = reqPadreSelect? reqPadreSelect : undefined;
+    this.rolSeleccionado = rolSelect? rolSelect : undefined;
     this.prioridad = this.requerimientoSeleccionado.prioridad as number;
     this.titulo.value = this.requerimientoSeleccionado.titulo;
     this.description.value = this.requerimientoSeleccionado.descripcion;

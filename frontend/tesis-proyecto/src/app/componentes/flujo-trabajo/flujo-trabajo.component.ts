@@ -70,10 +70,16 @@ export class FlujoTrabajoComponent implements OnInit {
 
   recibirRequerimientosC($event: object[]) {
     this.requerimientosCargadosC = $event;
+    this.requerimientosCargadosC.map((req: any) => {
+      req['banderaCJ'] = 0;
+    });
   }
 
   recibirRequerimientosJ($event: object[]) {
     this.requerimientosCargadosJ = $event;
+    this.requerimientosCargadosJ.map((req: any) => {
+      req['banderaCJ'] = 1;
+    });
   }
 
   eleccion() {
