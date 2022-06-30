@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { UsuarioSesionController } from './usuario-sesion.controller';
 import { UsuarioSesionService } from './usuario-sesion.service';
-import {TypeOrmModule} from "@nestjs/typeorm";
-import {UsuarioSesionEntity} from "./usuario.sesion.entity";
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { UsuarioSesionEntity } from './usuario.sesion.entity';
 
 @Module({
   imports: [TypeOrmModule.forFeature([UsuarioSesionEntity], 'default')],

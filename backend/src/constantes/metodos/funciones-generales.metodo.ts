@@ -12,8 +12,8 @@ export const FUNCIONES_GENERALES = {
           } else {
             servicio
               .crear(JSON.parse(data))
-              .then(value => resolve(value))
-              .catch(reason => console.error(reason));
+              .then((value) => resolve(value))
+              .catch((reason) => console.error(reason));
           }
         });
       });
@@ -22,15 +22,15 @@ export const FUNCIONES_GENERALES = {
     }
   },
   generarIdProyecto: (objeto) => {
-          const idProNum = objeto.id;
-          const tipoProyecto = objeto.tipoProyecto;
-          const nuevoIdProyecto = 'P' + tipoProyecto + idProNum;
-          return nuevoIdProyecto;
+    const idProNum = objeto.id;
+    const tipoProyecto = objeto.tipoProyecto;
+    const nuevoIdProyecto = 'P' + tipoProyecto + idProNum;
+    return nuevoIdProyecto;
   },
   generarIdRequerimiento: (objeto) => {
     const idReqNum = objeto.id;
     const tipoRequerimiento = objeto.tipoProyecto;
     const nuevoIdRequerimiento = 'R' + tipoRequerimiento + idReqNum;
     return nuevoIdRequerimiento;
-  }
+  },
 };

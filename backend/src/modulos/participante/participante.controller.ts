@@ -5,7 +5,7 @@ import { ParticipanteService } from './participante.service';
 
 @Controller('participante')
 export class ParticipanteController extends ControllerGeneral<ParticipanteEntity> {
-    constructor(private readonly _participanteService: ParticipanteService) {
-        super(_participanteService);
-    }
+  constructor(private readonly _participanteService: ParticipanteService) {
+    super(_participanteService);
+  }
 }
