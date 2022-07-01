@@ -9,7 +9,7 @@ export class PrioridadReqPipe implements PipeTransform {
       return 'Baja';
     } else if (input === 2) {
       return 'Media';
-    }else if (input === 3) {
+    } else if (input === 3) {
       return 'Alta';
     }
   }

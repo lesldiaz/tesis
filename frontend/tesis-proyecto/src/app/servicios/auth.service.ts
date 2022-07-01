@@ -5,7 +5,7 @@ import {map} from 'rxjs/operators';
 import {UsuarioInterface} from '../constantes/interfaces/usuario.interface';
 import {environment} from 'src/environments/environment';
 import {UsuarioSesionService} from './usuario-sesion.service';
-import { WINDOW } from './token-hostname';
+import {WINDOW} from './token-hostname';
 
 @Injectable()
 export class AuthService {
@@ -36,7 +36,7 @@ export class AuthService {
         nombreUsuario: username,
         contrasena: password
       })
-      .pipe(map( (user: UsuarioInterface | any) => {
+      .pipe(map((user: UsuarioInterface | any) => {
         delete user['contrasena'];
         delete user['createdAt'];
         delete user['updatedAt'];

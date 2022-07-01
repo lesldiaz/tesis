@@ -32,16 +32,11 @@ import {MenuModule} from 'primeng/menu';
 import {ToastrModule} from 'ngx-toastr';
 import {DropdownModule} from 'primeng/dropdown';
 import {CheckboxModule} from 'primeng/checkbox';
-import {RefinamientoComponent} from './componentes/refinamiento/refinamiento.component';
-import {ResultadoComponent} from './componentes/resultado/resultado.component';
-import {TablaReqBloqueComponent} from './componentes/tabla-req-bloque/tabla-req-bloque.component';
-import {TablaReqGamePlayComponent} from './componentes/tabla-req-game-play/tabla-req-game-play.component';
 import {DialogModule} from 'primeng/dialog';
 import {ScrollPanelModule} from 'primeng/scrollpanel';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {RatingModule} from 'primeng/rating';
-import { PerfilUsuarioComponent } from './componentes/perfil-usuario/perfil-usuario.component';
-import { WINDOW_PROVIDERS } from './servicios/token-hostname';
+import {WINDOW_PROVIDERS} from './servicios/token-hostname';
 
 @NgModule({
   declarations: [
@@ -50,11 +45,6 @@ import { WINDOW_PROVIDERS } from './servicios/token-hostname';
     ...ARREGLO_RUTA_COMPONENTES,
     ...ARREGLO_PIPES,
     ...ARREGLO_MODALES,
-    RefinamientoComponent,
-    ResultadoComponent,
-    TablaReqBloqueComponent,
-    TablaReqGamePlayComponent,
-    PerfilUsuarioComponent,
   ],
   imports: [
     NgbModule,

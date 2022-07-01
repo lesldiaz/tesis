@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, Input, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, SimpleChanges, DoCheck } from '@angular/core';
 import { ConfirmationService } from 'primeng/api';
 import { FUNCIONES_GENERALES } from 'src/app/constantes/funciones-generales';
 import { BloqueInterface } from 'src/app/constantes/interfaces/bloque.interface';
@@ -9,7 +9,7 @@ import { BloqueService } from 'src/app/servicios/bloque.service';
   templateUrl: './bloques-game-play.component.html',
   styleUrls: ['./bloques-game-play.component.css']
 })
-export class BloquesGamePlayComponent implements OnInit {
+export class BloquesGamePlayComponent implements OnInit, DoCheck {
   bloquesBDD: BloqueInterface[] = [];
   tiles: Tile[] = [];
   /*tiles: Tile[] = [

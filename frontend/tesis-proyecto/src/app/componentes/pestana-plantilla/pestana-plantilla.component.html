@@ -2,7 +2,7 @@
   <mat-tab  label="Cliente">
     <app-plantilla-cliente (requerimientosCargados)="recibirRequerimientosC($event)"></app-plantilla-cliente>
   </mat-tab>
-  <mat-tab  [disabled]="tipoProyecto =='C'" label="GamePlay">
+  <mat-tab  [disabled]="tipoProyecto ==='C'" label="GamePlay">
     <app-plantilla-juego (requerimientosCargados)="recibirRequerimientosJ($event)"></app-plantilla-juego>
   </mat-tab>
 </mat-tab-group>

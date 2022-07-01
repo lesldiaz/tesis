@@ -35,6 +35,11 @@ import {
   CrearEditarProyectoComponent
 } from '../componentes/proyectos/crear-editar-proyecto/crear-editar-proyecto.component';
 import {ListarProyectosComponent} from '../componentes/proyectos/listar-proyectos/listar-proyectos.component';
+import { RefinamientoComponent } from '../componentes/refinamiento/refinamiento.component';
+import { ResultadoComponent } from '../componentes/resultado/resultado.component';
+import { TablaReqBloqueComponent } from '../componentes/tabla-req-bloque/tabla-req-bloque.component';
+import { TablaReqGamePlayComponent } from '../componentes/tabla-req-game-play/tabla-req-game-play.component';
+import { PerfilUsuarioComponent } from '../componentes/perfil-usuario/perfil-usuario.component';
 
 export const ARREGLO_COMPONENTES = [
   FooterComponent,
@@ -68,4 +73,9 @@ export const ARREGLO_COMPONENTES = [
   ProyectosComponent,
   CrearEditarProyectoComponent,
   ListarProyectosComponent,
+  RefinamientoComponent,
+  ResultadoComponent,
+  TablaReqBloqueComponent,
+  TablaReqGamePlayComponent,
+  PerfilUsuarioComponent,
 ];
