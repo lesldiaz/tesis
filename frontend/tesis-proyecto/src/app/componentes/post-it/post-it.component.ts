@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, Input, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, SimpleChanges, DoCheck } from '@angular/core';
 import { ConfirmationService } from 'primeng/api';
 
 
@@ -7,7 +7,7 @@ import { ConfirmationService } from 'primeng/api';
   templateUrl: './post-it.component.html',
   styleUrls: ['./post-it.component.css']
 })
-export class PostItComponent implements OnInit {
+export class PostItComponent implements OnInit, DoCheck {
   notesContainer: any;
   addNoteButton:any;
   existingNotes: any;

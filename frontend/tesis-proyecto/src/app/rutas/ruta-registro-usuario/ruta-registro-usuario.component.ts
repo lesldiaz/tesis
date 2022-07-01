@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-ruta-registro-usuario',
@@ -9,13 +9,15 @@ import { Router } from '@angular/router';
 export class RutaRegistroUsuarioComponent implements OnInit {
 
   constructor(
-    private readonly  _router: Router
-  ) { }
+    private readonly _router: Router
+  ) {
+  }
 
   ngOnInit(): void {
   }
+
   irAInicio() {
-    const ruta = [ 'inicio']
+    const ruta = ['inicio']
     // /usuario/editar/1
     this._router.navigate(ruta);
   }

@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {FUNCIONES_GENERALES} from '../constantes/funciones-generales';
-import { RolInterface } from '../constantes/interfaces/rol.interface';
+import {RolInterface} from '../constantes/interfaces/rol.interface';
 
 @Injectable()
 export class RolService {

@@ -24,7 +24,7 @@ export class UsuarioService {
   }
 
   getAllUsuarios() {
-      return this._httpClient.get(this.url);
+    return this._httpClient.get(this.url);
   }
 
   postUsuarios(nuevoUsuario: any) {
@@ -32,7 +32,7 @@ export class UsuarioService {
   }
 
   registro(nuevoUsuario: any) {
-    return this._httpClient.post(this.url+'registro', nuevoUsuario);
+    return this._httpClient.post(this.url + 'registro', nuevoUsuario);
   }
 
   putUsuarios(nuevoUsuario: any, idUsuario: number) {
