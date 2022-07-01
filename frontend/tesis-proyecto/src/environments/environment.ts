@@ -3,18 +3,18 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false,
-  urlUsuario: 'http://localhost:3000/usuario/',
-  urlUsuarioSesion: 'http://localhost:3000/usuario-sesion/',
-  urlParticipante: 'http://localhost:3000/participante/',
-  urlParticipanteProyecto: 'http://localhost:3000/participante-proyecto/',
-  urlProposito: 'http://localhost:3000/proposito/',
-  urlRequerimiento: 'http://localhost:3000/requerimiento/',
-  urlRequerimientoBloque: 'http://localhost:3000/requerimiento-bloque/',
-  urlResultado: 'http://localhost:3000/resultado/',
-  urlRol: 'http://localhost:3000/rol/',
-  urlBloque: 'http://localhost:3000/bloque/',
-  urlProyecto: 'http://localhost:3000/proyecto/',
+  production: true,
+  urlUsuario: '/api/usuario/',
+  urlUsuarioSesion: '/api/usuario-sesion/',
+  urlParticipante: '/api/participante/',
+  urlParticipanteProyecto: '/api/participante-proyecto/',
+  urlProposito: '/api/proposito/',
+  urlRequerimiento: '/api/requerimiento/',
+  urlRequerimientoBloque: '/api/requerimiento-bloque/',
+  urlResultado: '/api/resultado/',
+  urlRol: '/api/rol/',
+  urlBloque: '/api/bloque/',
+  urlProyecto: '/api/proyecto/',
 };
 
 /*
