@@ -1,5 +1,5 @@
 <div >
-  <mat-stepper linear="true">
+  <mat-stepper linear="true" #stepper>
     <mat-step label="Agregar Requerimiento" [stepControl]="firstFormGroup" >
       <div id="radio-bttn" >
         <form [formGroup]="firstFormGroup">
@@ -32,13 +32,13 @@
       </div>
       <div id="metodo-plantilla" style="display: none">
         <app-pestana-plantilla></app-pestana-plantilla>
-        <div id="select" class="right" [formGroup]="firstFormGroup">
+        <div id="select" class="right" >
           <button class="btn " type="button" mat-button matStepperNext>Next</button>
         </div>
       </div>
       <div id="metodo-grafico" style="display: none">
         <app-pestana></app-pestana>
-        <div class="right" [formGroup]="firstFormGroup">
+        <div class="right" >
           <button class="btn " type="button" mat-button matStepperNext>Next</button>
         </div>
       </div>
