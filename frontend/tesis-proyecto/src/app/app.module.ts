@@ -41,6 +41,7 @@ import {ScrollPanelModule} from 'primeng/scrollpanel';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {RatingModule} from 'primeng/rating';
 import { PerfilUsuarioComponent } from './componentes/perfil-usuario/perfil-usuario.component';
+import { WINDOW_PROVIDERS } from './servicios/token-hostname';
 
 @NgModule({
   declarations: [
@@ -97,6 +98,7 @@ import { PerfilUsuarioComponent } from './componentes/perfil-usuario/perfil-usua
       provide: STEPPER_GLOBAL_OPTIONS,
       useValue: {displayDefaultIndicatorType: false}
     },
+    WINDOW_PROVIDERS,
     ...ARREGLO_SERVICIOS
   ],
   entryComponents: [

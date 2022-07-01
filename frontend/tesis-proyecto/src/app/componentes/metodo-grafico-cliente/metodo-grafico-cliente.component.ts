@@ -110,12 +110,8 @@ export class MetodoGraficoClienteComponent implements OnInit {
        if (rol.id === (this.requerimientoSeleccionado.rol as RolInterface).id) {
          return rol;
        }
-       else {
-         return '';
-       }
-      } else {
-        return '';
       }
+        return '';
     });
     const reqPadreSelect = this.requerimientoSeleccionado?.requerimientoPadre as RequerimientoInterface;
     this.identificador = document.getElementById('id');
@@ -129,8 +125,12 @@ export class MetodoGraficoClienteComponent implements OnInit {
     this.prioridad = this.requerimientoSeleccionado.prioridad as number;
     this.titulo.value = this.requerimientoSeleccionado.titulo;
     this.description.value = this.requerimientoSeleccionado.descripcion;
-    for (let post of (this.requerimientoSeleccionado as any).proposito) {
-      this.blockEnvio.push(post);
+    const propositos = (this.requerimientoSeleccionado as any)?.proposito;
+    console.log(propositos);
+    if(propositos){
+      for (let post of propositos) {
+        this.blockEnvio.push(post);
+      }
     }
     this.bandera = false;
   }
@@ -144,7 +144,7 @@ export class MetodoGraficoClienteComponent implements OnInit {
       prioridad: this.prioridad,
       descripcion: this.description.value,
       requerimientoPadre: this.reqPadreSeleccionado as number,
-      proposito: this.posit[0],
+      proposito: this.posit[1],
       proyecto: this.idProyecto as number,
     };
     this._requerimientoService.putRequerimientoMetodoGraficoB(requerimientoEditar)
@@ -153,6 +153,7 @@ export class MetodoGraficoClienteComponent implements OnInit {
           this.datos.map(
             (requerimiento, indice) => {
               if (requerimiento.id === this.idRequerimientosSeleccionado) {
+                requerimientoEditar['rol'] = this.roles.find(rol => rol.id === requerimientoEditar.rol);
                 this.datos[indice] = requerimientoEditar;
               }
             }

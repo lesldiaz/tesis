@@ -2,7 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {ToastrService} from 'ngx-toastr';
 import {RequerimientoInterface} from 'src/app/constantes/interfaces/requerimiento.interface';
 import {ResultadoInterface} from 'src/app/constantes/interfaces/resultado.interface';
-import { ProyectoService } from 'src/app/servicios/proyecto.service';
+import {ProyectoService} from 'src/app/servicios/proyecto.service';
 import {RequerimientoService} from 'src/app/servicios/requerimiento.service';
 import {ResultadoService} from 'src/app/servicios/resultado.service';
 
@@ -12,23 +12,140 @@ import {ResultadoService} from 'src/app/servicios/resultado.service';
   styleUrls: ['./refinamiento.component.css']
 })
 export class RefinamientoComponent implements OnInit {
-  @Input() requerimientos: RequerimientoInterface[] = [];
+  requerimientos: RequerimientoInterface[] = [];
+  requerimientosCliente: RequerimientoInterface[] = [];
+  requerimientosGamePlay: RequerimientoInterface[] = [];
   @Input() idProyecto: number | undefined;
-  @Input() tipoRequerimientos: 'J' | 'C' = 'C';
   display: boolean = false;
-  cols: any[] = [
+  dialogHeader: string = '';
+  dialogContent: string = '';
+  colsCliente: any[] = [
+    {field: 'resultado', header: 'Sin Ambigüedad'},
+    {field: 'resultado', header: 'Factible'},
     {field: 'resultado', header: 'Correcto'},
     {field: 'resultado', header: 'Apropiado'},
+    {field: 'resultado', header: 'Verificable'},
     {field: 'resultado', header: 'Completo'},
+    {field: 'resultado', header: 'Necesario'},
+    {field: 'resultado', header: 'Singular'},
+    {field: 'resultado', header: 'Conforme'},
+    {field: 'resultado', header: 'Consistente'},
+    {field: 'resultado', header: 'Modificable'},
+    {field: 'resultado', header: 'Trazabilidad'},
+  ];
+  preguntasCliente: any[] = [
+    {
+      header: 'Sin Ambigüedad',
+      pregunta: '¿Los requerimientos están claros, no existe ambiguedad?'
+    },
+    {
+      header: 'Factible',
+      pregunta: '¿El requerimiento es factible, es decir, es realizable a pesar de las limitaciones del sistema (ejemplo por costo, horario, y por parte técnica) con riesgo aceptable?¿El requerimiento tienen alguna estricción técnica?'
+    },
+    {
+      header: 'Correcto',
+      pregunta: 'El requermiento representa la necesidad real que el cliente necesita?'
+    },
+    {
+      header: 'Apropiado',
+      pregunta: '¿El requerimiento está dentro del alcance del proyecto y refleja una necesidad real?'
+    },
+    {
+      header: 'Verificable',
+      pregunta: '¿El requerimiento es verificable mediante un caso de prueba?'
+    },
+    {
+      header: 'Completo',
+      pregunta: '¿El requerimiento es necesario, sino se incluye como requisito existirá alguna deficiencia, para otros requerimientos?'
+    },
+    {
+      header: 'Necesario',
+      pregunta: '¿El requerimiento es necesario, sino se incluye como requisito existirá alguna deficiencia, para otros requerimientos?'
+    },
+    {
+      header: 'Singular',
+      pregunta: '¿El requerimiento establece una sola característica, es singular, o puede descomponerse en varios?'
+    },
+    {
+      header: 'Conforme',
+      pregunta: '¿El requerimiento esta conforme al estandar de la organización?'
+    },
+    {
+      header: 'Consistente',
+      pregunta: '¿El requerimiento es consistente no contradice a otros requerimientos o no se encuentra repetido?'
+    },
+    {
+      header: 'Modificable',
+      pregunta: '¿El requerimiento puede ser modificable sin alterar a otros requerimientos o alcance del producto?'
+    },
+    {
+      header: 'Trazabilidad',
+      pregunta: '¿El requerimiento tiene una trazabilidad original que mantiene la necesidad del cliente?'
+    },
+  ];
+  colsGamePlay: any[] = [
+    {field: 'resultado', header: 'Completo'},
+    {field: 'resultado', header: 'Apropiado'},
+    {field: 'resultado', header: 'Correcto'},
+    {field: 'resultado', header: 'Necesario'},
     {field: 'resultado', header: 'Verificable'},
     {field: 'resultado', header: 'Factible'},
     {field: 'resultado', header: 'Sin Ambigüedad'},
-    {field: 'resultado', header: 'Singular'},
-    {field: 'resultado', header: 'Trazable'},
     {field: 'resultado', header: 'Modificable'},
+    {field: 'resultado', header: 'Singular'},
+    {field: 'resultado', header: 'Trazabilidad'},
     {field: 'resultado', header: 'Consistente'},
     {field: 'resultado', header: 'Conforme'},
-    {field: 'resultado', header: 'Necesario'},
+  ];
+  preguntasGameplay: any[] = [
+    {
+      header: 'Sin Ambigüedad',
+      pregunta: '¿La tarjeta GamePlay requiere aclaración para ser implementado, no tiene ambigüedad?'
+    },
+    {
+      header: 'Factible',
+      pregunta: '¿Es factible realizar esta funcionalidad en la plataforma tecnólogica que se va a desarrollar?'
+    },
+    {
+      header: 'Correcto',
+      pregunta: '¿La tarjeta GamePlay esta relacionado a la funcionalidad que el usuario necesita, de acuerdo a su alcance. Es  correcto?'
+    },
+    {
+      header: 'Apropiado',
+      pregunta: '¿Existe sinergia entre la tarjeta GamePlay con la historia/narrativa/género. Existe consistencia, es apropiado?'
+    },
+    {
+      header: 'Verificable',
+      pregunta: '¿El GamePlay es verificable?'
+    },
+    {
+      header: 'Completo',
+      pregunta: '¿La tarjeta GamePlay incluye BLOQUES gameplay. Esta completa respetanto el formato?'
+    },
+    {
+      header: 'Necesario',
+      pregunta: '¿Es necesario que la tarjeta GamePlay sea implementada?'
+    },
+    {
+      header: 'Singular',
+      pregunta: '¿La tarjeta GamePlay no se puede dividir en otras funcionalidades, es singular?'
+    },
+    {
+      header: 'Conforme',
+      pregunta: '¿El diseño funcional del juego que contiene la tarjeta GamePlay es conforme con todas las opiniones de los participantes?'
+    },
+    {
+      header: 'Consistente',
+      pregunta: '¿La tarjeta GamePlay es consistente, no se contradice con el diseño inicial propuesto del juego?'
+    },
+    {
+      header: 'Modificable',
+      pregunta: '¿La tarjeta GamePlay puede ser mejorada o modificada?'
+    },
+    {
+      header: 'Trazabilidad',
+      pregunta: '¿La tarjeta GamePlay mantene su trazabilidad respetando el principio del diseño del juego?'
+    },
   ];
 
   constructor(
@@ -49,20 +166,33 @@ export class RefinamientoComponent implements OnInit {
     getProyectos$
       .subscribe(
         (proyectos: any) => {
-          if(typeof proyectos.mensaje !== 'string'){
+          if (typeof proyectos.mensaje !== 'string') {
             this.requerimientos = proyectos.mensaje?.resultado;
-            this.requerimientos.map(requerimiento => {
+            this.requerimientos.map((requerimiento: RequerimientoInterface) => {
               requerimiento.resultado = (requerimiento.resultado as ResultadoInterface[])[0];
+              if (requerimiento.esReqBloque) {
+                this.requerimientosGamePlay.push(requerimiento);
+              } else {
+                this.requerimientosCliente.push(requerimiento);
+              }
             });
           }
-          //this.total = proyectos.mensaje.totalResultados;
         },
         (error: any) => {
           console.error(error);
         }
       );
   }
-  showDialog() {
+
+  showDialog(header: string, tipo: 'C' | 'J' = 'C') {
+    let caracteristica;
+    if (tipo === 'C') {
+      caracteristica = this.preguntasCliente.find(caracteristica => caracteristica.header === header);
+    } else {
+      caracteristica = this.preguntasGameplay.find(caracteristica => caracteristica.header === header);
+    }
+    this.dialogHeader = caracteristica.header;
+    this.dialogContent = caracteristica.pregunta
     this.display = true;
   }
 
@@ -292,16 +422,16 @@ export class RefinamientoComponent implements OnInit {
         if (!resultados.correcto) {
           reqNoCumplidos.push('Correcto');
         }
-        if(!resultados.apropiado){
+        if (!resultados.apropiado) {
           reqNoCumplidos.push('Apropiado');
         }
-        if(!resultados.completo){
+        if (!resultados.completo) {
           reqNoCumplidos.push('Completo');
         }
-        if(!resultados.verificable){
+        if (!resultados.verificable) {
           reqNoCumplidos.push('Verificable');
         }
-        if(!resultados.factible){
+        if (!resultados.factible) {
           reqNoCumplidos.push('Factible');
         }
         observacionesFinales = observacionesFinales + reqNoCumplidos.join(', ');

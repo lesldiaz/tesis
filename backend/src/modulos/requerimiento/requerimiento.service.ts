@@ -42,24 +42,10 @@ export class RequerimientoService extends ServiceGeneral<RequerimientoEntity> {
                 const idProyecto = (datosAGuardar[0] as any).proyecto;
                 const proyecto = await this._proyectoRepository.findOne(idProyecto);
                 const tipoProyecto = proyecto.tipoProyecto;
-                const bloquesExistentes = await this._bloqueRepository.find();
                 datosAGuardar.forEach(async requerimiento => {
-                    switch (requerimiento.prioridad) {
-                        case 'ALTA':
-                            requerimiento.prioridad = 3;
-                            break;
-                        case 'MEDIA':
-                            requerimiento.prioridad = 2;
-                            break;
-                        default:
-                            requerimiento.prioridad = 1;
-                            break;
-                    }
                     const requerimientoGuardar = {
                         descripcion: requerimiento.descripcion,
-                        prioridad: requerimiento.prioridad,
                         proyecto: requerimiento.proyecto,
-                        requerimientoPadre: requerimiento.padre ? requerimiento.padre : null,
                         createdAt: moment().format().toString(),
                         updatedAt: moment().format().toString()
                     }
@@ -98,27 +84,6 @@ export class RequerimientoService extends ServiceGeneral<RequerimientoEntity> {
                         return new Promise((resolve, reject) =>
                             reject('Ocurrió un error al crear id del requerimiento'),
                         );
-                    }
-                    // guardar bloques si el proyecto es juegoserio
-                    if (tipoProyecto === 'J') {
-                        const bloquesGameplayAgregar = [];
-                        for (let i = 1; i <= 6; i++) {
-                            if (requerimiento[`bloqueGameplay${i}`]) {
-                                const bloque = bloquesExistentes
-                                    .find(bloque => (bloque.nombre).toUpperCase() === requerimiento[`bloqueGameplay${i}`]);
-                                if (bloque) {
-                                    const bloqueRequerimiento = {
-                                        createdAt: moment().format().toString(),
-                                        updatedAt: moment().format().toString(),
-                                        bloque: bloque.id,
-                                        requerimiento: requerimientoCreado.id,
-                                    }
-                                    bloquesGameplayAgregar.push(bloqueRequerimiento);
-                                }
-                            }
-                        }
-                        //guardar bloques
-                        await this._requerimientoBloqueRepository.save(bloquesGameplayAgregar);
                     }
                     // guardar datos resultado previo
                     const resultado = {
@@ -246,7 +211,6 @@ export class RequerimientoService extends ServiceGeneral<RequerimientoEntity> {
                 objeto.rol = rolCreado.id;
             }
             delete objeto.proposito;
-
             const proyecto = await this._proyectoRepository.findOne(objeto.proyecto);
             const requerimientoCreado = await this._requerimientoRepository.save(objeto);
             requerimientoCreado.idRequerimiento =
@@ -298,6 +262,7 @@ export class RequerimientoService extends ServiceGeneral<RequerimientoEntity> {
 
     async editarModoGrafico(objeto): Promise<RespuestaInterface<any> | string> {
         try {
+            console.log(objeto)
             objeto.updatedAt = moment().format().toString();
             const propositos = objeto.proposito;
             const rol = objeto.rol;
@@ -308,8 +273,6 @@ export class RequerimientoService extends ServiceGeneral<RequerimientoEntity> {
                     updatedAt: moment().format().toString(),
                 });
                 objeto.rol = rolCreado.id;
-            } else {
-                objeto.rol = objeto.rol.id;
             }
             delete objeto.proposito;
             console.log(objeto);

@@ -11,6 +11,7 @@ export interface RequerimientoInterface {
   descripcion?: string;
   prioridad?: number;
   estado?: 1 | 0;
+  esReqBloque?: 1 | 0;
   rol?: RolInterface | number | string;
   proposito?: PropositoInterface[];
   requerimientoBloque?: RequerimientoBloqueInterface[];

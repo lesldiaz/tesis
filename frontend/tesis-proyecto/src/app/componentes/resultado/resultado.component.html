@@ -1,4 +1,111 @@
-<div class="row">
+<mat-tab-group mat-align-tabs="center">
+  <mat-tab label="Cliente">
+    <div class="row">
+      <div class="col-sm-12">
+        <p-table
+          [value]="requerimientosCliente"
+          [columns]="cols"
+          [responsive]="true"
+          styleClass="mt-3">
+          <ng-template pTemplate="caption">
+              <div class="flex align-items-center justify-content-between">
+                <p class="text-center">Requerimientos de Cliente</p>
+                <button
+                  type="button"
+                  (click)="exportExcel()"
+                  class="btn btn-verde mr-2"
+                  pTooltip="Descargar Resultados"
+                  tooltipPosition="top">
+                  <i class="fa fa-file-excel"></i></button>
+              </div>
+          </ng-template>
+          <ng-template pTemplate="header">
+            <tr>
+              <th class="text-center">Identificador</th>
+              <th class="text-center">Descripción</th>
+              <th pSortableColumn="esValido">Es Válido
+                <p-sortIcon field="esValido"></p-sortIcon>
+              </th>
+              <th class="text-center">Características Cumplidas</th>
+              <th class="text-center">Observaciones</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-requerimientoFila>
+            <tr>
+              <td class="text-center" *ngFor="let col of cols">
+                <div *ngIf="col==='observaciones'">
+                  {{requerimientoFila[col.field] ? requerimientoFila[col.field] : 'Ninguna'}}
+                </div>
+                {{requerimientoFila[col.field]}}
+              </td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="emptymessage">
+            <tr>
+              <td [attr.colspan]="cols.length">
+                No existe resultados
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+  </mat-tab>
+  <mat-tab label="GamePlay">
+    <div class="row">
+      <div class="col-sm-12">
+        <p-table
+          [value]="requerimientosGamePlay"
+          [columns]="cols"
+          [responsive]="true"
+          styleClass="mt-3">
+          <ng-template pTemplate="caption">
+            <div class="flex align-items-center justify-content-between">
+              <p class="text-center">Requerimientos de GamePlay</p>
+              <button
+                type="button"
+                (click)="exportExcel('J')"
+                class="btn btn-verde mr-2"
+                pTooltip="Descargar Resultados"
+                tooltipPosition="top">
+                <i class="fa fa-file-excel"></i></button>
+            </div>
+          </ng-template>
+          <ng-template pTemplate="header">
+            <tr>
+              <th class="text-center">Identificador</th>
+              <th class="text-center">Descripción</th>
+              <th pSortableColumn="esValido">Es Válido
+                <p-sortIcon field="esValido"></p-sortIcon>
+              </th>
+              <th class="text-center">Características Cumplidas</th>
+              <th class="text-center">Observaciones</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-requerimientoFila>
+            <tr>
+              <td class="text-center" *ngFor="let col of cols">
+                <div *ngIf="col==='observaciones'">
+                  {{requerimientoFila[col.field] ? requerimientoFila[col.field] : 'Ninguna'}}
+                </div>
+                {{requerimientoFila[col.field]}}
+              </td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="emptymessage">
+            <tr>
+              <td [attr.colspan]="cols.length">
+                No existe resultados
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+  </mat-tab>
+</mat-tab-group>
+
+<!--<div class="row">
   <div class="col-sm-12">
     <p-table
       [value]="requerimientosClonados"
@@ -46,12 +153,6 @@
       </ng-template>
     </p-table>
   </div>
-</div>
-<!--<div class="row">
-  <div class="col-sm-2">
-    <button class="btn btn-outline-dark" (click)="irAProyectos()">Finalizar</button>
-  </div>
 </div>-->
-
 
 

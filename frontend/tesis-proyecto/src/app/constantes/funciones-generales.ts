@@ -22,8 +22,6 @@ export const FUNCIONES_GENERALES = {
       if (valor['Descripción']) {
         requerimiento.identificador = valor['Identificador'];
         requerimiento.descripcion = valor['Descripción'];
-        requerimiento.prioridad = valor['Prioridad'];
-        requerimiento.padre = valor['Padre'] ? valor['Padre'] : null;
         requerimiento.correcto = valor['CORRECTO'] ? valor['CORRECTO'] : 0;
         requerimiento.apropiado = valor['APROPIADO'] ? valor['APROPIADO'] : 0;
         requerimiento.verificable = valor['VERIFICABLE'] ? valor['VERIFICABLE'] : 0;
@@ -35,15 +33,7 @@ export const FUNCIONES_GENERALES = {
         requerimiento.consistente = valor['CONSISTENTE'] ? valor['CONSISTENTE'] : 0;
         requerimiento.conforme = valor['CONFORME'] ? valor['CONFORME'] : 0;
         requerimiento.necesario = valor['NECESARIO'] ? valor['NECESARIO'] : 0;
-        //gameplay
-        if (valor['BLOQUES GAMEPLAY']) {
-          requerimiento.bloqueGameplay1 = valor['BLOQUES GAMEPLAY'] ? valor['BLOQUES GAMEPLAY'] : 'NINGUNA';
-          requerimiento.bloqueGameplay2 = valor['BLOQUES GAMEPLAY2'] ? valor['BLOQUES GAMEPLAY2'] : 'NINGUNA';
-          requerimiento.bloqueGameplay3 = valor['BLOQUES GAMEPLAY3'] ? valor['BLOQUES GAMEPLAY3'] : 'NINGUNA';
-          requerimiento.bloqueGameplay4 = valor['BLOQUES GAMEPLAY4'] ? valor['BLOQUES GAMEPLAY4'] : 'NINGUNA';
-          requerimiento.bloqueGameplay5 = valor['BLOQUES GAMEPLAY5'] ? valor['BLOQUES GAMEPLAY5'] : 'NINGUNA';
-          requerimiento.bloqueGameplay6 = valor['BLOQUES GAMEPLAY6'] ? valor['BLOQUES GAMEPLAY6'] : 'NINGUNA';
-        }
+        requerimiento.completo = valor['COMPLETO'] ? valor['COMPLETO'] : 0;
         datosTratados.push(requerimiento)
       }
     })

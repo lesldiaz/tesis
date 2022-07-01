@@ -30,7 +30,8 @@ export class PostItComponent implements OnInit {
     }
 
   ngOnInit(): void {
-
+    this.notesContainer = document.getElementById("app");
+    this.addNoteButton = this.notesContainer.querySelector(".add-note");
   }
   porCadaUno(){
     this.notesContainer = document.getElementById("app");
@@ -78,7 +79,6 @@ export class PostItComponent implements OnInit {
       id: Math.floor(Math.random()*100000),
       descripcion:""
     };
-    //console.log(noteObject.id);
     const noteElement = this.createNoteElement(noteObject.id, noteObject.descripcion);
     this.notesContainer.insertBefore(noteElement, this.addNoteButton);
     this.existingNotes.push(noteObject);
@@ -90,8 +90,6 @@ export class PostItComponent implements OnInit {
     const targetNote = this.notes.filter((note: { id: number; }) => note.id == id)[0];
     targetNote.descripcion = newContent;
     this.saveNotes(this.notes);
-    console.log("updating note ...");
-    //console.log(id,newContent);
     const index = this.posit.findIndex((element) => element.id === id);
     if(index != -1){
       this.posit[index]={"id":id,"descripcion":newContent};
@@ -108,8 +106,6 @@ export class PostItComponent implements OnInit {
     const index = this.posit.findIndex((element) => element.id === id);
     this.posit.splice(index,1);
     this.addNewItem(this.posit);
-    console.log("delete note ...");
-    //console.log(id);
   }
   ngDoCheck() {
     if(this.bnd == true){
@@ -117,13 +113,11 @@ export class PostItComponent implements OnInit {
       this.limpiar();
     }
     if(this.blockRec.length!=0){
-      console.log(this.cont);
       if(this.cont==0){
         for(var i=0;i<this.blockRec.length;i++){
           const noteElement = this.createNoteElement(this.blockRec[i].id,this.blockRec[i].descripcion);
           this.notesContainer.insertBefore(noteElement, this.addNoteButton);
           this.posit.push(this.blockRec[i]);
-          //console.log("id:"+this.blockRec[i].id+"contenido:"+this.blockRec[i].contenido);
         }
         this.cont++;
       }

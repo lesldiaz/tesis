@@ -1,22 +1,26 @@
-import {Injectable} from '@angular/core';
+import {Inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {UsuarioInterface} from '../constantes/interfaces/usuario.interface';
 import {environment} from 'src/environments/environment';
 import {UsuarioSesionService} from './usuario-sesion.service';
+import { WINDOW } from './token-hostname';
 
 @Injectable()
 export class AuthService {
   url;
   urlSesion;
+  origin = this.window.location.origin;
   private currentUserSubject: BehaviorSubject<UsuarioInterface | undefined>;
   public currentUser: Observable<UsuarioInterface | undefined>;
 
   constructor(
+    @Inject(WINDOW) private window: Window,
     private readonly _httpClient: HttpClient,
   ) {
     this.url = environment.urlUsuario;
+    //this.url = origin + environment.urlUsuario;
     this.urlSesion = environment.urlUsuarioSesion;
     this.currentUserSubject = new BehaviorSubject<UsuarioInterface | undefined>(JSON.parse(localStorage.getItem('currentUser') as string));
     this.currentUser = this.currentUserSubject.asObservable();
