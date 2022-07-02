@@ -15,28 +15,28 @@ export class UsuarioService extends ServiceGeneral<UsuarioEntity> {
     }
 
     async autenticacion(usuario): Promise<UsuarioEntity | string> {
-            try {
-                const encontrar = await this._usuarioRepository.findOne({
-                    where:{
-                        nombreUsuario:usuario.nombreUsuario,
-                        contrasena:usuario.contrasena
-                    }
-                });
-                if (encontrar) {
-                    return encontrar;
-                } else {
-                    return new Promise(resolve =>
-                        resolve(
-                           'Credenciales incorrectas'
-                        ),
-                    );
+        try {
+            const encontrar = await this._usuarioRepository.findOne({
+                where: {
+                    nombreUsuario: usuario.nombreUsuario,
+                    contrasena: usuario.contrasena
                 }
-            } catch (e) {
-                return new Promise((resolve, reject) =>
-                    reject(`Error de Servidor. ${e.name}: ${e.message}`),
+            });
+            if (encontrar) {
+                return encontrar;
+            } else {
+                return new Promise(resolve =>
+                    resolve(
+                        'Credenciales incorrectas'
+                    ),
                 );
             }
+        } catch (e) {
+            return new Promise((resolve, reject) =>
+                reject(`Error de Servidor. ${e.name}: ${e.message}`),
+            );
         }
+    }
 
     async registro(usuario): Promise<UsuarioEntity | string> {
         try {
@@ -45,7 +45,9 @@ export class UsuarioService extends ServiceGeneral<UsuarioEntity> {
             const respuestaUsuarios =
                 await this._usuarioRepository
                     .find({
-                        nombreUsuario: usuario.nombreUsuario
+                        where: {
+                            nombreUsuario: usuario.nombreUsuario
+                        }
                     });
             const usuarioNoEncontrado: boolean =
                 respuestaUsuarios.length === 0;

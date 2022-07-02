@@ -566,8 +566,11 @@ export class RequerimientoService extends ServiceGeneral<RequerimientoEntity> {
 
     async buscarPorIdFull(id: number): Promise<RespuestaInterface<RequerimientoEntity> | string> {
         try {
-            const encontrar = await this._requerimientoRepository.findOne(id,
+            const encontrar = await this._requerimientoRepository.findOne(
                 {
+                    where: {
+                      id,
+                    },
                     relations: [
                         'rol',
                         'proyecto',

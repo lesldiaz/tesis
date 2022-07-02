@@ -36,7 +36,7 @@ export class ServiceGeneral<Entity> {
         objeto: Entity | any,
     ): Promise<RespuestaInterface<Entity> | string> {
         try {
-            const existeObjeto = await this._repository.findOne(id);
+            const existeObjeto = await this._repository.findOne({where: {id}});
             if (existeObjeto) {
                 objeto.updatedAt = moment().format().toString();
                 const respuestaEditar = await this._repository.update(id, objeto);
@@ -71,7 +71,8 @@ export class ServiceGeneral<Entity> {
 
     async eliminar(id: number): Promise<RespuestaInterface<Entity> | string> {
         try {
-            const encontrar = await this._repository.findOne(id);
+            const encontrar = await this._repository.findOne({where: {id}}
+            );
             if (encontrar) {
                 const respuestaEliminar = await this._repository.delete(id);
                 const eliminaExitoso: boolean = respuestaEliminar.affected > 0;
@@ -105,7 +106,13 @@ export class ServiceGeneral<Entity> {
     async eliminarMasivo(aEliminar: any): Promise<RespuestaInterface<Entity> | string> {
         try {
             aEliminar.forEach(async objetoAEliminar => {
-                const encontrar = await this._repository.findOne(objetoAEliminar as number);
+                const encontrar = await this._repository.findOne(
+                    {
+                        where: {
+                            id: objetoAEliminar,
+                        }
+                    }
+                );
                 if (encontrar) {
                     const respuestaEliminar = await this._repository.delete(aEliminar as number);
                     const eliminaExitoso: boolean = respuestaEliminar.affected > 0;
@@ -138,7 +145,9 @@ export class ServiceGeneral<Entity> {
 
     async buscarPorId(id: number): Promise<RespuestaInterface<Entity> | string> {
         try {
-            const encontrar = await this._repository.findOne(id);
+            const encontrar = await this._repository.findOne(
+                {where: {id: id}}
+            );
             if (encontrar) {
                 const resultado: RespuestaBuscarInterface<Entity> = {
                     resultado: encontrar,
