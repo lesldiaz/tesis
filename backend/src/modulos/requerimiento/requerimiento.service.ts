@@ -40,7 +40,7 @@ export class RequerimientoService extends ServiceGeneral<RequerimientoEntity> {
         try {
             if (datosAGuardar.length) {
                 const idProyecto = (datosAGuardar[0] as any).proyecto;
-                const proyecto = await this._proyectoRepository.findOne(idProyecto);
+                const proyecto = await this._proyectoRepository.findOne({where: {id: idProyecto}});
                 const tipoProyecto = proyecto.tipoProyecto;
                 datosAGuardar.forEach(async requerimiento => {
                     const requerimientoGuardar = {
@@ -123,7 +123,7 @@ export class RequerimientoService extends ServiceGeneral<RequerimientoEntity> {
                 objeto.forEach(async requerimiento => {
                     requerimiento.createdAt = moment().format().toString();
                     requerimiento.updatedAt = moment().format().toString();
-                    const proyecto = await this._proyectoRepository.findOne(requerimiento.proyecto);
+                    const proyecto = await this._proyectoRepository.findOne({where: {id: requerimiento.proyecto}});
                     const requerimientoCreado = await this._requerimientoRepository.save(requerimiento);
                     requerimientoCreado.idRequerimiento =
                         FUNCIONES_GENERALES
@@ -161,7 +161,7 @@ export class RequerimientoService extends ServiceGeneral<RequerimientoEntity> {
             } else {
                 objeto.createdAt = moment().format().toString();
                 objeto.updatedAt = moment().format().toString();
-                const proyecto = await this._proyectoRepository.findOne(objeto.proyecto);
+                const proyecto = await this._proyectoRepository.findOne({where: {id: objeto.proyecto}});
                 const requerimientoCreado = await this._requerimientoRepository.save(objeto);
                 requerimientoCreado.idRequerimiento =
                     FUNCIONES_GENERALES
@@ -211,7 +211,7 @@ export class RequerimientoService extends ServiceGeneral<RequerimientoEntity> {
                 objeto.rol = rolCreado.id;
             }
             delete objeto.proposito;
-            const proyecto = await this._proyectoRepository.findOne(objeto.proyecto);
+            const proyecto = await this._proyectoRepository.findOne({where: {id: objeto.proyecto}});
             const requerimientoCreado = await this._requerimientoRepository.save(objeto);
             requerimientoCreado.idRequerimiento =
                 FUNCIONES_GENERALES
@@ -313,7 +313,7 @@ export class RequerimientoService extends ServiceGeneral<RequerimientoEntity> {
             const requerimientosBloque = objeto.requerimientoBloque;
             objeto.esReqBloque = 1;
             delete objeto['requerimientoBloque'];
-            const proyecto = await this._proyectoRepository.findOne(objeto.proyecto);
+            const proyecto = await this._proyectoRepository.findOne({where: {id: objeto.proyecto}});
             const requerimientoCreado = await this._requerimientoRepository.save(objeto);
             requerimientoCreado.idRequerimiento =
                 FUNCIONES_GENERALES
@@ -569,7 +569,7 @@ export class RequerimientoService extends ServiceGeneral<RequerimientoEntity> {
             const encontrar = await this._requerimientoRepository.findOne(
                 {
                     where: {
-                      id,
+                        id,
                     },
                     relations: [
                         'rol',
