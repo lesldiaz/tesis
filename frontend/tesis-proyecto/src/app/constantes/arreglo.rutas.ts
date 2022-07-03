@@ -1,4 +1,5 @@
 import {Routes} from '@angular/router';
+import { CanActivateViaLoginGuard } from '../guards/esta-logueado.guard';
 import {RutaAplicacionComponent} from '../rutas/ruta-aplicacion/ruta-aplicacion.component';
 import {RutaInicioComponent} from '../rutas/ruta-inicio/ruta-inicio.component';
 import {RutaLoginUsuarioComponent} from '../rutas/ruta-login-usuario/ruta-login-usuario.component';
@@ -29,7 +30,8 @@ export const ARREGLO_RUTAS: Routes = [
   },
   {
     path: 'perfil-usuario',
-    component: RutaPerfilUsuarioComponent
+    component: RutaPerfilUsuarioComponent,
+    canActivate: [CanActivateViaLoginGuard]
   },
   {
     path: 'metodologia',
@@ -41,38 +43,30 @@ export const ARREGLO_RUTAS: Routes = [
   },
   {
     path: 'aplicacion',
-    component: RutaAplicacionComponent
+    component: RutaAplicacionComponent,
+    canActivate: [CanActivateViaLoginGuard]
   },
   {
     path: 'nuevoproyecto/:id',
     component: RutaNuevoProyectoComponent,
-    pathMatch: 'full'
+    pathMatch: 'full',
+    canActivate: [CanActivateViaLoginGuard]
   },
   {
     path: 'proyectos',
     component: RutaProyectosComponent,
+    canActivate: [CanActivateViaLoginGuard]
   },
   {
     path: 'proyectos/participantes/:id',
     component: RutaParticipanteProyectoComponent,
-    pathMatch: 'full'
+    pathMatch: 'full',
+    canActivate: [CanActivateViaLoginGuard]
   },
   {
     path: 'participantes',
-    component: RutaParticipantesComponent
-  },
-  {
-    path: 'requerimientocliente',
-    component: RutaRequerimientoClienteComponent,
-  },
-  {
-    path: 'requerimientojuego',
-    component: RutaRequerimientoJuegoComponent,
-
-  },
-  {
-    path: 'validacion',
-    component: RutaValidacionComponent
+    component: RutaParticipantesComponent,
+    canActivate: [CanActivateViaLoginGuard]
   },
   {
     path: 'login',
