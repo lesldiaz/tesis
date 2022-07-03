@@ -1,7 +1,8 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output, Input} from '@angular/core';
 import {FUNCIONES_GENERALES} from 'src/app/constantes/funciones-generales';
 import {ExcelPlantillaHuInterface} from 'src/app/constantes/interfaces/excel-plantilla-hu.interface';
 import * as XLSX from 'xlsx';
+import { FormGroup } from '@angular/forms';
 
 //import * as fs from 'fs';
 @Component({
@@ -15,6 +16,8 @@ export class PlantillaClienteComponent implements OnInit {
   @Output() requerimientosCargados: EventEmitter<object[]> = new EventEmitter<object[]>();
   nombreArchivo: string = 'Sin Selección';
   resultado: ExcelPlantillaHuInterface[] = [];
+  @Input() formulario: FormGroup = new FormGroup({});
+  @Input() label: string='';
 
   constructor() {
   }

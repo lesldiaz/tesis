@@ -1,5 +1,5 @@
 <div class="container">
-  <form #forma="ngForm">
+  <form>
     <div class="row">
       <div class="col">
         <label><b>ID</b></label>
@@ -25,13 +25,13 @@
       </div>
     </div>
     <div class="row">
-      <div class="col">
+      <div class="col" [formGroup]="formulario">
         <label ><b>Descripcion</b></label>
         <textarea
           id="textarea1"
           rows="2"
           class="form-control"
-          formControlName="descripcion"
+          [formControlName]="label"
         ></textarea>
       </div>
     </div>

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-plantilla-juego',
@@ -8,6 +9,8 @@ import { Component, OnInit } from '@angular/core';
 export class PlantillaJuegoComponent implements OnInit {
   data:any;
   change:any;
+  @Input() formulario: FormGroup = new FormGroup({});
+  @Input() label: string='';
   constructor() { }
 
   ngOnInit(): void {

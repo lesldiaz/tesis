@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-metodo-grafico-cliente',
@@ -22,7 +23,9 @@ export class MetodoGraficoClienteComponent implements OnInit {
   bandera:boolean=false;
   event:any;
   eliminarImg:any;
-
+  @Output()devuelveDatos:EventEmitter<any> = new EventEmitter();
+  @Input() formulario: FormGroup = new FormGroup({});
+  @Input() label: string='';
 
   constructor() { }
 
@@ -113,6 +116,7 @@ export class MetodoGraficoClienteComponent implements OnInit {
     this.posit=[];
     this.blockEnvio=[];
     this.eliminarImg.style.display='none';
+    this.addNewItem(this.datos);
   }
   select(event:any){
     console.log('seleccionar')
@@ -181,5 +185,7 @@ export class MetodoGraficoClienteComponent implements OnInit {
     this.description = document.getElementById('textarea1');
     this.limpiar();
   }
-
+  addNewItem(obj:object) {
+    this.devuelveDatos.emit(obj);
+  }
 }

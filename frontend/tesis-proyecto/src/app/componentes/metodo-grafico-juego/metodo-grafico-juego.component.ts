@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-metodo-grafico-juego',
@@ -15,6 +16,9 @@ export class MetodoGraficoJuegoComponent implements OnInit {
   descripcion:any;
   event:any;
   eliminarImg:any;
+  @Output()devuelveDatos:EventEmitter<any> = new EventEmitter();
+  @Input() formulario: FormGroup = new FormGroup({});
+  @Input() label: string='';
   constructor() { }
 
 
@@ -52,7 +56,7 @@ export class MetodoGraficoJuegoComponent implements OnInit {
     this.bandera=true;
     this.blockEnvio=[];
     this.eliminarImg.style.display='none';
-
+    this.addNewItem(this.datos);
   }
 
   select(event:any){
@@ -99,6 +103,9 @@ export class MetodoGraficoJuegoComponent implements OnInit {
     this.identificador = document.getElementById('id');
     this.descripcion = document.getElementById('textarea1');
     this.limpiar();
+  }
+  addNewItem(obj:object) {
+    this.devuelveDatos.emit(obj);
   }
 
 }

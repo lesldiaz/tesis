@@ -9,16 +9,12 @@ export class FlujoTrabajoComponent implements OnInit {
   firstFormGroup = this._formBuilder.group({
     firstCtrl: ['', Validators.required],
   });
-  secondFormGroup = this._formBuilder.group({
-    secondCtrl: ['', Validators.required],
-  });
-  thirdFormGroup = this._formBuilder.group({
-    thirdCtrl: ['', Validators.required],
-  });
+
   isEditable = false;
   radiobuttons: string ='';
   divrbttn:any;
   metodoGraf:any;
+  button:any;
 
   constructor(private _formBuilder: FormBuilder) { }
 
@@ -39,6 +35,12 @@ export class FlujoTrabajoComponent implements OnInit {
       this.divrbttn.style.display='none';
       this.metodoGraf = document.getElementById("metodo-grafico");
       this.metodoGraf.style.display='';
+    }
+  }
+  control(event:any){
+    if(event.length!=0){
+      this.button=document.getElementById('btn');
+      this.button.style.display='';
     }
   }
 }

@@ -1,13 +1,11 @@
 <div >
-  <mat-stepper linear="true" #stepper>
+  <mat-stepper linear="true" #stepper="matHorizontalStepper">
     <mat-step label="Agregar Requerimiento" [stepControl]="firstFormGroup" >
       <div id="radio-bttn" >
-        <form [formGroup]="firstFormGroup">
           <label id="radio-group">Agregar requerimiento mediante</label>
           <mat-radio-group
             aria-labelledby="radio-group"
             class="example-radio-group"
-            formControlName="firstCtrl"
             [(ngModel)]="radiobuttons"
             required
           >
@@ -28,22 +26,21 @@
           <div class="next-btt">
             <button type="button" class="btn" (click)="eleccion()">Añadir Requerimientos</button>
           </div>
-        </form>
       </div>
-      <div id="metodo-plantilla" style="display: none">
-        <app-pestana-plantilla></app-pestana-plantilla>
-        <div id="select" class="right" >
-          <button class="btn " type="button" mat-button matStepperNext>Next</button>
+        <div id="metodo-plantilla" style="display: none" [formGroup]="firstFormGroup">
+          <app-pestana-plantilla [formulario]="firstFormGroup" label="firstCtrl"></app-pestana-plantilla>
+          <div id="select" class="right" >
+            <button class="btn " type="button" mat-button matStepperNext >Next</button>
+          </div>
         </div>
-      </div>
-      <div id="metodo-grafico" style="display: none">
-        <app-pestana></app-pestana>
-        <div class="right" >
-          <button class="btn " type="button" mat-button matStepperNext>Next</button>
+        <div id="metodo-grafico" style="display: none" [formGroup]="firstFormGroup" >
+          <app-pestana (devuelveDatos)="control($event)" [formulario]="firstFormGroup" label="firstCtrl"></app-pestana>
+          <div class="right" >
+            <button id="btn" class="btn " type="button" style="display: none" mat-button matStepperNext>Next</button>
+          </div>
         </div>
-      </div>
     </mat-step>
-    <mat-step label="Visualización de requerimiento"   >
+    <mat-step label="Visualización de requerimiento"  >
       <p >Socialize with each other.</p>
         <div >
           <button class="btn " type="button" mat-button matStepperPrevious>Back</button>
@@ -57,7 +54,7 @@
         <button class="btn " type="button" mat-button matStepperNext>Next</button>
       </div>
     </mat-step>
-    <mat-step label="Resultados">
+    <mat-step label="Resultados" >
       <p>You're welcome.</p>
     </mat-step>
   </mat-stepper>

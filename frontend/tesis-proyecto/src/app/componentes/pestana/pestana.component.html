@@ -1,9 +1,9 @@
  <mat-tab-group animationDuration="0ms" mat-align-tabs="center">
     <mat-tab label="Cliente">
-      <app-metodo-grafico-cliente ></app-metodo-grafico-cliente>
+      <app-metodo-grafico-cliente (devuelveDatos)="control($event)" [formulario]="formulario" [label]="label" ></app-metodo-grafico-cliente>
     </mat-tab>
     <mat-tab label="GamePlay">
-      <app-metodo-grafico-juego></app-metodo-grafico-juego>
+      <app-metodo-grafico-juego (devuelveDatos)="control($event)" [formulario]="formulario" [label]="label"></app-metodo-grafico-juego>
     </mat-tab>
   </mat-tab-group>
 
