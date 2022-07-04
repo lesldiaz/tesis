@@ -77,7 +77,17 @@ export class MetodoGraficoClienteComponent implements OnInit {
           if (requerimiento) {
             requerimientoGuardar['id'] = requerimiento.id;
             requerimientoGuardar['idRequerimiento'] = requerimiento.idRequerimiento;
-            requerimientoGuardar['rol'] = this.roles.find(rol => rol.id === requerimiento.rol);
+            const rolGuardado = this.roles.find(rol => rol.id === requerimiento.rol);
+            if (rolGuardado) {
+              requerimientoGuardar['rol'] = rolGuardado;
+            } else {
+              this._rolService.getRol(requerimiento.rol)
+                .subscribe(
+                  rolGuardado => {
+
+                  }
+                )
+            }
             this.datos.push(requerimientoGuardar);
             this._toasterService.success('Requerimiento guardado correctamente', 'Éxito');
           }
