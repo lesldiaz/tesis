@@ -1,6 +1,6 @@
 <app-migaspan [conjuntoMigas]="migasPan"></app-migaspan>
 <div>
-  <mat-stepper linear="true" #stepper>
+  <mat-stepper linear="true" #stepper="matHorizontalStepper">
     <mat-step label="Agregar Requerimiento" [stepControl]="firstFormGroup">
       <div id="radio-bttn">
         <form [formGroup]="firstFormGroup">
@@ -46,12 +46,6 @@
           <button class="btn" type="button" (click)="guardarRequerimientosIngresados()" mat-button>Continuar</button>
         </div>
       </div>
-     <!-- <div id="metodo-grafico" style="display: none">
-        <app-pestana [idProyecto]="idProyecto"></app-pestana>
-        <div class="right" [formGroup]="firstFormGroup">
-          <button class="btn " type="button" mat-button matStepperNext>Next</button>
-        </div>
-      </div>-->
     </mat-step>
     <mat-step label="Visualización de requerimiento" #paso_2>
       <ng-container *ngIf="stepper.selected === paso_2">
@@ -59,7 +53,7 @@
           <button class="btn " type="button" mat-button matStepperNext>Continuar</button>
         </div>
         <div id="metodo-grafico">
-          <app-pestana [idProyecto]="idProyecto"></app-pestana>
+          <app-pestana [tipoProyecto]="tipoProyecto" [idProyecto]="idProyecto"></app-pestana>
         </div>
       </ng-container>
     </mat-step>

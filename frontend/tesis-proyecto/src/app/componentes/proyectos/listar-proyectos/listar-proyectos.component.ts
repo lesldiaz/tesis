@@ -4,6 +4,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
 import {debounceTime} from 'rxjs';
+import { ProyectoInterface } from 'src/app/constantes/interfaces/proyecto.interface';
 import {TipoProyectoInterface} from 'src/app/constantes/interfaces/tipo-proyecto.interface';
 import {UsuarioInterface} from 'src/app/constantes/interfaces/usuario.interface';
 import {
@@ -23,7 +24,7 @@ import {ProyectoService} from 'src/app/servicios/proyecto.service';
 })
 export class ListarProyectosComponent implements OnInit {
   tiposProyecto: TipoProyectoInterface[] = [];
-  proyectos: any[] = [];
+  proyectos: ProyectoInterface[] = [];
   usuarioActual: UsuarioInterface;
   cols: any[] = [
     {field: 'idProyecto', header: 'Identificador'},
@@ -127,7 +128,7 @@ export class ListarProyectosComponent implements OnInit {
             this._proyectoService.postProyecto(respuestaModalCrear)
               .subscribe(
                 value => {
-                  if (this.proyectos.length > 0) {
+                  if (this.proyectos && this.proyectos.length) {
                     this.proyectos.unshift(value);
                     if (this.proyectos.length > 5) {
                       this.proyectos.pop();

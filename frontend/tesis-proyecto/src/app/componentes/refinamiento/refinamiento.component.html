@@ -102,7 +102,7 @@
       </div>
     </ng-container>
   </mat-tab>
-  <mat-tab label="GamePlay">
+  <mat-tab label="GamePlay" [disabled]="requerimientosGamePlay">
     <ng-container *ngIf="requerimientosGamePlay">
       <div class="row">
         <div class="col-sm-12">
