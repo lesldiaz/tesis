@@ -36,7 +36,7 @@
           </div>
         </form>
       </div>
-      <div id="metodo-plantilla" style="display: none">
+      <div id="metodo-plantilla" *ngIf="banderaPlantillas">
         <app-pestana-plantilla
           [tipoProyecto]="tipoProyecto"
           (requerimientosCargadosPC)="recibirRequerimientosC($event)"
@@ -62,7 +62,7 @@
       <div>
         <button class="btn" type="button" (click)="refinar()" mat-button>Continuar</button>
       </div>
-      <app-refinamiento [idProyecto]="idProyecto"></app-refinamiento>
+      <app-refinamiento [idProyecto]="idProyecto" [tipoProyecto]="tipoProyecto"></app-refinamiento>
       </ng-container>
     </mat-step>
     <mat-step label="Resultados" #paso_4>
@@ -70,7 +70,7 @@
       <div>
         <button class="btn" type="button" (click)="irAProyectos()" mat-button>Finalizar</button>
       </div>
-      <app-resultado [idProyecto]="idProyecto"></app-resultado>
+      <app-resultado [idProyecto]="idProyecto" [tipoProyecto]="tipoProyecto"></app-resultado>
       </ng-container>
     </mat-step>
   </mat-stepper>

@@ -51,7 +51,7 @@
       </div>
     </div>
   </mat-tab>
-  <mat-tab label="GamePlay" [disabled]="requerimientosGamePlay">
+  <mat-tab label="GamePlay" [disabled]="tipoProyecto==='C'">
     <div class="row">
       <div class="col-sm-12">
         <p-table
@@ -86,7 +86,7 @@
             <tr>
               <td class="text-center" *ngFor="let col of cols">
                 <div *ngIf="col==='observaciones'">
-                  {{requerimientoFila[col.field] ? requerimientoFila[col.field] : 'Ninguna'}}
+                 <p class="observaciones">{{requerimientoFila[col.field]}}</p>
                 </div>
                 {{requerimientoFila[col.field]}}
               </td>

@@ -60,7 +60,6 @@
               </div>
               <div *ngIf="col.field === 'proyecto'">
                 <p><b>Estado:</b> {{proyectoFila['estado'] | ldestadoproyecto }}</p>
-
                 <p><b>Tipo de Proyecto:</b> {{proyectoFila['tipoProyecto'] | ldtiproyecto}}</p>
                 <small *ngIf="proyectoFila['duplicado']">Es un proyecto duplicado</small>
               </div>
@@ -94,7 +93,8 @@
                   class="btn"
                   data-toggle="tooltip"
                   data-placement="top"
-                  title="Gestionar Proyectos">
+                  title="Gestionar Proyectos"
+                hidden>
                   <i class="fa fa-people-group texto-botones" aria-hidden="true"></i>
                 </button>
                 <button
@@ -107,6 +107,7 @@
                 </button>
                 <button
                   *ngIf="proyectoFila['estado']==='F'"
+                  (click)="descargarExcel(proyectoFila)"
                   class="btn"
                   data-toggle="tooltip"
                   data-placement="top"

@@ -14,6 +14,7 @@ import {Router} from '@angular/router';
   styleUrls: ['./resultado.component.css']
 })
 export class ResultadoComponent implements OnInit {
+  @Input() tipoProyecto: 'C' | 'J' | undefined;
   @Input() idProyecto: number | undefined;
   requerimientos: RequerimientoInterface[] = [];
   requerimientosCliente: RequerimientoInterface[] = [];
