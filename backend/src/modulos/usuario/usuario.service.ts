@@ -45,7 +45,7 @@ export class UsuarioService extends ServiceGeneral<UsuarioEntity> {
             const respuestaUsuarios =
                 await this._usuarioRepository
                     .find({
-                        nombreUsuario: usuario.nombreUsuario
+                        where: {nombreUsuario: usuario.nombreUsuario}
                     });
             const usuarioNoEncontrado: boolean =
                 respuestaUsuarios.length === 0;

@@ -51,7 +51,7 @@
       </div>
     </div>
   </mat-tab>
-  <mat-tab label="GamePlay">
+  <mat-tab label="GamePlay" [disabled]="tipoProyecto==='C'">
     <div class="row">
       <div class="col-sm-12">
         <p-table
@@ -85,8 +85,8 @@
           <ng-template pTemplate="body" let-requerimientoFila>
             <tr>
               <td class="text-center" *ngFor="let col of cols">
-                <div *ngIf="col==='observaciones'">
-                  {{requerimientoFila[col.field] ? requerimientoFila[col.field] : 'Ninguna'}}
+                <div style="white-space: pre-line; word-break:break-all;" *ngIf="col==='observaciones'">
+                 {{requerimientoFila[col.field]}}
                 </div>
                 {{requerimientoFila[col.field]}}
               </td>

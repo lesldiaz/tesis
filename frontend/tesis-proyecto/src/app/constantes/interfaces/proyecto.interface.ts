@@ -1,6 +1,7 @@
 import { DatosUsuarioInterface } from "./datos.usuario.interface";
 
 export interface ProyectoInterface {
+  id?: number;
   idProyecto?: string;
   nombre?: string;
   descripcion?: string;

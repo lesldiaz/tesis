@@ -92,8 +92,7 @@ export class ResultadoEntity extends EntityGenerico{
 
     @Column({
         name: 'observaciones',
-        type: 'varchar',
-        length: 255,
+        type: 'text',
         nullable: true
     })
     observaciones?: string;

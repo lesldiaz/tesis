@@ -6,14 +6,17 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
   styleUrls: ['./pestana-plantilla.component.css']
 })
 export class PestanaPlantillaComponent implements OnInit {
-  @Input() tipoProyecto: 'C' | 'J' = 'C';
+  @Input() tipoProyecto: 'C' | 'J' | undefined;
   @Output() requerimientosCargadosPC: EventEmitter<object[]> = new EventEmitter<object[]>();
   @Output() requerimientosCargadosPJ: EventEmitter<object[]> = new EventEmitter<object[]>();
   requerimientosCargadosC: object[] = [];
   requerimientosCargadosJ: object[] = [];
+  bandera = true;
   constructor() { }
 
   ngOnInit(): void {
+    console.log('pp',this.tipoProyecto);
+    this.bandera = this.tipoProyecto === 'C'? true: false;
   }
 
   recibirRequerimientosC($event: object[]) {

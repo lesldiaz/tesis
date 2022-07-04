@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { RequerimientoService } from 'src/app/servicios/requerimiento.service';
+import {Component, Input, OnInit} from '@angular/core';
+import {RequerimientoService} from 'src/app/servicios/requerimiento.service';
 
 @Component({
   selector: 'app-pestana',
@@ -8,11 +8,15 @@ import { RequerimientoService } from 'src/app/servicios/requerimiento.service';
 })
 export class PestanaComponent implements OnInit {
   @Input() idProyecto: number | undefined;
+  @Input() tipoProyecto: 'C' | 'J' = 'C';
   datosBloque: any[] = [];
   datosCliente: any[] = [];
+  bandera = true;
+
   constructor(
     private readonly _requerimientoService: RequerimientoService,
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     const criterioBusqueda = {
@@ -31,7 +35,7 @@ export class PestanaComponent implements OnInit {
                 if (requerimiento.esReqBloque === 0) {
                   this.datosCliente.push(requerimiento);
                 }
-                if (requerimiento.esReqBloque === 1){
+                if (requerimiento.esReqBloque === 1) {
                   this.datosBloque.push(requerimiento);
                 }
               }
@@ -39,5 +43,6 @@ export class PestanaComponent implements OnInit {
           }
         }
       );
+    this.bandera = this.tipoProyecto === 'C' ? true : false;
   }
 }

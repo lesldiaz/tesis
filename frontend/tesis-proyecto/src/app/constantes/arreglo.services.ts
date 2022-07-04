@@ -10,6 +10,7 @@ import { UsuarioSesionService } from "../servicios/usuario-sesion.service";
 import { UsuarioService } from "../servicios/usuario.service";
 import { BloqueService } from "../servicios/bloque.service";
 import { RequerimientoBloqueService } from "../servicios/requerimiento-bloque.service";
+import { CanActivateViaLoginGuard } from "../guards/esta-logueado.guard";
 
 export const ARREGLO_SERVICIOS = [
   ConfirmationService,
@@ -23,5 +24,6 @@ export const ARREGLO_SERVICIOS = [
   RolService,
   UsuarioSesionService,
   BloqueService,
-  RequerimientoBloqueService
+  RequerimientoBloqueService,
+  CanActivateViaLoginGuard
 ]

@@ -2,8 +2,13 @@ import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
 import {MatDialog} from '@angular/material/dialog';
 import {ActivatedRoute, Router} from '@angular/router';
+import * as FileSaver from 'file-saver';
 import {ToastrService} from 'ngx-toastr';
 import {debounceTime} from 'rxjs';
+import { FUNCIONES_GENERALES } from 'src/app/constantes/funciones-generales';
+import {ProyectoInterface} from 'src/app/constantes/interfaces/proyecto.interface';
+import { RequerimientoInterface } from 'src/app/constantes/interfaces/requerimiento.interface';
+import { ResultadoInterface } from 'src/app/constantes/interfaces/resultado.interface';
 import {TipoProyectoInterface} from 'src/app/constantes/interfaces/tipo-proyecto.interface';
 import {UsuarioInterface} from 'src/app/constantes/interfaces/usuario.interface';
 import {
@@ -15,6 +20,7 @@ import {
 import {ModalEliminarComponent} from 'src/app/modales/modal-eliminar/modal-eliminar.component';
 import {AuthService} from 'src/app/servicios/auth.service';
 import {ProyectoService} from 'src/app/servicios/proyecto.service';
+import { RequerimientoService } from 'src/app/servicios/requerimiento.service';
 
 @Component({
   selector: 'app-listar-proyectos',
@@ -23,7 +29,7 @@ import {ProyectoService} from 'src/app/servicios/proyecto.service';
 })
 export class ListarProyectosComponent implements OnInit {
   tiposProyecto: TipoProyectoInterface[] = [];
-  proyectos: any[] = [];
+  proyectos: ProyectoInterface[] = [];
   usuarioActual: UsuarioInterface;
   cols: any[] = [
     {field: 'idProyecto', header: 'Identificador'},
@@ -38,6 +44,7 @@ export class ListarProyectosComponent implements OnInit {
   constructor(
     private readonly _authService: AuthService,
     private readonly _proyectoService: ProyectoService,
+    private readonly _requerimientoService: RequerimientoService,
     private readonly _toasterService: ToastrService,
     private readonly _route: Router,
     private readonly _dialog: MatDialog,
@@ -121,13 +128,12 @@ export class ListarProyectosComponent implements OnInit {
       .subscribe(
         respuestaModalCrear => {
           if (respuestaModalCrear) {
-            console.log(respuestaModalCrear);
             respuestaModalCrear.usuario = this.usuarioActual.id;
             respuestaModalCrear.tipoProyecto = respuestaModalCrear.tipoProyecto.codigo;
             this._proyectoService.postProyecto(respuestaModalCrear)
               .subscribe(
                 value => {
-                  if (this.proyectos.length > 0) {
+                  if (this.proyectos && this.proyectos.length) {
                     this.proyectos.unshift(value);
                     if (this.proyectos.length > 5) {
                       this.proyectos.pop();
@@ -163,6 +169,7 @@ export class ListarProyectosComponent implements OnInit {
       .subscribe(
         proyectoActualizado => {
           if (proyectoActualizado) {
+            console.log(proyectoActualizado);
             proyectoActualizado.tipoProyecto = proyectoActualizado.tipoProyecto.codigo;
             this._proyectoService.putProyecto(proyectoActualizado, filaProyecto.id)
               .subscribe(
@@ -256,20 +263,47 @@ export class ListarProyectosComponent implements OnInit {
       );
   }
 
-  /*exportExcel() {
+  descargarExcel(filaProyecto: ProyectoInterface){
+    const criterioBusqueda = {
+      proyecto: {
+        id: filaProyecto.id
+      }
+    };
+    let requerimientos: RequerimientoInterface[] = [];
+    let getProyectos$ = this._requerimientoService.getRequerimientosFiltro(0, 0, criterioBusqueda);
+    getProyectos$
+      .subscribe(
+        (proyectos: any) => {
+          if (typeof proyectos.mensaje !== 'string') {
+            requerimientos = proyectos.mensaje?.resultado;
+            requerimientos = FUNCIONES_GENERALES.generarObjetoResExcel(requerimientos);
+            this.exportExcel(requerimientos);
+          }
+        },
+        (error: any) => {
+          console.error(error);
+        }
+      );
+  }
+
+  exportExcel(requerimientos: RequerimientoInterface[]) {
     import("xlsx").then(xlsx => {
       const cabecera = [
         ["Identificador", "Descripción", "Válido", "Características Cumplidas", "Observaciones"]
       ];
-      const worksheet = xlsx.utils.json_to_sheet(this.requerimientosClonados);
-      //['!cols'] = [{ width: 20 }, { width: 20 }, { width: 150 } ];
+      let worksheet;
+      let nombreArchivo;
+      nombreArchivo = 'resultadosProyecto';
+      worksheet = xlsx.utils.json_to_sheet(requerimientos);
       xlsx.utils.sheet_add_aoa(worksheet, cabecera);
-      xlsx.utils.sheet_add_json(worksheet, this.requerimientosClonados, { origin: 'A2', skipHeader: true });
-      const workbook = { Sheets: { 'Resultado': worksheet }, SheetNames: ['Resultado'] };
-      const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
-      this.saveAsExcelFile(excelBuffer, "resultados");
+      xlsx.utils.sheet_add_json(worksheet, requerimientos, {origin: 'A2', skipHeader: true});
+
+      const workbook = {Sheets: {'Resultado': worksheet}, SheetNames: ['Resultado']};
+      const excelBuffer: any = xlsx.write(workbook, {bookType: 'xlsx', type: 'array'});
+      this.saveAsExcelFile(excelBuffer, nombreArchivo);
     });
   }
+
   saveAsExcelFile(buffer: any, fileName: string): void {
     let EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
     let EXCEL_EXTENSION = '.xlsx';
@@ -277,9 +311,9 @@ export class ListarProyectosComponent implements OnInit {
       type: EXCEL_TYPE
     });
     FileSaver.saveAs(data, fileName + '_' + new Date().getTime() + EXCEL_EXTENSION);
-  }*/
+  }
 
   irANuevoProyecto(idProyecto: number) {
-    this._route.navigate(['/nuevoproyecto',idProyecto]);
+    this._route.navigate(['/nuevoproyecto', idProyecto]);
   }
 }

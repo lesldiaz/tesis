@@ -12,6 +12,7 @@ import {ResultadoService} from 'src/app/servicios/resultado.service';
   styleUrls: ['./refinamiento.component.css']
 })
 export class RefinamientoComponent implements OnInit {
+  @Input() tipoProyecto: 'C' | 'J' | undefined;
   requerimientos: RequerimientoInterface[] = [];
   requerimientosCliente: RequerimientoInterface[] = [];
   requerimientosGamePlay: RequerimientoInterface[] = [];

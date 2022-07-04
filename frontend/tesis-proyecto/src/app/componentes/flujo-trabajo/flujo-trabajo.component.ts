@@ -26,9 +26,8 @@ export class FlujoTrabajoComponent implements OnInit {
   requerimientosCargadosJ: object[] = [];
   requerimientosRefinados: RequerimientoInterface[] = [];
   firstFormGroup: FormGroup = new FormGroup({});
-  /*secondFormGroup: FormGroup = new FormGroup({});
-  thirdFormGroup: FormGroup = new FormGroup({});*/
   isEditable = false;
+  banderaPlantillas = false;
   radiobuttons: string | undefined;
   divrbttn: any;
   metodoGraf: any;
@@ -63,7 +62,10 @@ export class FlujoTrabajoComponent implements OnInit {
     this._proyectoService.getProyecto(this.idProyecto as number)
       .subscribe(
         (proyecto: any) => {
-          this.tipoProyecto = proyecto.tipoProyecto
+          if ( typeof proyecto.mensaje.resultado !== 'string') {
+            this.tipoProyecto = proyecto.mensaje.resultado.tipoProyecto;
+          }
+
         }
       );
   }
@@ -84,17 +86,12 @@ export class FlujoTrabajoComponent implements OnInit {
 
   eleccion() {
     if (this.radiobuttons == "plantilla") {
+      this.banderaPlantillas = true;
       this.divrbttn = document.getElementById("radio-bttn");
       this.divrbttn.style.display = 'none';
-      this.metodoGraf = document.getElementById("metodo-plantilla");
-      this.metodoGraf.style.display = '';
     }
     if (this.radiobuttons == "grafico") {
       (this.myStepper as MatStepper).next();
-      /*this.divrbttn = document.getElementById("radio-bttn");
-      this.divrbttn.style.display = 'none';
-      this.metodoGraf = document.getElementById("metodo-grafico");
-      this.metodoGraf.style.display = '';*/
     }
   }
 

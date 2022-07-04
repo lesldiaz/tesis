@@ -104,9 +104,13 @@ export class ListarParticipantesComponent implements OnInit {
             this._participanteService.postParticipante(respuestaModalCrear)
               .subscribe(
                 value => {
-                  this.participantes.unshift(value);
-                  if (this.participantes.length > 5) {
-                    this.participantes.pop();
+                  if (this.participantes && this.participantes.length){
+                    this.participantes.unshift(value);
+                    if (this.participantes.length > 5) {
+                      this.participantes.pop();
+                    }
+                  } else {
+                    this.participantes.push(value);
                   }
                   this._toasterService.success('Registro creado correctamente','Éxito');
                 },
