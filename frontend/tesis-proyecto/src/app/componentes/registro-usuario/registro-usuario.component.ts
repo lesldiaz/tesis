@@ -145,7 +145,6 @@ export class RegistroUsuarioComponent implements OnInit {
         contrasena:contrasenaF
       }
       this._usuarioService.registro(nuevoUsuario)
-        .pipe(first())
         .subscribe(
           usuarioLogeado => {
             this._toasterService.success('Registro completado', 'Éxito');

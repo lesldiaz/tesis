@@ -1,9 +1,13 @@
 import {Component, OnInit} from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import {MatDialog} from '@angular/material/dialog';
+import {Router} from '@angular/router';
 import {MenuItem} from 'primeng/api';
-import { ModalCrearEditarProyectoComponent } from 'src/app/modales/modal-crear-editar-proyecto/modal-crear-editar-proyecto.component';
-import { ProyectoService } from 'src/app/servicios/proyecto.service';
+import { UsuarioInterface } from 'src/app/constantes/interfaces/usuario.interface';
+import {
+  ModalCrearEditarProyectoComponent
+} from 'src/app/modales/modal-crear-editar-proyecto/modal-crear-editar-proyecto.component';
+import { AuthService } from 'src/app/servicios/auth.service';
+import {ProyectoService} from 'src/app/servicios/proyecto.service';
 
 @Component({
   selector: 'app-aplicacion',
@@ -12,17 +16,21 @@ import { ProyectoService } from 'src/app/servicios/proyecto.service';
 })
 export class AplicacionComponent implements OnInit {
   migasPan: MenuItem[] = [];
-  usuarioActual:any;
+  usuarioActual: any;
 
   constructor(
     private readonly _route: Router,
     private readonly _dialog: MatDialog,
     private readonly _proyectoService: ProyectoService,
-  ) {
+    private readonly _authService: AuthService ,
+    ) {
   }
 
   ngOnInit() {
-    this.usuarioActual=3;
+    this.usuarioActual = this._authService.currentUserValue as UsuarioInterface;
+    if (this.usuarioActual) {
+      this.usuarioActual = this.usuarioActual.id;
+    }
     this.migasPan = [
       {
         label: 'Aplicación'

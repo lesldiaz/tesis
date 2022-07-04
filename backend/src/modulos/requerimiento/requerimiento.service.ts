@@ -590,7 +590,6 @@ export class RequerimientoService extends ServiceGeneral<RequerimientoEntity> {
                 const msjCaracteristicasDesNV = 'Características deseables no cumplidas: ';
 
                 const indispensables = reqIndispensablesCumplidos.length ? (msjCaracteristicasInd + reqIndispensablesCumplidos.join(', ') + saltoLinea) : '';
-                console.log('dfsad', indispensables);
                 const noIndispensables = reqIndispensablesNoCumplidos.length ? (msjCaracteristicasIndNV + reqIndispensablesNoCumplidos.join(', ') + saltoLinea) : '';
                 const implementacion = validacionImplementacion ? (msjImplementacion + saltoLinea) : (msjImplementacionNV + saltoLinea);
                 const deseables = reqDeseablesCumplidos.length ? (msjCaracteristicasDes + reqDeseablesCumplidos.join(', ') + saltoLinea) : '';
@@ -635,8 +634,11 @@ export class RequerimientoService extends ServiceGeneral<RequerimientoEntity> {
 
     async buscarPorIdFull(id: number): Promise<RespuestaInterface<RequerimientoEntity> | string> {
         try {
-            const encontrar = await this._requerimientoRepository.findOne(id,
+            const encontrar = await this._requerimientoRepository.findOne(
                 {
+                    where: {
+                        id
+                    },
                     relations: [
                         'rol',
                         'proyecto',
