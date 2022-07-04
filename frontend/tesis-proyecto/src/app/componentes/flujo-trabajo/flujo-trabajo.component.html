@@ -1,6 +1,6 @@
 <app-migaspan [conjuntoMigas]="migasPan"></app-migaspan>
 <div>
-  <mat-stepper linear="true" #stepper>
+  <mat-stepper linear="true" #stepper="matHorizontalStepper">
     <mat-step label="Agregar Requerimiento" [stepControl]="firstFormGroup">
       <div id="radio-bttn">
         <form [formGroup]="firstFormGroup">
