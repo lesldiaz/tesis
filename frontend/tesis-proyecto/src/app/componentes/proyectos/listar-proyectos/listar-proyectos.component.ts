@@ -128,7 +128,6 @@ export class ListarProyectosComponent implements OnInit {
       .subscribe(
         respuestaModalCrear => {
           if (respuestaModalCrear) {
-            console.log(respuestaModalCrear);
             respuestaModalCrear.usuario = this.usuarioActual.id;
             respuestaModalCrear.tipoProyecto = respuestaModalCrear.tipoProyecto.codigo;
             this._proyectoService.postProyecto(respuestaModalCrear)
@@ -170,6 +169,7 @@ export class ListarProyectosComponent implements OnInit {
       .subscribe(
         proyectoActualizado => {
           if (proyectoActualizado) {
+            console.log(proyectoActualizado);
             proyectoActualizado.tipoProyecto = proyectoActualizado.tipoProyecto.codigo;
             this._proyectoService.putProyecto(proyectoActualizado, filaProyecto.id)
               .subscribe(
