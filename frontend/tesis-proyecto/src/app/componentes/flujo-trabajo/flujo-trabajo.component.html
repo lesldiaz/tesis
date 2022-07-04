@@ -50,7 +50,7 @@
     <mat-step label="Visualización de requerimiento" #paso_2>
       <ng-container *ngIf="stepper.selected === paso_2">
         <div>
-          <button class="btn " type="button" mat-button matStepperNext>Continuar</button>
+          <button class="btn " type="button" mat-button (click)="actualizaEstadoProyecto()">Continuar</button>
         </div>
         <div id="metodo-grafico">
           <app-pestana [tipoProyecto]="tipoProyecto" [idProyecto]="idProyecto"></app-pestana>

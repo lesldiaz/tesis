@@ -85,8 +85,8 @@
           <ng-template pTemplate="body" let-requerimientoFila>
             <tr>
               <td class="text-center" *ngFor="let col of cols">
-                <div *ngIf="col==='observaciones'">
-                 <p class="observaciones">{{requerimientoFila[col.field]}}</p>
+                <div style="white-space: pre-line; word-break:break-all;" *ngIf="col==='observaciones'">
+                 {{requerimientoFila[col.field]}}
                 </div>
                 {{requerimientoFila[col.field]}}
               </td>

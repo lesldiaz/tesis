@@ -5,7 +5,8 @@ import {VerFormularioAsignarRolPipe} from '../pipes/ver-formulario-asignar-rol.p
 import {EstadoAprobacionPipe} from '../pipes/estado.aprobacion.pipe';
 import {TipoProyectoPipe} from '../pipes/tipo-proyecto.pipe';
 import {EstadoProyectoPipe} from '../pipes/estado-proyecto.pipe';
-import { PrioridadReqPipe } from '../pipes/prioridad-req.pipe';
+import {PrioridadReqPipe} from '../pipes/prioridad-req.pipe';
+import {ObservacionesPipe} from '../pipes/observaciones.pipe';
 
 export const ARREGLO_PIPES = [
   EstadoPipe,
@@ -15,5 +16,6 @@ export const ARREGLO_PIPES = [
   EstadoAprobacionPipe,
   TipoProyectoPipe,
   EstadoProyectoPipe,
-  PrioridadReqPipe
+  PrioridadReqPipe,
+  ObservacionesPipe
 ];
