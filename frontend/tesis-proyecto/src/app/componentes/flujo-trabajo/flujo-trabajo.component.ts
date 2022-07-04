@@ -65,9 +65,7 @@ export class FlujoTrabajoComponent implements OnInit {
         (proyecto: any) => {
           if ( typeof proyecto.mensaje.resultado !== 'string') {
             this.tipoProyecto = proyecto.mensaje.resultado.tipoProyecto;
-            console.log('ft',this.tipoProyecto);
           }
-
         }
       );
   }

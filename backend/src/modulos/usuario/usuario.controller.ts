@@ -4,10 +4,8 @@ import {UsuarioEntity} from "./usuario.entity";
 import {UsuarioService} from "./usuario.service";
 
 @Controller('usuario')
-export class UsuarioController extends ControllerGeneral<UsuarioEntity> {
-    constructor(private readonly _usuarioService: UsuarioService) {
-        super(_usuarioService);
-    }
+export class UsuarioController {
+    constructor(private readonly _usuarioService: UsuarioService) {}
 
     @Post('auth')
     async autenticacion(@Body() datosAGuardar) {

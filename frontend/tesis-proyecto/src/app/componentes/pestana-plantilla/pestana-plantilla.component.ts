@@ -15,7 +15,6 @@ export class PestanaPlantillaComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log('pp',this.tipoProyecto);
     this.bandera = this.tipoProyecto === 'C'? true: false;
   }
 
