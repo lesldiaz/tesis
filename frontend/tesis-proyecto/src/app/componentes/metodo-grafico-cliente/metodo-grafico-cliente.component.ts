@@ -83,8 +83,10 @@ export class MetodoGraficoClienteComponent implements OnInit {
             } else {
               this._rolService.getRol(requerimiento.rol)
                 .subscribe(
-                  rolGuardado => {
-
+                  (rolGuardado: any) => {
+                    const rol = rolGuardado.mensaje.resultado;
+                    this.roles.push(rol);
+                    requerimientoGuardar['rol'] = rol;
                   }
                 )
             }
