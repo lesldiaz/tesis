@@ -63,7 +63,11 @@ export class FlujoTrabajoComponent implements OnInit {
     this._proyectoService.getProyecto(this.idProyecto as number)
       .subscribe(
         (proyecto: any) => {
-          this.tipoProyecto = proyecto.tipoProyecto
+          if ( typeof proyecto.mensaje.resultado !== 'string') {
+            this.tipoProyecto = proyecto.mensaje.resultado.tipoProyecto;
+            console.log('ft',this.tipoProyecto);
+          }
+
         }
       );
   }
