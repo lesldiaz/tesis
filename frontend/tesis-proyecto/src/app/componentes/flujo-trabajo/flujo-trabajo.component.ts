@@ -26,8 +26,6 @@ export class FlujoTrabajoComponent implements OnInit {
   requerimientosCargadosJ: object[] = [];
   requerimientosRefinados: RequerimientoInterface[] = [];
   firstFormGroup: FormGroup = new FormGroup({});
-  /*secondFormGroup: FormGroup = new FormGroup({});
-  thirdFormGroup: FormGroup = new FormGroup({});*/
   isEditable = false;
   banderaPlantillas = false;
   radiobuttons: string | undefined;
@@ -66,7 +64,6 @@ export class FlujoTrabajoComponent implements OnInit {
         (proyecto: any) => {
           if ( typeof proyecto.mensaje.resultado !== 'string') {
             this.tipoProyecto = proyecto.mensaje.resultado.tipoProyecto;
-            console.log('ft',this.tipoProyecto);
           }
 
         }

@@ -512,6 +512,7 @@ export class RequerimientoService extends ServiceGeneral<RequerimientoEntity> {
             });
             requerimientosClonados.forEach(async requerimientoARefinar => {
                 let observacionesFinales = '';
+                const saltoLinea = '\n';
                 const resultados = requerimientoARefinar.resultado;
                 const validacionMin =
                     resultados.correcto
@@ -519,32 +520,100 @@ export class RequerimientoService extends ServiceGeneral<RequerimientoEntity> {
                     && resultados.completo
                     && resultados.verificable
                     && resultados.factible;
+                const validacionImplementacion = resultados.necesario;
+                const reqIndispensablesCumplidos: string[] = [];
+                const reqIndispensablesNoCumplidos: string[] = [];
+                if (resultados.correcto) {
+                    reqIndispensablesCumplidos.push('Correcto');
+                } else {
+                    reqIndispensablesNoCumplidos.push('Correcto');
+                }
+                if (resultados.apropiado) {
+                    reqIndispensablesCumplidos.push('Apropiado');
+                } else {
+                    reqIndispensablesNoCumplidos.push('Apropiado');
+                }
+                if (resultados.completo) {
+                    reqIndispensablesCumplidos.push('Completo');
+                } else {
+                    reqIndispensablesNoCumplidos.push('Completo');
+                }
+                if (resultados.verificable) {
+                    reqIndispensablesCumplidos.push('Verificable');
+                } else {
+                    reqIndispensablesNoCumplidos.push('Verificable');
+                }
+                if (resultados.factible) {
+                    reqIndispensablesCumplidos.push('Factible');
+                } else {
+                    reqIndispensablesNoCumplidos.push('Factible');
+                }
+                const reqDeseablesCumplidos: string[] = [];
+                const reqDeseablesNoCumplidos: string[] = [];
+                if (resultados.sinAmbiguedad) {
+                    reqDeseablesCumplidos.push('Sin Ambigüedad');
+                } else {
+                    reqDeseablesNoCumplidos.push('Sin Ambigüedad');
+                }
+                if (resultados.singular) {
+                    reqDeseablesCumplidos.push('Singular');
+                } else {
+                    reqDeseablesNoCumplidos.push('Singular');
+                }
+                if (resultados.trazable) {
+                    reqDeseablesCumplidos.push('Trazabilidad');
+                } else {
+                    reqDeseablesNoCumplidos.push('Trazabilidad');
+                }
+                if (resultados.modificable) {
+                    reqDeseablesCumplidos.push('Modificable');
+                } else {
+                    reqDeseablesNoCumplidos.push('Modificable');
+                }
+                if (resultados.consistente) {
+                    reqDeseablesCumplidos.push('Consistente');
+                } else {
+                    reqDeseablesNoCumplidos.push('Consistente');
+                }
+                if (resultados.conforme) {
+                    reqDeseablesCumplidos.push('Conforme');
+                } else {
+                    reqDeseablesNoCumplidos.push('Conforme');
+                }
+                const msjMinimo = 'El requerimiento cumple con las características mínimas para ser considerado bien formado.';
+                const msjMinimoNV = 'El requerimiento no cumple con las características mínimas para ser considerado bien formado.';
+                const msjImplementacion = 'Característica indispensable de implementación cumplida: Necesario.';
+                const msjImplementacionNV = 'Característica indispensable de implementación no cumplida: Necesario.';
+                const msjCaracteristicasInd = 'Características indispensables cumplidas: ';
+                const msjCaracteristicasIndNV = 'Características indispensables no cumplidas: ';
+                const msjCaracteristicasDes = 'Características deseables cumplidas: ';
+                const msjCaracteristicasDesNV = 'Características deseables no cumplidas: ';
+
+                const indispensables = reqIndispensablesCumplidos.length ? (msjCaracteristicasInd + reqIndispensablesCumplidos.join(', ') + saltoLinea) : '';
+                console.log('dfsad', indispensables);
+                const noIndispensables = reqIndispensablesNoCumplidos.length ? (msjCaracteristicasIndNV + reqIndispensablesNoCumplidos.join(', ') + saltoLinea) : '';
+                const implementacion = validacionImplementacion ? (msjImplementacion + saltoLinea) : (msjImplementacionNV + saltoLinea);
+                const deseables = reqDeseablesCumplidos.length ? (msjCaracteristicasDes + reqDeseablesCumplidos.join(', ') + saltoLinea) : '';
+                const noDeseables = reqDeseablesNoCumplidos.length ? (msjCaracteristicasDesNV + reqDeseablesNoCumplidos.join(', ') + saltoLinea) : '';
                 if (validacionMin) {
                     await this._requerimientoRepository.update(requerimientoARefinar.id, {
                         estado: 1
                     });
-                    observacionesFinales = observacionesFinales +
-                        'El requerimiento cumple con las características mínimas para ser considerado bien formado.';
+                    observacionesFinales =
+                        msjMinimo + saltoLinea
+                        + indispensables
+                        + noIndispensables
+                        + implementacion
+                        + deseables
+                        + noDeseables;
                 } else {
-                    observacionesFinales = observacionesFinales +
-                        'Características no cumplidas: ';
-                    const reqNoCumplidos: string[] = [];
-                    if (!resultados.correcto) {
-                        reqNoCumplidos.push('Correcto');
-                    }
-                    if (!resultados.apropiado) {
-                        reqNoCumplidos.push('Apropiado');
-                    }
-                    if (!resultados.completo) {
-                        reqNoCumplidos.push('Completo');
-                    }
-                    if (!resultados.verificable) {
-                        reqNoCumplidos.push('Verificable');
-                    }
-                    if (!resultados.factible) {
-                        reqNoCumplidos.push('Factible');
-                    }
-                    observacionesFinales = observacionesFinales + reqNoCumplidos.join(', ');
+                    observacionesFinales =
+                        msjMinimoNV + saltoLinea
+                        + indispensables
+                        + noIndispensables
+                        + implementacion
+                        + deseables
+                        + noDeseables;
                 }
                 const observacion = {
                     observaciones: observacionesFinales
