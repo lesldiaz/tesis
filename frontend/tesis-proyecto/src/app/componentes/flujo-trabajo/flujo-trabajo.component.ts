@@ -129,7 +129,7 @@ export class FlujoTrabajoComponent implements OnInit {
 
   actualizaEstadoProyecto() {
     this._proyectoService.putProyecto({
-      estado: 'F'
+      estado: 'P'
     }, this.idProyecto as number)
       .subscribe(value => {
         (this.myStepper as MatStepper).next();
