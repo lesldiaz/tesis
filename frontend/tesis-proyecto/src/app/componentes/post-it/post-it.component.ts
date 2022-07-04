@@ -12,7 +12,7 @@ export class PostItComponent implements OnInit, DoCheck {
   addNoteButton:any;
   existingNotes: any;
   arrayNotes:any;
-  notes: any;
+
   posit: any[]=[];
   cont:number=0;
 
@@ -86,22 +86,21 @@ export class PostItComponent implements OnInit, DoCheck {
     this.saveNotes(this.existingNotes);
   }
   updateNote(id:number, newContent:string){
-    this.notes = JSON.parse(localStorage.getItem("stickynotes-notes") || "[]");
-    const targetNote = this.notes.filter((note: { id: number; }) => note.id == id)[0];
-    targetNote.descripcion = newContent;
-    this.saveNotes(this.notes);
+    //console.log(id);
+    //console.log(newContent);
+
     const index = this.posit.findIndex((element) => element.id === id);
-    if(index != -1){
+    if(index != -1){ //es ! == todo junto xd se cambia asi para mas visualizacion xd
       this.posit[index]={"id":id,"descripcion":newContent};
     }else{
       this.posit.push({"id":id,"descripcion":newContent});
     }
+    //si
+    //console.log(this.posit);
     this.addNewItem(this.posit);
   }
   deleteNote(id:number,element:object){
-    this.notes = JSON.parse(localStorage.getItem("stickynotes-notes") || "[]");;
-    const target = this.notes.filter((note: { id: number; }) => note.id != id);
-    this.saveNotes(this.notes);
+
     this.notesContainer.removeChild(element);
     const index = this.posit.findIndex((element) => element.id === id);
     this.posit.splice(index,1);
@@ -118,6 +117,7 @@ export class PostItComponent implements OnInit, DoCheck {
           const noteElement = this.createNoteElement(this.blockRec[i].id,this.blockRec[i].descripcion);
           this.notesContainer.insertBefore(noteElement, this.addNoteButton);
           this.posit.push(this.blockRec[i]);
+          //console.log(this.posit);
         }
         this.cont++;
       }

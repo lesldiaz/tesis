@@ -121,10 +121,20 @@ export class FlujoTrabajoComponent implements OnInit {
       }, (error) => {
         this._toasterService.error('Ocurrió un error al refinar', 'Error')
       });
-
   }
 
   irAProyectos() {
     this._route.navigate(['/proyectos']);
+  }
+
+  actualizaEstadoProyecto() {
+    this._proyectoService.putProyecto({
+      estado: 'F'
+    }, this.idProyecto as number)
+      .subscribe(value => {
+        (this.myStepper as MatStepper).next();
+      }, (error) => {
+        this._toasterService.error('Ocurrió un error al editar proyecto', 'Error')
+      });
   }
 }
