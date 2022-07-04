@@ -118,6 +118,7 @@ export class PostItComponent implements OnInit, DoCheck {
           const noteElement = this.createNoteElement(this.blockRec[i].id,this.blockRec[i].descripcion);
           this.notesContainer.insertBefore(noteElement, this.addNoteButton);
           this.posit.push(this.blockRec[i]);
+          console.log(this.posit);
         }
         this.cont++;
       }
