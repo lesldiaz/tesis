@@ -53,8 +53,8 @@ export class ListarProyectosComponent implements OnInit {
       terminoBusqueda: new FormControl('')
     });
     this.tiposProyecto = [
-      {nombre: 'Requerimientos de Cliente', codigo: 'C'},
-      {nombre: 'Requerimientos de Juego Serio', codigo: 'J'},
+      {nombre: 'Requerimientos de Software', codigo: 'C'},
+      {nombre: 'Requerimientos de iPlus', codigo: 'J'},
     ];
 
     this.usuarioActual = this._authService.currentUserValue as UsuarioInterface;

@@ -40,8 +40,8 @@ export class CrearEditarProyectoComponent implements OnInit {
     private readonly _activatedRoute: ActivatedRoute,
     private readonly _route: Router) {
     this.tiposProyecto = [
-      {nombre: 'Requerimientos de Cliente', codigo: 'C'},
-      {nombre: 'Requerimientos de Juego Serio', codigo: 'J'},
+      {nombre: 'Requerimientos de Software', codigo: 'C'},
+      {nombre: 'Requerimientos de iPlus', codigo: 'J'},
     ];
     this.formularioProyecto = new FormGroup({
       nombre: new FormControl('', [
