@@ -11,12 +11,17 @@ export class PestanaPlantillaComponent implements OnInit {
   @Output() requerimientosCargadosPJ: EventEmitter<object[]> = new EventEmitter<object[]>();
   requerimientosCargadosC: object[] = [];
   requerimientosCargadosJ: object[] = [];
-  bandera = true;
+  bandera :any;
   constructor() { }
 
   ngOnInit(): void {
     console.log('pp',this.tipoProyecto);
-    this.bandera = this.tipoProyecto === 'C'? true: false;
+    this.bandera = document.getElementById("GamePlay");
+    if(this.tipoProyecto =='J'){
+      this.bandera.style.display="";
+    }else{
+      this.bandera.style.display="none";
+    }
   }
 
   recibirRequerimientosC($event: object[]) {

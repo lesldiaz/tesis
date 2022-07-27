@@ -13,6 +13,7 @@ export class PlantillaClienteComponent implements OnInit {
   nombreArchivo = 'Sin Selección';
   resultado: ExcelPlantillaHuInterface[] = [];
 
+
   constructor() {
   }
 
