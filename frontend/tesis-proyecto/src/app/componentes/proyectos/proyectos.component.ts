@@ -13,6 +13,10 @@ export class ProyectosComponent implements OnInit {
   ngOnInit(): void {
     this.migasPan = [
       {
+        label: 'Aplicación',
+        routerLink: '/aplicacion'
+      },
+      {
         label: 'Proyectos'
       }
     ];

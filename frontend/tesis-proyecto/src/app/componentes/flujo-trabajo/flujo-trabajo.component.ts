@@ -48,6 +48,10 @@ export class FlujoTrabajoComponent implements OnInit {
   ngOnInit(): void {
     this.migasPan = [
       {
+        label: 'Aplicación',
+        routerLink: '/aplicacion'
+      },
+      {
         label: 'Refinamiento'
       }
     ];

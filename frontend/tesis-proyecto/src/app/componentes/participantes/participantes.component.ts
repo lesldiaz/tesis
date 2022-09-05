@@ -13,6 +13,10 @@ export class ParticipantesComponent implements OnInit {
   ngOnInit(): void {
     this.migasPan = [
       {
+        label: 'Aplicación',
+        routerLink: '/aplicacion'
+      },
+      {
         label: 'Participantes'
       }
     ];

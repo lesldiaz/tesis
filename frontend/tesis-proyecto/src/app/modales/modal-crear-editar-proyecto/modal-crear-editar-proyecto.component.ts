@@ -8,7 +8,8 @@ import { ListarProyectosComponent } from 'src/app/componentes/proyectos/listar-p
   styleUrls: ['./modal-crear-editar-proyecto.component.css']
 })
 export class ModalCrearEditarProyectoComponent implements OnInit {
-  proyectoCrearEditar: object | boolean = {};
+  proyectoCrearEditar: object | boolean = false;
+  tituloModal = false;
   habilitarBotonSubmit = false;
   constructor(
     @Inject(MAT_DIALOG_DATA) private readonly _data: any,
@@ -18,8 +19,10 @@ export class ModalCrearEditarProyectoComponent implements OnInit {
   ngOnInit(): void {
     if (!this._data) {
       this.proyectoCrearEditar = false;
+      this.tituloModal = false;
     } else {
       this.proyectoCrearEditar = this._data;
+      this.tituloModal = true;
     }
   }
   cancelarModal() {
