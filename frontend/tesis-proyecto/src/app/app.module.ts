@@ -37,6 +37,8 @@ import {ScrollPanelModule} from 'primeng/scrollpanel';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {RatingModule} from 'primeng/rating';
 import {WINDOW_PROVIDERS} from './servicios/token-hostname';
+import { GraficosChartComponent } from './componentes/graficos-chart/graficos-chart.component';
+import { NgChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -45,6 +47,7 @@ import {WINDOW_PROVIDERS} from './servicios/token-hostname';
     ...ARREGLO_RUTA_COMPONENTES,
     ...ARREGLO_PIPES,
     ...ARREGLO_MODALES,
+    GraficosChartComponent,
   ],
   imports: [
     NgbModule,
@@ -81,7 +84,8 @@ import {WINDOW_PROVIDERS} from './servicios/token-hostname';
     DialogModule,
     ScrollPanelModule,
     ConfirmDialogModule,
-    RatingModule
+    RatingModule,
+    NgChartsModule,
   ],
   providers: [
     {
