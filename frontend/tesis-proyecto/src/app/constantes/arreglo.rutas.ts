@@ -12,6 +12,7 @@ import {
 import {RutaParticipantesComponent} from '../rutas/ruta-participantes/ruta-participantes.component';
 import {RutaPerfilUsuarioComponent} from '../rutas/ruta-perfil-usuario/ruta-perfil-usuario.component';
 import {RutaProyectosComponent} from '../rutas/ruta-proyectos/ruta-proyectos.component';
+import { RutaRecuperarContrasenaComponent } from '../rutas/ruta-recuperar-contrasena/ruta-recuperar-contrasena.component';
 import {RutaRegistroUsuarioComponent} from '../rutas/ruta-registro-usuario/ruta-registro-usuario.component';
 
 export const ARREGLO_RUTAS: Routes = [
@@ -22,6 +23,10 @@ export const ARREGLO_RUTAS: Routes = [
   {
     path: 'registro',
     component: RutaRegistroUsuarioComponent
+  },
+  {
+    path: 'recuperar-contrasena',
+    component: RutaRecuperarContrasenaComponent,
   },
   {
     path: 'perfil-usuario',

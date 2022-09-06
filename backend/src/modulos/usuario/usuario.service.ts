@@ -76,7 +76,7 @@ export class UsuarioService extends ServiceGeneral<UsuarioEntity> {
         }
     }
 
-    async recuperarContraseña(usuario): Promise<UsuarioEntity | string> {
+    async recuperarContraseña(usuario): Promise<any> {
         try {
             const encontrar = await this._usuarioRepository.findOne({
                 where: {
@@ -123,7 +123,7 @@ export class UsuarioService extends ServiceGeneral<UsuarioEntity> {
                     });
                     return new Promise((resolve, reject) =>
                         resolve(
-                            'Completado'
+                            { mensaje: 'Completado'}
                         ),
                     );
                 } else {

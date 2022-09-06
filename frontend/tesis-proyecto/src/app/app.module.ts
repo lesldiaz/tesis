@@ -38,6 +38,7 @@ import {RatingModule} from 'primeng/rating';
 import {WINDOW_PROVIDERS} from './servicios/token-hostname';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {NgChartsModule} from 'ng2-charts';
+import {InputTextModule} from 'primeng/inputtext';
 
 @NgModule({
   declarations: [
@@ -84,7 +85,8 @@ import {NgChartsModule} from 'ng2-charts';
     ConfirmDialogModule,
     RatingModule,
     NgChartsModule,
-    MatTooltipModule
+    MatTooltipModule,
+    InputTextModule
   ],
   providers: [
     {
