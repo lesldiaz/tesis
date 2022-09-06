@@ -35,6 +35,12 @@ export class FlujoTrabajoComponent implements OnInit {
   paso2 = false;
   paso4 = false;
 
+  etapa=1;
+  posicion:any;
+  elemento:any;
+  flecha:any;
+  constX=10;
+
   constructor(
     private readonly _activatedRoute: ActivatedRoute,
     private readonly _toasterService: ToastrService,
@@ -116,6 +122,7 @@ export class FlujoTrabajoComponent implements OnInit {
           console.log(error)
           this._toasterService.error('Ocurrió un error al guardar los requerimientos ingresados', 'Error')
         });
+    this.mover(true);
   }
 
   refinar() {
@@ -125,6 +132,7 @@ export class FlujoTrabajoComponent implements OnInit {
       }, (error) => {
         this._toasterService.error('Ocurrió un error al refinar', 'Error')
       });
+    this.mover(true);
   }
 
   irAProyectos() {
@@ -140,5 +148,32 @@ export class FlujoTrabajoComponent implements OnInit {
       }, (error) => {
         this._toasterService.error('Ocurrió un error al editar proyecto', 'Error')
       });
+    this.mover(true);
+  }
+
+  mover(bnd:boolean){
+    this.posicion= document.getElementById("mensaje");
+    this.elemento= document.querySelector('.bubble')
+    this.flecha=window.getComputedStyle(this.elemento, ':after');
+    //console.log("flecha"+this.flecha.left);
+    if(bnd==false){
+      this.etapa=this.etapa-1;
+      this.constX=this.constX-400;
+      this.posicion.style.left= this.constX +'px';
+
+    }else{
+      this.etapa=this.etapa+1;
+      this.constX=this.constX+400;
+      this.posicion.style.left= this.constX +'px';
+    }
+    /*if(this.etapa > 2){
+      this.flecha.setAttribute('left','100px');
+      console.log("flecha"+this.flecha.left);
+    }else{
+      this.flecha.setProperty('left','20px');
+      console.log("flecha"+this.flecha.left);
+    }*/
+
+
   }
 }

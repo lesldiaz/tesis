@@ -1,6 +1,7 @@
 <app-migaspan [conjuntoMigas]="migasPan"></app-migaspan>
 <div class="container-fluid">
-  <mat-stepper linear="true" #stepper="matHorizontalStepper">
+  <div id="mensaje" class="bubble" [(ngModel)]="etapa">Ustes esta en etapa {{etapa}} </div>
+    <mat-stepper linear="true" #stepper="matHorizontalStepper">
     <mat-step label="Agregar Requerimiento" [stepControl]="firstFormGroup">
       <div id="radio-bttn">
         <form [formGroup]="firstFormGroup">
@@ -49,7 +50,7 @@
     </mat-step>
     <mat-step label="Visualización de requerimiento" #paso_2>
       <ng-container *ngIf="stepper.selected === paso_2">
-        <div>
+        <div class="right">
           <button class="btn " type="button" mat-button (click)="actualizaEstadoProyecto()">Continuar</button>
         </div>
         <div id="metodo-grafico">
@@ -59,7 +60,8 @@
     </mat-step>
     <mat-step label="Refinamiento" #paso_3>
       <ng-container *ngIf="stepper.selected === paso_3">
-      <div>
+      <div class="right">
+        <button class="btn" type="button" (click)="mover(false)" mat-button matStepperPrevious>Regresar</button>
         <button class="btn" type="button" (click)="refinar()" mat-button>Continuar</button>
       </div>
       <app-refinamiento [idProyecto]="idProyecto" [tipoProyecto]="tipoProyecto"></app-refinamiento>
@@ -67,7 +69,8 @@
     </mat-step>
     <mat-step label="Resultados" #paso_4>
       <ng-container *ngIf="stepper.selected === paso_4">
-      <div>
+      <div class="right">
+        <button class="btn" type="button" (click)="mover(false)" mat-button matStepperPrevious>Regresar</button>
         <button class="btn" type="button" (click)="irAProyectos()" mat-button>Finalizar</button>
       </div>
       <app-resultado [idProyecto]="idProyecto" [tipoProyecto]="tipoProyecto"></app-resultado>
