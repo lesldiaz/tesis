@@ -31,6 +31,10 @@ export class UsuarioService {
     return this._httpClient.post(this.url, nuevoUsuario);
   }
 
+  recuperarContrasena(nuevoUsuario: any) {
+    return this._httpClient.post(this.url + 'recuperar-contrasena', nuevoUsuario);
+  }
+
   registro(nuevoUsuario: any) {
     return this._httpClient.post(this.url + 'registro', nuevoUsuario);
   }

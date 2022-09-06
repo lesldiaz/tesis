@@ -10,7 +10,7 @@ import {UsuarioService} from '../../servicios/usuario.service';
 @Component({
   selector: 'app-modal-cambiar-contrasena',
   templateUrl: 'modal.cambiar-contrasena.component.html',
-  styleUrls: ['modal.cambiar-contrasena.component.sass']
+  styleUrls: ['modal.cambiar-contrasena.component.css']
 })
 export class ModalCambiarContrasenaComponent implements OnInit {
   constructor(@Inject(MAT_DIALOG_DATA) private readonly _data: any,
@@ -34,26 +34,20 @@ export class ModalCambiarContrasenaComponent implements OnInit {
 
   mensajesErrorCampoContrasena = {
     required: 'El campo es requerido',
-    pattern: 'La contraseña debe contener al menos una letra mayuscula y minuscula, un número y entre 8 a 12 caracteres'
+    pattern: 'La contraseña debe contener al menos una letra mayúscula y minúscula, un número y entre 8 a 12 caracteres'
   };
 
   arregloMensajesErrorCampoContrasena: string [] = [];
   ngOnInit(): void {
-    // this.escucharCambiosCampoContrasena();
+    this.escucharCambiosCampoContrasena();
     this.escucharCambiosFormulario();
   }
   cancelarModal() {
-    this._cookieService.destruirUsuarioCookie();
     this._dialogRef.close();
-    this._route.navigate(['login']);
   }
   enviarDatos() {
     const nuevaContrasena = this.cambiarContrasenaFormulario.get('contrasena')?.value;
-    this._usuarioService.putUsuarios({
-      contrasena: nuevaContrasena,
-    }, this.usuario.id).subscribe(value => {
-        this._dialogRef.close(nuevaContrasena);
-    }, error => console.error('Error cambiar contrasena', error));
+    this._dialogRef.close(nuevaContrasena);
   }
 
   escucharCambiosFormulario() {
@@ -66,16 +60,17 @@ export class ModalCambiarContrasenaComponent implements OnInit {
         this.formularioValido = !(!esFormularioValido && (this.cambiarContrasenaFormulario.touched || this.cambiarContrasenaFormulario.dirty));
       });
   }
-/*
+
   llenarMensajesErrorCampoContrasena(controlNameContrasena: AbstractControl) {
     this.arregloMensajesErrorCampoContrasena = [];
     if (controlNameContrasena.errors && (controlNameContrasena.dirty || controlNameContrasena.touched)) {
       this.arregloMensajesErrorCampoContrasena = Object.keys(controlNameContrasena.errors)
         .map((error) => {
-          return this.mensajesErrorCampoContrasena[error];
+          return (this.mensajesErrorCampoContrasena as any)[error];
         });
     }
   }
+
   escucharCambiosCampoContrasena() {
     const campoContrasena$ = this.cambiarContrasenaFormulario.get('contrasena');
     campoContrasena$?.valueChanges
@@ -84,5 +79,4 @@ export class ModalCambiarContrasenaComponent implements OnInit {
       )
       .subscribe(valorContrasena => this.llenarMensajesErrorCampoContrasena(campoContrasena$));
   }
- */
 }

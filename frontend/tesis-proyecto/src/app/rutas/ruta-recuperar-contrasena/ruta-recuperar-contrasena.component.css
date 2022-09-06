@@ -7,3 +7,7 @@
   margin: 0;
   padding: 0;
 }
+.btn-login {
+  color: white;
+  background-color: #6a93d1;
+}

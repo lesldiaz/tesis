@@ -1,56 +1,47 @@
-<div class="container-fluid centro">
-  <div class="row" style="padding-top: 1rem">
-    <div class="col-sm-12">
-      <h2>Inicia Sesión</h2>
+<div class="col d-flex justify-content-center">
+  <div class="card text-center" style="width: 30vw; height: 100%; line-height: 5vh; margin-top: 15vh">
+    <div class="card-header">
+      <img
+        width="50%"
+        src="https://economia.epn.edu.ec/images/img/150.png">
     </div>
-  </div>
-  <div class="container inicio login">
-    <form [formGroup]="formularioLogin" novalidate>
-      <div class="row">
-        <div class="col-sm-4">
+    <div class="card-body">
+      <form [formGroup]="formularioLogin" novalidate>
+        <h2>Inicio de Sesión</h2>
+        <div style="padding-top: 1.8rem"></div>
+        <span class="p-float-label">
+          <input
+            style="width: 100%"
+            id="nombreUsuario"
+            type="text"
+            aria-describedby="nombreUsuarioHelp"
+            [formControlName]="'nombreUsuario'"
+            pInputText>
           <label for="nombreUsuario">Nombre de Usuario</label>
-        </div>
-        <div class="col-sm-8">
-        <input
-          type="text"
-          class="form-control"
-          id="nombreUsuario"
-          aria-describedby="nombreUsuarioHelp"
-          [formControlName]="'nombreUsuario'"
-          placeholder="Ingrese su nombre de usuario">
-        </div>
-      </div>
-      <div class="separador"></div>
-      <div class="row">
-        <div class="col-sm-4">
+        </span>
+        <div style="padding-top: 1.8rem"></div>
+        <span class="p-float-label">
+          <input
+            style="width: 100%"
+            id="contrasenia"
+            type="password"
+            aria-describedby="contraseniaHelp"
+            [formControlName]="'contrasenia'"
+            pInputText >
           <label for="contrasenia">Contraseña</label>
-        </div>
-        <div class="col-sm-8">
-        <input
-          type="password"
-          class="form-control"
-          id="contrasenia"
-          aria-describedby="contraseniaHelp"
-          [formControlName]="'contrasenia'"
-          placeholder="Ingrese su contrasena">
-        </div>
-      </div>
-      <div class="separador"></div>
-      <div class="row" *ngIf="errorIniciarSesion">
-        <div class="col-sm-12">
+        </span>
+        <div *ngIf="errorIniciarSesion">
           <p class="text-danger">¡El usuario o la contraseña son incorrectos!</p>
         </div>
-      </div>
-      <div class="separador"></div>
-      <div class="row">
-        <div class="col-sm-6"></div>
-        <div class="col-sm-3 justify-content-end">
-          <button class="btn btn-info" [disabled]="!formularioValido" (click)="enviarFormularioLogin()">Ingresar</button>
+        <div style="padding-top: 1rem"></div>
+        <div>
+          <button style="width: 100%" class="btn btn-login" [disabled]="!formularioValido" (click)="enviarFormularioLogin()">Ingresar</button>
+          <p>¿No tienes una cuenta? <a [routerLink]="'/registro'">Regístrate</a></p>
         </div>
-        <div class="col-sm-3 justify-content-end">
-          <button class=" serparador-boton btn btn-info" [routerLink]="'/registro'">Registrarse</button>
-        </div>
-      </div>
-    </form>
+      </form>
+    </div>
+    <div class="card-footer text-muted">
+      <a [routerLink]="'/recuperar-contrasena'">¿Olvidaste tu contraseña?</a>
+    </div>
   </div>
 </div>
