@@ -8,7 +8,7 @@ export class EstadoProyectoPipe implements PipeTransform {
     if (input === 'F') {
       return 'Finalizado';
     } else if (input === 'P') {
-      return 'En Proceso';
+      return 'Pendiente';
     } else {
       return 'Iniciado';
     }

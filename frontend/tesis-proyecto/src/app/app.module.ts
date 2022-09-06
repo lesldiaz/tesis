@@ -37,6 +37,7 @@ import {ScrollPanelModule} from 'primeng/scrollpanel';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {RatingModule} from 'primeng/rating';
 import {WINDOW_PROVIDERS} from './servicios/token-hostname';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -81,7 +82,8 @@ import {WINDOW_PROVIDERS} from './servicios/token-hostname';
     DialogModule,
     ScrollPanelModule,
     ConfirmDialogModule,
-    RatingModule
+    RatingModule,
+    MatTooltipModule
   ],
   providers: [
     {

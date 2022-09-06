@@ -9,9 +9,6 @@ import { RutaMetodologiaComponent } from './rutas/ruta-metodologia/ruta-metodolo
 import { RutaPerfilUsuarioComponent } from './rutas/ruta-perfil-usuario/ruta-perfil-usuario.component';
 import { RutaNuevoProyectoComponent } from './rutas/ruta-nuevo-proyecto/ruta-nuevo-proyecto.component';
 import { RutaProyectosComponent } from './rutas/ruta-proyectos/ruta-proyectos.component';
-import { RutaRequerimientoClienteComponent } from './rutas/ruta-requerimiento-cliente/ruta-requerimiento-cliente.component';
-import { RutaRequerimientoJuegoComponent } from './rutas/ruta-requerimiento-juego/ruta-requerimiento-juego.component';
-import { RutaValidacionComponent } from './rutas/ruta-validacion/ruta-validacion.component';
 import { RutaParticipanteProyectoComponent } from './rutas/ruta-participante-proyecto/ruta-participante-proyecto.component';
 import { RutaParticipantesComponent } from './rutas/ruta-participantes/ruta-participantes.component';
 import { ARREGLO_RUTAS } from './constantes/arreglo.rutas';

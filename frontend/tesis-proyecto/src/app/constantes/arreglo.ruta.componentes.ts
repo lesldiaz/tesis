@@ -9,9 +9,6 @@ import { RutaParticipantesComponent } from "../rutas/ruta-participantes/ruta-par
 import { RutaPerfilUsuarioComponent } from "../rutas/ruta-perfil-usuario/ruta-perfil-usuario.component";
 import { RutaProyectosComponent } from "../rutas/ruta-proyectos/ruta-proyectos.component";
 import { RutaRegistroUsuarioComponent } from "../rutas/ruta-registro-usuario/ruta-registro-usuario.component";
-import { RutaRequerimientoClienteComponent } from "../rutas/ruta-requerimiento-cliente/ruta-requerimiento-cliente.component";
-import { RutaRequerimientoJuegoComponent } from "../rutas/ruta-requerimiento-juego/ruta-requerimiento-juego.component";
-import { RutaValidacionComponent } from "../rutas/ruta-validacion/ruta-validacion.component";
 
 export const ARREGLO_RUTA_COMPONENTES = [
   RutaInicioComponent,
@@ -28,9 +25,6 @@ export const ARREGLO_RUTA_COMPONENTES = [
   RutaMetodologiaComponent,
   RutaProyectosComponent,
   RutaNuevoProyectoComponent,
-  RutaRequerimientoClienteComponent,
-  RutaRequerimientoJuegoComponent,
-  RutaValidacionComponent,
   RutaParticipantesComponent,
   RutaParticipanteProyectoComponent,
 ];

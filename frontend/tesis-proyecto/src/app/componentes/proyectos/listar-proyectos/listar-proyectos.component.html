@@ -59,61 +59,78 @@
                 {{proyectoFila[col.field] ? proyectoFila[col.field] : 'Ninguna'}}
               </div>
               <div *ngIf="col.field === 'proyecto'">
-                <p><b>Estado:</b> {{proyectoFila['estado'] | ldestadoproyecto }}</p>
+                <p><b>Estado:</b> {{proyectoFila['estado'] | ldestadoproyecto }}
+                  <button
+                    class="boton-limpio"
+                          #tooltip="matTooltip"
+                          (click)="tooltip.toggle()"
+                          matTooltip="Estados de Proyecto: Iniciado (El proyecto esta vacío); Pendiente (Se han realizado cambios); Finalizado (No se puede modificar)"
+                          matTooltipPosition="right">
+                    <i class="fa btn-sea fa-circle-info"></i>
+                  </button>
                 <p><b>Tipo de Proyecto:</b> {{proyectoFila['tipoProyecto'] | ldtiproyecto}}</p>
                 <small *ngIf="proyectoFila['duplicado']">Es un proyecto duplicado</small>
               </div>
               <div class="cienporcierto" *ngIf="col.field === 'id'">
-                <button
-                  (click)="abrirModalEditar(proyectoFila)"
-                  class="btn"
-                  data-toggle="tooltip"
-                  data-placement="top"
-                  title="Editar">
-                  <i class="fa fa-pen texto-botones" aria-hidden="true"></i>
-                </button>
-                <button
-                  (click)="abrirModalDuplicar(proyectoFila)"
-                  class="btn"
-                  data-toggle="tooltip"
-                  data-placement="top"
-                  title="Duplicar Proyecto">
-                  <i class="fa fa-clone texto-botones" aria-hidden="true"></i>
-                </button>
-                <button
-                  [disabled]="proyectoFila['estado']==='F'"
-                  (click)="irANuevoProyecto(proyectoFila.id)"
-                  class="btn"
-                  data-toggle="tooltip"
-                  data-placement="top"
-                  title="Refinamiento">
-                  <i class="fa fa-gears texto-botones" aria-hidden="true"></i>
-                </button>
-                <button
-                  class="btn"
-                  data-toggle="tooltip"
-                  data-placement="top"
-                  title="Gestionar Proyectos"
-                hidden>
-                  <i class="fa fa-people-group texto-botones" aria-hidden="true"></i>
-                </button>
-                <button
-                  (click)="abrirModalEliminar(proyectoFila)"
-                  class="btn"
-                  data-toggle="tooltip"
-                  data-placement="top"
-                  title="Eliminar">
-                  <i class="fa fa-trash texto-rojo" aria-hidden="true"></i>
-                </button>
-                <button
-                  *ngIf="proyectoFila['estado']==='F'"
-                  (click)="descargarExcel(proyectoFila)"
-                  class="btn"
-                  data-toggle="tooltip"
-                  data-placement="top"
-                  title="Descargar Resultados">
-                  <i class="fa fa-file-excel texto-excel" aria-hidden="true"></i>
-                </button>
+                <div class="row justify-content-center">
+                  <div class="col-sm-12">
+                    <button
+                      [disabled]="proyectoFila['estado']==='F'"
+                      (click)="abrirModalEditar(proyectoFila)"
+                      class="btn"
+                      data-toggle="tooltip"
+                      data-placement="top"
+                      title="Editar">
+                      <i class="fa fa-pen texto-botones" aria-hidden="true"></i>
+                    </button>
+                    <button
+                      (click)="abrirModalDuplicar(proyectoFila)"
+                      class="btn"
+                      data-toggle="tooltip"
+                      data-placement="top"
+                      title="Duplicar Proyecto">
+                      <i class="fa fa-clone texto-botones" aria-hidden="true"></i>
+                    </button>
+                    <button
+                      class="btn"
+                      data-toggle="tooltip"
+                      data-placement="top"
+                      title="Gestionar Proyectos"
+                      hidden>
+                      <i class="fa fa-people-group texto-botones" aria-hidden="true"></i>
+                    </button>
+                    <button
+                      (click)="abrirModalEliminar(proyectoFila)"
+                      class="btn"
+                      data-toggle="tooltip"
+                      data-placement="top"
+                      title="Eliminar">
+                      <i class="fa fa-trash texto-rojo" aria-hidden="true"></i>
+                    </button>
+                    <button
+                      *ngIf="proyectoFila['estado']==='F'"
+                      (click)="descargarExcel(proyectoFila)"
+                      class="btn"
+                      data-toggle="tooltip"
+                      data-placement="top"
+                      title="Descargar Resultados">
+                      <i class="fa fa-file-excel texto-excel" aria-hidden="true"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="row justify-content-center">
+                  <div class="col-sm-12">
+                    <button
+                      [disabled]="proyectoFila['estado']==='F'"
+                      (click)="irANuevoProyecto(proyectoFila.id)"
+                      class="btn btn-refinamiento"
+                      data-toggle="tooltip"
+                      data-placement="top"
+                      title="Refinamiento">
+                      <i class="fa fa-gears" aria-hidden="true"></i> Refinamiento
+                    </button>
+                  </div>
+                </div>
               </div>
             </td>
           </tr>

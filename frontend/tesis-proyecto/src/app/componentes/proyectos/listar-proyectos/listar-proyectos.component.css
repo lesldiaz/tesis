@@ -37,3 +37,19 @@
 .negrilla {
   font-weight: bold;
 }
+.btn-refinamiento {
+  border: lightseagreen 1px solid;
+  color: lightseagreen;
+}
+.btn-refinamiento:hover {
+  background: lightseagreen;
+  color: white;
+}
+.btn-sea {
+  color: lightseagreen;
+  font-size: 1rem;
+}
+.boton-limpio {
+  border: none;
+  background: none;
+}

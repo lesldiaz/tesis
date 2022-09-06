@@ -15,8 +15,6 @@ import {MetodoGraficoJuegoComponent} from '../componentes/metodo-grafico-juego/m
 import {PostItComponent} from '../componentes/post-it/post-it.component';
 import {BloquesGamePlayComponent} from '../componentes/bloques-game-play/bloques-game-play.component';
 import {PestanaComponent} from '../componentes/pestana/pestana.component';
-import {FormularioLoginComponent} from '../componentes/formulario-login/formulario-login.component';
-import {FormularioRegistroComponent} from '../componentes/formulario-registro/formulario-registro.component';
 import {FlujoTrabajoComponent} from '../componentes/flujo-trabajo/flujo-trabajo.component';
 import {PlantillaClienteComponent} from '../componentes/plantilla-cliente/plantilla-cliente.component';
 import {PestanaPlantillaComponent} from '../componentes/pestana-plantilla/pestana-plantilla.component';
@@ -59,8 +57,6 @@ export const ARREGLO_COMPONENTES = [
   PostItComponent,
   BloquesGamePlayComponent,
   PestanaComponent,
-  FormularioLoginComponent,
-  FormularioRegistroComponent,
   FlujoTrabajoComponent,
   PlantillaClienteComponent,
   PestanaPlantillaComponent,
