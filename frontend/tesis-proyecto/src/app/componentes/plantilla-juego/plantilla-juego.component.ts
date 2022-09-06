@@ -9,7 +9,7 @@ import * as XLSX from 'xlsx';
   styleUrls: ['./plantilla-juego.component.css']
 })
 export class PlantillaJuegoComponent implements OnInit {
-  @Output() requerimientosCargados: EventEmitter<object[]> = new EventEmitter<object[]>();
+  @Output() requerimientosCargadosJ: EventEmitter<object[]> = new EventEmitter<object[]>();
   nombreArchivo = 'Sin Selección';
   nroReqCargados = 0;
   resultado: ExcelPlantillaHuInterface[] = [];
@@ -38,5 +38,6 @@ export class PlantillaJuegoComponent implements OnInit {
       this.nroReqCargados = this.resultado.length;
       this.requerimientosCargados.emit(this.resultado);
     }
+    console.log("file juego");
   }
 }

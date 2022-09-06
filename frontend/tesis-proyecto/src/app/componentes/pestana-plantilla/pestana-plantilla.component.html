@@ -1,8 +1,7 @@
-<mat-tab-group animationDuration="0ms" mat-align-tabs="center">
-  <mat-tab  label="Cliente">
-    <app-plantilla-cliente (requerimientosCargados)="recibirRequerimientosC($event)"></app-plantilla-cliente>
-  </mat-tab>
-  <mat-tab  [disabled]="bandera" label="GamePlay">
-    <app-plantilla-juego (requerimientosCargados)="recibirRequerimientosJ($event)"></app-plantilla-juego>
-  </mat-tab>
-</mat-tab-group>
+<div id="Cliente" label="Cliente">
+  <app-plantilla-cliente (requerimientosCargadosC)="recibirRequerimientosC($event)"></app-plantilla-cliente>
+</div>
+<div id="GamePlay" label="GamePlay">
+  <app-plantilla-juego (requerimientosCargadosJ)="recibirRequerimientosJ($event)"></app-plantilla-juego>
+</div>
+

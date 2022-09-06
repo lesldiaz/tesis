@@ -93,7 +93,7 @@ export class MetodoGraficoClienteComponent implements OnInit {
             this.datos.push(requerimientoGuardar);
             this._toasterService.success('Requerimiento guardado correctamente', 'Éxito');
           }
-        }, error => {
+        }, (error: any) => {
           this._toasterService.error('Ocurrió un error al guardar', 'Error');
         });
     } else {
@@ -172,7 +172,7 @@ export class MetodoGraficoClienteComponent implements OnInit {
           );
           this._toasterService.success('Requerimiento editado correctamente', 'Éxito');
         }
-      }, error => {
+      }, (error: any) => {
         this._toasterService.error('Ocurrió un error al editar', 'Error');
       });
     this.limpiar();
@@ -180,7 +180,7 @@ export class MetodoGraficoClienteComponent implements OnInit {
 
   eliminar() {
     this._requerimientoService.deleteRequerimiento(this.idRequerimientosSeleccionado as number)
-      .subscribe(value => {
+      .subscribe((value: any) => {
         const requerimientoEliminar = this.datos.find(requerimiento => requerimiento.id === this.idRequerimientosSeleccionado);
         this.datos.indexOf(requerimientoEliminar) < 0
           ? this.datos

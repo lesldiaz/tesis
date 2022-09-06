@@ -4,6 +4,7 @@ import {ModalCrearEditarUsuarioComponent} from '../../modales/modal-crear-editar
 import {CookieUsuarioService} from '../../servicios/cookie.service';
 import {ModalCambiarContrasenaComponent} from '../../modales/modal-cambiar-contrasena/modal.cambiar-contrasena.component';
 import { MatDialog } from '@angular/material/dialog';
+import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'app-inicio',
@@ -12,6 +13,7 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class InicioComponent implements OnInit {
   usuario: any;
+  migasPan: MenuItem[] = [];
   constructor(private readonly _router: Router,
               private readonly _cookieService: CookieUsuarioService,
               private readonly _dialog: MatDialog,
