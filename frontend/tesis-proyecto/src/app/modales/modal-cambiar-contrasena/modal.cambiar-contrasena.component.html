@@ -8,19 +8,18 @@
         class="form-control"
         id="contrasena"
         aria-describedby="contrasenalHelp"
-        [formControlName]="'contrasena'"
-        placeholder="Ingrese contrasena">
-      <small id="contrasenaHelp" class="form-text text-muted">Ingrese contraseña</small>
-      <div *ngIf="arregloMensajesErrorCampoContrasena.length > 0" class="alert alert-info" role="alert">
+        [formControlName]="'contrasena'">
+      <small id="contrasenaHelp" class="form-text text-muted">Ingrese su nueva contraseña</small>
+      <div *ngIf="arregloMensajesErrorCampoContrasena.length > 0" class="alert alert-warning" role="alert">
         <div *ngFor="let mensajeError of arregloMensajesErrorCampoContrasena">
-          <div>{{mensajeError}}</div>
+          <small>{{mensajeError}}</small>
         </div>
       </div>
     </div>
   </form>
 </div>
-<div class="row justify-content-end" mat-dialog-actions>
+<div mat-dialog-actions class="justify-content-end">
     <button class="btn btn-outline-dark" (click)="cancelarModal()">Cancelar</button>
     <div style="padding-right: 1rem"></div>
-    <button class="btn btn-info" [disabled]="!formularioValido" (click)="enviarDatos()">Aceptar</button>
+    <button class="btn btn-info text-white" [disabled]="!formularioValido" (click)="enviarDatos()">Aceptar</button>
 </div>
