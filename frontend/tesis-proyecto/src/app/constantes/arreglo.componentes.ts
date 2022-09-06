@@ -38,8 +38,10 @@ import { ResultadoComponent } from '../componentes/resultado/resultado.component
 import { TablaReqBloqueComponent } from '../componentes/tabla-req-bloque/tabla-req-bloque.component';
 import { TablaReqGamePlayComponent } from '../componentes/tabla-req-game-play/tabla-req-game-play.component';
 import { PerfilUsuarioComponent } from '../componentes/perfil-usuario/perfil-usuario.component';
+import { GraficosChartComponent } from '../componentes/graficos-chart/graficos-chart.component';
 
 export const ARREGLO_COMPONENTES = [
+  GraficosChartComponent,
   FooterComponent,
   MenuComponent,
   InicioComponent,

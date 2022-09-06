@@ -10,7 +10,15 @@
               <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
                    alt="Avatar" class="img-fluid my-5" style="width: 80px;" />
               <br>
-              <i class="far fa-edit mb-5"></i>
+              <button
+                class="boton-limpio"
+                #tooltip="matTooltip"
+                (click)="modalContrasena()"
+                matTooltip="Cambiar Contraseña"
+                matTooltipPosition="right">
+                <i class="far fa-edit mb-5"></i>
+              </button>
+
             </div>
             <div class="col-md-8">
               <div class="card-body p-4">
