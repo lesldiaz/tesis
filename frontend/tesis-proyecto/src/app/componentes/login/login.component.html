@@ -1,10 +1,11 @@
-<div class="container-fluid centro">
+<!--
+<div class="imagen-login">
   <div class="row" style="padding-top: 1rem">
     <div class="col-sm-12">
       <h2>Inicia Sesión</h2>
     </div>
   </div>
-  <div class="container inicio login">
+  <div class="inicio login">
     <form [formGroup]="formularioLogin" novalidate>
       <div class="row">
         <div class="col-sm-4">
@@ -50,7 +51,54 @@
         <div class="col-sm-3 justify-content-end">
           <button class=" serparador-boton btn btn-info" [routerLink]="'/registro'">Registrarse</button>
         </div>
+        <a>Olvidé mi contraseña</a>
       </div>
     </form>
+  </div>
+</div>
+-->
+<div class="col d-flex justify-content-center">
+  <div class="card text-center" style="width: 30vw; height: 30vh; line-height: 5vh; margin-top: 5vh">
+    <div class="card-header">
+      Inicio de Sesión
+    </div>
+    <div class="card-body">
+      <form [formGroup]="formularioLogin" novalidate>
+        <div class="row">
+          <label for="nombreUsuario">Nombre de Usuario</label>
+          <input
+            type="text"
+            class="form-control"
+            id="nombreUsuario"
+            aria-describedby="nombreUsuarioHelp"
+            [formControlName]="'nombreUsuario'"
+            placeholder="Ingrese su nombre de usuario">
+        </div>
+        <div class="separador"></div>
+        <div class="row">
+          <label for="contrasenia">Contraseña</label>
+          <input
+            type="password"
+            class="form-control"
+            id="contrasenia"
+            aria-describedby="contraseniaHelp"
+            [formControlName]="'contrasenia'"
+            placeholder="Ingrese su contrasena">
+        </div>
+        <div class="separador"></div>
+        <div class="row" *ngIf="errorIniciarSesion">
+          <p class="text-danger">¡El usuario o la contraseña son incorrectos!</p>
+        </div>
+        <div class="separador"></div>
+        <div class="row">
+          <button class="btn btn-info" [disabled]="!formularioValido" (click)="enviarFormularioLogin()">Ingresar
+          </button>
+          <button class=" serparador-boton btn btn-info" [routerLink]="'/registro'">Registrarse</button>
+        </div>
+      </form>
+    </div>
+    <div class="card-footer text-muted">
+      <a href="#">¿Olvidaste tu contraseña?</a>
+    </div>
   </div>
 </div>
