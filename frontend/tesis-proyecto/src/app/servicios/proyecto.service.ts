@@ -58,6 +58,9 @@ export class ProyectoService {
   postProyecto(nuevoProyecto: ProyectoInterface) {
     return this._httpClient.post(this.url, nuevoProyecto);
   }
+  getDatosInforme(proyecto: any) {
+    return this._httpClient.post(this.url + 'generar-datos-informe', proyecto);
+  }
   postDuplicarProyecto(nuevoProyecto: ProyectoInterface) {
     return this._httpClient.post(this.url + "duplicar-proyecto", nuevoProyecto);
   }

@@ -7,11 +7,11 @@ import {FUNCIONES_GENERALES} from 'src/constantes/metodos/funciones-generales.me
 import * as moment from 'moment';
 import {RespuestaInterface} from 'src/interfaces/respuesta.interface';
 import {RespuestaBuscarInterface} from 'src/interfaces/respuesta.buscar.interface';
-import { ParticipanteProyectoEntity } from '../participante-proyecto/participante-proyecto.entity';
-import { RequerimientoEntity } from '../requerimiento/requerimiento.entity';
-import { RequerimientoBloqueEntity } from '../requerimiento-bloque/requerimiento-bloque.entity';
-import { ResultadoEntity } from '../resultado/resultado.entity';
-import { PropositoEntity } from '../proposito/proposito.entity';
+import {ParticipanteProyectoEntity} from '../participante-proyecto/participante-proyecto.entity';
+import {RequerimientoEntity} from '../requerimiento/requerimiento.entity';
+import {RequerimientoBloqueEntity} from '../requerimiento-bloque/requerimiento-bloque.entity';
+import {ResultadoEntity} from '../resultado/resultado.entity';
+import {PropositoEntity} from '../proposito/proposito.entity';
 
 @Injectable()
 export class ProyectoService extends ServiceGeneral<ProyectoEntity> {
@@ -123,31 +123,31 @@ export class ProyectoService extends ServiceGeneral<ProyectoEntity> {
                         }
                     );
                 }
-                if (requerimientos){
+                if (requerimientos) {
                     requerimientos.forEach(
                         async requerimiento => {
-                        const resultado = requerimiento.resultado[0];
-                        const propositos = requerimiento.proposito;
-                        const bloques = requerimiento.requerimientoBloque;
-                        requerimiento.proyecto = proyectoCreado.id;
-                        const requerimientoDuplicado = await this._requerimientoRepository.save(requerimiento);
-                        resultado.requerimiento = requerimientoDuplicado.id;
-                        const resultadoDuplicado = await this._resultadoRepository.save(resultado);
-                        if (bloques) {
-                            bloques.forEach(
-                                async bloqueR => {
-                                bloqueR.requerimiento = requerimientoDuplicado.id;
-                                const bloque = await this._requerimientoBloqueRepository.save(bloqueR)
-                            });
-                        }
-                        if (propositos) {
-                            propositos.forEach(
-                                async propositoR => {
-                                propositoR.requerimiento = requerimientoDuplicado.id;
-                                const proposito = await this._propositoRepository.save(propositoR)
-                            });
-                        }
-                    });
+                            const resultado = requerimiento.resultado[0];
+                            const propositos = requerimiento.proposito;
+                            const bloques = requerimiento.requerimientoBloque;
+                            requerimiento.proyecto = proyectoCreado.id;
+                            const requerimientoDuplicado = await this._requerimientoRepository.save(requerimiento);
+                            resultado.requerimiento = requerimientoDuplicado.id;
+                            const resultadoDuplicado = await this._resultadoRepository.save(resultado);
+                            if (bloques) {
+                                bloques.forEach(
+                                    async bloqueR => {
+                                        bloqueR.requerimiento = requerimientoDuplicado.id;
+                                        const bloque = await this._requerimientoBloqueRepository.save(bloqueR)
+                                    });
+                            }
+                            if (propositos) {
+                                propositos.forEach(
+                                    async propositoR => {
+                                        propositoR.requerimiento = requerimientoDuplicado.id;
+                                        const proposito = await this._propositoRepository.save(propositoR)
+                                    });
+                            }
+                        });
                 }
                 return proyectoCreado;
             } else {
@@ -247,4 +247,68 @@ export class ProyectoService extends ServiceGeneral<ProyectoEntity> {
         }
     }
 
+    async informes(objeto: any): Promise<any> {
+        try {
+            const idProyecto = objeto.idProyecto;
+            const requerimientosRefinados = await this._requerimientoRepository.find({
+                where: {
+                    proyecto: {
+                        id: idProyecto
+                    }
+                },
+                relations: [
+                    'proyecto',
+                    'resultado'
+                ]
+            });
+            const requerimientosClonados = JSON.parse(JSON.stringify(requerimientosRefinados));
+            requerimientosClonados.map(requerimiento => {
+                requerimiento.resultado = requerimiento.resultado[0];
+            });
+            //VALIDACION PASTEL
+            const datosGraficas = {
+                bienFormados: 0,
+                noBienFormados: 0,
+                minimos: {
+                    correcto: 0,
+                    apropiado: 0,
+                    completo: 0,
+                    verificable: 0,
+                    factible: 0
+                },
+                deseables: {
+                    sinAmbiguedad: 0,
+                    singular: 0,
+                    trazable: 0,
+                    modificable: 0,
+                    consistente: 0,
+                    conforme: 0
+                },
+                implementacion: {
+                    necesario: 0
+                }
+            }
+            requerimientosClonados.forEach(requerimiento => {
+                const resultados = requerimiento.resultado;
+                requerimiento.estado ? datosGraficas.bienFormados += 1 : datosGraficas.noBienFormados += 1;
+                resultados.correcto ? datosGraficas.minimos.correcto += 1 : '';
+                resultados.apropiado ? datosGraficas.minimos.apropiado += 1 : '';
+                resultados.completo ? datosGraficas.minimos.completo += 1 : '';
+                resultados.verificable ? datosGraficas.minimos.verificable += 1 : '';
+                resultados.factible ? datosGraficas.minimos.factible += 1 : '';
+                resultados.necesario ? datosGraficas.implementacion.necesario += 1 : '';
+                resultados.sinAmbiguedad ? datosGraficas.deseables.sinAmbiguedad += 1 : '';
+                resultados.singular ? datosGraficas.deseables.singular += 1 : '';
+                resultados.trazable ? datosGraficas.deseables.trazable += 1 : '';
+                resultados.modificable ? datosGraficas.deseables.modificable += 1 : '';
+                resultados.consistente ? datosGraficas.deseables.consistente += 1 : '';
+                resultados.conforme ? datosGraficas.deseables.conforme += 1 : '';
+            });
+            return datosGraficas;
+        } catch (e) {
+            return new Promise((resolve, reject) =>
+                reject(`Error de Servidor. ${e.name}: ${e.message}`),
+            );
+        }
+    }
 }
