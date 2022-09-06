@@ -39,6 +39,7 @@ import {RatingModule} from 'primeng/rating';
 import {WINDOW_PROVIDERS} from './servicios/token-hostname';
 import { GraficosChartComponent } from './componentes/graficos-chart/graficos-chart.component';
 import { NgChartsModule } from 'ng2-charts';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -86,6 +87,7 @@ import { NgChartsModule } from 'ng2-charts';
     ConfirmDialogModule,
     RatingModule,
     NgChartsModule,
+    MatTooltipModule
   ],
   providers: [
     {

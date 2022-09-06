@@ -23,10 +23,8 @@ export class CrearEditarProyectoComponent implements OnInit {
   mensajesErrorCampoNombre = {
     required: 'El campo nombre es requerido',
     maxlength: 'El campo nombre debe contener máximo 100 caracteres',
-    pattern: 'El campo nombre debe contener solo letras y números'
   };
   mensajesErrorCampoDescripcion = {
-    required: 'El campo descripción es requerido',
     maxlength: 'El campo descripción debe contener máximo 255 caracteres',
   };
   mensajesErrorCampoTipoProyecto = {
@@ -47,10 +45,8 @@ export class CrearEditarProyectoComponent implements OnInit {
       nombre: new FormControl('', [
         Validators.required,
         Validators.maxLength(100),
-        Validators.pattern('[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9\\s]+')
       ]),
       descripcion: new FormControl('', [
-        Validators.required,
         Validators.maxLength(255),
       ]),
       tipoProyecto: new FormControl('', [

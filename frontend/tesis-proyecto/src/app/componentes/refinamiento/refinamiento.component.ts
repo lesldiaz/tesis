@@ -477,4 +477,17 @@ export class RefinamientoComponent implements OnInit {
     })
   }
 
+  mostrarMensajeEmergente() {
+    const botonInfo = document.getElementById('btnInfo');
+    const mensajeInfo = document.getElementById('mensajeInfo');
+    if (botonInfo && mensajeInfo) {
+      if(botonInfo?.style.display=="none") {
+        botonInfo.style.display = "block";
+        mensajeInfo.style.display = "none";
+      } else {
+        mensajeInfo.style.display = "block";
+        botonInfo.style.display = "none";
+      }
+    }
+  }
 }

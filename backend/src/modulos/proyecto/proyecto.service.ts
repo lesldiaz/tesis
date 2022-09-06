@@ -7,12 +7,27 @@ import {FUNCIONES_GENERALES} from 'src/constantes/metodos/funciones-generales.me
 import * as moment from 'moment';
 import {RespuestaInterface} from 'src/interfaces/respuesta.interface';
 import {RespuestaBuscarInterface} from 'src/interfaces/respuesta.buscar.interface';
+import { ParticipanteProyectoEntity } from '../participante-proyecto/participante-proyecto.entity';
+import { RequerimientoEntity } from '../requerimiento/requerimiento.entity';
+import { RequerimientoBloqueEntity } from '../requerimiento-bloque/requerimiento-bloque.entity';
+import { ResultadoEntity } from '../resultado/resultado.entity';
+import { PropositoEntity } from '../proposito/proposito.entity';
 
 @Injectable()
 export class ProyectoService extends ServiceGeneral<ProyectoEntity> {
     constructor(
         @InjectRepository(ProyectoEntity)
         private readonly _proyectoRepository: Repository<ProyectoEntity>,
+        @InjectRepository(ParticipanteProyectoEntity)
+        private readonly _participanteProyectoRepository: Repository<ParticipanteProyectoEntity>,
+        @InjectRepository(RequerimientoEntity)
+        private readonly _requerimientoRepository: Repository<RequerimientoEntity>,
+        @InjectRepository(RequerimientoBloqueEntity)
+        private readonly _requerimientoBloqueRepository: Repository<RequerimientoBloqueEntity>,
+        @InjectRepository(ResultadoEntity)
+        private readonly _resultadoRepository: Repository<ResultadoEntity>,
+        @InjectRepository(PropositoEntity)
+        private readonly _propositoRepository: Repository<PropositoEntity>,
     ) {
         super(_proyectoRepository);
     }
@@ -74,6 +89,81 @@ export class ProyectoService extends ServiceGeneral<ProyectoEntity> {
         }
     }
 
+    async duplicar(objeto): Promise<ProyectoEntity | string> {
+        try {
+            const proyectoADuplicarId = objeto.id;
+            const proyectoADuplicar = await this._proyectoRepository.findOne({
+                where: {
+                    id: proyectoADuplicarId
+                },
+                relations: ['participanteProyecto', 'requerimiento', 'requerimiento.resultado', 'requerimiento.requerimientoBloque', 'requerimiento.proposito']
+            });
+            const participantes = proyectoADuplicar.participanteProyecto;
+            const requerimientos = proyectoADuplicar.requerimiento;
+            objeto.createdAt = moment().format().toString();
+            objeto.updatedAt = moment().format().toString();
+            delete objeto.id;
+            const proyectoCreado = await this._proyectoRepository.save(objeto);
+            proyectoCreado.idProyecto = FUNCIONES_GENERALES.generarIdProyecto(proyectoCreado);
+            const respuestaEditar =
+                await this._proyectoRepository
+                    .update(
+                        proyectoCreado.id,
+                        {
+                            idProyecto: proyectoCreado.idProyecto
+                        });
+            const actualizacionExitosa: boolean =
+                respuestaEditar.affected > 0;
+            if (actualizacionExitosa) {
+                if (participantes) {
+                    participantes.forEach(
+                        async participante => {
+                            participante.proyecto = proyectoCreado.id;
+                            const partDuplicado = await this._participanteProyectoRepository.save(participante);
+                        }
+                    );
+                }
+                if (requerimientos){
+                    requerimientos.forEach(
+                        async requerimiento => {
+                        const resultado = requerimiento.resultado[0];
+                        const propositos = requerimiento.proposito;
+                        const bloques = requerimiento.requerimientoBloque;
+                        requerimiento.proyecto = proyectoCreado.id;
+                        const requerimientoDuplicado = await this._requerimientoRepository.save(requerimiento);
+                        resultado.requerimiento = requerimientoDuplicado.id;
+                        const resultadoDuplicado = await this._resultadoRepository.save(resultado);
+                        if (bloques) {
+                            bloques.forEach(
+                                async bloqueR => {
+                                bloqueR.requerimiento = requerimientoDuplicado.id;
+                                const bloque = await this._requerimientoBloqueRepository.save(bloqueR)
+                            });
+                        }
+                        if (propositos) {
+                            propositos.forEach(
+                                async propositoR => {
+                                propositoR.requerimiento = requerimientoDuplicado.id;
+                                const proposito = await this._propositoRepository.save(propositoR)
+                            });
+                        }
+                    });
+                }
+                return proyectoCreado;
+            } else {
+                return new Promise((resolve, reject) =>
+                    reject('Ocurrió un error al crear id del proyecto'),
+                );
+            }
+            return proyectoCreado;
+
+        } catch (e) {
+            return new Promise((resolve, reject) =>
+                reject(`Error de servidor. ${e.name}: ${e.message}`),
+            );
+        }
+    }
+
     async listarTodos(
         criteriosPaginacion?,
     ): Promise<RespuestaInterface<ProyectoEntity[]> | string> {
@@ -106,7 +196,7 @@ export class ProyectoService extends ServiceGeneral<ProyectoEntity> {
                         whereOR.push(whereORS);
                     }
                 }
-                if(whereOR.length === 0 && criteriosPaginacion['usuario']){
+                if (whereOR.length === 0 && criteriosPaginacion['usuario']) {
                     whereOR.push({
                         usuario: criteriosPaginacion['usuario']
                     });

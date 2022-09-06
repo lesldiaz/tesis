@@ -11,6 +11,7 @@ import * as XLSX from 'xlsx';
 export class PlantillaClienteComponent implements OnInit {
   @Output() requerimientosCargadosC: EventEmitter<object[]> = new EventEmitter<object[]>();
   nombreArchivo = 'Sin Selección';
+  nroReqCargados = 0;
   resultado: ExcelPlantillaHuInterface[] = [];
 
 

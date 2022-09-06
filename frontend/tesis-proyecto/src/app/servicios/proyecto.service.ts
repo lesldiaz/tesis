@@ -58,6 +58,9 @@ export class ProyectoService {
   postProyecto(nuevoProyecto: ProyectoInterface) {
     return this._httpClient.post(this.url, nuevoProyecto);
   }
+  postDuplicarProyecto(nuevoProyecto: ProyectoInterface) {
+    return this._httpClient.post(this.url + "duplicar-proyecto", nuevoProyecto);
+  }
 
   putProyecto(nuevoProyecto: ProyectoInterface, idProyecto: number) {
     return this._httpClient.put(this.url + idProyecto, nuevoProyecto);
