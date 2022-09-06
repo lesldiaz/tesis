@@ -1,11 +1,11 @@
-.centro
-  text-align: center
-  justify-content: center
-  margin: auto
-
-.login
-  padding: 2rem
-  width: 50%
-  height: 50%
-
+.centro {
+  text-align: center;
+  justify-content: center;
+  margin: auto;
+}
+.login {
+  padding: 2rem;
+  width: 50%;
+  height: 50%;
+}
 

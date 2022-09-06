@@ -26,7 +26,6 @@
           <th style="width: 3rem">
             <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
           </th>
-          <th class="text-center">Identificador</th>
           <th class="text-center">Descripción</th>
           <th class="text-center">Prioridad</th>
           <th class="text-center">Padre</th>
@@ -36,9 +35,6 @@
         <tr>
           <td>
             <p-tableCheckbox [value]="datoFila"></p-tableCheckbox>
-          </td>
-          <td class="text-center">
-            {{datoFila['idRequerimiento']}}
           </td>
           <td class="text-center">
             {{datoFila['descripcion']}}

@@ -37,6 +37,8 @@ import {ScrollPanelModule} from 'primeng/scrollpanel';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {RatingModule} from 'primeng/rating';
 import {WINDOW_PROVIDERS} from './servicios/token-hostname';
+import { GraficosChartComponent } from './componentes/graficos-chart/graficos-chart.component';
+import { NgChartsModule } from 'ng2-charts';
 import {MatTooltipModule} from '@angular/material/tooltip';
 
 @NgModule({
@@ -46,6 +48,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     ...ARREGLO_RUTA_COMPONENTES,
     ...ARREGLO_PIPES,
     ...ARREGLO_MODALES,
+    GraficosChartComponent,
   ],
   imports: [
     NgbModule,
@@ -83,6 +86,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     ScrollPanelModule,
     ConfirmDialogModule,
     RatingModule,
+    NgChartsModule,
     MatTooltipModule
   ],
   providers: [

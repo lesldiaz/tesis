@@ -10,7 +10,6 @@
 >
   <ng-template pTemplate="header">
     <tr>
-      <th class="text-center">Identificador</th>
       <th class="text-center">Descripción</th>
       <th class="text-center">Información Relevante</th>
       <th class="text-center">Ideas</th>
@@ -18,9 +17,7 @@
   </ng-template>
   <ng-template pTemplate="body" let-datoFila>
     <tr [pSelectableRow]="datoFila">
-      <td class="text-center">
-        {{datoFila['idRequerimiento']}}
-      </td>
+
       <td class="text-center">
         <div *ngIf="datoFila['titulo']">
           <b>Titulo:</b> {{datoFila['titulo']}}<br>
