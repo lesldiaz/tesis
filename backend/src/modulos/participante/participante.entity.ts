@@ -30,6 +30,14 @@ export class ParticipanteEntity extends EntityGenerico{
     })
     funcion?: string;
 
+    @Column({
+        name: 'email',
+        type: 'varchar',
+        length: 200,
+        nullable: true
+    })
+    email?: string;
+
     @OneToMany(
         type => ParticipanteProyectoEntity,
         participanteProyecto => participanteProyecto.participante

@@ -28,5 +28,11 @@
     "nombreUsuario": "GuerraStout",
     "email": "guerrastout@comfirm.com",
     "contrasena": 12345678
+  },
+  {
+    "id" : 6,
+    "nombreUsuario": "lesliediaz",
+    "email": "lmdiaz36@gmail.com",
+    "contrasena": "1030405i"
   }
 ]
