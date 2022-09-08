@@ -44,7 +44,6 @@ export class ProyectoService extends ServiceGeneral<ProyectoEntity> {
                             usuario: proyecto.usuario
                         }
                     });
-                    console.log(proyectosUsuario);
                     proyectosUsuario+=1;
                     proyectoCreado.idProyecto = FUNCIONES_GENERALES.generarIdProyecto(proyectosUsuario, proyectoCreado.tipoProyecto);
                     const respuestaEditar =
