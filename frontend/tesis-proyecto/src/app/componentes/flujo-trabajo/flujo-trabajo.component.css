@@ -27,6 +27,7 @@
   border-radius: 5px;
   text-decoration: none;
   margin-top: 8px;
+  margin-right: 10px;
 }
 .right{
   text-align: right;
@@ -38,11 +39,6 @@
 .next-btt{
  align-content: center;
 }
-#metodo-grafico{
-  background-color: rgba(107, 188, 188, 0.1);
-  margin-left: 0.5rem;
-  border-radius: 25px;
-}
 .bubble {
   margin: 20px;
   padding: 20px;
@@ -52,6 +48,8 @@
   width: 200px;
   background: lightseagreen;
   border-color: teal;
+  color: white;
+  font-size: 16px;
 }
 .bubble:after {
   content: "";

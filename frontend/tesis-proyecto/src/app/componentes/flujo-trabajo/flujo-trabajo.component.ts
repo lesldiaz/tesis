@@ -40,6 +40,9 @@ export class FlujoTrabajoComponent implements OnInit {
   elemento:any;
   flecha:any;
   constX=10;
+  stepPos:any;
+  stepPos3:any;
+  stepPos4:any;
 
   constructor(
     private readonly _activatedRoute: ActivatedRoute,
@@ -102,6 +105,7 @@ export class FlujoTrabajoComponent implements OnInit {
     }
     if (this.radiobuttons == "grafico") {
       (this.myStepper as MatStepper).next();
+      this.mover(true);
     }
   }
 
@@ -152,28 +156,41 @@ export class FlujoTrabajoComponent implements OnInit {
   }
 
   mover(bnd:boolean){
+
     this.posicion= document.getElementById("mensaje");
-    this.elemento= document.querySelector('.bubble')
-    this.flecha=window.getComputedStyle(this.elemento, ':after');
-    //console.log("flecha"+this.flecha.left);
     if(bnd==false){
       this.etapa=this.etapa-1;
-      this.constX=this.constX-400;
-      this.posicion.style.left= this.constX +'px';
+      if(this.etapa ==3){
+        this.posicion.style.left= this.stepPos3 +'px';
+        this.constX=this.constX-500;
+      }else if(this.etapa==2){
+        this.posicion.style.left= 410 +'px';
+        this.constX=this.constX-400;
+      }else if(this.etapa==4){
+        this.posicion.style.left= this.stepPos4 +'px';
+        this.constX=this.constX-400;
+      }
 
     }else{
       this.etapa=this.etapa+1;
-      this.constX=this.constX+400;
-      this.posicion.style.left= this.constX +'px';
+      if(this.etapa ==3){
+        this.constX=this.constX+500;
+        this.posicion.style.left= this.constX +'px';
+        this.stepPos3=this.constX;
+      }
+      else{
+        this.constX=this.constX+400;
+        this.posicion.style.left= this.constX +'px';
+        this.stepPos4=this.constX;
+      }
     }
-    /*if(this.etapa > 2){
-      this.flecha.setAttribute('left','100px');
-      console.log("flecha"+this.flecha.left);
-    }else{
-      this.flecha.setProperty('left','20px');
-      console.log("flecha"+this.flecha.left);
-    }*/
-
-
+  }
+  obtenerPos(){
+    this.stepPos=document.getElementById('segundo');
+    this.stepPos3=document.getElementById('tercero');
+    this.stepPos4=document.getElementById('cuarto');
+    console.log(this.stepPos.style.left);
+    console.log(this.stepPos3.style.left);
+    console.log(this.stepPos4.style.left);
   }
 }

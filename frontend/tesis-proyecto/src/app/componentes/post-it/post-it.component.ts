@@ -52,7 +52,7 @@ export class PostItComponent implements OnInit, DoCheck {
     const element = document.createElement("textarea");
     element.classList.add('post-it');
     element.value = descripcion;
-    element.placeholder ="Empty";
+    element.placeholder ="Empty...";
     element.addEventListener("change",()=> {
       this.updateNote(id,element.value);
     });
