@@ -3,6 +3,10 @@ import * as XLSX from 'xlsx';
 import {RequerimientoInterface} from "./interfaces/requerimiento.interface";
 import {ExcelPlantillaResInterface} from "./interfaces/excel-plantilla-res.interface";
 import {ResultadoInterface} from "./interfaces/resultado.interface";
+import { ExcelPlantillaExportInterface } from "./interfaces/excel-plantilla-export.interface";
+import { RequerimientoBloqueInterface } from "./interfaces/requerimiento-bloque.interface";
+import { PropositoInterface } from "./interfaces/proposito.interface";
+import { BloqueInterface } from "./interfaces/bloque.interface";
 
 export const FUNCIONES_GENERALES = {
   queryAObjeto: (objeto: any) => {
@@ -117,6 +121,52 @@ export const FUNCIONES_GENERALES = {
       datosExcel.push(objetoExcel);
     });
     return datosExcel;
+  },
+  generarObjetoExport: (requirementos: RequerimientoInterface[]) => {
+    const datosExport: ExcelPlantillaResInterface[] = [];
+    requirementos.forEach((requerimiento: RequerimientoInterface) => {
+      const objetoExcel: ExcelPlantillaExportInterface = {};
+      const resultado = (requerimiento.resultado as ResultadoInterface[])[0];
+      objetoExcel.identificador = requerimiento.idRequerimiento as string;
+      objetoExcel.titulo = requerimiento.titulo;
+      objetoExcel.descripcion = requerimiento.descripcion;
+      objetoExcel.prioridad = requerimiento.prioridad;
+      objetoExcel.rol = requerimiento.rol as number;
+      objetoExcel.padre = requerimiento.requerimientoPadre?.toString();
+      const bloques = requerimiento.requerimientoBloque as RequerimientoBloqueInterface[];
+      if (bloques.length > 0){
+        const bloquesExp: string[] = [];
+        bloques.forEach(bloqueE => {
+          const bloqueN = bloqueE.bloque as BloqueInterface;
+          bloquesExp.push(bloqueN.nombre as string);
+        });
+        objetoExcel.bloque = bloquesExp.join(',');
+      }
+      const propositos = requerimiento.proposito as PropositoInterface[];
+      if (propositos.length > 0){
+          const propositosExp: string[] = [];
+          propositos.forEach(proposito => {
+            propositosExp.push(proposito.descripcion);
+          });
+        objetoExcel.proposito = propositosExp.join(';');
+      }
+      //caracteristicas
+      objetoExcel.correcto = resultado.correcto;
+      objetoExcel.apropiado = resultado.apropiado;
+      objetoExcel.completo = resultado.completo;
+      objetoExcel.verificable = resultado.verificable;
+      objetoExcel.factible = resultado.factible;
+      objetoExcel.sinAmbiguedad = resultado.sinAmbiguedad;
+      objetoExcel.singular = resultado.singular;
+      objetoExcel.trazable = resultado.trazable;
+      objetoExcel.modificable = resultado.modificable;
+      objetoExcel.consistente = resultado.consistente;
+      objetoExcel.conforme = resultado.conforme;
+      objetoExcel.necesario = resultado.necesario;
+
+      datosExport.push(objetoExcel);
+    });
+    return datosExport;
   },
   generarLightColorHex: () => {
     let color = "#";

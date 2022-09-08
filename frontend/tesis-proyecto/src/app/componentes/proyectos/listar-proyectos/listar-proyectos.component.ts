@@ -277,7 +277,11 @@ export class ListarProyectosComponent implements OnInit {
           if (typeof proyectos.mensaje !== 'string') {
             requerimientos = proyectos.mensaje?.resultado;
             requerimientos = FUNCIONES_GENERALES.generarObjetoResExcel(requerimientos);
-            this.exportExcel(requerimientos);
+            const cabecera = [
+              ["Identificador", "Descripción", "Válido", "Características Cumplidas", "Observaciones"]
+            ];
+            const nombreArchivo = 'resultadosProyecto';
+            this.exportExcel(requerimientos, cabecera, nombreArchivo);
           }
         },
         (error: any) => {
@@ -286,14 +290,9 @@ export class ListarProyectosComponent implements OnInit {
       );
   }
 
-  exportExcel(requerimientos: RequerimientoInterface[]) {
+  exportExcel(requerimientos: RequerimientoInterface[], cabecera: string[][], nombreArchivo: string) {
     import("xlsx").then(xlsx => {
-      const cabecera = [
-        ["Identificador", "Descripción", "Válido", "Características Cumplidas", "Observaciones"]
-      ];
       let worksheet;
-      let nombreArchivo;
-      nombreArchivo = 'resultadosProyecto';
       worksheet = xlsx.utils.json_to_sheet(requerimientos);
       xlsx.utils.sheet_add_aoa(worksheet, cabecera);
       xlsx.utils.sheet_add_json(worksheet, requerimientos, {origin: 'A2', skipHeader: true});
@@ -318,6 +317,54 @@ export class ListarProyectosComponent implements OnInit {
   }
 
   exportarProyecto(proyectoFila: any) {
+    // TRATAMIENTO DATOS
+    const criterioBusqueda = {
+      proyecto: {
+        id: proyectoFila.id
+      }
+    };
+    let requerimientos: RequerimientoInterface[] = [];
+    let getProyectos$ = this._requerimientoService.getRequerimientosFiltro(0, 0, criterioBusqueda);
+    getProyectos$
+      .subscribe(
+        (proyectos: any) => {
+          if (typeof proyectos.mensaje !== 'string') {
+            requerimientos = proyectos.mensaje?.resultado;
+            console.log(requerimientos);
+            requerimientos = FUNCIONES_GENERALES.generarObjetoExport(requerimientos);
+            const cabecera = [
+              [
+                "IDENTIFICADOR",
+                "TÍTULO",
+                "DESCRIPCIÓN",
+                "PRIORIDAD",
+                "ROL",
+                "PADRE",
+                "BLOQUES",
+                "PROPOSITOS",
+                "CORRECTO",
+                "APROPIADO",
+                "COMPLETO",
+                "VERIFICABLE",
+                "FACTIBLE",
+                "SIN AMBIGÜEDAD",
+                "SINGULAR",
+                "TRAZABLE",
+                "MODIFICABLE",
+                "CONSISTENTE",
+                "CONFORME",
+                "NECESARIO"
+              ]
+            ];
+            const nombreArchivo = 'exportarProyecto';
+            this.exportExcel(requerimientos, cabecera, nombreArchivo);
+          }
+        },
+        (error: any) => {
+          console.error(error);
+        }
+      );
+    //HACER EXCEL
     import("xlsx").then(xlsx => {
       const cabecera = [
         ["Identificador", "Descripción", "Válido", "Características Cumplidas", "Observaciones"]
