@@ -39,6 +39,8 @@ import {WINDOW_PROVIDERS} from './servicios/token-hostname';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {NgChartsModule} from 'ng2-charts';
 import {InputTextModule} from 'primeng/inputtext';
+import {MatCardModule} from '@angular/material/card';
+import { MetodologiaComponent } from './componentes/metodologia/metodologia.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +49,7 @@ import {InputTextModule} from 'primeng/inputtext';
     ...ARREGLO_RUTA_COMPONENTES,
     ...ARREGLO_PIPES,
     ...ARREGLO_MODALES,
+    MetodologiaComponent,
   ],
   imports: [
     NgbModule,
@@ -86,7 +89,8 @@ import {InputTextModule} from 'primeng/inputtext';
     RatingModule,
     NgChartsModule,
     MatTooltipModule,
-    InputTextModule
+    InputTextModule,
+    MatCardModule
   ],
   providers: [
     {

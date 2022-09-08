@@ -1,177 +1,45 @@
-
 <app-migaspan [conjuntoMigas]="migasPan"></app-migaspan>
 <div class="container metodologia">
- <h1 align="center">Methodology</h1>
-  <div class="row justify-content-center"  >
-
-    <div class="col-sm-6">
-      The objective of this web application is to validate software requirements,
-      through characteristics that result in a well-formed requirement.
-      These characteristics are obtained through the study of standards and norms
-      for the formulation of software requirements and the use of the
-      <a href="http://criteria-checker.epn.edu.ec/" target="_blank">KEY CRITERIA INFERRER</a>  tool.
+  <div>
+    <h1 align="center"> Criteria of acceptance</h1>
+    <div>
+      <h2>How to know if a request is valid?</h2>
+      <div class="row justify-content-center">
+        <div class="col-sm-2">
+          <svg xmlns="http://www.w3.org/2000/svg" width="200" height="170" fill="#008000" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+          </svg>
+        </div>
+        <div class="col-sm-5 valid">
+          For a requirement to be valid, it must meet the following acceptance criteria.
+          <ul>
+            <li>It must meet the essential characteristics, these are:</li>
+            <ul *ngFor="let char of necesaryCond">
+              <li>{{char}}</li>
+            </ul>
+          </ul>
+        </div>
+      </div>
+    <div>
+      <h2 align="right">Characteristics that are evaluated</h2>
+      <div class="characteristic">
+        <div class="row">
+          <div class="col-sm-3 content" *ngFor="let char of characteristics">
+            <mat-card class="card" (click)="moverCard(char)"> {{char}}</mat-card> </div>
+        </div>
+      </div>
     </div>
-    <div align="center">
-      <img align="center" src="./assets/imagenes/paraguas.png">
+    <div class="contenedor-definicion">
+      <h2 align="left">What each characteristic must meet?</h2>
+      <div class="row justify-content-center">
+        <div class="linea-tiempo" >
+          <div class="momento" *ngFor="let char of characteristic">
+            <h3 id="{{char.name}}">{{char.name}}</h3>
+            <div  class="descripcion">{{char.definition}}</div>
+          </div>
+        </div>
+      </div>
     </div>
-
-  </div>
- <div>
-   <h2 align="center"> Result of study of standards and norms</h2>
-   <p-table [value]="standars"responsiveLayout="scroll">
-     <ng-template pTemplate="header" >
-       <tr>
-         <th>Standards\Characteristics</th>
-         <th>Year</th>
-         <th>Necessary</th>
-         <th>Appropriate</th>
-         <th>Unambiguos</th>
-         <th>Complete</th>
-         <th>Singular</th>
-         <th>Feasible</th>
-         <th>Verifiable</th>
-         <th>Correct</th>
-         <th>According</th>
-         <th>Traceable</th>
-         <th>Consistent</th>
-         <th>Modifiable</th>
-       </tr>
-     </ng-template>
-     <ng-template pTemplate="body"let-standar >
-       <tr>
-         <td>{{standar.name}}</td>
-         <td>{{standar.year}}</td>
-         <td>{{standar.Necessary}}</td>
-         <td>{{standar.Appropriate}}</td>
-         <td>{{standar.Unambiguos}}</td>
-         <td>{{standar.Complete}}</td>
-         <td>{{standar.Singular}}</td>
-         <td>{{standar.Feasible}}</td>
-         <td>{{standar.Verifiable}}</td>
-         <td>{{standar.Correct}}</td>
-         <td>{{standar.According}}</td>
-         <td>{{standar.Traceable}}</td>
-         <td>{{standar.Consistent}}</td>
-         <td>{{standar.Modifiable}}</td>
-       </tr>
-
-     </ng-template>
-   </p-table>
- </div>
-  <div class="row justify-content-center">
-    <h2 align="center"> Result of using the KEY CRITERIA INFERRER tool.</h2>
-    <div class="col-sm-3">
-      <p-table [value]="necesaryCond" >
-        <ng-template pTemplate="header" >
-          <tr>
-            <th>Necessary and not sufficient condition</th>
-          </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-necessary>
-          <tr>
-            <td>{{necessary}}</td>
-          </tr>
-
-        </ng-template>
-      </p-table>
-    </div>
-    <div class="col-sm-3">
-      <p-table [value]="noNecesary">
-        <ng-template pTemplate="header" >
-          <tr>
-            <th>Not necessary and not sufficient condition</th>
-          </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-necessary >
-          <tr>
-            <td>{{necessary}}</td>
-          </tr>
-
-        </ng-template>
-      </p-table>
-    </div>
-    <div class="col-sm-3">
-      <p-table [value]="none">
-        <ng-template pTemplate="header" >
-          <tr>
-            <th>None</th>
-          </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-necessary>
-          <tr>
-            <td>{{necessary}}</td>
-          </tr>
-
-        </ng-template>
-      </p-table>
-    </div>
-  </div>
-  <div class="row justify-content-center">
-    <h2 align="center"> Final classification of characteristics of a well-formed requirement.</h2>
-    <div class="col-sm-3">
-      <p-table [value]="necesaryCond" >
-        <ng-template pTemplate="header" >
-          <tr>
-            <th>Indispensable properties </th>
-          </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-necessary>
-          <tr>
-            <td>{{necessary}}</td>
-          </tr>
-
-        </ng-template>
-      </p-table>
-    </div>
-    <div class="col-sm-3">
-      <p-table [value]="noNecesary">
-        <ng-template pTemplate="header" >
-          <tr>
-            <th>Desirable properties </th>
-          </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-necessary >
-          <tr>
-            <td>{{necessary}}</td>
-          </tr>
-
-        </ng-template>
-      </p-table>
-    </div>
-    <div class="col-sm-3">
-      <p-table [value]="none">
-        <ng-template pTemplate="header" >
-          <tr>
-            <th>Implementation property </th>
-          </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-necessary>
-          <tr>
-            <td>{{necessary}}</td>
-          </tr>
-
-        </ng-template>
-      </p-table>
-    </div>
-  </div>
-  <div class="row justify-content-center">
-    <h2 align="center">Dictionary of terms</h2>
-    <div class="col-sm-8 ">
-      <p-table [value]="characteristic">
-        <ng-template pTemplate="header" >
-          <tr>
-            <th>Characteristic</th>
-            <th>Definition</th>
-          </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-character>
-          <tr>
-            <td>{{character.name}}</td>
-            <td>{{character.definition}}</td>
-          </tr>
-
-        </ng-template>
-      </p-table>
     </div>
   </div>
 </div>
