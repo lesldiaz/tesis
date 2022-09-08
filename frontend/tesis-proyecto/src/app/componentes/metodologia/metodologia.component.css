@@ -1,3 +1,104 @@
-.container metodologia{
-  align-content: center;
+h2{
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+.valid{
+  background-color: #eee;
+  border-radius: 10px;
+  padding: 10px;
+  line-height: 22px;
+  font-size: 16px;
+}
+.card{
+  margin-top: 5px;
+  background-color: #5794D8 ;
+  color: white;
+  text-align: center;
+  font-size: 16px;
+}
+
+
+.divCont{
+  justify-content: center;
+  align-items: center;
+}
+
+.linea-tiempo {
+  position: relative;
+  width: 500px;
+  max-width: 95vw;
+  height: 100%;
+  font-family: Arial;
+}
+
+.linea-tiempo::before {
+  content: '';
+  position: absolute;
+  width: 3px;
+  background-color: #000;
+  left: 50%;
+  height: 100%;
+  border-radius: 10px;
+}
+
+.momento {
+  position: relative;
+  width: 45%;
+  box-sizing: border-box;
+}
+
+.momento:nth-child(even) {
+  left: 55%;
+}
+.momento::after {
+  content: '';
+  position: absolute;
+  top: calc(50% + 10px);
+  right: calc(-11.11% - 11.5px);
+  height: 20px;
+  width: 20px;
+  background-color: #000;
+  border-radius: 50%;
+}
+
+.momento:nth-child(even)::after {
+  left: calc(-11.11% - 8.5px);
+}
+
+.momento h3 {
+  margin: 10px 0px;
+  font-size: 30px;
+  text-align: center;
+}
+
+.momento .descripcion {
+  background-color: #eee;
+  border-radius: 10px;
+  padding: 10px;
+  line-height: 22px;
+  font-size: 14px;
+}
+.momento .descripcion::after {
+  content: '';
+  position: absolute;
+  right: -10px;
+  top: calc(50% + 10px);
+  height: 0;
+  width: 0;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-left: 12px solid #eee;
+}
+
+.momento:nth-child(even) .descripcion {
+  background-color: #3393FE;
+  color: white;
+}
+
+.momento:nth-child(even) .descripcion::after{
+  left: -10px;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-right: 12px solid #3393FE;
+  border-left: none;
 }
