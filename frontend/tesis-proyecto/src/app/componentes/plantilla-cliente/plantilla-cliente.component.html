@@ -36,15 +36,15 @@
           <input id="file-upload" type="file" (change)="onFileChange($event)"/>
           <div class="card" style="width: 30%">
             <div class="card-header">
-              Información de Subida
+              Información de subida
             </div>
             <div class="card-body">
               <div *ngIf="nombreArchivo === 'Sin Selección'">
                 <small>No se ha cargado ningún archivo</small>
               </div>
               <div *ngIf="nombreArchivo !== 'Sin Selección'">
-                <p>Nombre del Archivo: {{nombreArchivo}}</p>
-                <p>Nro de Requerimientos Cargados: {{nroReqCargados}}</p>
+                <p>Nombre del archivo: {{nombreArchivo}}</p>
+                <p>Número de requerimientos cargados: {{nroReqCargados}}</p>
               </div>
             </div>
           </div>

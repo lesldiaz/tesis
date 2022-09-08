@@ -11,7 +11,10 @@
       <!--<button class="btn btn-block btn-info" (click)="abrirModalCrear()" type="button">Crear</button>-->
       <button class="btn texto-blanco cienporcierto btn-info" (click)="abrirModalCrear()" type="button">Crear</button>
     </div>
-    <div class="col-sm-10">
+    <div class="col-sm-2">
+      <button class="btn cienporcierto btn-import" (click)="abrirModalCrear()" type="button">Importar</button>
+    </div>
+    <div class="col-sm-8">
       <form [formGroup]="formularioBuscarProyecto" novalidate>
         <div class="row">
           <div class="col-sm-2" id="labelbusqueda">
@@ -116,6 +119,15 @@
                       title="Descargar Resultados">
                       <i class="fa fa-file-excel texto-excel" aria-hidden="true"></i>
                     </button>
+                    <button
+                      *ngIf="proyectoFila['estado']==='F'"
+                      (click)="exportarProyecto(proyectoFila)"
+                      class="btn"
+                      data-toggle="tooltip"
+                      data-placement="top"
+                      title="Exportar Proyecto">
+                      <i class="fa fa-file-export text-black" aria-hidden="true"></i>
+                    </button>
                   </div>
                 </div>
                 <div class="row justify-content-center">
@@ -127,7 +139,7 @@
                       data-toggle="tooltip"
                       data-placement="top"
                       title="Refinamiento">
-                      <i class="fa fa-gears" aria-hidden="true"></i> Refinamiento
+                      <i class="fa fa-play" aria-hidden="true"></i> Iniciar
                     </button>
                   </div>
                 </div>

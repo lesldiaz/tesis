@@ -38,16 +38,21 @@
   font-weight: bold;
 }
 .btn-refinamiento {
-  border: lightseagreen 1px solid;
-  color: lightseagreen;
-}
-.btn-refinamiento:hover {
   background: lightseagreen;
   color: white;
+}
+.btn-refinamiento:hover {
+  border: lightseagreen 1px solid;
+  background: white;
+  color: lightseagreen;
 }
 .btn-sea {
   color: lightseagreen;
   font-size: 1rem;
+}
+.btn-import {
+  background: forestgreen;
+  color: white;
 }
 .boton-limpio {
   border: none;

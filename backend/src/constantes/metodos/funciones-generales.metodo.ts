@@ -22,10 +22,13 @@ export const FUNCIONES_GENERALES = {
             console.error('Error Función Crear Datos: ', e);
         }
     },
-    generarIdProyecto: (objeto) => {
-        const idProNum = objeto.id;
-        const tipoProyecto = objeto.tipoProyecto;
-        const nuevoIdProyecto = 'P' + tipoProyecto + idProNum;
+    generarIdProyecto: (idProNum, tipoProyecto) => {
+        let nuevoIdProyecto = 'P';
+        if (tipoProyecto === 'C') {
+            nuevoIdProyecto = nuevoIdProyecto + 'G' + FUNCIONES_GENERALES.digitosACodigo(idProNum.toString());
+        } else {
+            nuevoIdProyecto = nuevoIdProyecto + 'iP' + FUNCIONES_GENERALES.digitosACodigo(idProNum.toString());
+        }
         return nuevoIdProyecto;
     },
     generarIdRequerimiento: (objeto) => {
@@ -42,6 +45,19 @@ export const FUNCIONES_GENERALES = {
         const listaCaracteres = '$+=?@_23456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz';
         const valorInferior = 0;
         const valorSuperior = 61;
-        return  listaCaracteres.charAt(FUNCIONES_GENERALES.generaAleatorio(valorInferior, valorSuperior));
+        return listaCaracteres.charAt(FUNCIONES_GENERALES.generaAleatorio(valorInferior, valorSuperior));
+    },
+    digitosACodigo: (codigo) => {
+        let nuevoCodigo = '';
+        if (codigo.length === 1) {
+            nuevoCodigo = '000' + codigo;
+        } else if (codigo.length === 2) {
+            nuevoCodigo = '00' + codigo;
+        } else if (codigo.length === 3) {
+            nuevoCodigo = '0' + codigo;
+        } else {
+            nuevoCodigo = codigo;
+        }
+        return nuevoCodigo;
     }
 };

@@ -208,7 +208,7 @@ export class ListarProyectosComponent implements OnInit {
             proyectoDuplicado.estado = proyectoDuplicado.estado === 'F' ? 'P' : proyectoDuplicado.estado;
             delete proyectoDuplicado.idProyecto
             /*delete proyectoDuplicado.id*/
-            this._proyectoService.postProyecto(proyectoDuplicado)
+            this._proyectoService.postDuplicarProyecto(proyectoDuplicado)
               .subscribe(
                 value => {
                   console.log(value);
@@ -315,5 +315,23 @@ export class ListarProyectosComponent implements OnInit {
 
   irANuevoProyecto(idProyecto: number) {
     this._route.navigate(['/nuevoproyecto', idProyecto]);
+  }
+
+  exportarProyecto(proyectoFila: any) {
+    import("xlsx").then(xlsx => {
+      const cabecera = [
+        ["Identificador", "Descripción", "Válido", "Características Cumplidas", "Observaciones"]
+      ];
+      let worksheet;
+      let nombreArchivo;
+      nombreArchivo = 'proyectoExportado';
+     // worksheet = xlsx.utils.json_to_sheet(requerimientos);
+     // xlsx.utils.sheet_add_aoa(worksheet, cabecera);
+     // xlsx.utils.sheet_add_json(worksheet, requerimientos, {origin: 'A2', skipHeader: true});
+
+      /*const workbook = {Sheets: {'Proyecto': worksheet}, SheetNames: ['Proyecto']};
+      const excelBuffer: any = xlsx.write(workbook, {bookType: 'xlsx', type: 'array'});
+      this.saveAsExcelFile(excelBuffer, nombreArchivo);*/
+    });
   }
 }
