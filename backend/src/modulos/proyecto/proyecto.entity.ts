@@ -9,7 +9,7 @@ import { UsuarioEntity } from '../usuario/usuario.entity';
 export class ProyectoEntity extends EntityGenerico {
     @Column({
         type: 'varchar',
-        length: 5,
+        length: 10,
         nullable: true
     })
     idProyecto: string;

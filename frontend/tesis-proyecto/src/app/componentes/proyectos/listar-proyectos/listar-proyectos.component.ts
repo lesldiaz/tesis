@@ -208,7 +208,7 @@ export class ListarProyectosComponent implements OnInit {
             proyectoDuplicado.estado = proyectoDuplicado.estado === 'F' ? 'P' : proyectoDuplicado.estado;
             delete proyectoDuplicado.idProyecto
             /*delete proyectoDuplicado.id*/
-            this._proyectoService.postProyecto(proyectoDuplicado)
+            this._proyectoService.postDuplicarProyecto(proyectoDuplicado)
               .subscribe(
                 value => {
                   console.log(value);

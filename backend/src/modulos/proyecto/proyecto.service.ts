@@ -39,7 +39,14 @@ export class ProyectoService extends ServiceGeneral<ProyectoEntity> {
                     proyecto.createdAt = moment().format().toString();
                     proyecto.updatedAt = moment().format().toString();
                     const proyectoCreado = await this._proyectoRepository.save(proyecto);
-                    proyectoCreado.idProyecto = FUNCIONES_GENERALES.generarIdProyecto(proyectoCreado);
+                    let proyectosUsuario = await this._proyectoRepository.count({
+                        where: {
+                            usuario: proyecto.usuario
+                        }
+                    });
+                    console.log(proyectosUsuario);
+                    proyectosUsuario+=1;
+                    proyectoCreado.idProyecto = FUNCIONES_GENERALES.generarIdProyecto(proyectosUsuario, proyectoCreado.tipoProyecto);
                     const respuestaEditar =
                         await this._proyectoRepository
                             .update(
@@ -62,7 +69,13 @@ export class ProyectoService extends ServiceGeneral<ProyectoEntity> {
                 objeto.createdAt = moment().format().toString();
                 objeto.updatedAt = moment().format().toString();
                 const proyectoCreado = await this._proyectoRepository.save(objeto);
-                proyectoCreado.idProyecto = FUNCIONES_GENERALES.generarIdProyecto(proyectoCreado);
+                let proyectosUsuario = await this._proyectoRepository.count({
+                    where: {
+                        usuario: objeto.usuario
+                    }
+                });
+                proyectosUsuario+=1;
+                proyectoCreado.idProyecto = FUNCIONES_GENERALES.generarIdProyecto(proyectosUsuario, proyectoCreado.tipoProyecto);
                 const respuestaEditar =
                     await this._proyectoRepository
                         .update(
@@ -103,14 +116,20 @@ export class ProyectoService extends ServiceGeneral<ProyectoEntity> {
             objeto.createdAt = moment().format().toString();
             objeto.updatedAt = moment().format().toString();
             delete objeto.id;
-            const proyectoCreado = await this._proyectoRepository.save(objeto);
-            proyectoCreado.idProyecto = FUNCIONES_GENERALES.generarIdProyecto(proyectoCreado);
+            const proyectoDuplicado = await this._proyectoRepository.save(objeto);
+            let proyectosUsuario = await this._proyectoRepository.count({
+                where: {
+                    usuario: objeto.usuario
+                }
+            });
+            proyectosUsuario+=1;
+            proyectoDuplicado.idProyecto = FUNCIONES_GENERALES.generarIdProyecto(proyectosUsuario, proyectoDuplicado.tipoProyecto);
             const respuestaEditar =
                 await this._proyectoRepository
                     .update(
-                        proyectoCreado.id,
+                        proyectoDuplicado.id,
                         {
-                            idProyecto: proyectoCreado.idProyecto
+                            idProyecto: proyectoDuplicado.idProyecto
                         });
             const actualizacionExitosa: boolean =
                 respuestaEditar.affected > 0;
@@ -118,7 +137,7 @@ export class ProyectoService extends ServiceGeneral<ProyectoEntity> {
                 if (participantes) {
                     participantes.forEach(
                         async participante => {
-                            participante.proyecto = proyectoCreado.id;
+                            participante.proyecto = proyectoDuplicado.id;
                             const partDuplicado = await this._participanteProyectoRepository.save(participante);
                         }
                     );
@@ -129,7 +148,7 @@ export class ProyectoService extends ServiceGeneral<ProyectoEntity> {
                             const resultado = requerimiento.resultado[0];
                             const propositos = requerimiento.proposito;
                             const bloques = requerimiento.requerimientoBloque;
-                            requerimiento.proyecto = proyectoCreado.id;
+                            requerimiento.proyecto = proyectoDuplicado.id;
                             const requerimientoDuplicado = await this._requerimientoRepository.save(requerimiento);
                             resultado.requerimiento = requerimientoDuplicado.id;
                             const resultadoDuplicado = await this._resultadoRepository.save(resultado);
@@ -137,25 +156,25 @@ export class ProyectoService extends ServiceGeneral<ProyectoEntity> {
                                 bloques.forEach(
                                     async bloqueR => {
                                         bloqueR.requerimiento = requerimientoDuplicado.id;
-                                        const bloque = await this._requerimientoBloqueRepository.save(bloqueR)
+                                        const bloque = await this._requerimientoBloqueRepository.save(bloqueR);
                                     });
                             }
                             if (propositos) {
                                 propositos.forEach(
                                     async propositoR => {
                                         propositoR.requerimiento = requerimientoDuplicado.id;
-                                        const proposito = await this._propositoRepository.save(propositoR)
+                                        const proposito = await this._propositoRepository.save(propositoR);
                                     });
                             }
                         });
                 }
-                return proyectoCreado;
+                return proyectoDuplicado;
             } else {
                 return new Promise((resolve, reject) =>
                     reject('Ocurrió un error al crear id del proyecto'),
                 );
             }
-            return proyectoCreado;
+            return proyectoDuplicado;
 
         } catch (e) {
             return new Promise((resolve, reject) =>
