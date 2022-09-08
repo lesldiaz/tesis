@@ -3,10 +3,11 @@ import * as XLSX from 'xlsx';
 import {RequerimientoInterface} from "./interfaces/requerimiento.interface";
 import {ExcelPlantillaResInterface} from "./interfaces/excel-plantilla-res.interface";
 import {ResultadoInterface} from "./interfaces/resultado.interface";
-import { ExcelPlantillaExportInterface } from "./interfaces/excel-plantilla-export.interface";
-import { RequerimientoBloqueInterface } from "./interfaces/requerimiento-bloque.interface";
-import { PropositoInterface } from "./interfaces/proposito.interface";
-import { BloqueInterface } from "./interfaces/bloque.interface";
+import {ExcelPlantillaExportInterface} from "./interfaces/excel-plantilla-export.interface";
+import {RequerimientoBloqueInterface} from "./interfaces/requerimiento-bloque.interface";
+import {PropositoInterface} from "./interfaces/proposito.interface";
+import {BloqueInterface} from "./interfaces/bloque.interface";
+import {RolInterface} from "./interfaces/rol.interface";
 
 export const FUNCIONES_GENERALES = {
   queryAObjeto: (objeto: any) => {
@@ -128,27 +129,36 @@ export const FUNCIONES_GENERALES = {
       const objetoExcel: ExcelPlantillaExportInterface = {};
       const resultado = (requerimiento.resultado as ResultadoInterface[])[0];
       objetoExcel.identificador = requerimiento.idRequerimiento as string;
-      objetoExcel.titulo = requerimiento.titulo;
+      objetoExcel.titulo = requerimiento.titulo ? requerimiento.titulo : "NINGUNO";
       objetoExcel.descripcion = requerimiento.descripcion;
       objetoExcel.prioridad = requerimiento.prioridad;
-      objetoExcel.rol = requerimiento.rol as number;
-      objetoExcel.padre = requerimiento.requerimientoPadre?.toString();
+      if (requerimiento.rol) {
+        objetoExcel.rol = (requerimiento.rol as RolInterface).id ? (requerimiento.rol as RolInterface)?.id?.toString() : "NINGUNO";
+      } else {
+        objetoExcel.rol = "NINGUNO";
+      }
+
+      objetoExcel.padre = requerimiento.requerimientoPadre ? requerimiento.requerimientoPadre.toString() : "NINGUNO";
       const bloques = requerimiento.requerimientoBloque as RequerimientoBloqueInterface[];
-      if (bloques.length > 0){
+      if (bloques.length > 0) {
         const bloquesExp: string[] = [];
         bloques.forEach(bloqueE => {
           const bloqueN = bloqueE.bloque as BloqueInterface;
           bloquesExp.push(bloqueN.nombre as string);
         });
         objetoExcel.bloque = bloquesExp.join(',');
+      } else {
+        objetoExcel.bloque = "NINGUNO";
       }
       const propositos = requerimiento.proposito as PropositoInterface[];
-      if (propositos.length > 0){
-          const propositosExp: string[] = [];
-          propositos.forEach(proposito => {
-            propositosExp.push(proposito.descripcion);
-          });
+      if (propositos.length > 0) {
+        const propositosExp: string[] = [];
+        propositos.forEach(proposito => {
+          propositosExp.push(proposito.descripcion);
+        });
         objetoExcel.proposito = propositosExp.join(';');
+      } else {
+        objetoExcel.proposito = "NINGUNO";
       }
       //caracteristicas
       objetoExcel.correcto = resultado.correcto;

@@ -303,6 +303,23 @@ export class ListarProyectosComponent implements OnInit {
     });
   }
 
+  exportExcelDoble(requerimientos: RequerimientoInterface[], proyecto: any, cabeceraR: string[][],cabeceraP: string[][], nombreArchivo: string) {
+    import("xlsx").then(xlsx => {
+      let worksheet;
+      let worksheet2;
+      worksheet = xlsx.utils.json_to_sheet(requerimientos);
+      xlsx.utils.sheet_add_aoa(worksheet, cabeceraR);
+      xlsx.utils.sheet_add_json(worksheet, requerimientos, {origin: 'A2', skipHeader: true});
+      worksheet2 = xlsx.utils.json_to_sheet(proyecto);
+      xlsx.utils.sheet_add_aoa(worksheet2, cabeceraP);
+      xlsx.utils.sheet_add_json(worksheet2, proyecto, {origin: 'A2', skipHeader: true});
+
+      const workbook = {Sheets: {'Resultado': worksheet, 'Proyecto': worksheet2}, SheetNames: ['Resultado', 'Proyecto']};
+      const excelBuffer: any = xlsx.write(workbook, {bookType: 'xlsx', type: 'array'});
+      this.saveAsExcelFile(excelBuffer, nombreArchivo);
+    });
+  }
+
   saveAsExcelFile(buffer: any, fileName: string): void {
     let EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
     let EXCEL_EXTENSION = '.xlsx';
@@ -330,9 +347,9 @@ export class ListarProyectosComponent implements OnInit {
         (proyectos: any) => {
           if (typeof proyectos.mensaje !== 'string') {
             requerimientos = proyectos.mensaje?.resultado;
-            console.log(requerimientos);
+            const infoProyecto = requerimientos[0].proyecto as ProyectoInterface;
             requerimientos = FUNCIONES_GENERALES.generarObjetoExport(requerimientos);
-            const cabecera = [
+            const cabeceraR = [
               [
                 "IDENTIFICADOR",
                 "TÍTULO",
@@ -356,8 +373,21 @@ export class ListarProyectosComponent implements OnInit {
                 "NECESARIO"
               ]
             ];
+            const cabeceraP = [
+              [
+                "TIPO DE PROYECTO",
+                "ESTA DUPLICADO",
+                "NOMBRE",
+                "DESCRIPCION",
+              ]
+            ];
+            delete infoProyecto.idProyecto;
+            delete infoProyecto.id;
+            delete infoProyecto.estado;
+            delete infoProyecto.updatedAt;
+            delete infoProyecto.createdAt;
             const nombreArchivo = 'exportarProyecto';
-            this.exportExcel(requerimientos, cabecera, nombreArchivo);
+            this.exportExcelDoble(requerimientos,[infoProyecto], cabeceraR, cabeceraP, nombreArchivo);
           }
         },
         (error: any) => {
@@ -365,20 +395,5 @@ export class ListarProyectosComponent implements OnInit {
         }
       );
     //HACER EXCEL
-    import("xlsx").then(xlsx => {
-      const cabecera = [
-        ["Identificador", "Descripción", "Válido", "Características Cumplidas", "Observaciones"]
-      ];
-      let worksheet;
-      let nombreArchivo;
-      nombreArchivo = 'proyectoExportado';
-     // worksheet = xlsx.utils.json_to_sheet(requerimientos);
-     // xlsx.utils.sheet_add_aoa(worksheet, cabecera);
-     // xlsx.utils.sheet_add_json(worksheet, requerimientos, {origin: 'A2', skipHeader: true});
-
-      /*const workbook = {Sheets: {'Proyecto': worksheet}, SheetNames: ['Proyecto']};
-      const excelBuffer: any = xlsx.write(workbook, {bookType: 'xlsx', type: 'array'});
-      this.saveAsExcelFile(excelBuffer, nombreArchivo);*/
-    });
   }
 }

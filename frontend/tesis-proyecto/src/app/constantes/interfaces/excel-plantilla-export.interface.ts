@@ -3,7 +3,7 @@ export interface ExcelPlantillaExportInterface {
   titulo?: string;
   descripcion?: string;
   prioridad?: number;
-  rol?: number;
+  rol?: string;
   padre?: string; //requerimientoPadre
   bloque?: string; //requerimientoBloque
   proposito?: string;
