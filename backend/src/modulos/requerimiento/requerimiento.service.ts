@@ -577,39 +577,29 @@ export class RequerimientoService extends ServiceGeneral<RequerimientoEntity> {
                 } else {
                     reqDeseablesNoCumplidos.push('Conforme');
                 }
-                const msjMinimo = 'El requerimiento cumple con las características mínimas para ser considerado bien formado.';
-                const msjMinimoNV = 'El requerimiento no cumple con las características mínimas para ser considerado bien formado.';
-                const msjImplementacion = 'Característica indispensable de implementación cumplida: Necesario.';
+                const msjMinimo = 'The requirement meets the minimum properties to be considered well formed.';
+                const msjMinimoNV = 'The requirement doesn\'t meet the minimum properties to be considered well formed.';
+/*                const msjImplementacion = 'Característica indispensable de implementación cumplida: Necesario.';
                 const msjImplementacionNV = 'Característica indispensable de implementación no cumplida: Necesario.';
                 const msjCaracteristicasInd = 'Características indispensables cumplidas: ';
                 const msjCaracteristicasIndNV = 'Características indispensables no cumplidas: ';
                 const msjCaracteristicasDes = 'Características deseables cumplidas: ';
-                const msjCaracteristicasDesNV = 'Características deseables no cumplidas: ';
+                const msjCaracteristicasDesNV = 'Características deseables no cumplidas: ';*/
 
-                const indispensables = reqIndispensablesCumplidos.length ? (msjCaracteristicasInd + reqIndispensablesCumplidos.join(', ') + saltoLinea) : '';
+               /* const indispensables = reqIndispensablesCumplidos.length ? (msjCaracteristicasInd + reqIndispensablesCumplidos.join(', ') + saltoLinea) : '';
                 const noIndispensables = reqIndispensablesNoCumplidos.length ? (msjCaracteristicasIndNV + reqIndispensablesNoCumplidos.join(', ') + saltoLinea) : '';
                 const implementacion = validacionImplementacion ? (msjImplementacion + saltoLinea) : (msjImplementacionNV + saltoLinea);
                 const deseables = reqDeseablesCumplidos.length ? (msjCaracteristicasDes + reqDeseablesCumplidos.join(', ') + saltoLinea) : '';
                 const noDeseables = reqDeseablesNoCumplidos.length ? (msjCaracteristicasDesNV + reqDeseablesNoCumplidos.join(', ') + saltoLinea) : '';
-                if (validacionMin) {
+               */ if (validacionMin) {
                     await this._requerimientoRepository.update(requerimientoARefinar.id, {
                         estado: 1
                     });
                     observacionesFinales =
-                        msjMinimo + saltoLinea
-                        + indispensables
-                        + noIndispensables
-                        + implementacion
-                        + deseables
-                        + noDeseables;
+                        msjMinimo;
                 } else {
                     observacionesFinales =
-                        msjMinimoNV + saltoLinea
-                        + indispensables
-                        + noIndispensables
-                        + implementacion
-                        + deseables
-                        + noDeseables;
+                        msjMinimoNV;
                 }
                 const observacion = {
                     observaciones: observacionesFinales
@@ -618,8 +608,8 @@ export class RequerimientoService extends ServiceGeneral<RequerimientoEntity> {
             });
             await this._proyectoRepository.update(idProyecto, {
                 estado: 'F'
-            })
-            return new Promise((resolve, reject) =>
+            });
+           return new Promise((resolve, reject) =>
                 resolve({mensaje: 'Completo', codigoRespuesta: 200}),
             );
         } catch (e) {
