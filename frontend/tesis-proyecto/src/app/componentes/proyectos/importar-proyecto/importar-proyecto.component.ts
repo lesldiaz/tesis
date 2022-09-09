@@ -2,6 +2,7 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {debounceTime} from 'rxjs';
+import { FUNCIONES_GENERALES } from 'src/app/constantes/funciones-generales';
 import {TipoProyectoInterface} from 'src/app/constantes/interfaces/tipo-proyecto.interface';
 import * as XLSX from 'xlsx';
 
@@ -137,7 +138,6 @@ export class ImportarProyectoComponent implements OnInit {
   // Formulario
   enviarFormularioProyecto() {
     if (this.formularioValido) {
-      this.proyectoACrearOEditar.emit(this.formularioProyecto.value);
       this.habilitarBotonSubmit.emit(true);
     } else {
       console.log('No esta controlado submit desde los inputs');
@@ -164,11 +164,13 @@ export class ImportarProyectoComponent implements OnInit {
 
       const dataRequerimiento = XLSX.utils.sheet_to_json(wsRequerimiento); // to get 2d array pass 2nd parameter as object {header: 1}
       const dataProyecto = XLSX.utils.sheet_to_json(wsProyecto); // to get 2d array pass 2nd parameter as object {header: 1}
-      console.log(dataProyecto);
       this.nroReqCargados = dataRequerimiento.length;
-      /*this.resultado = FUNCIONES_GENERALES.tratamientoDatosExcel(data as any);
-      this.nroReqCargados = this.resultado.length;
-      this.requerimientosCargadosC.emit(this.resultado);*/
+      const proyectoCargado = FUNCIONES_GENERALES.tratamientoDatosExcelProyecto(dataProyecto as any);
+      const requerimientosCargados = FUNCIONES_GENERALES.tratamientoDatosExcelRequerimiento(dataRequerimiento as any);
+      this.formularioProyecto.patchValue(proyectoCargado);
+      proyectoCargado.requerimientos = requerimientosCargados;
+      this.tipoProyectoSeleccionado = this.tiposProyecto.find(proyecto => proyecto.codigo === proyectoCargado.tipoProyecto);
+      this.proyectoACrearOEditar.emit(proyectoCargado);
     }
   }
 }

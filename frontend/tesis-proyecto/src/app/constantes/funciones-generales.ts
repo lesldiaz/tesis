@@ -8,6 +8,7 @@ import {RequerimientoBloqueInterface} from "./interfaces/requerimiento-bloque.in
 import {PropositoInterface} from "./interfaces/proposito.interface";
 import {BloqueInterface} from "./interfaces/bloque.interface";
 import {RolInterface} from "./interfaces/rol.interface";
+import {ProyectoInterface} from "./interfaces/proyecto.interface";
 
 export const FUNCIONES_GENERALES = {
   queryAObjeto: (objeto: any) => {
@@ -43,6 +44,50 @@ export const FUNCIONES_GENERALES = {
       }
     })
     return datosTratados;
+  },
+  tratamientoDatosExcelRequerimiento: (datos: object[]) => {
+    const datosTratados: ExcelPlantillaExportInterface[] = [];
+    datos.map((valor: any) => {
+      const requerimiento: ExcelPlantillaExportInterface = {}
+      if (valor['DESCRIPTION']) {
+        requerimiento.identificador = valor['IDENTIFIER'];
+        requerimiento.titulo = valor['TITLE'] !== 'NONE' ? valor['TITLE'] : undefined;
+        requerimiento.descripcion = valor['DESCRIPTION'];
+        requerimiento.prioridad = valor['PRIORITY'];
+        requerimiento.rol = valor['ROLE'] !== 'NONE' ? valor['ROLE'] : undefined;
+        requerimiento.padre = valor['PARENT'] !== 'NONE' ? valor['PARENT'] : undefined;
+        requerimiento.correcto = valor['CORRECT'] ? valor['CORRECT'] : 0;
+        requerimiento.apropiado = valor['APPROPRIATE'] ? valor['APPROPRIATE'] : 0;
+        requerimiento.completo = valor['COMPLETE'] ? valor['COMPLETE'] : 0;
+        requerimiento.verificable = valor['VERIFIABLE'] ? valor['VERIFIABLE'] : 0;
+        requerimiento.factible = valor['FEASIBLE'] ? valor['FEASIBLE'] : 0;
+        requerimiento.sinAmbiguedad = valor['UNAMBIGUOUS'] ? valor['UNAMBIGUOUS'] : 0;
+        requerimiento.singular = valor['SINGULAR'] ? valor['SINGULAR'] : 0;
+        requerimiento.trazable = valor['TRACEABLE'] ? valor['TRACEABLE'] : 0;
+        requerimiento.modificable = valor['MODIFIABLE'] ? valor['MODIFIABLE'] : 0;
+        requerimiento.consistente = valor['CONSISTENT'] ? valor['CONSISTENT'] : 0;
+        requerimiento.conforme = valor['CONFORMING'] ? valor['CONFORMING'] : 0;
+        requerimiento.necesario = valor['NECESSARY'] ? valor['NECESSARY'] : 0;
+        requerimiento.proposito = valor['PURPOSES'];
+        requerimiento.bloque = valor['BLOCKS'];
+        requerimiento.bloque !== 'NONE' ?
+          requerimiento.esReqBloque = 1 :
+          requerimiento.esReqBloque = 0;
+
+
+        datosTratados.push(requerimiento)
+      }
+    })
+    return datosTratados;
+  },
+  tratamientoDatosExcelProyecto: (datos: object[]) => {
+    const proyectoExcel = datos[0] as any;
+    const proyecto: ProyectoInterface = {};
+    proyecto.tipoProyecto = proyectoExcel['PROJECT TYPE'];
+    proyecto.duplicado = proyectoExcel['IS DUPLICATED'];
+    proyecto.nombre = proyectoExcel['NAME'];
+    proyecto.descripcion = proyectoExcel['DESCRIPTION'] !== 'NONE' ? proyectoExcel['DESCRIPTION'] : delete proyecto.descripcion;
+    return proyecto;
   },
   leerPlantillaRequerimientos: (event: any) => {
     const target: DataTransfer = <DataTransfer>(event.target);
@@ -116,7 +161,7 @@ export const FUNCIONES_GENERALES = {
       const numReqValidos = FUNCIONES_GENERALES.caracteristicasCumplidasCount(resultado);
       objetoExcel.idRequerimiento = requerimiento.idRequerimiento as string;
       objetoExcel.descripcion = requerimiento.descripcion;
-      objetoExcel.esValido = requerimiento.estado ? 'SI' : 'NO';
+      objetoExcel.esValido = requerimiento.estado ? 'YES' : 'NO';
       objetoExcel.caracteristicasCumplidas = numReqValidos
       objetoExcel.observaciones = resultado.observaciones;
       datosExcel.push(objetoExcel);
@@ -129,16 +174,16 @@ export const FUNCIONES_GENERALES = {
       const objetoExcel: ExcelPlantillaExportInterface = {};
       const resultado = (requerimiento.resultado as ResultadoInterface[])[0];
       objetoExcel.identificador = requerimiento.idRequerimiento as string;
-      objetoExcel.titulo = requerimiento.titulo ? requerimiento.titulo : "NINGUNO";
+      objetoExcel.titulo = requerimiento.titulo ? requerimiento.titulo : "NONE";
       objetoExcel.descripcion = requerimiento.descripcion;
       objetoExcel.prioridad = requerimiento.prioridad;
       if (requerimiento.rol) {
-        objetoExcel.rol = (requerimiento.rol as RolInterface).id ? (requerimiento.rol as RolInterface)?.id?.toString() : "NINGUNO";
+        objetoExcel.rol = (requerimiento.rol as RolInterface).id ? (requerimiento.rol as RolInterface)?.id?.toString() : "NONE";
       } else {
-        objetoExcel.rol = "NINGUNO";
+        objetoExcel.rol = "NONE";
       }
 
-      objetoExcel.padre = requerimiento.requerimientoPadre ? requerimiento.requerimientoPadre.toString() : "NINGUNO";
+      objetoExcel.padre = requerimiento.requerimientoPadre ? requerimiento.requerimientoPadre.toString() : "NONE";
       const bloques = requerimiento.requerimientoBloque as RequerimientoBloqueInterface[];
       if (bloques.length > 0) {
         const bloquesExp: string[] = [];
@@ -148,7 +193,7 @@ export const FUNCIONES_GENERALES = {
         });
         objetoExcel.bloque = bloquesExp.join(',');
       } else {
-        objetoExcel.bloque = "NINGUNO";
+        objetoExcel.bloque = "NONE";
       }
       const propositos = requerimiento.proposito as PropositoInterface[];
       if (propositos.length > 0) {
@@ -158,7 +203,7 @@ export const FUNCIONES_GENERALES = {
         });
         objetoExcel.proposito = propositosExp.join(';');
       } else {
-        objetoExcel.proposito = "NINGUNO";
+        objetoExcel.proposito = "NONE";
       }
       //caracteristicas
       objetoExcel.correcto = resultado.correcto;

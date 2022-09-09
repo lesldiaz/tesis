@@ -165,8 +165,7 @@ export class ListarProyectosComponent implements OnInit {
         respuestaModalCrear => {
           if (respuestaModalCrear) {
             respuestaModalCrear.usuario = this.usuarioActual.id;
-            respuestaModalCrear.tipoProyecto = respuestaModalCrear.tipoProyecto.codigo;
-            this._proyectoService.postProyecto(respuestaModalCrear)
+            this._proyectoService.postProyectoImportado(respuestaModalCrear)
               .subscribe(
                 value => {
                   if (this.proyectos && this.proyectos.length) {
@@ -177,10 +176,11 @@ export class ListarProyectosComponent implements OnInit {
                   } else {
                     this.proyectos.push(value);
                   }
-                  this._toasterService.success('Registro creado correctamente', 'Éxito');
+                  this._toasterService.success('Record imported successfully', 'Success');
                 },
                 error => {
-                  console.error('Error al crear proyecto', error);
+                  this._toasterService.error('Error importing project', 'Error');
+                  console.error('Error importing project', error);
                 }
               );
           }
@@ -350,7 +350,7 @@ export class ListarProyectosComponent implements OnInit {
       xlsx.utils.sheet_add_aoa(worksheet2, cabeceraP);
       xlsx.utils.sheet_add_json(worksheet2, proyecto, {origin: 'A2', skipHeader: true});
 
-      const workbook = {Sheets: {'Resultado': worksheet, 'Proyecto': worksheet2}, SheetNames: ['Resultado', 'Proyecto']};
+      const workbook = {Sheets: {'Output': worksheet, 'Project': worksheet2}, SheetNames: ['Output', 'Project']};
       const excelBuffer: any = xlsx.write(workbook, {bookType: 'xlsx', type: 'array'});
       this.saveAsExcelFile(excelBuffer, nombreArchivo);
     });
@@ -385,36 +385,37 @@ export class ListarProyectosComponent implements OnInit {
             requerimientos = proyectos.mensaje?.resultado;
             const infoProyecto = requerimientos[0].proyecto as ProyectoInterface;
             requerimientos = FUNCIONES_GENERALES.generarObjetoExport(requerimientos);
+            console.log(requerimientos)
             const cabeceraR = [
               [
-                "IDENTIFICADOR",
-                "TÍTULO",
-                "DESCRIPCIÓN",
-                "PRIORIDAD",
-                "ROL",
-                "PADRE",
-                "BLOQUES",
-                "PROPOSITOS",
-                "CORRECTO",
-                "APROPIADO",
-                "COMPLETO",
-                "VERIFICABLE",
-                "FACTIBLE",
-                "SIN AMBIGÜEDAD",
+                "IDENTIFIER",
+                "TITLE",
+                "DESCRIPTION",
+                "PRIORITY",
+                "ROLE",
+                "PARENT",
+                "BLOCKS",
+                "PURPOSES",
+                "CORRECT",
+                "APPROPRIATE",
+                "COMPLETE",
+                "VERIFIABLE",
+                "FEASIBLE",
+                "UNAMBIGUOUS",
                 "SINGULAR",
-                "TRAZABLE",
-                "MODIFICABLE",
-                "CONSISTENTE",
-                "CONFORME",
-                "NECESARIO"
+                "TRACEABLE",
+                "MODIFIABLE",
+                "CONSISTENT",
+                "CONFORMING",
+                "NECESSARY",
               ]
             ];
             const cabeceraP = [
               [
-                "TIPO DE PROYECTO",
-                "ESTA DUPLICADO",
-                "NOMBRE",
-                "DESCRIPCION",
+                "PROJECT TYPE",
+                "IS DUPLICATED",
+                "NAME",
+                "DESCRIPTION",
               ]
             ];
             delete infoProyecto.idProyecto;
@@ -422,7 +423,7 @@ export class ListarProyectosComponent implements OnInit {
             delete infoProyecto.estado;
             delete infoProyecto.updatedAt;
             delete infoProyecto.createdAt;
-            const nombreArchivo = 'exportarProyecto';
+            const nombreArchivo = 'ProjectExport';
             this.exportExcelDoble(requerimientos,[infoProyecto], cabeceraR, cabeceraP, nombreArchivo);
           }
         },

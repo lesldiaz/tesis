@@ -52,14 +52,13 @@ export class RequerimientoService extends ServiceGeneral<RequerimientoEntity> {
                     //guardar req esqueleto
                     const requerimientoCreado = await this._requerimientoRepository.save(requerimientoGuardar);
                     //generar id requerimiento
-                    requerimientoCreado.idRequerimiento =
-                        FUNCIONES_GENERALES
-                            .generarIdRequerimiento(
-                                {
-                                    id: requerimientoCreado.id,
-                                    tipoProyecto
-                                }
-                            );
+                    let requerimientosProyecto = await this._requerimientoRepository.count({
+                        where: {
+                            proyecto: idProyecto
+                        }
+                    });
+                    requerimientosProyecto+=1;
+                    requerimientoCreado.idRequerimiento = FUNCIONES_GENERALES.generarIdRequerimiento(requerimientosProyecto, tipoProyecto);
                     // editar padre aqui - pendiente
                     //editar idReq generado
                     let requerimientoEditar;
@@ -125,14 +124,14 @@ export class RequerimientoService extends ServiceGeneral<RequerimientoEntity> {
                     requerimiento.updatedAt = moment().format().toString();
                     const proyecto = await this._proyectoRepository.findOne(requerimiento.proyecto);
                     const requerimientoCreado = await this._requerimientoRepository.save(requerimiento);
-                    requerimientoCreado.idRequerimiento =
-                        FUNCIONES_GENERALES
-                            .generarIdRequerimiento(
-                                {
-                                    id: requerimientoCreado.id,
-                                    tipoProyecto: proyecto.tipoProyecto
-                                }
-                            );
+                    let requerimientosProyecto = await this._requerimientoRepository.count({
+                        where: {
+                            proyecto: requerimiento.proyecto
+                        }
+                    });
+                    requerimientosProyecto+=1;
+                    requerimientoCreado.idRequerimiento = FUNCIONES_GENERALES.generarIdRequerimiento(requerimientosProyecto, proyecto.tipoProyecto);
+
 
                     const respuestaEditar =
                         await this._requerimientoRepository
@@ -163,14 +162,14 @@ export class RequerimientoService extends ServiceGeneral<RequerimientoEntity> {
                 objeto.updatedAt = moment().format().toString();
                 const proyecto = await this._proyectoRepository.findOne(objeto.proyecto);
                 const requerimientoCreado = await this._requerimientoRepository.save(objeto);
-                requerimientoCreado.idRequerimiento =
-                    FUNCIONES_GENERALES
-                        .generarIdRequerimiento(
-                            {
-                                id: requerimientoCreado.id,
-                                tipoProyecto: proyecto.tipoProyecto
-                            }
-                        );
+                let requerimientosProyecto = await this._requerimientoRepository.count({
+                    where: {
+                        proyecto: objeto.proyecto
+                    }
+                });
+                requerimientosProyecto+=1;
+                requerimientoCreado.idRequerimiento = FUNCIONES_GENERALES.generarIdRequerimiento(requerimientosProyecto, proyecto.tipoProyecto);
+
                 const respuestaEditar =
                     await this._requerimientoRepository
                         .update(
@@ -213,14 +212,13 @@ export class RequerimientoService extends ServiceGeneral<RequerimientoEntity> {
             delete objeto.proposito;
             const proyecto = await this._proyectoRepository.findOne(objeto.proyecto);
             const requerimientoCreado = await this._requerimientoRepository.save(objeto);
-            requerimientoCreado.idRequerimiento =
-                FUNCIONES_GENERALES
-                    .generarIdRequerimiento(
-                        {
-                            id: requerimientoCreado.id,
-                            tipoProyecto: proyecto.tipoProyecto
-                        }
-                    );
+            let requerimientosProyecto = await this._requerimientoRepository.count({
+                where: {
+                    proyecto: objeto.proyecto
+                }
+            });
+            requerimientosProyecto+=1;
+            requerimientoCreado.idRequerimiento = FUNCIONES_GENERALES.generarIdRequerimiento(requerimientosProyecto, proyecto.tipoProyecto);
             const respuestaEditar =
                 await this._requerimientoRepository
                     .update(
@@ -315,14 +313,13 @@ export class RequerimientoService extends ServiceGeneral<RequerimientoEntity> {
             delete objeto['requerimientoBloque'];
             const proyecto = await this._proyectoRepository.findOne(objeto.proyecto);
             const requerimientoCreado = await this._requerimientoRepository.save(objeto);
-            requerimientoCreado.idRequerimiento =
-                FUNCIONES_GENERALES
-                    .generarIdRequerimiento(
-                        {
-                            id: requerimientoCreado.id,
-                            tipoProyecto: proyecto.tipoProyecto
-                        }
-                    );
+            let requerimientosProyecto = await this._requerimientoRepository.count({
+                where: {
+                    proyecto: objeto.proyecto
+                }
+            });
+            requerimientosProyecto+=1;
+            requerimientoCreado.idRequerimiento = FUNCIONES_GENERALES.generarIdRequerimiento(requerimientosProyecto, proyecto.tipoProyecto);
             const respuestaEditar =
                 await this._requerimientoRepository
                     .update(

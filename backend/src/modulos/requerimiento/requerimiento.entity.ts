@@ -21,7 +21,7 @@ export class RequerimientoEntity extends EntityGenerico {
 
     @Column({
         type: 'varchar',
-        length: 5,
+        length: 10,
         nullable: true
     })
     idRequerimiento?: string;
@@ -89,7 +89,7 @@ export class RequerimientoEntity extends EntityGenerico {
             cascade: true
         }
     )
-    resultado: ResultadoEntity[];
+    resultado?: ResultadoEntity[];
 
     @OneToMany(
         type => RequerimientoBloqueEntity,
@@ -124,10 +124,10 @@ export class RequerimientoEntity extends EntityGenerico {
     )*/
     @Column({
         name: 'requerimientoPadreID',
-        type: 'integer',
+        type: 'varchar',
         nullable: true
     })
-    requerimientoPadre?: number;
+    requerimientoPadre?: string;
 
     // fin relacion arbol
 

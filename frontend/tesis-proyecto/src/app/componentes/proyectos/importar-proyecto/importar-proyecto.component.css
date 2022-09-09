@@ -1,7 +1,6 @@
 .centrarlabel {
   text-align-last: initial;
   padding-top: 0.5rem;
-  font-size: medium;
 }
 
 .separador {
@@ -9,7 +8,6 @@
 }
 
 .boton-examinar {
-  font-size: medium;
   background: lightseagreen;
   color: white;
   border-radius: 0.3rem;
@@ -18,6 +16,5 @@
 }
 .nombre-archivo{
   text-align: left;
-  font-size: medium;
   padding-top: 0.5rem;
 }

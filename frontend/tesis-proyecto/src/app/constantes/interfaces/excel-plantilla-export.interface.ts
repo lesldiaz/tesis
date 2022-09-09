@@ -4,6 +4,7 @@ export interface ExcelPlantillaExportInterface {
   descripcion?: string;
   prioridad?: number;
   rol?: string;
+  esReqBloque?: 1 | 0; // 1 es de bloque 0 es normal de cliente
   padre?: string; //requerimientoPadre
   bloque?: string; //requerimientoBloque
   proposito?: string;

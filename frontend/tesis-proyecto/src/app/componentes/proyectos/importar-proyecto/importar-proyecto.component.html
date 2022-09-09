@@ -9,9 +9,6 @@
       <p class="nombre-archivo">{{nombreArchivo}}</p>
     </div>
   </div>
-  <div class="row">
-    <p>Uploaded requirements: {{nroReqCargados}}</p>
-  </div>
   <div class="row separador">
     <div class="col-sm-4 centrarlabel">
       <label>Project type</label>
@@ -23,6 +20,7 @@
         [options]="tiposProyecto"
         optionLabel="nombre"
         [disabled]="true"
+        [(ngModel)]="tipoProyectoSeleccionado"
       ></p-dropdown>
     </div>
   </div>
@@ -53,5 +51,8 @@
         aria-describedby="descripcionlHelp"
         [formControlName]="'descripcion'">
     </div>
+  </div>
+  <div class="row justify-content-start" style="margin-top: 1.5rem; margin-left: 0.1rem;">
+    Uploaded requirements: {{nroReqCargados}}
   </div>
 </form>

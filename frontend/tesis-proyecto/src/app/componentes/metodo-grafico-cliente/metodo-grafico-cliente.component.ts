@@ -16,7 +16,6 @@ export class MetodoGraficoClienteComponent implements OnInit {
   @Input() datosCliente: RequerimientoInterface[] | undefined;
   roles: RolInterface[] = [];
   requerimientoSeleccionado: RequerimientoInterface | undefined;
-  requerimientosPadre: RequerimientoInterface[] = [];
   rolSeleccionado: RolInterface | any;
   identificador: any;
   idRequerimientosSeleccionado: number | undefined;
@@ -49,7 +48,6 @@ export class MetodoGraficoClienteComponent implements OnInit {
         }
       );
     this.datos = this.datosCliente as RequerimientoInterface[];
-    this.requerimientosPadre = this.datosCliente as RequerimientoInterface[];
   }
 
   mostrarPostIt(event: any) {
@@ -68,7 +66,7 @@ export class MetodoGraficoClienteComponent implements OnInit {
         rol: this.rolSeleccionado, //comprobar si es id o string nuevo
         prioridad: this.prioridad,
         descripcion: this.description.value,
-        requerimientoPadre: this.reqPadreSeleccionado as number,
+        requerimientoPadre: this.reqPadreSeleccionado as string,
         proposito: this.posit[0],
         proyecto: this.idProyecto as number,
       };
@@ -157,7 +155,7 @@ export class MetodoGraficoClienteComponent implements OnInit {
       rol: this.rolSeleccionado, //comprobar si es id o string nuevo
       prioridad: this.prioridad,
       descripcion: this.description.value,
-      requerimientoPadre: this.reqPadreSeleccionado as number,
+      requerimientoPadre: this.reqPadreSeleccionado as string,
       proposito: this.posit[1],
       proyecto: this.idProyecto as number,
     };
