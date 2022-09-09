@@ -1,6 +1,7 @@
 import {Component, OnChanges, OnInit} from '@angular/core';
 import {Chart} from 'chart.js';
 import {ProyectoService} from 'src/app/servicios/proyecto.service';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 
 
 @Component({
@@ -18,7 +19,7 @@ export class GraficosChartComponent implements OnInit {
     private readonly _proyectoService: ProyectoService
   ) {
     const criterioBusqueda = {
-      idProyecto: 8
+      idProyecto: 1
     };
     let getProyectos$ = this._proyectoService.getDatosInforme(criterioBusqueda);
     getProyectos$
@@ -39,17 +40,19 @@ export class GraficosChartComponent implements OnInit {
   mostrarGraficas(datos:any){
     this.ctx = document.getElementById('myChart');
     const myChart = new Chart(this.ctx, {
+      plugins: [ChartDataLabels],
       type: 'bar',
       data: {
         labels: ['Complete', 'Appropriate', 'Feasible', 'Verifiable', 'Correct'],
         datasets: [{
           label: 'Requirements',
           data: [
-            this.datos.minimos.completo,
-            this.datos.minimos.apropiado,
-            this.datos.minimos.factible,
-            this.datos.minimos.verificable,
-            this.datos.minimos.correcto
+            //this.datos.minimos.completo,
+            //this.datos.minimos.apropiado,
+            //this.datos.minimos.factible,
+            //this.datos.minimos.verificable,
+            //this.datos.minimos.correcto
+            20,15,20,5,10
           ],
           backgroundColor: [
             'rgba(255, 99, 132, 0.2)',
@@ -75,24 +78,44 @@ export class GraficosChartComponent implements OnInit {
           y: {
             beginAtZero: true
           }
+        },plugins: {
+        datalabels: {
+          /* anchor puede ser "start", "center" o "end" */
+          anchor: "end",
+          /* Podemos modificar el texto a mostrar */
+          formatter: (dato) => dato ,
+          /* Color del texto */
+          color: "black",
+
+
+          /* Formato de la fuente,*/
+          font: {
+            family: '"Arvo", serif',
+            size: 12,
+            weight: "bold",
+          }
+
         }
+      },
       }
     });
 
     this.ct2 = document.getElementById('myChart2');
     const myChart2 = new Chart(this.ct2, {
+      plugins: [ChartDataLabels],
       type: 'bar',
       data: {
-        labels: ['unambiguous', 'Singular', 'Traceable', 'Modifiable', 'Consistent'],
+        labels: ['Unambiguous', 'Singular', 'Traceable', 'Modifiable', 'Consistent','Conforming'],
         datasets: [{
           label: 'Requirements',
           data: [
-            this.datos.deseables.sinAmbiguedad,
-            this.datos.deseables.singular,
-            this.datos.deseables.trazable,
-            this.datos.deseables.modificable,
-            this.datos.deseables.consistente,
+            //this.datos.deseables.sinAmbiguedad,
+            //this.datos.deseables.singular,
+            //this.datos.deseables.trazable,
+            //this.datos.deseables.modificable,
+            //this.datos.deseables.consistente,
             //this.datos.deseables.conforme,
+            10,20,30,5,5,10
           ],
           backgroundColor: [
             'rgba(255, 99, 132, 0.2)',
@@ -118,11 +141,32 @@ export class GraficosChartComponent implements OnInit {
           y: {
             beginAtZero: true
           }
-        }
+        },plugins: {
+          datalabels: {
+            /* anchor puede ser "start", "center" o "end" */
+            anchor: "end",
+            /* Podemos modificar el texto a mostrar */
+            formatter: (dato) => dato ,
+            /* Color del texto */
+            color: "black",
+
+
+            /* Formato de la fuente,*/
+            font: {
+              family: '"Arvo", serif',
+              size: 12,
+              weight: "bold",
+            }
+
+          }
+        },
       }
     });
+
     this.ct3 = document.getElementById('myPie');
+
     const myChart3 = new Chart(this.ct3, {
+      plugins: [ChartDataLabels],
       type: 'pie',
       data: {
         labels: [
@@ -132,8 +176,9 @@ export class GraficosChartComponent implements OnInit {
         datasets: [{
           label: 'My First Dataset',
           data: [
-            this.datos.bienFormados,
-            this.datos.noBienFormados
+            //this.datos.bienFormados,
+            //this.datos.noBienFormados
+            10,70
             ],
           backgroundColor: [
             'rgb(54, 162, 235)',
@@ -142,6 +187,27 @@ export class GraficosChartComponent implements OnInit {
           hoverOffset: 4
         }]
       },
+      options:{
+        plugins: {
+          datalabels: {
+            /* anchor puede ser "start", "center" o "end" */
+            anchor: "center",
+            /* Podemos modificar el texto a mostrar */
+            formatter: (dato) => dato ,
+            /* Color del texto */
+            color: "black",
+
+
+            /* Formato de la fuente,*/
+            font: {
+              family: '"Arvo", serif',
+              size: 28,
+              weight: "bold",
+            }
+
+          }
+        },
+      }
     });
   }
 
