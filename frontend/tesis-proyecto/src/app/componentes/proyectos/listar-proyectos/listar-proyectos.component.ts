@@ -18,6 +18,7 @@ import {
   ModalDuplicarProyectoComponent
 } from 'src/app/modales/modal-duplicar-proyecto/modal-duplicar-proyecto.component';
 import {ModalEliminarComponent} from 'src/app/modales/modal-eliminar/modal-eliminar.component';
+import { ModalExportarProyectoComponent } from 'src/app/modales/modal-exportar-proyecto/modal-exportar-proyecto.component';
 import {AuthService} from 'src/app/servicios/auth.service';
 import {ProyectoService} from 'src/app/servicios/proyecto.service';
 import { RequerimientoService } from 'src/app/servicios/requerimiento.service';
@@ -122,6 +123,41 @@ export class ListarProyectosComponent implements OnInit {
   abrirModalCrear() {
     const modalCrear = this._dialog.open(ModalCrearEditarProyectoComponent, {
       width: '600px',
+      data: false
+    });
+    modalCrear.afterClosed()
+      .subscribe(
+        respuestaModalCrear => {
+          if (respuestaModalCrear) {
+            respuestaModalCrear.usuario = this.usuarioActual.id;
+            respuestaModalCrear.tipoProyecto = respuestaModalCrear.tipoProyecto.codigo;
+            this._proyectoService.postProyecto(respuestaModalCrear)
+              .subscribe(
+                value => {
+                  if (this.proyectos && this.proyectos.length) {
+                    this.proyectos.unshift(value);
+                    if (this.proyectos.length > 5) {
+                      this.proyectos.pop();
+                    }
+                  } else {
+                    this.proyectos.push(value);
+                  }
+                  this._toasterService.success('Registro creado correctamente', 'Éxito');
+                },
+                error => {
+                  console.error('Error al crear proyecto', error);
+                }
+              );
+          }
+        },
+        error => {
+          console.error('Error despues de cerrar modal', error);
+        }
+      );
+  }
+  abrirModalImportar() {
+    const modalCrear = this._dialog.open(ModalExportarProyectoComponent, {
+      width: '500px',
       data: false
     });
     modalCrear.afterClosed()
@@ -394,6 +430,5 @@ export class ListarProyectosComponent implements OnInit {
           console.error(error);
         }
       );
-    //HACER EXCEL
   }
 }
