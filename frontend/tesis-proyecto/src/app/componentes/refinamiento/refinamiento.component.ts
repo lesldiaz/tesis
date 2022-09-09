@@ -1,10 +1,12 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, EventEmitter, Output} from '@angular/core';
 import {ToastrService} from 'ngx-toastr';
 import {RequerimientoInterface} from 'src/app/constantes/interfaces/requerimiento.interface';
 import {ResultadoInterface} from 'src/app/constantes/interfaces/resultado.interface';
 import {ProyectoService} from 'src/app/servicios/proyecto.service';
 import {RequerimientoService} from 'src/app/servicios/requerimiento.service';
 import {ResultadoService} from 'src/app/servicios/resultado.service';
+import { ThemePalette } from '@angular/material/core';
+import { ProgressBarMode } from '@angular/material/progress-bar';
 
 @Component({
   selector: 'app-refinamiento',
@@ -17,6 +19,15 @@ export class RefinamientoComponent implements OnInit {
   requerimientosCliente: RequerimientoInterface[] = [];
   requerimientosGamePlay: RequerimientoInterface[] = [];
   @Input() idProyecto: number | undefined;
+  @Output()
+  selectedIndexChange: EventEmitter<number> | undefined
+
+  color: ThemePalette = 'primary';
+  mode: ProgressBarMode = 'determinate';
+  valor = 50;
+  bufferValue = 75;
+  bnd:any;
+
   display: boolean = false;
   dialogHeader: string = '';
   dialogContent: string = '';
@@ -183,6 +194,12 @@ export class RefinamientoComponent implements OnInit {
           console.error(error);
         }
       );
+    this.bnd = document.getElementById("bar");
+    if(this.tipoProyecto==='C'){
+      this.bnd.style.display="none";
+    }else{
+      this.bnd.style.display="";
+    }
   }
 
   showDialog(header: string, tipo: 'C' | 'J' = 'C') {
@@ -490,4 +507,15 @@ export class RefinamientoComponent implements OnInit {
       }
     }
   }
+  myTabSelectedIndexChange(index: number) {
+    console.log('Selected index: ' + index);
+    if(index===1){
+      this.valor=100;
+      this.color='accent';
+    }else{
+      this.valor=50;
+      this.color='primary';
+    }
+  }
+
 }

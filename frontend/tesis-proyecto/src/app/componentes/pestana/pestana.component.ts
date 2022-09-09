@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
 import {RequerimientoService} from 'src/app/servicios/requerimiento.service';
 import { ThemePalette } from '@angular/material/core';
 import { ProgressBarMode } from '@angular/material/progress-bar';
@@ -11,14 +11,17 @@ import { ProgressBarMode } from '@angular/material/progress-bar';
 export class PestanaComponent implements OnInit {
   @Input() idProyecto: number | undefined;
   @Input() tipoProyecto: 'C' | 'J' = 'C';
+  @Output()
+  selectedIndexChange: EventEmitter<number> | undefined
   datosBloque: any[] = [];
   datosCliente: any[] = [];
   bandera = true;
 
   color: ThemePalette = 'primary';
   mode: ProgressBarMode = 'determinate';
-  value = 50;
+  valor = 50;
   bufferValue = 75;
+  bnd:any;
 
   constructor(
     private readonly _requerimientoService: RequerimientoService,
@@ -51,5 +54,22 @@ export class PestanaComponent implements OnInit {
         }
       );
     this.bandera = this.tipoProyecto === 'C' ? true : false;
+    this.bnd = document.getElementById("bar");
+    if(this.bandera===false){
+      this.bnd.style.display="";
+    }else{
+      this.bnd.style.display="none";
+    }
   }
+  myTabSelectedIndexChange(index: number) {
+    console.log('Selected index: ' + index);
+    if(index===1){
+      this.valor=100;
+      this.color='accent';
+    }else{
+      this.valor=50;
+      this.color='primary';
+    }
+  }
+
 }

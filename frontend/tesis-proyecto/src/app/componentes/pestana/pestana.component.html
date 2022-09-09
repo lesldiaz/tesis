@@ -1,21 +1,19 @@
-<div>
-  <h2 class="example-h2">Result</h2>
-
+<div id="bar">
   <section class="example-section">
     <mat-progress-bar
       class="example-margin"
       [color]="color"
       [mode]="mode"
-      [value]="value"
+      [value]="valor"
       [bufferValue]="bufferValue">
     </mat-progress-bar>
   </section>
 </div>
-<mat-tab-group animationDuration="0ms" mat-align-tabs="center">
+<mat-tab-group animationDuration="0ms" mat-align-tabs="center" (selectedIndexChange)="myTabSelectedIndexChange($event)">
     <mat-tab label="Cliente">
       <app-metodo-grafico-cliente [idProyecto]="idProyecto" [datosCliente]="datosCliente"></app-metodo-grafico-cliente>
     </mat-tab>
-    <mat-tab label="GamePlay" [disabled]="bandera">
+    <mat-tab label="GamePlay" [disabled]="bandera" >
       <app-metodo-grafico-juego [idProyecto]="idProyecto" [datosBloque]="datosBloque"></app-metodo-grafico-juego>
     </mat-tab>
 </mat-tab-group>
