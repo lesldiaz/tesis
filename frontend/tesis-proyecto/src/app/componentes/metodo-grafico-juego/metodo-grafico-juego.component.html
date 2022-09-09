@@ -1,4 +1,4 @@
-<div class="container">
+<div id="met-game-graph" class="container">
   <form #forma="ngForm">
     <hr/>
     <div class="row">
@@ -77,6 +77,7 @@
     <div style="margin-top: 1rem"></div>
     <div class="row">
       <b class="text-center">Bloques Gameplay</b>
+      <small class="text-center"><i>Haga click sobre el bloque para seleccionarlo</i></small>
       <div style="margin-top: 1rem"></div>
       <div>
         <app-bloques-game-play (devuelveDatos)="mostrarPostIt($event)" [bnd]="bandera"
