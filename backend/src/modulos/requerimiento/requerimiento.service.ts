@@ -42,6 +42,13 @@ export class RequerimientoService extends ServiceGeneral<RequerimientoEntity> {
                 const idProyecto = (datosAGuardar[0] as any).proyecto;
                 const proyecto = await this._proyectoRepository.findOne(idProyecto);
                 const tipoProyecto = proyecto.tipoProyecto;
+                let contador;
+                let requerimientosProyecto = await this._requerimientoRepository.count({
+                    where: {
+                        proyecto: idProyecto
+                    }
+                });
+                contador = requerimientosProyecto + 1;
                 datosAGuardar.forEach(async requerimiento => {
                     const requerimientoGuardar = {
                         descripcion: requerimiento.descripcion,
@@ -51,14 +58,10 @@ export class RequerimientoService extends ServiceGeneral<RequerimientoEntity> {
                     }
                     //guardar req esqueleto
                     const requerimientoCreado = await this._requerimientoRepository.save(requerimientoGuardar);
+                    console.log(contador);
                     //generar id requerimiento
-                    let requerimientosProyecto = await this._requerimientoRepository.count({
-                        where: {
-                            proyecto: idProyecto
-                        }
-                    });
-                    requerimientosProyecto+=1;
-                    requerimientoCreado.idRequerimiento = FUNCIONES_GENERALES.generarIdRequerimiento(requerimientosProyecto, tipoProyecto);
+                    requerimientoCreado.idRequerimiento = FUNCIONES_GENERALES.generarIdRequerimiento(contador, tipoProyecto);
+                    contador = contador + 1;
                     // editar padre aqui - pendiente
                     //editar idReq generado
                     let requerimientoEditar;
@@ -101,7 +104,6 @@ export class RequerimientoService extends ServiceGeneral<RequerimientoEntity> {
                         necesario: requerimiento.necesario,
                     }
                     const resultadoRequerimiento = await this._resultadoRepository.save(resultado);
-                    return requerimientoCreado;
                 });
                 //sin prioridad-padre-tiene-bloquesgp
                 return new Promise((resolve, reject) =>
