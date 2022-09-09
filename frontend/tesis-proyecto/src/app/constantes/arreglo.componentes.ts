@@ -39,6 +39,7 @@ import { TablaReqBloqueComponent } from '../componentes/tabla-req-bloque/tabla-r
 import { TablaReqGamePlayComponent } from '../componentes/tabla-req-game-play/tabla-req-game-play.component';
 import { PerfilUsuarioComponent } from '../componentes/perfil-usuario/perfil-usuario.component';
 import { GraficosChartComponent } from '../componentes/graficos-chart/graficos-chart.component';
+import { ImportarProyectoComponent } from '../componentes/proyectos/importar-proyecto/importar-proyecto.component';
 
 export const ARREGLO_COMPONENTES = [
   GraficosChartComponent,
@@ -76,4 +77,5 @@ export const ARREGLO_COMPONENTES = [
   TablaReqBloqueComponent,
   TablaReqGamePlayComponent,
   PerfilUsuarioComponent,
+  ImportarProyectoComponent,
 ];
