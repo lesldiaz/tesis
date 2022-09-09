@@ -1,0 +1,22 @@
+.centrarlabel {
+  text-align-last: initial;
+  padding-top: 0.5rem;
+  font-size: medium;
+}
+
+.separador {
+  margin-bottom: 1rem;
+}
+
+.boton-examinar {
+  font-size: medium;
+  background: cadetblue;
+  color: white;
+  border-radius: 0.3rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  margin-left: 1rem;
+  width: 30%;
+}

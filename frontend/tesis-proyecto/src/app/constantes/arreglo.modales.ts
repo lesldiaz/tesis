@@ -10,6 +10,7 @@ import {
   ModalCrearEditarProyectoComponent
 } from '../modales/modal-crear-editar-proyecto/modal-crear-editar-proyecto.component';
 import {ModalDuplicarProyectoComponent} from '../modales/modal-duplicar-proyecto/modal-duplicar-proyecto.component';
+import { ModalExportarProyectoComponent } from '../modales/modal-exportar-proyecto/modal-exportar-proyecto.component';
 
 export const ARREGLO_MODALES = [
   ModalCrearEditarUsuarioComponent,
@@ -17,5 +18,6 @@ export const ARREGLO_MODALES = [
   ModalCrearEditarParticipanteComponent,
   ModalEliminarComponent,
   ModalCrearEditarProyectoComponent,
+  ModalExportarProyectoComponent,
   ModalDuplicarProyectoComponent,
 ];
