@@ -100,6 +100,7 @@ export class MetodoGraficoJuegoComponent implements OnInit {
       this.blockEnvio.push(block.bloque);
     }
     this.bandera = false;
+    document.location.href ='nuevoproyecto/'+this.idProyecto+'#met-game-graph';
   }
 
   actualizar() {

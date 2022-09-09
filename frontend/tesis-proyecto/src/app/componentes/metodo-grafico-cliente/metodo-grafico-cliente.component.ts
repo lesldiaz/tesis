@@ -145,6 +145,8 @@ export class MetodoGraficoClienteComponent implements OnInit {
       }
     }
     this.bandera = false;
+
+    document.location.href ='nuevoproyecto/'+this.idProyecto+'#met-client-graph';
   }
 
   actualizar() {
