@@ -16,6 +16,10 @@ export interface RequerimientoInterface {
   proposito?: PropositoInterface[];
   requerimientoBloque?: RequerimientoBloqueInterface[];
   proyecto?: ProyectoInterface | number;
-  resultado?: ResultadoInterface;
+  resultado?: ResultadoInterface | ResultadoInterface[];
   requerimientoPadre?: string;
+  necesarios?: string;
+  noNecesarios?: string;
+  deseables?: string;
+  noDeseables?: string;
 }
