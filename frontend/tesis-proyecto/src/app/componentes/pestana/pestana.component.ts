@@ -1,5 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {RequerimientoService} from 'src/app/servicios/requerimiento.service';
+import { ThemePalette } from '@angular/material/core';
+import { ProgressBarMode } from '@angular/material/progress-bar';
 
 @Component({
   selector: 'app-pestana',
@@ -12,6 +14,11 @@ export class PestanaComponent implements OnInit {
   datosBloque: any[] = [];
   datosCliente: any[] = [];
   bandera = true;
+
+  color: ThemePalette = 'primary';
+  mode: ProgressBarMode = 'determinate';
+  value = 50;
+  bufferValue = 75;
 
   constructor(
     private readonly _requerimientoService: RequerimientoService,
