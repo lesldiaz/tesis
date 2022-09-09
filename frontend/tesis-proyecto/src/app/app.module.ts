@@ -42,6 +42,7 @@ import {InputTextModule} from 'primeng/inputtext';
 import {MatCardModule} from '@angular/material/card';
 import { MetodologiaComponent } from './componentes/metodologia/metodologia.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -90,7 +91,7 @@ import { MetodologiaComponent } from './componentes/metodologia/metodologia.comp
     NgChartsModule,
     MatTooltipModule,
     InputTextModule,
-    MatCardModule
+    MatCardModule,
   ],
   providers: [
     {

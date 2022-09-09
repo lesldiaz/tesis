@@ -1,8 +1,8 @@
 <p-confirmDialog></p-confirmDialog>
 <div>
   <div>
-    <mat-grid-list cols="5" rowHeight="25px">
-      <div  *ngFor="let tile of tiles" id='{{tile.id}}'>
+    <mat-grid-list cols="5" rowHeight="30px" >
+      <div  *ngFor="let tile of tiles" id='{{tile.id}}' >
         <mat-grid-tile
           [colspan]="tile.cols"
           [rowspan]="tile.rows"
