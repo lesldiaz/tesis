@@ -41,6 +41,8 @@ import {NgChartsModule} from 'ng2-charts';
 import {InputTextModule} from 'primeng/inputtext';
 import {MatCardModule} from '@angular/material/card';
 import { MetodologiaComponent } from './componentes/metodologia/metodologia.component';
+import { YouTubePlayerModule } from "@angular/youtube-player";
+import { ManualUsuarioComponent } from './componentes/manual-usuario/manual-usuario.component';
 
 
 @NgModule({
@@ -51,6 +53,7 @@ import { MetodologiaComponent } from './componentes/metodologia/metodologia.comp
     ...ARREGLO_PIPES,
     ...ARREGLO_MODALES,
     MetodologiaComponent,
+    ManualUsuarioComponent,
   ],
   imports: [
     NgbModule,
@@ -92,6 +95,7 @@ import { MetodologiaComponent } from './componentes/metodologia/metodologia.comp
     MatTooltipModule,
     InputTextModule,
     MatCardModule,
+    YouTubePlayerModule,
   ],
   providers: [
     {
