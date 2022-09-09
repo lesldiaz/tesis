@@ -47,6 +47,74 @@ export class ResultadoComponent implements OnInit {
           if (typeof proyectos.mensaje !== 'string') {
             this.requerimientos = proyectos.mensaje.resultado;
             this.requerimientos.forEach(requerimiento => {
+              console.log(requerimiento);
+              const resultados = (requerimiento.resultado as ResultadoInterface[])[0];
+              const validacionImplementacion = resultados?.necesario;
+              const reqIndispensablesCumplidos: string[] = [];
+              const reqIndispensablesNoCumplidos: string[] = [];
+              if (resultados?.correcto) {
+                reqIndispensablesCumplidos.push('Correcto');
+              } else {
+                reqIndispensablesNoCumplidos.push('Correcto');
+              }
+              if (resultados?.apropiado) {
+                reqIndispensablesCumplidos.push('Apropiado');
+              } else {
+                reqIndispensablesNoCumplidos.push('Apropiado');
+              }
+              if (resultados?.completo) {
+                reqIndispensablesCumplidos.push('Completo');
+              } else {
+                reqIndispensablesNoCumplidos.push('Completo');
+              }
+              if (resultados?.verificable) {
+                reqIndispensablesCumplidos.push('Verificable');
+              } else {
+                reqIndispensablesNoCumplidos.push('Verificable');
+              }
+              if (resultados?.factible) {
+                reqIndispensablesCumplidos.push('Factible');
+              } else {
+                reqIndispensablesNoCumplidos.push('Factible');
+              }
+              const reqDeseablesCumplidos: string[] = [];
+              const reqDeseablesNoCumplidos: string[] = [];
+              if (resultados?.sinAmbiguedad) {
+                reqDeseablesCumplidos.push('Sin Ambigüedad');
+              } else {
+                reqDeseablesNoCumplidos.push('Sin Ambigüedad');
+              }
+              if (resultados?.singular) {
+                reqDeseablesCumplidos.push('Singular');
+              } else {
+                reqDeseablesNoCumplidos.push('Singular');
+              }
+              if (resultados?.trazable) {
+                reqDeseablesCumplidos.push('Trazabilidad');
+              } else {
+                reqDeseablesNoCumplidos.push('Trazabilidad');
+              }
+              if (resultados?.modificable) {
+                reqDeseablesCumplidos.push('Modificable');
+              } else {
+                reqDeseablesNoCumplidos.push('Modificable');
+              }
+              if (resultados?.consistente) {
+                reqDeseablesCumplidos.push('Consistente');
+              } else {
+                reqDeseablesNoCumplidos.push('Consistente');
+              }
+              if (resultados?.conforme) {
+                reqDeseablesCumplidos.push('Conforme');
+              } else {
+                reqDeseablesNoCumplidos.push('Conforme');
+              }
+
+              requerimiento.necesarios = reqIndispensablesCumplidos.join(', ');
+              requerimiento.noNecesarios = reqIndispensablesNoCumplidos.join(', ');
+              requerimiento.deseables = reqDeseablesCumplidos.join(', ');
+              requerimiento.noDeseables = reqDeseablesNoCumplidos.join(', ');
+              console.log(requerimiento);
               if (requerimiento.esReqBloque) {
                 this.requerimientosGamePlay.push(requerimiento);
               } else {

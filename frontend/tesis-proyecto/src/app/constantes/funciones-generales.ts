@@ -164,6 +164,11 @@ export const FUNCIONES_GENERALES = {
       objetoExcel.esValido = requerimiento.estado ? 'YES' : 'NO';
       objetoExcel.caracteristicasCumplidas = numReqValidos
       objetoExcel.observaciones = resultado.observaciones;
+      objetoExcel.necesarios = requerimiento.necesarios;
+      objetoExcel.noNecesarios = requerimiento.noNecesarios;
+      objetoExcel.deseables = requerimiento.deseables;
+      objetoExcel.noDeseables = requerimiento.noDeseables;
+
       datosExcel.push(objetoExcel);
     });
     return datosExcel;
