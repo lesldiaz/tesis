@@ -1,15 +1,10 @@
-<h1 mat-dialog-title class="text-center">Exportar Proyecto</h1>
+<h1 mat-dialog-title class="text-center">IMPORT PROJECT</h1>
 <div mat-dialog-content>
   <app-importar-proyecto (proyectoACrearOEditar)="recibirProyecto($event)"
                                  (habilitarBotonSubmit)="habilitarBoton($event)"></app-importar-proyecto>
 </div>
-<div mat-dialog-actions>
-  <div class="col-sm-8"></div>
-  <div class="col-sm-2">
-    <button class="btn btn-info texto-blanco" [disabled]="!habilitarBotonSubmit" (click)="enviarDatos()">Aceptar
+<div mat-dialog-actions class="justify-content-end">
+    <button class="btn btn-info texto-blanco" [disabled]="!habilitarBotonSubmit" (click)="enviarDatos()">Accept
     </button>
-  </div>
-  <div class="col-sm-2">
-    <button class="btn btn-outline-dark" (click)="cancelarModal()">Cancelar</button>
-  </div>
+    <button class="btn btn-outline-dark" style="margin-left: 0.5rem" (click)="cancelarModal()">Cancel</button>
 </div>

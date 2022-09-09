@@ -1,13 +1,20 @@
 <form [formGroup]="formularioProyecto" (ngSubmit)="enviarFormularioProyecto()" novalidate>
+  <div class="row" style="margin-bottom: 1rem">
+    <div class="col-4">
+      <label  class="boton-examinar" for="file-upload">Choose a file
+        <input hidden id="file-upload" type="file" (change)="onFileChange($event)"/>
+      </label>
+    </div>
+    <div class="col-8">
+      <p class="nombre-archivo">{{nombreArchivo}}</p>
+    </div>
+  </div>
   <div class="row">
-    <label  class="boton-examinar" for="file-upload">Elige un archivo
-      <input hidden id="file-upload" type="file" (change)="onFileChange($event)"/>
-    </label>
-
+    <p>Uploaded requirements: {{nroReqCargados}}</p>
   </div>
   <div class="row separador">
     <div class="col-sm-4 centrarlabel">
-      <label>Tipo de proyecto</label>
+      <label>Project type</label>
     </div>
     <div class="col-sm-8">
       <p-dropdown
@@ -21,7 +28,7 @@
   </div>
   <div class="row">
     <div class="col-sm-4 centrarlabel">
-      <label for="nombre">Nombre</label>
+      <label for="nombre">Project name</label>
     </div>
     <div class="col-sm-8">
       <input
@@ -35,7 +42,7 @@
   </div>
   <div class="row" style="margin-top: 1rem">
     <div class="col-sm-4 centrarlabel">
-      <label for="descripcion">Descripción</label>
+      <label for="descripcion">Project description</label>
     </div>
     <div class="col-sm-8">
       <input

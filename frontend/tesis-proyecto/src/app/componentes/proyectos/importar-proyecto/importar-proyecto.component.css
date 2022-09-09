@@ -10,13 +10,14 @@
 
 .boton-examinar {
   font-size: medium;
-  background: cadetblue;
+  background: lightseagreen;
   color: white;
   border-radius: 0.3rem;
+  padding: 0.5rem;
+  cursor: pointer;
+}
+.nombre-archivo{
+  text-align: left;
+  font-size: medium;
   padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-  margin-left: 1rem;
-  width: 30%;
 }
