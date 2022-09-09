@@ -1,6 +1,6 @@
 .tarjeta {
   background-color: white;
-  border: #17a2b8 0.1rem solid;
+  border: #183059 0.1rem solid;
   color: #183059;
   border-radius: 1rem;
   align-content: center;
@@ -10,6 +10,7 @@
   margin-top: 1.5rem;
   margin-bottom: 0.5rem;
   height: 100%;
+  box-shadow: 2px 2px 5px #999;
 }
 
 .tarjeta .imagen-tarjeta {
@@ -21,7 +22,6 @@
 }
 
 .tarjeta .titulo-tarjeta {
-  font-weight: bold;
   font-size: large;
 }
 

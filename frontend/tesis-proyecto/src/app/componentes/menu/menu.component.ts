@@ -11,7 +11,7 @@ import {CookieUsuarioService} from '../../servicios/cookie.service';
 })
 export class MenuComponent implements DoCheck  {
   usuarioActual: UsuarioInterface | undefined;
-  nombreUsuario = 'Invitado';
+  nombreUsuario = 'Guest';
 
   constructor(private readonly _authService: AuthService,
               private readonly _route: Router) {
@@ -26,7 +26,7 @@ export class MenuComponent implements DoCheck  {
 
   cerrarSesion() {
     this._authService.logout();
-    this.nombreUsuario = 'Invitado';
+    this.nombreUsuario = 'Guest';
     this._route.navigate(['login']);
   }
 

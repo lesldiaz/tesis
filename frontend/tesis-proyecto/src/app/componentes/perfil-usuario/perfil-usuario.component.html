@@ -14,7 +14,7 @@
                 class="boton-limpio"
                 #tooltip="matTooltip"
                 (click)="modalContrasena()"
-                matTooltip="Cambiar Contraseña"
+                matTooltip="Change password"
                 matTooltipPosition="right">
                 <i class="far fa-edit mb-5"></i>
               </button>
@@ -22,24 +22,16 @@
             </div>
             <div class="col-md-8">
               <div class="card-body p-4">
-                <h3>Información</h3>
+                <h3>Information</h3>
                 <hr class="mt-0 mb-4">
                 <div class="row pt-1">
                   <div class="col-12 mb-3">
-                    <h5>Nombre de Usuario</h5>
+                    <h5>Username</h5>
                     <p class="text-muted">{{usuarioActual?.nombreUsuario}}</p>
                   </div>
                   <div class="col-12 mb-3">
-                    <h5>Correo Electronico</h5>
+                    <h5>Email</h5>
                     <p class="text-muted">{{usuarioActual?.email}}</p>
-                  </div>
-                </div>
-                <h3>Proyectos</h3>
-                <hr class="mt-0 mb-4">
-                <div class="row pt-1">
-                  <div class="col-12 mb-3">
-                    <h5>Reciente</h5>
-                    <p class="text-muted">Ninguno</p>
                   </div>
                 </div>
               </div>

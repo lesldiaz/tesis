@@ -1,11 +1,11 @@
 <form [formGroup]="formularioProyecto" (ngSubmit)="enviarFormularioProyecto()" novalidate>
   <div class="row separador">
     <div class="col-sm-4 centrarlabel">
-      <label>Tipo de Proyecto</label>
+      <label>Project type</label>
     </div>
     <div class="col-sm-8">
       <p-dropdown
-        placeholder="Selecciona el tipo de proyecto"
+        placeholder="Select project type"
         id="tipoProyecto"
         [formControlName]="'tipoProyecto'"
         [options]="tiposProyecto"
@@ -15,7 +15,7 @@
   </div>
   <div class="row">
     <div class="col-sm-4 centrarlabel">
-      <label for="nombre">Nombre</label>
+      <label for="nombre">Project name</label>
     </div>
     <div class="col-sm-8">
       <input
@@ -24,8 +24,8 @@
         id="nombre"
         aria-describedby="nombrelHelp"
         [formControlName]="'nombre'"
-        placeholder="Ej. Validacion de requerimientos">
-      <small id="nombreHelp" class="form-text text-muted">Ingrese el nombre del proyecto</small>
+        placeholder="Ex. Requirements validation">
+      <small id="nombreHelp" class="form-text text-muted">Enter project name</small>
       <div *ngIf="arregloMensajesErrorCampoNombre.length > 0" class="alert alert-info" role="alert">
         <div *ngFor="let mensajeError of arregloMensajesErrorCampoNombre">
           <div>{{mensajeError}}</div>
@@ -35,7 +35,7 @@
   </div>
   <div class="row">
     <div class="col-sm-4 centrarlabel">
-      <label for="descripcion">Descripción</label>
+      <label for="descripcion">Description</label>
     </div>
     <div class="col-sm-8">
       <input
@@ -44,8 +44,8 @@
         id="descripcion"
         aria-describedby="descripcionlHelp"
         [formControlName]="'descripcion'"
-        placeholder="Ej. Proyecto para refinamiento de req. sw">
-      <small id="descripcionHelp" class="form-text text-muted">Ingrese la descripción del proyecto</small>
+        placeholder="Ex. Project for software requirements refinement">
+      <small id="descripcionHelp" class="form-text text-muted">Enter project description</small>
       <div *ngIf="arregloMensajesErrorCampoDescripcion.length > 0" class="alert alert-info" role="alert">
         <div *ngFor="let mensajeError of arregloMensajesErrorCampoDescripcion">
           <div>{{mensajeError}}</div>

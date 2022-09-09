@@ -10,9 +10,9 @@
 >
   <ng-template pTemplate="header">
     <tr>
-      <th class="text-center">Identificador</th>
-      <th class="text-center">Descripción</th>
-      <th class="text-center">Información Relevante</th>
+      <th class="text-center">Identifier</th>
+      <th class="text-center">Description</th>
+      <th class="text-center">Relevant information</th>
       <th class="text-center">Ideas</th>
     </tr>
   </ng-template>
@@ -23,14 +23,14 @@
       </td>
       <td class="text-center">
         <div *ngIf="datoFila['titulo']">
-          <b>Titulo:</b> {{datoFila['titulo']}}<br>
+          <b>Title:</b> {{datoFila['titulo']}}<br>
         </div>
-        <b>Descripción:</b> {{datoFila['descripcion']}}
+        <b>Description:</b> {{datoFila['descripcion']}}
       </td>
       <td class="text-center">
-        <b>Prioridad: </b>{{datoFila['prioridad']| ldprioridadreq}}<br>
-        <b>Rol: </b>{{datoFila['rol']? datoFila['rol'].nombre : 'Ninguno'}}<br>
-        <b>Padre: </b>{{datoFila['requerimientoPadre'] ? datoFila['requerimientoPadre'] : 'Ninguno'}}
+        <b>Priority: </b>{{datoFila['prioridad']| ldprioridadreq}}<br>
+        <b>Role: </b>{{datoFila['rol']? datoFila['rol'].nombre : 'None'}}<br>
+        <b>Parent: </b>{{datoFila['requerimientoPadre'] ? datoFila['requerimientoPadre'] : 'None'}}
       </td>
       <td class="text-center">
         <div *ngFor="let pos of datoFila['proposito']">
@@ -42,7 +42,7 @@
   <ng-template pTemplate="emptymessage">
     <tr>
       <td [attr.colspan]="5">
-        No existe resultados
+        No results
       </td>
     </tr>
   </ng-template>

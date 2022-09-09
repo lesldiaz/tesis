@@ -33,11 +33,11 @@ export class ListarProyectosComponent implements OnInit {
   proyectos: ProyectoInterface[] = [];
   usuarioActual: UsuarioInterface;
   cols: any[] = [
-    {field: 'idProyecto', header: 'Identificador'},
-    {field: 'nombre', header: 'Nombre'},
-    {field: 'descripcion', header: 'Descripción'},
-    {field: 'proyecto', header: 'Información Relevante'},
-    {field: 'id', header: 'Opciones'}
+    {field: 'idProyecto', header: 'Identifier'},
+    {field: 'nombre', header: 'Name'},
+    {field: 'descripcion', header: 'Description'},
+    {field: 'proyecto', header: 'Relevant information'},
+    {field: 'id', header: 'Options'}
   ];
   total: number = 0;
   formularioBuscarProyecto: FormGroup;
@@ -142,9 +142,10 @@ export class ListarProyectosComponent implements OnInit {
                   } else {
                     this.proyectos.push(value);
                   }
-                  this._toasterService.success('Registro creado correctamente', 'Éxito');
+                  this._toasterService.success('Record created successfully', 'Success');
                 },
                 error => {
+                  this._toasterService.error('An error occurred while creating the project', 'Error');
                   console.error('Error al crear proyecto', error);
                 }
               );
@@ -213,10 +214,10 @@ export class ListarProyectosComponent implements OnInit {
                   filaProyecto.nombre = proyectoActualizado.nombre;
                   filaProyecto.descripcion = proyectoActualizado.descripcion;
                   filaProyecto.tipoProyecto = proyectoActualizado.tipoProyecto;
-                  this._toasterService.success('Registro editado correctamente', 'Éxito');
+                  this._toasterService.success('Record edited successfully', 'Success');
                 },
                 error => {
-                  this._toasterService.error('Error al actualizar', 'Error');
+                  this._toasterService.error('Failed to update', 'Error');
                   console.error('Error al actualizar proyecto', error);
                 }
               );
@@ -239,7 +240,7 @@ export class ListarProyectosComponent implements OnInit {
           if (proyectoADuplicar) {
             const proyectoDuplicado = JSON.parse(JSON.stringify(proyectoADuplicar));
             proyectoDuplicado.duplicado = 1;
-            proyectoDuplicado.nombre = proyectoDuplicado.nombre + ' - Copia';
+            proyectoDuplicado.nombre = proyectoDuplicado.nombre + ' - Copy';
             proyectoDuplicado.usuario = proyectoDuplicado.usuario.id;
             proyectoDuplicado.estado = proyectoDuplicado.estado === 'F' ? 'P' : proyectoDuplicado.estado;
             delete proyectoDuplicado.idProyecto
@@ -252,9 +253,10 @@ export class ListarProyectosComponent implements OnInit {
                   if (this.proyectos.length > 5) {
                     this.proyectos.pop();
                   }
-                  this._toasterService.success('Registro duplicado correctamente', 'Éxito');
+                  this._toasterService.success('Duplicate record successfully', 'Success');
                 },
                 error => {
+                  this._toasterService.error('Failed to duplicate record', 'Error');
                   console.error('Error al duplicar proyecto', error);
                 }
               );
@@ -278,16 +280,15 @@ export class ListarProyectosComponent implements OnInit {
             this._proyectoService.deleteProyecto(filaProyecto.id)
               .subscribe(
                 value => {
-                  //this.proyectos = FUNCIONES_GENERALES.eliminarElemento(this.proyectos, filaProyecto);
                   this.proyectos.indexOf(filaProyecto) < 0
                     ? this.proyectos
                     : this.proyectos.splice(this.proyectos.indexOf(filaProyecto), 1);
                   this.proyectos = [...this.proyectos];
-                  this._toasterService.info('Registro eliminado', 'Éxito');
+                  this._toasterService.info('Record deleted', 'Success');
 
                 },
                 error => {
-                  this._toasterService.error('Ocurrió un error al eliminar', 'Error');
+                  this._toasterService.error('An error occurred while deleting', 'Error');
                   console.error('Error al eliminar proyecto', error);
                 }
               );
@@ -314,9 +315,9 @@ export class ListarProyectosComponent implements OnInit {
             requerimientos = proyectos.mensaje?.resultado;
             requerimientos = FUNCIONES_GENERALES.generarObjetoResExcel(requerimientos);
             const cabecera = [
-              ["Identificador", "Descripción", "Válido", "Características Cumplidas", "Observaciones"]
+              ["IDENTIFIER", "DESCRIPTION", "VALID", "FULFILLED PROPERTIES", "OBSERVATIONS"]
             ];
-            const nombreArchivo = 'resultadosProyecto';
+            const nombreArchivo = 'projectResults';
             this.exportExcel(requerimientos, cabecera, nombreArchivo);
           }
         },
@@ -333,7 +334,7 @@ export class ListarProyectosComponent implements OnInit {
       xlsx.utils.sheet_add_aoa(worksheet, cabecera);
       xlsx.utils.sheet_add_json(worksheet, requerimientos, {origin: 'A2', skipHeader: true});
 
-      const workbook = {Sheets: {'Resultado': worksheet}, SheetNames: ['Resultado']};
+      const workbook = {Sheets: {'Output': worksheet}, SheetNames: ['Output']};
       const excelBuffer: any = xlsx.write(workbook, {bookType: 'xlsx', type: 'array'});
       this.saveAsExcelFile(excelBuffer, nombreArchivo);
     });

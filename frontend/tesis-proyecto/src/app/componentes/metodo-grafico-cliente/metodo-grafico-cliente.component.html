@@ -5,7 +5,7 @@
       <div class="col-sm-3">
         <div class="row">
           <div class="col-sm-4" style="width: 100%">
-            <b class="text-center">Identificador</b>
+            <b class="text-center">Identifier</b>
           </div>
           <div class="col-sm-8" style="width: 100%">
             <input
@@ -20,13 +20,13 @@
       <div class="col-sm-3">
         <div class="row">
           <div class="col-sm-4" style="width: 100%">
-            <b class="text-center">Rol</b>
+            <b class="text-center">Role</b>
           </div>
           <div class="col-sm-8" style="width: 100%">
             <p-dropdown
               name="selectRol"
               dataKey="rol"
-              placeholder="Seleccione un rol"
+              placeholder="Select a role"
               [options]="roles"
               [(ngModel)]="rolSeleccionado"
               [editable]="true"
@@ -38,21 +38,21 @@
       <div class="col-sm-3">
         <div class="row">
           <div class="col-sm-4"  style="width: 100%">
-            <b class="text-center">Padre</b>
+            <b class="text-center">Parent</b>
           </div>
           <div class="col-sm-8" style="width: 100%">
             <p-dropdown
               [virtualScroll]="true"
               name="selectPadre"
               dataKey="padre"
-              placeholder="Seleccione un padre"
+              placeholder="Select a parent"
               [options]="datos"
               [(ngModel)]="reqPadreSeleccionado"
               [showClear]="true"
               [filter]="true"
               filterBy="descripcion"
-              emptyMessage="Sin registros"
-              emptyFilterMessage="Sin resultados"
+              emptyMessage="No records"
+              emptyFilterMessage="No results"
               optionLabel="descripcion"
               optionValue="idRequerimiento"></p-dropdown>
           </div>
@@ -66,7 +66,7 @@
               class="btn"
               data-toggle="tooltip"
               data-placement="top"
-              title="Guardar"
+              title="Save"
               (click)="guardarRequerimiento()">
               <i class="fa fa-floppy-disk"></i>
             </button>
@@ -75,7 +75,7 @@
             <button
               data-toggle="tooltip"
               data-placement="top"
-              title="Limpiar Formulario"
+              title="Clear form"
               type="button"
               class="btn"
               (click)="cancelar()">
@@ -89,7 +89,7 @@
               id="eliminar"
               data-toggle="tooltip"
               data-placement="top"
-              title="Eliminar"
+              title="Delete"
               *ngIf="requerimientoSeleccionado" (click)="eliminar()">
               <i class="fa fa-trash"></i>
             </button>
@@ -103,13 +103,13 @@
       <div class="col-sm-9">
         <div class="row">
           <div class="col-sm-4" style="width: 100%">
-            <b class="text-center">Titulo</b>
+            <b class="text-center">Title</b>
           </div>
           <div class="col-sm-8" style="width: 100%">
             <input
               type="text"
               class="form-control"
-              placeholder="Introduzca el titulo del requerimiento"
+              placeholder="Enter requirement title"
               id="titulo"
               required
             />
@@ -119,7 +119,7 @@
       <div class="col-sm-3">
         <div class="row">
           <div class="col-sm-4" style="width: 100%">
-            <b class="text-center">Prioridad</b>
+            <b class="text-center">Priority</b>
           </div>
           <div class="col-sm-8" style="width: 100%">
             <p-rating
@@ -138,7 +138,7 @@
       <div class="col-sm-12">
         <div class="row">
           <div class="col-sm-4" style="width: 100%">
-            <b class="text-center">Descripción</b>
+            <b class="text-center">Description</b>
           </div>
           <div class="col-sm-8" style="width: 100%">
              <textarea
@@ -153,9 +153,9 @@
     </div>
     <div style="margin-top: 1rem"></div>
     <div class="row">
-      <b class="text-center">Ideas relacionadas</b>
+      <b class="text-center">Related ideas</b>
       <div style="margin-top: 1rem"></div>
-      <small class="text-center"><i>Haga doble click sobre la idea para eliminarla</i></small>
+      <small class="text-center"><i>Double click on the idea to delete it</i></small>
       <div>
         <app-post-it (devuelveDatos)="mostrarPostIt($event)" [bnd]="bandera" [blockRec]="blockEnvio"></app-post-it>
       </div>

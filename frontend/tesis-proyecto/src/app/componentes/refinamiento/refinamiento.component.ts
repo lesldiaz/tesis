@@ -32,46 +32,46 @@ export class RefinamientoComponent implements OnInit {
   dialogHeader: string = '';
   dialogContent: string = '';
   colsCliente: any[] = [
-    {field: 'resultado', header: 'Sin Ambigüedad'},
-    {field: 'resultado', header: 'Factible'},
-    {field: 'resultado', header: 'Correcto'},
-    {field: 'resultado', header: 'Apropiado'},
-    {field: 'resultado', header: 'Verificable'},
-    {field: 'resultado', header: 'Completo'},
-    {field: 'resultado', header: 'Necesario'},
+    {field: 'resultado', header: 'Unambiguous'},
+    {field: 'resultado', header: 'Feasible'},
+    {field: 'resultado', header: 'Correct'},
+    {field: 'resultado', header: 'Appropriate'},
+    {field: 'resultado', header: 'Verifiable'},
+    {field: 'resultado', header: 'Complete'},
+    {field: 'resultado', header: 'Necessary'},
     {field: 'resultado', header: 'Singular'},
-    {field: 'resultado', header: 'Conforme'},
-    {field: 'resultado', header: 'Consistente'},
-    {field: 'resultado', header: 'Modificable'},
-    {field: 'resultado', header: 'Trazabilidad'},
+    {field: 'resultado', header: 'Conforming'},
+    {field: 'resultado', header: 'Consistent'},
+    {field: 'resultado', header: 'Modifiable'},
+    {field: 'resultado', header: 'Traceable'},
   ];
   preguntasCliente: any[] = [
     {
-      header: 'Sin Ambigüedad',
+      header: 'Unambiguous',
       pregunta: '¿Los requerimientos están claros, no existe ambiguedad?'
     },
     {
-      header: 'Factible',
+      header: 'Feasible',
       pregunta: '¿El requerimiento es factible, es decir, es realizable a pesar de las limitaciones del sistema (ejemplo por costo, horario, y por parte técnica) con riesgo aceptable?¿El requerimiento tienen alguna estricción técnica?'
     },
     {
-      header: 'Correcto',
+      header: 'Correct',
       pregunta: 'El requermiento representa la necesidad real que el cliente necesita?'
     },
     {
-      header: 'Apropiado',
+      header: 'Appropriate',
       pregunta: '¿El requerimiento está dentro del alcance del proyecto y refleja una necesidad real?'
     },
     {
-      header: 'Verificable',
+      header: 'Verifiable',
       pregunta: '¿El requerimiento es verificable mediante un caso de prueba?'
     },
     {
-      header: 'Completo',
+      header: 'Complete',
       pregunta: '¿El requerimiento es necesario, sino se incluye como requisito existirá alguna deficiencia, para otros requerimientos?'
     },
     {
-      header: 'Necesario',
+      header: 'Necessary',
       pregunta: '¿El requerimiento es necesario, sino se incluye como requisito existirá alguna deficiencia, para otros requerimientos?'
     },
     {
@@ -79,63 +79,63 @@ export class RefinamientoComponent implements OnInit {
       pregunta: '¿El requerimiento establece una sola característica, es singular, o puede descomponerse en varios?'
     },
     {
-      header: 'Conforme',
+      header: 'Conforming',
       pregunta: '¿El requerimiento esta conforme al estandar de la organización?'
     },
     {
-      header: 'Consistente',
+      header: 'Consistent',
       pregunta: '¿El requerimiento es consistente no contradice a otros requerimientos o no se encuentra repetido?'
     },
     {
-      header: 'Modificable',
+      header: 'Modifiable',
       pregunta: '¿El requerimiento puede ser modificable sin alterar a otros requerimientos o alcance del producto?'
     },
     {
-      header: 'Trazabilidad',
+      header: 'Traceable',
       pregunta: '¿El requerimiento tiene una trazabilidad original que mantiene la necesidad del cliente?'
     },
   ];
   colsGamePlay: any[] = [
-    {field: 'resultado', header: 'Completo'},
-    {field: 'resultado', header: 'Apropiado'},
-    {field: 'resultado', header: 'Correcto'},
-    {field: 'resultado', header: 'Necesario'},
-    {field: 'resultado', header: 'Verificable'},
-    {field: 'resultado', header: 'Factible'},
-    {field: 'resultado', header: 'Sin Ambigüedad'},
-    {field: 'resultado', header: 'Modificable'},
+    {field: 'resultado', header: 'Complete'},
+    {field: 'resultado', header: 'Appropriate'},
+    {field: 'resultado', header: 'Correct'},
+    {field: 'resultado', header: 'Necessary'},
+    {field: 'resultado', header: 'Verifiable'},
+    {field: 'resultado', header: 'Feasible'},
+    {field: 'resultado', header: 'Unambiguous'},
+    {field: 'resultado', header: 'Modifiable'},
     {field: 'resultado', header: 'Singular'},
-    {field: 'resultado', header: 'Trazabilidad'},
-    {field: 'resultado', header: 'Consistente'},
-    {field: 'resultado', header: 'Conforme'},
+    {field: 'resultado', header: 'Traceable'},
+    {field: 'resultado', header: 'Consistent'},
+    {field: 'resultado', header: 'Conforming'},
   ];
   preguntasGameplay: any[] = [
     {
-      header: 'Sin Ambigüedad',
+      header: 'Unambiguous',
       pregunta: '¿La tarjeta GamePlay requiere aclaración para ser implementado, no tiene ambigüedad?'
     },
     {
-      header: 'Factible',
+      header: 'Feasible',
       pregunta: '¿Es factible realizar esta funcionalidad en la plataforma tecnólogica que se va a desarrollar?'
     },
     {
-      header: 'Correcto',
+      header: 'Correct',
       pregunta: '¿La tarjeta GamePlay esta relacionado a la funcionalidad que el usuario necesita, de acuerdo a su alcance. Es  correcto?'
     },
     {
-      header: 'Apropiado',
+      header: 'Appropriate',
       pregunta: '¿Existe sinergia entre la tarjeta GamePlay con la historia/narrativa/género. Existe consistencia, es apropiado?'
     },
     {
-      header: 'Verificable',
+      header: 'Verifiable',
       pregunta: '¿El GamePlay es verificable?'
     },
     {
-      header: 'Completo',
+      header: 'Complete',
       pregunta: '¿La tarjeta GamePlay incluye BLOQUES gameplay. Esta completa respetanto el formato?'
     },
     {
-      header: 'Necesario',
+      header: 'Necessary',
       pregunta: '¿Es necesario que la tarjeta GamePlay sea implementada?'
     },
     {
@@ -143,19 +143,19 @@ export class RefinamientoComponent implements OnInit {
       pregunta: '¿La tarjeta GamePlay no se puede dividir en otras funcionalidades, es singular?'
     },
     {
-      header: 'Conforme',
+      header: 'Conforming',
       pregunta: '¿El diseño funcional del juego que contiene la tarjeta GamePlay es conforme con todas las opiniones de los participantes?'
     },
     {
-      header: 'Consistente',
+      header: 'Consistent',
       pregunta: '¿La tarjeta GamePlay es consistente, no se contradice con el diseño inicial propuesto del juego?'
     },
     {
-      header: 'Modificable',
+      header: 'Modifiable',
       pregunta: '¿La tarjeta GamePlay puede ser mejorada o modificada?'
     },
     {
-      header: 'Trazabilidad',
+      header: 'Traceable',
       pregunta: '¿La tarjeta GamePlay mantene su trazabilidad respetando el principio del diseño del juego?'
     },
   ];
@@ -225,8 +225,8 @@ export class RefinamientoComponent implements OnInit {
           (requerimiento.resultado as ResultadoInterface).correcto = resCorrecto.correcto;
         },
         error => {
-          this._toasterService.error('Error al actualizar', 'Error');
-          console.error('Error al actualizar requerimiento', error);
+          this._toasterService.error('Failed to update', 'Error');
+          console.error('Failed to update requerimiento', error);
         }
       );
   }
@@ -242,8 +242,8 @@ export class RefinamientoComponent implements OnInit {
           (requerimiento.resultado as ResultadoInterface).apropiado = resApropiado.apropiado;
         },
         error => {
-          this._toasterService.error('Error al actualizar', 'Error');
-          console.error('Error al actualizar requerimiento', error);
+          this._toasterService.error('Failed to update', 'Error');
+          console.error('Failed to update requerimiento', error);
         }
       );
   }
@@ -259,8 +259,8 @@ export class RefinamientoComponent implements OnInit {
           (requerimiento.resultado as ResultadoInterface).completo = resCompleto.completo;
         },
         error => {
-          this._toasterService.error('Error al actualizar', 'Error');
-          console.error('Error al actualizar requerimiento', error);
+          this._toasterService.error('Failed to update', 'Error');
+          console.error('Failed to update requerimiento', error);
         }
       );
   }
@@ -276,8 +276,8 @@ export class RefinamientoComponent implements OnInit {
           (requerimiento.resultado as ResultadoInterface).verificable = resVerificable.verificable;
         },
         error => {
-          this._toasterService.error('Error al actualizar', 'Error');
-          console.error('Error al actualizar requerimiento', error);
+          this._toasterService.error('Failed to update', 'Error');
+          console.error('Failed to update requerimiento', error);
         }
       );
   }
@@ -293,8 +293,8 @@ export class RefinamientoComponent implements OnInit {
           (requerimiento.resultado as ResultadoInterface).factible = resFactible.factible;
         },
         error => {
-          this._toasterService.error('Error al actualizar', 'Error');
-          console.error('Error al actualizar requerimiento', error);
+          this._toasterService.error('Failed to update', 'Error');
+          console.error('Failed to update requerimiento', error);
         }
       );
   }
@@ -310,8 +310,8 @@ export class RefinamientoComponent implements OnInit {
           (requerimiento.resultado as ResultadoInterface).sinAmbiguedad = resSinAmbiguedad.sinAmbiguedad;
         },
         error => {
-          this._toasterService.error('Error al actualizar', 'Error');
-          console.error('Error al actualizar requerimiento', error);
+          this._toasterService.error('Failed to update', 'Error');
+          console.error('Failed to update requerimiento', error);
         }
       );
   }
@@ -327,8 +327,8 @@ export class RefinamientoComponent implements OnInit {
           (requerimiento.resultado as ResultadoInterface).singular = resSingular.singular;
         },
         error => {
-          this._toasterService.error('Error al actualizar', 'Error');
-          console.error('Error al actualizar requerimiento', error);
+          this._toasterService.error('Failed to update', 'Error');
+          console.error('Failed to update requerimiento', error);
         }
       );
   }
@@ -344,8 +344,8 @@ export class RefinamientoComponent implements OnInit {
           (requerimiento.resultado as ResultadoInterface).trazable = resTrazable.trazable;
         },
         error => {
-          this._toasterService.error('Error al actualizar', 'Error');
-          console.error('Error al actualizar requerimiento', error);
+          this._toasterService.error('Failed to update', 'Error');
+          console.error('Failed to update requerimiento', error);
         }
       );
   }
@@ -361,8 +361,8 @@ export class RefinamientoComponent implements OnInit {
           (requerimiento.resultado as ResultadoInterface).modificable = resModificable.modificable;
         },
         error => {
-          this._toasterService.error('Error al actualizar', 'Error');
-          console.error('Error al actualizar requerimiento', error);
+          this._toasterService.error('Failed to update', 'Error');
+          console.error('Failed to update requerimiento', error);
         }
       );
   }
@@ -378,8 +378,8 @@ export class RefinamientoComponent implements OnInit {
           (requerimiento.resultado as ResultadoInterface).consistente = resConsistente.consistente;
         },
         error => {
-          this._toasterService.error('Error al actualizar', 'Error');
-          console.error('Error al actualizar requerimiento', error);
+          this._toasterService.error('Failed to update', 'Error');
+          console.error('Failed to update requerimiento', error);
         }
       );
   }
@@ -395,8 +395,8 @@ export class RefinamientoComponent implements OnInit {
           (requerimiento.resultado as ResultadoInterface).conforme = resConforme.conforme;
         },
         error => {
-          this._toasterService.error('Error al actualizar', 'Error');
-          console.error('Error al actualizar requerimiento', error);
+          this._toasterService.error('Failed to update', 'Error');
+          console.error('Failed to update requerimiento', error);
         }
       );
   }
@@ -412,8 +412,8 @@ export class RefinamientoComponent implements OnInit {
           (requerimiento.resultado as ResultadoInterface).necesario = resNecesario.necesario;
         },
         error => {
-          this._toasterService.error('Error al actualizar', 'Error');
-          console.error('Error al actualizar requerimiento', error);
+          this._toasterService.error('Failed to update', 'Error');
+          console.error('Failed to update requerimiento', error);
         }
       );
   }
@@ -431,26 +431,26 @@ export class RefinamientoComponent implements OnInit {
       if (validacionMin) {
         requerimiento.estado = 1;
         observacionesFinales = observacionesFinales +
-          'El requerimiento cumple con las características mínimas para ser considerado bien formado.';
+          'The requirement meets the minimum properties to be considered well formed.';
       } else {
         requerimiento.estado = 0;
         observacionesFinales = observacionesFinales +
-          'El requerimiento no cumple con las siguientes caracteristicas para ser considerado bien formado: ';
+          'The requirement doesn\'t meet the following properties to be considered well formed: ';
         const reqNoCumplidos: string[] = [];
         if (!resultados.correcto) {
-          reqNoCumplidos.push('Correcto');
+          reqNoCumplidos.push('Correct');
         }
         if (!resultados.apropiado) {
-          reqNoCumplidos.push('Apropiado');
+          reqNoCumplidos.push('Appropriate');
         }
         if (!resultados.completo) {
-          reqNoCumplidos.push('Completo');
+          reqNoCumplidos.push('Complete');
         }
         if (!resultados.verificable) {
-          reqNoCumplidos.push('Verificable');
+          reqNoCumplidos.push('Verifiable');
         }
         if (!resultados.factible) {
-          reqNoCumplidos.push('Factible');
+          reqNoCumplidos.push('Feasible');
         }
         observacionesFinales = observacionesFinales + reqNoCumplidos.join(', ');
       }
@@ -463,8 +463,8 @@ export class RefinamientoComponent implements OnInit {
           value => {
           },
           error => {
-            this._toasterService.error('Error al actualizar', 'Error');
-            console.error('Error al actualizar requerimiento', error);
+            this._toasterService.error('Failed to update', 'Error');
+            console.error('Failed to update requerimiento', error);
           }
         );
       this._resultadoService.putResultado({
@@ -475,8 +475,8 @@ export class RefinamientoComponent implements OnInit {
             (requerimiento.resultado as ResultadoInterface).observaciones = observacionesFinales;
           },
           error => {
-            this._toasterService.error('Error al actualizar', 'Error');
-            console.error('Error al actualizar requerimiento', error);
+            this._toasterService.error('Failed to update', 'Error');
+            console.error('Failed to update requerimiento', error);
           }
         );
       this._proyectoService.putProyecto({
@@ -486,8 +486,8 @@ export class RefinamientoComponent implements OnInit {
           value => {
           },
           error => {
-            this._toasterService.error('Error al actualizar', 'Error');
-            console.error('Error al actualizar requerimiento', error);
+            this._toasterService.error('Failed to update', 'Error');
+            console.error('Failed to update requerimiento', error);
           }
         );
 

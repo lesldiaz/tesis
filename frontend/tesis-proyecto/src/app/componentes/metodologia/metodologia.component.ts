@@ -82,7 +82,7 @@ export class MetodologiaComponent implements OnInit {
   ngOnInit() {
     this.migasPan = [
       {
-        label: 'Metodología'
+        label: 'Methodology'
       }
     ];
   }

@@ -20,11 +20,11 @@ export class ResultadoComponent implements OnInit {
   requerimientosCliente: RequerimientoInterface[] = [];
   requerimientosGamePlay: RequerimientoInterface[] = [];
   cols: any[] = [
-    {field: 'idRequerimiento', header: 'Identificador'},
-    {field: 'descripcion', header: 'Descripción'},
-    {field: 'esValido', header: 'Es Válido'},
-    {field: 'caracteristicasCumplidas', header: 'Características Cumplidas'},
-    {field: 'observaciones', header: 'Observaciones'},
+    {field: 'idRequerimiento', header: 'Identifier'},
+    {field: 'descripcion', header: 'Description'},
+    {field: 'esValido', header: 'Is Valid'},
+    {field: 'caracteristicasCumplidas', header: 'Fulfilled properties'},
+    {field: 'observaciones', header: 'Observations'},
   ];
 
   constructor(
@@ -71,22 +71,22 @@ export class ResultadoComponent implements OnInit {
   exportExcel(tipo: 'C' | 'J' = 'C') {
     import("xlsx").then(xlsx => {
       const cabecera = [
-        ["Identificador", "Descripción", "Válido", "Características Cumplidas", "Observaciones"]
+        ["Identifier", "Description", "Valid", "Fulfilled properties", "Observations"]
       ];
       let worksheet;
       let nombreArchivo;
       if (tipo === 'C') {
-        nombreArchivo = 'resultadosCliente';
+        nombreArchivo = 'resultsClient';
         worksheet = xlsx.utils.json_to_sheet(this.requerimientosCliente);
         xlsx.utils.sheet_add_aoa(worksheet, cabecera);
         xlsx.utils.sheet_add_json(worksheet, this.requerimientosCliente, {origin: 'A2', skipHeader: true});
       } else {
-        nombreArchivo = 'resultadosGamePlay';
+        nombreArchivo = 'resultsGamePlay';
         worksheet = xlsx.utils.json_to_sheet(this.requerimientosGamePlay);
         xlsx.utils.sheet_add_aoa(worksheet, cabecera);
         xlsx.utils.sheet_add_json(worksheet, this.requerimientosGamePlay, {origin: 'A2', skipHeader: true});
       }
-      const workbook = {Sheets: {'Resultado': worksheet}, SheetNames: ['Resultado']};
+      const workbook = {Sheets: {'Output': worksheet}, SheetNames: ['Output']};
       const excelBuffer: any = xlsx.write(workbook, {bookType: 'xlsx', type: 'array'});
       this.saveAsExcelFile(excelBuffer, nombreArchivo);
     });

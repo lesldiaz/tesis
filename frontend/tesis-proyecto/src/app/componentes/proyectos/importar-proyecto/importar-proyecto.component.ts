@@ -40,8 +40,8 @@ export class ImportarProyectoComponent implements OnInit {
     private readonly _activatedRoute: ActivatedRoute,
     private readonly _route: Router) {
     this.tiposProyecto = [
-      {nombre: 'Generic Requirements (PG)', codigo: 'C'},
-      {nombre: 'iPlus Requirements (PiP)', codigo: 'J'},
+      {nombre: 'Generic requirements (PG)', codigo: 'C'},
+      {nombre: 'iPlus requirements (PiP)', codigo: 'J'},
     ];
     this.formularioProyecto = new FormGroup({
       nombre: new FormControl('', [

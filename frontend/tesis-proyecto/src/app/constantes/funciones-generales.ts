@@ -25,21 +25,21 @@ export const FUNCIONES_GENERALES = {
     const datosTratados: ExcelPlantillaHuInterface[] = [];
     datos.map((valor: any) => {
       const requerimiento: ExcelPlantillaHuInterface = {}
-      if (valor['Descripción']) {
-        requerimiento.identificador = valor['Identificador'];
-        requerimiento.descripcion = valor['Descripción'];
-        requerimiento.correcto = valor['CORRECTO'] ? valor['CORRECTO'] : 0;
-        requerimiento.apropiado = valor['APROPIADO'] ? valor['APROPIADO'] : 0;
-        requerimiento.verificable = valor['VERIFICABLE'] ? valor['VERIFICABLE'] : 0;
-        requerimiento.factible = valor['FACTIBLE'] ? valor['FACTIBLE'] : 0;
-        requerimiento.sinAmbiguedad = valor['SIN AMBIGÜEDAD'] ? valor['SIN AMBIGÜEDAD'] : 0;
+      if (valor['DESCRIPTION']) {
+        requerimiento.identificador = valor['IDENTIFIER'];
+        requerimiento.descripcion = valor['DESCRIPTION'];
+        requerimiento.correcto = valor['CORRECT'] ? valor['CORRECT'] : 0;
+        requerimiento.apropiado = valor['APPROPRIATE'] ? valor['APPROPRIATE'] : 0;
+        requerimiento.verificable = valor['VERIFIABLE'] ? valor['VERIFIABLE'] : 0;
+        requerimiento.factible = valor['FEASIBLE'] ? valor['FEASIBLE'] : 0;
+        requerimiento.sinAmbiguedad = valor['UNAMBIGUOUS'] ? valor['UNAMBIGUOUS'] : 0;
         requerimiento.singular = valor['SINGULAR'] ? valor['SINGULAR'] : 0;
-        requerimiento.trazable = valor['TRAZABILIDAD'] ? valor['TRAZABILIDAD'] : 0;
-        requerimiento.modificable = valor['MODIFICABLE'] ? valor['MODIFICABLE'] : 0;
-        requerimiento.consistente = valor['CONSISTENTE'] ? valor['CONSISTENTE'] : 0;
-        requerimiento.conforme = valor['CONFORME'] ? valor['CONFORME'] : 0;
-        requerimiento.necesario = valor['NECESARIO'] ? valor['NECESARIO'] : 0;
-        requerimiento.completo = valor['COMPLETO'] ? valor['COMPLETO'] : 0;
+        requerimiento.trazable = valor['TRACEABLE'] ? valor['TRACEABLE'] : 0;
+        requerimiento.modificable = valor['MODIFIABLE'] ? valor['MODIFIABLE'] : 0;
+        requerimiento.consistente = valor['CONSISTENT'] ? valor['CONSISTENT'] : 0;
+        requerimiento.conforme = valor['CONFORMING'] ? valor['CONFORMING'] : 0;
+        requerimiento.necesario = valor['NECESSARY'] ? valor['NECESSARY'] : 0;
+        requerimiento.completo = valor['COMPLETE'] ? valor['COMPLETE'] : 0;
         datosTratados.push(requerimiento)
       }
     })

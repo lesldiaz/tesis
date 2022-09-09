@@ -33,8 +33,8 @@ export class ModalCambiarContrasenaComponent implements OnInit {
   formularioValido: boolean = false;
 
   mensajesErrorCampoContrasena = {
-    required: 'El campo es requerido',
-    pattern: 'La contraseña debe contener al menos una letra mayúscula y minúscula, un número y entre 8 a 12 caracteres'
+    required: 'Password field is required',
+    pattern: 'The password must contain at least one uppercase and lowercase letter, one number and between 8 to 12 characters'
   };
 
   arregloMensajesErrorCampoContrasena: string [] = [];

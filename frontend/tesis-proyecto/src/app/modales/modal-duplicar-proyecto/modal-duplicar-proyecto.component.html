@@ -1,16 +1,10 @@
-<h1 mat-dialog-title>Duplicar Registro</h1>
+<h1 mat-dialog-title>DUPLICATE RECORD</h1>
 <div mat-dialog-content>
-  <p>¿Esta seguro que desea duplicar este registro?</p>
-<!--  <p *ngIf="registroDuplicar.nombre">Nombre: {{registroDuplicar.nombre}}</p>-->
+  <p>Are you sure you want to duplicate this record?</p>
 </div>
-<div mat-dialog-actions>
-  <div class="col-sm-8"></div>
-  <div class="col-sm-2">
-    <button class="btn btn-info" (click)="enviarDatos()">Duplicar
+<div mat-dialog-actions class="justify-content-end">
+    <button class="btn btn-info" (click)="enviarDatos()">Accept
     </button>
-  </div>
-  <div class="col-sm-2">
-    <button class="btn btn-outline-dark" (click)="cancelarModal()">Cancelar</button>
-  </div>
+    <button class="btn btn-outline-dark" (click)="cancelarModal()">Cancel</button>
 </div>
 

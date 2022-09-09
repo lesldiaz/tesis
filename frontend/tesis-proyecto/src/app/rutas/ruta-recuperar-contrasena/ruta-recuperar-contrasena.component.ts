@@ -28,7 +28,7 @@ export class RutaRecuperarContrasenaComponent implements OnInit {
         }
       ).subscribe(
           usuarioLogeado => {
-            this._toasterService.success('Revisa tu bandeja de mensajes', 'Éxito');
+            this._toasterService.success('Check your email', 'Success');
             this._route.navigate(['login']);
           },
           error => {

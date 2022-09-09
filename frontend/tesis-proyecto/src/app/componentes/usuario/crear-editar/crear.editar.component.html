@@ -1,19 +1,6 @@
 <form [formGroup]="formularioUsuario" (ngSubmit)="enviarFormularioUsuario()" novalidate>
-  <!--<div class="row">
-    <mat-form-field>
-      <mat-label>Selecciona el rol del usuario</mat-label>
-      <mat-select [formControlName]="'rol'" class="form-control">
-        <mat-option *ngFor="let rol of roles" value="{{rol.id}}">{{rol.nombre}}</mat-option>
-      </mat-select>
-    </mat-form-field>
-    <div *ngIf="arregloMensajesErrorCampoRol.length > 0" class="alert alert-info" role="alert">
-      <div *ngFor="let mensajeError of arregloMensajesErrorCampoRol">
-        <div>{{mensajeError}}</div>
-      </div>
-    </div>
-  </div> -->
   <div class="row">
-    <label for="cedula">Cedula</label>
+    <label for="cedula">Identity Card</label>
     <input
       type="text"
       class="form-control"
@@ -21,7 +8,7 @@
       aria-describedby="cedulalHelp"
       [formControlName]="'cedula'"
       placeholder="Ingrese cedula">
-    <small id="cedulaHelp" class="form-text text-muted">Ingrese cedula</small>
+    <small id="cedulaHelp" class="form-text text-muted">Enter identity card</small>
     <div *ngIf="arregloMensajesErrorCampoCedula.length > 0" class="alert alert-info" role="alert">
       <div *ngFor="let mensajeError of arregloMensajesErrorCampoCedula">
         <div>{{mensajeError}}</div>
@@ -29,7 +16,7 @@
     </div>
   </div>
   <div class="row">
-    <label for="nombre">Nombre</label>
+    <label for="nombre">Name</label>
     <input
       type="text"
       class="form-control"
@@ -37,7 +24,7 @@
       aria-describedby="nombrelHelp"
       [formControlName]="'nombre'"
       placeholder="Ingrese nombre">
-    <small id="nombreHelp" class="form-text text-muted">Ingrese nombre</small>
+    <small id="nombreHelp" class="form-text text-muted">Enter your name</small>
     <div *ngIf="arregloMensajesErrorCampoNombre.length > 0" class="alert alert-info" role="alert">
       <div *ngFor="let mensajeError of arregloMensajesErrorCampoNombre">
         <div>{{mensajeError}}</div>

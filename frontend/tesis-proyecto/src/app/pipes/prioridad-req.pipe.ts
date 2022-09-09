@@ -6,11 +6,11 @@ import {Pipe, PipeTransform} from '@angular/core';
 export class PrioridadReqPipe implements PipeTransform {
   transform(input: number): any {
     if (input === 1) {
-      return 'Baja';
+      return 'Low';
     } else if (input === 2) {
-      return 'Media';
+      return 'Medium';
     } else if (input === 3) {
-      return 'Alta';
+      return 'High';
     }
   }
 }

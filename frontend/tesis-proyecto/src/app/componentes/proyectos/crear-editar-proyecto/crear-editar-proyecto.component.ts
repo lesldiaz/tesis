@@ -21,14 +21,14 @@ export class CrearEditarProyectoComponent implements OnInit {
   arregloMensajesErrorCampoDescripcion: string [] = [];
   arregloMensajesErrorCampoTipoProyecto: string [] = [];
   mensajesErrorCampoNombre = {
-    required: 'El campo nombre es requerido',
-    maxlength: 'El campo nombre debe contener máximo 100 caracteres',
+    required: 'Name field is required',
+    maxlength: 'Project name field must contain a maximum of 100 characters',
   };
   mensajesErrorCampoDescripcion = {
-    maxlength: 'El campo descripción debe contener máximo 255 caracteres',
+    maxlength: 'Project description field must contain a maximum of 255 characters',
   };
   mensajesErrorCampoTipoProyecto = {
-    required: 'El tipo de proyecto es requerido'
+    required: 'Project type field is required'
   };
 
 
@@ -38,8 +38,8 @@ export class CrearEditarProyectoComponent implements OnInit {
     private readonly _activatedRoute: ActivatedRoute,
     private readonly _route: Router) {
     this.tiposProyecto = [
-      {nombre: 'Requerimientos Genericos (PG)', codigo: 'C'},
-      {nombre: 'Requerimientos de iPlus (PiP)', codigo: 'J'},
+      {nombre: 'Generics requirements (PG)', codigo: 'C'},
+      {nombre: 'iPlus requirements (PiP)', codigo: 'J'},
     ];
     this.formularioProyecto = new FormGroup({
       nombre: new FormControl('', [

@@ -1,15 +1,15 @@
-<h1 mat-dialog-title class="text-center">Cambiar Contraseña</h1>
+<h1 mat-dialog-title class="text-center">CHANGE PASSWORD</h1>
 <div mat-dialog-content>
   <form [formGroup]="cambiarContrasenaFormulario" (ngSubmit)="enviarDatos()" novalidate>
     <div class="row">
-      <label for="contrasena">Contraseña</label>
+      <label for="contrasena">Password</label>
       <input
         type="text"
         class="form-control"
         id="contrasena"
         aria-describedby="contrasenalHelp"
         [formControlName]="'contrasena'">
-      <small id="contrasenaHelp" class="form-text text-muted">Ingrese su nueva contraseña</small>
+      <small id="contrasenaHelp" class="form-text text-muted">Enter your new password</small>
       <div *ngIf="arregloMensajesErrorCampoContrasena.length > 0" class="alert alert-warning" role="alert">
         <div *ngFor="let mensajeError of arregloMensajesErrorCampoContrasena">
           <small>{{mensajeError}}</small>
@@ -19,7 +19,7 @@
   </form>
 </div>
 <div mat-dialog-actions class="justify-content-end">
-    <button class="btn btn-outline-dark" (click)="cancelarModal()">Cancelar</button>
+    <button class="btn btn-outline-dark" (click)="cancelarModal()">Cancel</button>
     <div style="padding-right: 1rem"></div>
-    <button class="btn btn-info text-white" [disabled]="!formularioValido" (click)="enviarDatos()">Aceptar</button>
+    <button class="btn btn-info text-white" [disabled]="!formularioValido" (click)="enviarDatos()">Accept</button>
 </div>
