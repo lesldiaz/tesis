@@ -17,5 +17,5 @@ export interface RequerimientoInterface {
   requerimientoBloque?: RequerimientoBloqueInterface[];
   proyecto?: ProyectoInterface | number;
   resultado?: ResultadoInterface;
-  requerimientoPadre?: number;
+  requerimientoPadre?: string;
 }

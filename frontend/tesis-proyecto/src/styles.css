@@ -1,3 +1,6 @@
+* {
+  font-family: 'Source Sans Pro', sans-serif;
+}
 .espacio {
   height: 5rem;
   visibility: hidden;

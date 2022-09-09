@@ -57,11 +57,11 @@ export class FlujoTrabajoComponent implements OnInit {
   ngOnInit(): void {
     this.migasPan = [
       {
-        label: 'Aplicación',
+        label: 'App',
         routerLink: '/aplicacion'
       },
       {
-        label: 'Refinamiento'
+        label: 'Refinement'
       }
     ];
     this.firstFormGroup = this._formBuilder.group({
@@ -124,7 +124,7 @@ export class FlujoTrabajoComponent implements OnInit {
         },
         error => {
           console.log(error)
-          this._toasterService.error('Ocurrió un error al guardar los requerimientos ingresados', 'Error')
+          this._toasterService.error('An error occurred while saving the entered requirements', 'Error')
         });
     this.mover(true);
   }
@@ -134,7 +134,7 @@ export class FlujoTrabajoComponent implements OnInit {
       .subscribe(value => {
         (this.myStepper as MatStepper).next();
       }, (error) => {
-        this._toasterService.error('Ocurrió un error al refinar', 'Error')
+        this._toasterService.error('An error occurred while refining', 'Error')
       });
     this.mover(true);
   }
@@ -150,7 +150,7 @@ export class FlujoTrabajoComponent implements OnInit {
       .subscribe(value => {
         (this.myStepper as MatStepper).next();
       }, (error) => {
-        this._toasterService.error('Ocurrió un error al editar proyecto', 'Error')
+        this._toasterService.error('An error occurred while editing project', 'Error')
       });
     this.mover(true);
   }

@@ -7,7 +7,7 @@
     </div>
     <div class="card-body">
       <form [formGroup]="formularioLogin" novalidate>
-        <h2>Inicio de Sesión</h2>
+        <h2>SIGN IN</h2>
         <div style="padding-top: 1.8rem"></div>
         <span class="p-float-label">
           <input
@@ -17,7 +17,7 @@
             aria-describedby="nombreUsuarioHelp"
             [formControlName]="'nombreUsuario'"
             pInputText>
-          <label for="nombreUsuario">Nombre de Usuario</label>
+          <label for="nombreUsuario">Username</label>
         </span>
         <div style="padding-top: 1.8rem"></div>
         <span class="p-float-label">
@@ -28,20 +28,20 @@
             aria-describedby="contraseniaHelp"
             [formControlName]="'contrasenia'"
             pInputText >
-          <label for="contrasenia">Contraseña</label>
+          <label for="contrasenia">Password</label>
         </span>
         <div *ngIf="errorIniciarSesion">
-          <p class="text-danger">¡El usuario o la contraseña son incorrectos!</p>
+          <p class="text-danger">Username or password is incorrect!</p>
         </div>
         <div style="padding-top: 1rem"></div>
         <div>
-          <button style="width: 100%" class="btn btn-login" [disabled]="!formularioValido" (click)="enviarFormularioLogin()">Ingresar</button>
-          <p>¿No tienes una cuenta? <a [routerLink]="'/registro'">Regístrate</a></p>
+          <button style="width: 100%" class="btn btn-login" [disabled]="!formularioValido" (click)="enviarFormularioLogin()">Sign in</button>
+          <p>You don't have an account? <a [routerLink]="'/registro'">Sign up</a></p>
         </div>
       </form>
     </div>
     <div class="card-footer text-muted">
-      <a [routerLink]="'/recuperar-contrasena'">¿Olvidaste tu contraseña?</a>
+      <a [routerLink]="'/recuperar-contrasena'">Did you forget your password?</a>
     </div>
   </div>
 </div>

@@ -16,7 +16,7 @@ export class PerfilUsuarioComponent implements OnInit {
   migasPan: MenuItem[]=[];
   usuarioActual: UsuarioInterface | undefined;
   idUsuarioActual: number | any;
-  nombreUsuario = 'Invitado';
+  nombreUsuario = 'Guest';
 
   constructor(
     private readonly _authService: AuthService,
@@ -28,7 +28,7 @@ export class PerfilUsuarioComponent implements OnInit {
   ngOnInit(): void {
     this.migasPan = [
       {
-          label: 'Perfil del Usuario'
+          label: 'User profile'
       }
     ];
     this.usuarioActual = this._authService.currentUserValue as UsuarioInterface;
@@ -50,10 +50,10 @@ export class PerfilUsuarioComponent implements OnInit {
               this._usuarioService.putUsuarios({contrasena}, this.idUsuarioActual)
                 .subscribe(
                   value => {
-                    this._toasterService.success('Contraseña actualizada correctamente', 'Éxito');
+                    this._toasterService.success('Password updated successfully', 'Success');
                   },
                   error => {
-                    this._toasterService.error('Ocurrió un error al actualizar la contraseña', 'Error');
+                    this._toasterService.error('An error occurred while updating the password', 'Error');
                     console.error('Error al cambiar contraseña', error);
                   }
                 );

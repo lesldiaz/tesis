@@ -6,7 +6,7 @@ import {Pipe, PipeTransform} from '@angular/core';
 export class TipoProyectoPipe implements PipeTransform {
   transform(input: string): any {
     if (input === 'C') {
-      return 'Generico';
+      return 'Generic';
     } else if (input === 'J') {
       return 'iPlus';
     }

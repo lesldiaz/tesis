@@ -12,3 +12,30 @@
 .example-margin {
   margin: 0 10px;
 }
+.emergente {
+  position: fixed;
+  botton: 20px;
+  right: 20px;
+  box-sizing: border-box;
+  opacity: 0.9;
+  animation: fadein 1.5s;
+  z-index: 100;
+}
+.msg-e {
+  background-color: #e4f9f7;
+  padding: 0.5rem;
+  width: 20rem;
+  border-radius: 0.5rem;
+  border: #acede7 0.1rem solid;
+}
+
+@keyframes fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+.btn-c {
+  color: #82c5be;
+}
+.btn-e {
+  font-size: 2rem;
+}

@@ -16,7 +16,6 @@ export class MetodoGraficoClienteComponent implements OnInit {
   @Input() datosCliente: RequerimientoInterface[] | undefined;
   roles: RolInterface[] = [];
   requerimientoSeleccionado: RequerimientoInterface | undefined;
-  requerimientosPadre: RequerimientoInterface[] = [];
   rolSeleccionado: RolInterface | any;
   identificador: any;
   idRequerimientosSeleccionado: number | undefined;
@@ -49,7 +48,6 @@ export class MetodoGraficoClienteComponent implements OnInit {
         }
       );
     this.datos = this.datosCliente as RequerimientoInterface[];
-    this.requerimientosPadre = this.datosCliente as RequerimientoInterface[];
   }
 
   mostrarPostIt(event: any) {
@@ -68,7 +66,7 @@ export class MetodoGraficoClienteComponent implements OnInit {
         rol: this.rolSeleccionado, //comprobar si es id o string nuevo
         prioridad: this.prioridad,
         descripcion: this.description.value,
-        requerimientoPadre: this.reqPadreSeleccionado as number,
+        requerimientoPadre: this.reqPadreSeleccionado as string,
         proposito: this.posit[0],
         proyecto: this.idProyecto as number,
       };
@@ -91,10 +89,10 @@ export class MetodoGraficoClienteComponent implements OnInit {
                 )
             }
             this.datos.push(requerimientoGuardar);
-            this._toasterService.success('Requerimiento guardado correctamente', 'Éxito');
+            this._toasterService.success('Record saved successfully', 'Success');
           }
         }, (error: any) => {
-          this._toasterService.error('Ocurrió un error al guardar', 'Error');
+          this._toasterService.error('An error occurred while saving', 'Error');
         });
     } else {
       this.actualizar();
@@ -157,7 +155,7 @@ export class MetodoGraficoClienteComponent implements OnInit {
       rol: this.rolSeleccionado, //comprobar si es id o string nuevo
       prioridad: this.prioridad,
       descripcion: this.description.value,
-      requerimientoPadre: this.reqPadreSeleccionado as number,
+      requerimientoPadre: this.reqPadreSeleccionado as string,
       proposito: this.posit[1],
       proyecto: this.idProyecto as number,
     };
@@ -172,10 +170,10 @@ export class MetodoGraficoClienteComponent implements OnInit {
               }
             }
           );
-          this._toasterService.success('Requerimiento editado correctamente', 'Éxito');
+          this._toasterService.success('Record edited successfully', 'Success');
         }
       }, (error: any) => {
-        this._toasterService.error('Ocurrió un error al editar', 'Error');
+        this._toasterService.error('An error occurred while editing', 'Error');
       });
     this.limpiar();
   }
@@ -188,7 +186,7 @@ export class MetodoGraficoClienteComponent implements OnInit {
           ? this.datos
           : this.datos.splice(this.datos.indexOf(requerimientoEliminar), 1);
         this.requerimientoSeleccionado = undefined;
-        this._toasterService.info('Eliminado correctamente', 'Éxito');
+        this._toasterService.info('Record deleted successfully', 'Success');
       });
     this.limpiar();
   }

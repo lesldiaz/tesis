@@ -1,10 +1,10 @@
-<h1 align="center">Plantilla Propositos</h1>
+<h1 class="text-center">PURPOSE TEMPLATE LOAD</h1>
 <mat-stepper orientation="vertical">
   <mat-step>
-    <ng-template matStepLabel>Paso 1</ng-template>
+    <ng-template matStepLabel>Step 1</ng-template>
     <ng-template matStepContent>
       <div class="bttn" >
-        <label>Descargar Plantilla: </label>
+        <label>Download template: </label>
         <a href="assets/plantilla01_historias_usuario.xlsx"
            class="btn btn-default"
            target="_blank"
@@ -15,17 +15,17 @@
           </svg>
         </a>
       </div>
-      <button class="btn-step" mat-button matStepperNext>Siguiente</button>
+      <button class="btn-step" mat-button matStepperNext>Next</button>
 
     </ng-template>
   </mat-step>
   <mat-step>
-    <ng-template matStepLabel>Paso 2</ng-template>
+    <ng-template matStepLabel>Step 2</ng-template>
     <ng-template matStepContent>
       <div class="subir">
-        <label>Subir Archivo</label>
+        <label>File upload</label>
         <div>
-          Elegir Archivo:
+          Choose File:
           <input id="upload" type="text" [value]="nombreArchivo" disabled>
 
           <label id="file" for="file-upload" class="custom-file-upload">
@@ -36,21 +36,21 @@
           <input id="file-upload" type="file" (change)="onFileChange($event)"/>
           <div class="card" style="width: 30%">
             <div class="card-header">
-              Información de subida
+              Upload information
             </div>
             <div class="card-body">
               <div *ngIf="nombreArchivo === 'Sin Selección'">
-                <small>No se ha cargado ningún archivo</small>
+                <small>No file uploaded</small>
               </div>
               <div *ngIf="nombreArchivo !== 'Sin Selección'">
-                <p>Nombre del archivo: {{nombreArchivo}}</p>
-                <p>Número de requerimientos cargados: {{nroReqCargados}}</p>
+                <p>File name: {{nombreArchivo}}</p>
+                <p>Requirements loaded: {{nroReqCargados}}</p>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <button class="btn-step" mat-button matStepperPrevious>Atrás</button>
+      <button class="btn-step" mat-button matStepperPrevious>Back</button>
     </ng-template>
   </mat-step>
 

@@ -31,10 +31,13 @@ export const FUNCIONES_GENERALES = {
         }
         return nuevoIdProyecto;
     },
-    generarIdRequerimiento: (objeto) => {
-        const idReqNum = objeto.id;
-        const tipoRequerimiento = objeto.tipoProyecto;
-        const nuevoIdRequerimiento = 'R' + tipoRequerimiento + idReqNum;
+    generarIdRequerimiento: (idReqNum, tipoProyecto) => {
+        let nuevoIdRequerimiento = 'R';
+        if (tipoProyecto === 'C') {
+            nuevoIdRequerimiento = nuevoIdRequerimiento + 'G' + FUNCIONES_GENERALES.digitosACodigo(idReqNum.toString());
+        } else {
+            nuevoIdRequerimiento = nuevoIdRequerimiento + 'iP' + FUNCIONES_GENERALES.digitosACodigo(idReqNum.toString());
+        }
         return nuevoIdRequerimiento;
     },
     generaAleatorio: (numeroInferior, numeroSuperior) => {

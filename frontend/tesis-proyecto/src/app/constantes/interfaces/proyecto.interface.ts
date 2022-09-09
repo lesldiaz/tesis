@@ -11,4 +11,5 @@ export interface ProyectoInterface {
   createdAt?: string;
   updatedAt?: string;
   usuario?: DatosUsuarioInterface | number;
+  requerimientos?: any;
 }

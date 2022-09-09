@@ -58,10 +58,10 @@ export class PostItComponent implements OnInit, DoCheck {
     });
     element.addEventListener("dblclick",()=>{
       this.confirmationService.confirm({
-        message: '¿Esta seguro que desea eliminar este propósito?',
-        header: 'Eliminar',
-        acceptLabel: 'Eliminar',
-        rejectLabel: 'Cancelar',
+        message: 'Are you sure you want to delete this purpose?',
+        header: 'Delete',
+        acceptLabel: 'Accept',
+        rejectLabel: 'Cancel',
         icon: 'pi pi-exclamation-triangle',
         accept: () => {
           this.deleteNote(id,element);

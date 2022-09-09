@@ -1,11 +1,11 @@
 <app-migaspan [conjuntoMigas]="migasPan"></app-migaspan>
 <div class="container-fluid">
-  <div id="mensaje" class="bubble" [(ngModel)]="etapa">You are in stage {{etapa}} </div>
+  <div id="mensaje" class="bubble" [(ngModel)]="etapa">You are in {{etapa}} stage </div>
     <mat-stepper  linear="true" #stepper="matHorizontalStepper">
-    <mat-step id="primero" label="Agregar Requerimiento" [stepControl]="firstFormGroup">
+    <mat-step id="primero" label="Add Requirement" [stepControl]="firstFormGroup">
       <div id="radio-bttn">
         <form [formGroup]="firstFormGroup">
-          <label id="radio-group">Agregar requerimiento mediante</label>
+          <label id="radio-group">Add requirement by</label>
           <mat-radio-group
             aria-labelledby="radio-group"
             class="example-radio-group"
@@ -14,7 +14,7 @@
             required
           >
             <mat-radio-button class="example-radio-button" value="plantilla">
-              Plantilla
+              Template
               <svg xmlns="http://www.w3.org/2000/svg" width="40" height="50" fill="#20C997" class="bi bi-filetype-xlsx"
                    viewBox="0 0 16 16">
                 <path fill-rule="evenodd"
@@ -22,7 +22,7 @@
               </svg>
             </mat-radio-button>
             <mat-radio-button class="example-radio-button" value="grafico" >
-              Método gráfico
+              Graphic method
               <svg xmlns="http://www.w3.org/2000/svg" width="40" height="50" fill="#20C997"
                    class="bi bi-file-earmark-richtext" viewBox="0 0 16 16">
                 <path
@@ -33,7 +33,7 @@
             </mat-radio-button>
           </mat-radio-group>
           <div class="next-btt">
-            <button type="button" class="btn" (click)="eleccion()">Añadir Requerimientos</button>
+            <button type="button" class="btn" (click)="eleccion()">Add</button>
           </div>
         </form>
       </div>
@@ -44,34 +44,34 @@
           (requerimientosCargadosPJ)="recibirRequerimientosJ($event)"
         ></app-pestana-plantilla>
         <div id="select" class="right" [formGroup]="firstFormGroup">
-          <button class="btn" type="button" (click)="guardarRequerimientosIngresados()" mat-button>Continuar</button>
+          <button class="btn" type="button" (click)="guardarRequerimientosIngresados()" mat-button>Next</button>
         </div>
       </div>
     </mat-step>
-    <mat-step id="segundo" label="Visualización de requerimiento" #paso_2>
+    <mat-step id="segundo" label="Requirement display" #paso_2>
       <ng-container *ngIf="stepper.selected === paso_2">
         <div class="right">
-          <button class="btn " type="button" mat-button (click)="actualizaEstadoProyecto()">Continuar</button>
+          <button class="btn " type="button" mat-button (click)="actualizaEstadoProyecto()">Next</button>
         </div>
         <div id="metodo-grafico">
           <app-pestana [tipoProyecto]="tipoProyecto" [idProyecto]="idProyecto"></app-pestana>
         </div>
       </ng-container>
     </mat-step>
-    <mat-step id="tercero" label="Refinamiento" #paso_3>
+    <mat-step id="tercero" label="Refinement" #paso_3>
       <ng-container *ngIf="stepper.selected === paso_3">
       <div class="right">
-        <button class="btn" type="button" (click)="mover(false)" mat-button matStepperPrevious>Regresar</button>
-        <button class="btn" type="button" (click)="refinar()" mat-button>Continuar</button>
+        <button class="btn" type="button" (click)="mover(false)" mat-button matStepperPrevious>Back</button>
+        <button class="btn" type="button" (click)="refinar()" mat-button>Next</button>
       </div>
       <app-refinamiento [idProyecto]="idProyecto" [tipoProyecto]="tipoProyecto"></app-refinamiento>
       </ng-container>
     </mat-step>
-    <mat-step id="cuarto" label="Resultados" #paso_4>
+    <mat-step id="cuarto" label="Results" #paso_4>
       <ng-container *ngIf="stepper.selected === paso_4">
       <div class="right">
-        <button class="btn" type="button" (click)="mover(false)" mat-button matStepperPrevious>Regresar</button>
-        <button class="btn" type="button" (click)="irAProyectos()" mat-button>Finalizar</button>
+        <button class="btn" type="button" (click)="mover(false)" mat-button matStepperPrevious>Back</button>
+        <button class="btn" type="button" (click)="irAProyectos()" mat-button>Finish</button>
       </div>
       <app-resultado [idProyecto]="idProyecto" [tipoProyecto]="tipoProyecto"></app-resultado>
       </ng-container>

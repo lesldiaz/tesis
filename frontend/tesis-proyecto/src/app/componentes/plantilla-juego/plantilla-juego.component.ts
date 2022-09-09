@@ -10,7 +10,7 @@ import * as XLSX from 'xlsx';
 })
 export class PlantillaJuegoComponent implements OnInit {
   @Output() requerimientosCargadosJ: EventEmitter<object[]> = new EventEmitter<object[]>();
-  nombreArchivo = 'Sin Selección';
+  nombreArchivo = 'No Selection';
   nroReqCargados = 0;
   resultado: ExcelPlantillaHuInterface[] = [];
   constructor() { }

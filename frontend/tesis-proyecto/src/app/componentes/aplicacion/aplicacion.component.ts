@@ -33,7 +33,7 @@ export class AplicacionComponent implements OnInit {
     }
     this.migasPan = [
       {
-        label: 'Aplicación'
+        label: 'App'
       }
     ];
   }

@@ -7,7 +7,7 @@
     </div>
     <div class="card-body">
       <form [formGroup]="formularioRegistro" novalidate>
-        <h2>REGISTRO</h2>
+        <h2>SIGN UP</h2>
         <div style="padding-top: 0.8rem"></div>
         <span class="p-float-label">
           <input
@@ -17,7 +17,7 @@
             aria-describedby="nombreUsuarioHelp"
             [formControlName]="'nombreUsuario'"
             pInputText>
-          <label for="nombreUsuario">Nombre de Usuario</label>
+          <label for="nombreUsuario">Username</label>
         </span>
         <div *ngIf="arregloMensajesErrorCampoNombreUsuario.length > 0" class="alert alert-warning" role="alert">
           <div *ngFor="let mensajeError of arregloMensajesErrorCampoNombreUsuario">
@@ -33,7 +33,7 @@
             aria-describedby="emailHelp"
             [formControlName]="'email'"
             pInputText>
-          <label for="email">Correo Electrónico</label>
+          <label for="email">Email</label>
         </span>
         <div *ngIf="arregloMensajesErrorCampoEmail.length > 0" class="alert alert-warning" role="alert">
           <div *ngFor="let mensajeError of arregloMensajesErrorCampoEmail">
@@ -49,7 +49,7 @@
             aria-describedby="contrasenaHelp"
             [formControlName]="'contrasena'"
             pInputText >
-          <label for="contrasena">Contraseña</label>
+          <label for="contrasena">Password</label>
         </span>
         <div *ngIf="arregloMensajesErrorCampoContrasenia.length > 0" class="alert alert-warning" role="alert">
           <div *ngFor="let mensajeError of arregloMensajesErrorCampoContrasenia">
@@ -57,12 +57,12 @@
           </div>
         </div>
         <div *ngIf="errorRegistro">
-            <p class="text-danger">¡El nombre de usuario o el correo electrónico ya están en uso!</p>
+            <p class="text-danger">Username or email is already in use!</p>
         </div>
         <div style="padding-top: 1rem"></div>
         <div>
-          <button style="width: 100%" class="btn btn-login" [disabled]="!formularioValido" (click)="enviarFormularioRegistro()">Registrarse</button>
-          <button style="width: 100%; margin-top: 0.5rem" class="btn btn-outline-dark" (click)="irALogin()" >Regresar</button>
+          <button style="width: 100%" class="btn btn-login" [disabled]="!formularioValido" (click)="enviarFormularioRegistro()">Sign up</button>
+          <button style="width: 100%; margin-top: 0.5rem" class="btn btn-outline-dark" (click)="irALogin()" >Back</button>
         </div>
       </form>
     </div>

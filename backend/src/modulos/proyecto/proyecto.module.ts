@@ -8,6 +8,7 @@ import { RequerimientoEntity } from '../requerimiento/requerimiento.entity';
 import { ResultadoEntity } from '../resultado/resultado.entity';
 import { RequerimientoBloqueEntity } from '../requerimiento-bloque/requerimiento-bloque.entity';
 import { PropositoEntity } from '../proposito/proposito.entity';
+import { BloqueEntity } from '../bloque/bloque.entity';
 
 @Module({
     imports: [TypeOrmModule.forFeature([
@@ -16,7 +17,8 @@ import { PropositoEntity } from '../proposito/proposito.entity';
         RequerimientoEntity,
         ResultadoEntity,
         RequerimientoBloqueEntity,
-        PropositoEntity
+        PropositoEntity,
+        BloqueEntity
     ], 'default')],
     controllers: [ProyectoController],
     providers: [ProyectoService],

@@ -90,10 +90,10 @@ export class BloquesGamePlayComponent implements OnInit, DoCheck {
       "   <text x='3.5' y='9'>"+bloque.nombre+"</text></svg>";
     element.addEventListener("dblclick",()=>{
       this.confirmationService.confirm({
-        message: '¿Esta seguro que desea eliminar este bloque?',
-        header: 'Eliminar',
-        acceptLabel: 'Eliminar',
-        rejectLabel: 'Cancelar',
+        message: 'Are you sure you want to remove this block?',
+        header: 'Delete',
+        acceptLabel: 'Accept',
+        rejectLabel: 'Cancel',
         icon: 'pi pi-exclamation-triangle',
         accept: () => {
           this.deleteNote(bloque,element);

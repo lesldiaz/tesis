@@ -18,6 +18,15 @@ export class ProyectoController extends ControllerGeneral<ProyectoEntity> {
             throw new InternalServerErrorException(e);
         }
     }
+    @Post('proyecto-importado')
+    async importar(@Body() datosAGuardar) {
+        try {
+            return await this._proyectoService.importar(datosAGuardar);
+        } catch (e) {
+            console.error('Error', e);
+            throw new InternalServerErrorException(e);
+        }
+    }
     @Post('generar-datos-informe')
     async informe(@Body() datosAGuardar) {
         try {

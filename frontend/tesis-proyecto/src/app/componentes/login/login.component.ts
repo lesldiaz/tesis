@@ -22,10 +22,10 @@ export class LoginComponent implements OnInit {
   arregloMensajesErrorCampoContrasenia: string [] = [];
   arregloMensajesErrorCampoNombreUsuario: string [] = [];
   mensajesErrorCampoContrasenia = {
-    required: 'El campo contraseña es requerido',
+    required: 'Password field is required',
   };
   mensajesErrorCampoNombreUsuario = {
-    required: 'El campo nombre de usuario es requerido',
+    required: 'Username field is required',
     // validacionCedulaYaExiste: 'No existe un usuario registrado con esa cedula'
   };
 
@@ -118,14 +118,14 @@ export class LoginComponent implements OnInit {
                 fechaInicioSesionActual: moment().format().toString()
               }
             ).subscribe(value => {
-                this._toasterService.success('Bienvenido '+nombreUsuario+'!', 'Éxito');
+                this._toasterService.success('Welcome '+nombreUsuario+'!', 'Success');
                 this._route.navigate(['inicio']);
               }
             );
 
           },
           error => {
-            this._toasterService.error('Ocurrió un error', 'Error');
+            this._toasterService.error('An error occurred', 'Error');
             this.errorIniciarSesion = true;
           });
     }

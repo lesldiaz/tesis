@@ -2,23 +2,22 @@
   <!--  titulo gestion -->
   <div class="row separador">
     <div class="col-sm-12">
-      <h1 style="text-align: center">Gestión de Proyectos</h1>
+      <h1 style="text-align: center">Projects management</h1>
     </div>
   </div>
   <!--  crear/buscar-->
   <div class="row separador-botton">
     <div class="col-sm-2">
-      <!--<button class="btn btn-block btn-info" (click)="abrirModalCrear()" type="button">Crear</button>-->
-      <button class="btn texto-blanco cienporcierto btn-info" (click)="abrirModalCrear()" type="button">Crear</button>
+      <button class="btn texto-blanco cienporcierto btn-info" (click)="abrirModalCrear()" type="button">New</button>
     </div>
     <div class="col-sm-2">
-      <button class="btn cienporcierto btn-import" (click)="abrirModalImportar()" type="button">Importar</button>
+      <button class="btn cienporcierto btn-import" (click)="abrirModalImportar()" type="button">Import</button>
     </div>
     <div class="col-sm-8">
       <form [formGroup]="formularioBuscarProyecto" novalidate>
         <div class="row">
           <div class="col-sm-2" id="labelbusqueda">
-            <label for="terminoBusqueda">Buscar: </label>
+            <label for="terminoBusqueda">Search: </label>
           </div>
           <div class="col-sm-10">
             <input
@@ -26,7 +25,7 @@
               class="form-control"
               id="terminoBusqueda"
               [formControlName]="'terminoBusqueda'"
-              placeholder="Ingrese su término de búsqueda">
+              placeholder="Please enter your search term">
           </div>
         </div>
       </form>
@@ -59,20 +58,20 @@
                 {{proyectoFila[col.field]}}
               </div>
               <div *ngIf="col.field === 'descripcion'">
-                {{proyectoFila[col.field] ? proyectoFila[col.field] : 'Ninguna'}}
+                {{proyectoFila[col.field] ? proyectoFila[col.field] : 'None'}}
               </div>
               <div *ngIf="col.field === 'proyecto'">
-                <p><b>Estado:</b> {{proyectoFila['estado'] | ldestadoproyecto }}
+                <p><b>State:</b> {{proyectoFila['estado'] | ldestadoproyecto }}
                   <button
                     class="boton-limpio"
                           #tooltip="matTooltip"
                           (click)="tooltip.toggle()"
-                          matTooltip="Estados de Proyecto: Iniciado (El proyecto esta vacío); Pendiente (Se han realizado cambios); Finalizado (No se puede modificar)"
+                          matTooltip="Project States: Started (project is empty); Pending (changes have been made); Completed (cannot be modified)"
                           matTooltipPosition="right">
                     <i class="fa btn-sea fa-circle-info"></i>
                   </button>
-                <p><b>Tipo de Proyecto:</b> {{proyectoFila['tipoProyecto'] | ldtiproyecto}}</p>
-                <small *ngIf="proyectoFila['duplicado']">Es un proyecto duplicado</small>
+                <p><b>Project type:</b> {{proyectoFila['tipoProyecto'] | ldtiproyecto}}</p>
+                <small *ngIf="proyectoFila['duplicado']">It's a duplicate project</small>
               </div>
               <div class="cienporcierto" *ngIf="col.field === 'id'">
                 <div class="row justify-content-center">
@@ -83,7 +82,7 @@
                       class="btn"
                       data-toggle="tooltip"
                       data-placement="top"
-                      title="Editar">
+                      title="Edit">
                       <i class="fa fa-pen texto-botones" aria-hidden="true"></i>
                     </button>
                     <button
@@ -91,7 +90,7 @@
                       class="btn"
                       data-toggle="tooltip"
                       data-placement="top"
-                      title="Duplicar Proyecto">
+                      title="Duplicate Project">
                       <i class="fa fa-clone texto-botones" aria-hidden="true"></i>
                     </button>
                     <button
@@ -107,7 +106,7 @@
                       class="btn"
                       data-toggle="tooltip"
                       data-placement="top"
-                      title="Eliminar">
+                      title="Delete">
                       <i class="fa fa-trash texto-rojo" aria-hidden="true"></i>
                     </button>
                     <button
@@ -116,7 +115,7 @@
                       class="btn"
                       data-toggle="tooltip"
                       data-placement="top"
-                      title="Descargar Resultados">
+                      title="Download Results">
                       <i class="fa fa-file-excel texto-excel" aria-hidden="true"></i>
                     </button>
                     <button
@@ -125,7 +124,7 @@
                       class="btn"
                       data-toggle="tooltip"
                       data-placement="top"
-                      title="Exportar Proyecto">
+                      title="Export Project">
                       <i class="fa fa-file-export text-black" aria-hidden="true"></i>
                     </button>
                   </div>
@@ -138,8 +137,8 @@
                       class="btn btn-refinamiento"
                       data-toggle="tooltip"
                       data-placement="top"
-                      title="Refinamiento">
-                      <i class="fa fa-play" aria-hidden="true"></i> Iniciar
+                      title="Refinement">
+                      <i class="fa fa-play" aria-hidden="true"></i> Start
                     </button>
                   </div>
                 </div>
@@ -150,7 +149,7 @@
         <ng-template pTemplate="emptymessage">
           <tr>
             <td [attr.colspan]="cols.length">
-              No existe resultados
+              No results
             </td>
           </tr>
         </ng-template>

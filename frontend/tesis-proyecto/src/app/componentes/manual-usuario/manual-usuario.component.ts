@@ -13,7 +13,7 @@ export class ManualUsuarioComponent implements OnInit {
   ngOnInit() {
     this.migasPan = [
       {
-        label: 'Manual de Usuario'
+        label: 'User Manual'
       }
     ];
   }
