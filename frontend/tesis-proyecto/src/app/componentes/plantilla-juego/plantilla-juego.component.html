@@ -19,10 +19,9 @@
     </ng-template>
   </mat-step>
   <mat-step>
-    <ng-template matStepLabel>Step 4</ng-template>
+    <ng-template matStepLabel>Step 4: File Upload</ng-template>
     <ng-template matStepContent>
       <div class="subir">
-        <label>Upload file</label>
         <div>
           Choose file:
           <input id="uploadG" type="text"  [value]="nombreArchivo" disabled>
@@ -38,10 +37,10 @@
               Upload information
             </div>
             <div class="card-body">
-              <div *ngIf="nombreArchivo === 'Sin Selección'">
+              <div *ngIf="nombreArchivo === 'No Selection'">
                 <small>No file uploaded</small>
               </div>
-              <div *ngIf="nombreArchivo !== 'Sin Selección'">
+              <div *ngIf="nombreArchivo !== 'No Selection'">
                 <p>File name: {{nombreArchivo}}</p>
                 <p>Requirements loaded: {{nroReqCargados}}</p>
               </div>
