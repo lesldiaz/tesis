@@ -1,5 +1,5 @@
 <div class="col d-flex justify-content-center">
-  <div class="card text-center" style="width: 30vw; height: 100%; line-height: 5vh; margin-top: 15vh">
+  <div class="card text-center" style="width: 30vw; height: 100%; line-height: 4vh; margin-top: 1%">
     <div class="card-header">
       <img
         width="50%"
@@ -27,7 +27,7 @@
             type="password"
             aria-describedby="contraseniaHelp"
             [formControlName]="'contrasenia'"
-            pInputText >
+            pInputText>
           <label for="contrasenia">Password</label>
         </span>
         <div *ngIf="errorIniciarSesion">
@@ -35,13 +35,22 @@
         </div>
         <div style="padding-top: 1rem"></div>
         <div>
-          <button style="width: 100%" class="btn btn-login" [disabled]="!formularioValido" (click)="enviarFormularioLogin()">Sign in</button>
+          <button style="width: 100%" class="btn btn-login" [disabled]="!formularioValido"
+                  (click)="enviarFormularioLogin()">Sign in
+          </button>
           <p>You don't have an account? <a [routerLink]="'/registro'">Sign up</a></p>
         </div>
       </form>
     </div>
     <div class="card-footer text-muted">
       <a [routerLink]="'/recuperar-contrasena'">Did you forget your password?</a>
+      <div class="imagen-tarjeta">
+        <a class="icono-sns" href="https://polhibou.epn.edu.ec/"><img src="../assets/imagenes/buho.png" class="img-fluid"></a>
+        <a class="icono-sns" href="https://www.facebook.com/EPNQuito"><img src="../assets/imagenes/facebook.png" class="img-fluid"></a>
+        <a class="icono-sns" href="https://twitter.com/EPNEcuador"><img src="../assets/imagenes/twitter.png" class="img-fluid"></a>
+        <a class="icono-sns" href="https://www.youtube.com/user/EPNEcuador"><img src="../assets/imagenes/youtube.png" class="img-fluid"></a>
+        <a class="icono-sns" href="https://www.epn.edu.ec/"><img src="../assets/imagenes/epn.png" class="img-fluid"></a>
+      </div>
     </div>
   </div>
 </div>
