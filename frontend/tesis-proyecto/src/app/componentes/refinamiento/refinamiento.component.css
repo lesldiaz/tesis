@@ -29,3 +29,8 @@
 .btn-e {
   font-size: 2rem;
 }
+.texto-vertical {
+  writing-mode: vertical-lr;
+  transform: rotate(180deg);
+  text-align: center;
+}
