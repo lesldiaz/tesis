@@ -26,6 +26,7 @@ export class RefinamientoComponent implements OnInit {
   mode: ProgressBarMode = 'determinate';
   valor = 50;
   bufferValue = 75;
+  bandera = true;
   bnd:any;
 
   display: boolean = false;
@@ -194,11 +195,12 @@ export class RefinamientoComponent implements OnInit {
           console.error(error);
         }
       );
-    this.bnd = document.getElementById("bar");
-    if(this.tipoProyecto==='C'){
-      this.bnd.style.display="none";
-    }else{
+    this.bandera = this.tipoProyecto === 'C' ? true : false;
+    this.bnd = document.getElementById("bar-control");
+    if(this.bandera===false){
       this.bnd.style.display="";
+    }else{
+      this.bnd.style.display="none";
     }
   }
 

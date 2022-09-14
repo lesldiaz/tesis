@@ -29,3 +29,7 @@
 .btn-e {
   font-size: 2rem;
 }
+.verticalText {
+  writing-mode: vertical-lr;
+  transform: rotate(180deg);
+}
