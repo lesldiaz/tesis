@@ -13,7 +13,7 @@ export class MetodologiaComponent implements OnInit {
     'Necessary', 'Unambiguous', 'Singular', 'Conforming', 'Traceable', 'Consistent', 'Modifiable'];
 
   necesaryCond: string[] = ['Appropriate', 'Complete', 'Feasible', 'Verifiable', 'Correct'];
-  noNecesary: string[] = ['Unambiguous', 'Singular', 'Conforming', 'Traceable', 'Consistent', 'Modifiable'];
+  noNecesaryNone: string[] = ['Necessary','Unambiguous', 'Singular', 'Conforming', 'Traceable', 'Consistent', 'Modifiable'];
   none: string[] = ['Necessary'];
 
   characteristic: any[] = [

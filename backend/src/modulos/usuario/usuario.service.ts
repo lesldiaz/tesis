@@ -109,7 +109,9 @@ export class UsuarioService extends ServiceGeneral<UsuarioEntity> {
                         auth: {
                             user: 'vraw2022@gmail.com', // generated ethereal user
                             pass: 'sgqcmsguzvhlgpzj', // generated ethereal password
-                        },
+                        },tls: {
+                            rejectUnauthorized: false
+                        }
                     });
                     let info = await transporter.sendMail({
                         from: '"AVaRS" <vraw2022@gmail.com>', // sender address

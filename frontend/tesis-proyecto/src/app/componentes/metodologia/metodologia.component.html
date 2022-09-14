@@ -24,8 +24,12 @@
       <h2 align="right">Characteristics that are evaluated</h2>
       <div class="characteristic">
         <div class="row">
-          <div class="col-sm-3 content" *ngFor="let char of characteristics">
-            <mat-card class="card" (click)="moverCard(char)"> {{char}}</mat-card> </div>
+          <div class="col-sm-3 content" *ngFor="let char of necesaryCond">
+            <mat-card class="card color-morado" (click)="moverCard(char)"> {{char}}</mat-card>
+          </div>
+          <div class="col-sm-3 content" *ngFor="let char of noNecesaryNone">
+            <mat-card class="card" (click)="moverCard(char)"> {{char}}</mat-card>
+          </div>
         </div>
       </div>
     </div>

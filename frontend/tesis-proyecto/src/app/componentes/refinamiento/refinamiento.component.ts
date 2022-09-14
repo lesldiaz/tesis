@@ -49,51 +49,51 @@ export class RefinamientoComponent implements OnInit {
   preguntasCliente: any[] = [
     {
       header: 'Unambiguous',
-      pregunta: '¿Los requerimientos están claros, no existe ambiguedad?'
+      pregunta: 'Are the requirements clear, is there no ambiguity?'
     },
     {
       header: 'Feasible',
-      pregunta: '¿El requerimiento es factible, es decir, es realizable a pesar de las limitaciones del sistema (ejemplo por costo, horario, y por parte técnica) con riesgo aceptable?¿El requerimiento tienen alguna estricción técnica?'
+      pregunta: 'Is the requirement feasible, that is, is it achievable despite the limitations of the system (for example, cost, schedule, and technical part) with acceptable risk? Does the requirement have any technical restrictions?'
     },
     {
       header: 'Correct',
-      pregunta: 'El requermiento representa la necesidad real que el cliente necesita?'
+      pregunta: 'Does the requirement represent the real need that the customer needs?'
     },
     {
       header: 'Appropriate',
-      pregunta: '¿El requerimiento está dentro del alcance del proyecto y refleja una necesidad real?'
+      pregunta: 'Is the requirement within the scope of the project and does it reflect a real need?'
     },
     {
       header: 'Verifiable',
-      pregunta: '¿El requerimiento es verificable mediante un caso de prueba?'
+      pregunta: 'Is the requirement verifiable through a test case?'
     },
     {
       header: 'Complete',
-      pregunta: '¿El requerimiento es necesario, sino se incluye como requisito existirá alguna deficiencia, para otros requerimientos?'
+      pregunta: 'Is the requirement complete, describing the client\'s need without the need to expand on it?'
     },
     {
       header: 'Necessary',
-      pregunta: '¿El requerimiento es necesario, sino se incluye como requisito existirá alguna deficiencia, para otros requerimientos?'
+      pregunta: 'Is the requirement necessary, if it is not included as a requirement, will there be any deficiency for other requirements?'
     },
     {
       header: 'Singular',
-      pregunta: '¿El requerimiento establece una sola característica, es singular, o puede descomponerse en varios?'
+      pregunta: 'Does the requirement establish a single characteristic, is it singular, or can it be broken down into several?'
     },
     {
       header: 'Conforming',
-      pregunta: '¿El requerimiento esta conforme al estandar de la organización?'
+      pregunta: 'Does the requirement conform to the organization\'s standard?'
     },
     {
       header: 'Consistent',
-      pregunta: '¿El requerimiento es consistente no contradice a otros requerimientos o no se encuentra repetido?'
+      pregunta: 'Is the requirement consistent, does it not contradict other requirements or is it not repeated?'
     },
     {
       header: 'Modifiable',
-      pregunta: '¿El requerimiento puede ser modificable sin alterar a otros requerimientos o alcance del producto?'
+      pregunta: 'Can the requirement be modifiable without altering other requirements or product scope?'
     },
     {
       header: 'Traceable',
-      pregunta: '¿El requerimiento tiene una trazabilidad original que mantiene la necesidad del cliente?'
+      pregunta: 'Does the requirement have an original traceability that maintains the customer\'s need'
     },
   ];
   colsGamePlay: any[] = [
@@ -113,51 +113,51 @@ export class RefinamientoComponent implements OnInit {
   preguntasGameplay: any[] = [
     {
       header: 'Unambiguous',
-      pregunta: '¿La tarjeta GamePlay requiere aclaración para ser implementado, no tiene ambigüedad?'
+      pregunta: 'Does GamePlay card require clarification to be implemented, is it unambiguous?'
     },
     {
       header: 'Feasible',
-      pregunta: '¿Es factible realizar esta funcionalidad en la plataforma tecnólogica que se va a desarrollar?'
+      pregunta: 'Is it feasible to carry out this functionality in the technological platform that is going to be developed?'
     },
     {
       header: 'Correct',
-      pregunta: '¿La tarjeta GamePlay esta relacionado a la funcionalidad que el usuario necesita, de acuerdo a su alcance. Es  correcto?'
+      pregunta: 'Is GamePlay card related to the functionality that the user needs, according to its scope. It is correct?'
     },
     {
       header: 'Appropriate',
-      pregunta: '¿Existe sinergia entre la tarjeta GamePlay con la historia/narrativa/género. Existe consistencia, es apropiado?'
+      pregunta: 'Is there synergy between the GamePlay card with the story/narrative/genre. Is there consistency, is it appropriate?'
     },
     {
       header: 'Verifiable',
-      pregunta: '¿El GamePlay es verificable?'
+      pregunta: 'Is the GamePlay verifiable?'
     },
     {
       header: 'Complete',
-      pregunta: '¿La tarjeta GamePlay incluye BLOQUES gameplay. Esta completa respetanto el formato?'
+      pregunta: 'Does GamePlay card include gameplay BLOCKS. Is it complete respecting the format?'
     },
     {
       header: 'Necessary',
-      pregunta: '¿Es necesario que la tarjeta GamePlay sea implementada?'
+      pregunta: 'Does GamePlay card need to be implemented?'
     },
     {
       header: 'Singular',
-      pregunta: '¿La tarjeta GamePlay no se puede dividir en otras funcionalidades, es singular?'
+      pregunta: 'GamePlay card cannot be divided into other functionalities, is it singular?'
     },
     {
       header: 'Conforming',
-      pregunta: '¿El diseño funcional del juego que contiene la tarjeta GamePlay es conforme con todas las opiniones de los participantes?'
+      pregunta: 'Is the functional design of the game that contains the GamePlay card in accordance with all opinions of the participants?'
     },
     {
       header: 'Consistent',
-      pregunta: '¿La tarjeta GamePlay es consistente, no se contradice con el diseño inicial propuesto del juego?'
+      pregunta: 'Is GamePlay card consistent, does it not contradict the initial proposed design of the game?'
     },
     {
       header: 'Modifiable',
-      pregunta: '¿La tarjeta GamePlay puede ser mejorada o modificada?'
+      pregunta: 'Can GamePlay card be upgraded or modified?'
     },
     {
       header: 'Traceable',
-      pregunta: '¿La tarjeta GamePlay mantene su trazabilidad respetando el principio del diseño del juego?'
+      pregunta: 'Does GamePlay card maintain its traceability while respecting game design principle?'
     },
   ];
 
