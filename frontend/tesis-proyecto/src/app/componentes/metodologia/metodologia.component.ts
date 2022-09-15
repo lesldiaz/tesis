@@ -10,10 +10,10 @@ export class MetodologiaComponent implements OnInit {
 
   migasPan: MenuItem[] = [];
   characteristics: string[] = ['Appropriate', 'Complete', 'Feasible', 'Verifiable', 'Correct',
-    'Necessary', 'Unambiguos', 'Singular', 'Conforming', 'Traceable', 'Consistent', 'Modifiable'];
+    'Necessary', 'Unambiguous', 'Singular', 'Conforming', 'Traceable', 'Consistent', 'Modifiable'];
 
   necesaryCond: string[] = ['Appropriate', 'Complete', 'Feasible', 'Verifiable', 'Correct'];
-  noNecesary: string[] = ['Unambiguos', 'Singular', 'Conforming', 'Traceable', 'Consistent', 'Modifiable'];
+  noNecesaryNone: string[] = ['Necessary','Unambiguous', 'Singular', 'Conforming', 'Traceable', 'Consistent', 'Modifiable'];
   none: string[] = ['Necessary'];
 
   characteristic: any[] = [

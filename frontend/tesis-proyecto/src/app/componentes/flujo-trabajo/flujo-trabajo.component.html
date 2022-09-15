@@ -1,6 +1,7 @@
 <app-migaspan [conjuntoMigas]="migasPan"></app-migaspan>
 <div class="container-fluid">
   <div id="mensaje" class="bubble" [(ngModel)]="etapa">You are in stage {{etapa}} </div>
+
     <mat-stepper  linear="true" #stepper="matHorizontalStepper">
     <mat-step id="primero" label="Add Requirement" [stepControl]="firstFormGroup">
       <div id="radio-bttn">

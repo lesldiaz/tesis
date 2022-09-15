@@ -53,36 +53,36 @@ export class ResultadoComponent implements OnInit {
               const reqIndispensablesCumplidos: string[] = [];
               const reqIndispensablesNoCumplidos: string[] = [];
               if (resultados?.correcto) {
-                reqIndispensablesCumplidos.push('Correcto');
+                reqIndispensablesCumplidos.push('Correct');
               } else {
-                reqIndispensablesNoCumplidos.push('Correcto');
+                reqIndispensablesNoCumplidos.push('Correct');
               }
               if (resultados?.apropiado) {
-                reqIndispensablesCumplidos.push('Apropiado');
+                reqIndispensablesCumplidos.push('Appropiate');
               } else {
-                reqIndispensablesNoCumplidos.push('Apropiado');
+                reqIndispensablesNoCumplidos.push('Appropiate');
               }
               if (resultados?.completo) {
-                reqIndispensablesCumplidos.push('Completo');
+                reqIndispensablesCumplidos.push('Complete');
               } else {
-                reqIndispensablesNoCumplidos.push('Completo');
+                reqIndispensablesNoCumplidos.push('Complete');
               }
               if (resultados?.verificable) {
-                reqIndispensablesCumplidos.push('Verificable');
+                reqIndispensablesCumplidos.push('Verifiable');
               } else {
-                reqIndispensablesNoCumplidos.push('Verificable');
+                reqIndispensablesNoCumplidos.push('Verifiable');
               }
               if (resultados?.factible) {
-                reqIndispensablesCumplidos.push('Factible');
+                reqIndispensablesCumplidos.push('Feasible');
               } else {
-                reqIndispensablesNoCumplidos.push('Factible');
+                reqIndispensablesNoCumplidos.push('Feasible');
               }
               const reqDeseablesCumplidos: string[] = [];
               const reqDeseablesNoCumplidos: string[] = [];
               if (resultados?.sinAmbiguedad) {
-                reqDeseablesCumplidos.push('Sin Ambigüedad');
+                reqDeseablesCumplidos.push('Unambiguous');
               } else {
-                reqDeseablesNoCumplidos.push('Sin Ambigüedad');
+                reqDeseablesNoCumplidos.push('Unambiguous');
               }
               if (resultados?.singular) {
                 reqDeseablesCumplidos.push('Singular');
@@ -90,24 +90,24 @@ export class ResultadoComponent implements OnInit {
                 reqDeseablesNoCumplidos.push('Singular');
               }
               if (resultados?.trazable) {
-                reqDeseablesCumplidos.push('Trazabilidad');
+                reqDeseablesCumplidos.push('Traceable');
               } else {
-                reqDeseablesNoCumplidos.push('Trazabilidad');
+                reqDeseablesNoCumplidos.push('Traceable');
               }
               if (resultados?.modificable) {
-                reqDeseablesCumplidos.push('Modificable');
+                reqDeseablesCumplidos.push('Modifiable');
               } else {
-                reqDeseablesNoCumplidos.push('Modificable');
+                reqDeseablesNoCumplidos.push('Modifiable');
               }
               if (resultados?.consistente) {
-                reqDeseablesCumplidos.push('Consistente');
+                reqDeseablesCumplidos.push('Consistent');
               } else {
-                reqDeseablesNoCumplidos.push('Consistente');
+                reqDeseablesNoCumplidos.push('Consistent');
               }
               if (resultados?.conforme) {
-                reqDeseablesCumplidos.push('Conforme');
+                reqDeseablesCumplidos.push('Conforming');
               } else {
-                reqDeseablesNoCumplidos.push('Conforme');
+                reqDeseablesNoCumplidos.push('Conforming');
               }
 
               requerimiento.necesarios = reqIndispensablesCumplidos.join(', ');

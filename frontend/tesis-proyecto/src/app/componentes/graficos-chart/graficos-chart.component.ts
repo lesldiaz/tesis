@@ -1,7 +1,8 @@
-import {Component, OnChanges, OnInit} from '@angular/core';
+import {Component, OnChanges, OnInit, Input} from '@angular/core';
 import {Chart} from 'chart.js';
 import {ProyectoService} from 'src/app/servicios/proyecto.service';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
+import { RequerimientoInterface } from 'src/app/constantes/interfaces/requerimiento.interface';
 
 
 @Component({
@@ -14,12 +15,22 @@ export class GraficosChartComponent implements OnInit {
   ctx: any;
   ct2: any;
   ct3: any;
+  @Input() tipoProyecto: 'C' | 'J' | undefined;
+  @Input() idProyecto: number | undefined;
+  requerimientos: RequerimientoInterface[] = [];
+  requerimientosCliente: RequerimientoInterface[] = [];
+  requerimientosGamePlay: RequerimientoInterface[] = [];
+
 
   constructor(
     private readonly _proyectoService: ProyectoService
   ) {
+
+  }
+
+  ngOnInit() {
     const criterioBusqueda = {
-      idProyecto: 1
+      idProyecto: this.idProyecto
     };
     let getProyectos$ = this._proyectoService.getDatosInforme(criterioBusqueda);
     getProyectos$
@@ -34,9 +45,6 @@ export class GraficosChartComponent implements OnInit {
       );
   }
 
-  async ngOnInit() {
-  }
-
   mostrarGraficas(datos:any){
     this.ctx = document.getElementById('myChart');
     const myChart = new Chart(this.ctx, {
@@ -45,14 +53,14 @@ export class GraficosChartComponent implements OnInit {
       data: {
         labels: ['Complete', 'Appropriate', 'Feasible', 'Verifiable', 'Correct'],
         datasets: [{
-          label: 'Requirements',
+          label: 'Essential requirement',
           data: [
-            //this.datos.minimos.completo,
-            //this.datos.minimos.apropiado,
-            //this.datos.minimos.factible,
-            //this.datos.minimos.verificable,
-            //this.datos.minimos.correcto
-            20,15,20,5,10
+            this.datos.minimos.completo,
+            this.datos.minimos.apropiado,
+            this.datos.minimos.factible,
+            this.datos.minimos.verificable,
+            this.datos.minimos.correcto
+            //20,15,20,5,10
           ],
           backgroundColor: [
             'rgba(255, 99, 132, 0.2)',
@@ -107,15 +115,15 @@ export class GraficosChartComponent implements OnInit {
       data: {
         labels: ['Unambiguous', 'Singular', 'Traceable', 'Modifiable', 'Consistent','Conforming'],
         datasets: [{
-          label: 'Requirements',
+          label: 'Desirable requirements',
           data: [
-            //this.datos.deseables.sinAmbiguedad,
-            //this.datos.deseables.singular,
-            //this.datos.deseables.trazable,
-            //this.datos.deseables.modificable,
-            //this.datos.deseables.consistente,
-            //this.datos.deseables.conforme,
-            10,20,30,5,5,10
+            this.datos.deseables.sinAmbiguedad,
+            this.datos.deseables.singular,
+            this.datos.deseables.trazable,
+            this.datos.deseables.modificable,
+            this.datos.deseables.consistente,
+            this.datos.deseables.conforme,
+            //10,20,30,5,5,10
           ],
           backgroundColor: [
             'rgba(255, 99, 132, 0.2)',
@@ -176,9 +184,9 @@ export class GraficosChartComponent implements OnInit {
         datasets: [{
           label: 'My First Dataset',
           data: [
-            //this.datos.bienFormados,
-            //this.datos.noBienFormados
-            10,70
+            this.datos.bienFormados,
+            this.datos.noBienFormados
+            //10,70
             ],
           backgroundColor: [
             'rgb(54, 162, 235)',
