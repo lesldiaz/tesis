@@ -386,7 +386,6 @@ export class ListarProyectosComponent implements OnInit {
             requerimientos = proyectos.mensaje?.resultado;
             const infoProyecto = requerimientos[0].proyecto as ProyectoInterface;
             requerimientos = FUNCIONES_GENERALES.generarObjetoExport(requerimientos);
-            console.log(requerimientos)
             const cabeceraR = [
               [
                 "IDENTIFIER",
@@ -394,6 +393,7 @@ export class ListarProyectosComponent implements OnInit {
                 "DESCRIPTION",
                 "PRIORITY",
                 "ROLE",
+                "IS IPLUS REQ",
                 "PARENT",
                 "BLOCKS",
                 "PURPOSES",

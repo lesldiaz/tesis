@@ -70,6 +70,7 @@ export const FUNCIONES_GENERALES = {
         requerimiento.titulo = valor['TITLE'] !== 'NONE' ? valor['TITLE'] : undefined;
         requerimiento.descripcion = valor['DESCRIPTION'];
         requerimiento.prioridad = valor['PRIORITY'];
+        requerimiento.esReqBloque = valor['IS IPLUS REQ'];
         requerimiento.rol = valor['ROLE'] !== 'NONE' ? valor['ROLE'] : undefined;
         requerimiento.padre = valor['PARENT'] !== 'NONE' ? valor['PARENT'] : undefined;
         requerimiento.correcto = valor['CORRECT'] ? valor['CORRECT'] : 0;
@@ -198,6 +199,7 @@ export const FUNCIONES_GENERALES = {
       objetoExcel.titulo = requerimiento.titulo ? requerimiento.titulo : "NONE";
       objetoExcel.descripcion = requerimiento.descripcion;
       objetoExcel.prioridad = requerimiento.prioridad;
+      objetoExcel.esReqBloque = requerimiento.esReqBloque;
       if (requerimiento.rol) {
         objetoExcel.rol = (requerimiento.rol as RolInterface).id ? (requerimiento.rol as RolInterface)?.id?.toString() : "NONE";
       } else {
