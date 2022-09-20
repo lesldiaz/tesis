@@ -10,6 +10,7 @@ import { RutaPerfilUsuarioComponent } from "../rutas/ruta-perfil-usuario/ruta-pe
 import { RutaProyectosComponent } from "../rutas/ruta-proyectos/ruta-proyectos.component";
 import { RutaRecuperarContrasenaComponent } from "../rutas/ruta-recuperar-contrasena/ruta-recuperar-contrasena.component";
 import { RutaRegistroUsuarioComponent } from "../rutas/ruta-registro-usuario/ruta-registro-usuario.component";
+import { RutaReporteGraficoComponent } from "../rutas/ruta-reporte-grafico/ruta-reporte-grafico.component";
 
 export const ARREGLO_RUTA_COMPONENTES = [
   RutaInicioComponent,
@@ -29,4 +30,5 @@ export const ARREGLO_RUTA_COMPONENTES = [
   RutaParticipantesComponent,
   RutaParticipanteProyectoComponent,
   RutaRecuperarContrasenaComponent,
+  RutaReporteGraficoComponent,
 ];
