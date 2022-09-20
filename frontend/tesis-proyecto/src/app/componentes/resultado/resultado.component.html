@@ -93,12 +93,18 @@
           </ng-template>
           <ng-template pTemplate="body" let-requerimientoFila>
             <tr>
-              <td class="text-center" *ngFor="let col of cols">
-                <div style="white-space: pre-line; word-break:break-all;" *ngIf="col==='observaciones'">
-                 {{requerimientoFila[col.field]}}
-                  <p>Requerimientos necesarios cumplidos: {{requerimientoFila.necesarios ? requerimientoFila.necesarios: 'None'}}</p>
+              <td  *ngFor="let col of cols">
+
+                <div *ngIf="col.field ==='observaciones'">
+                  {{requerimientoFila[col.field] ? requerimientoFila[col.field] : 'None'}}
+                  <p><b>Necessary requirements fulfilled:</b>  {{requerimientoFila.necesarios ? requerimientoFila.necesarios : 'None'}}</p>
+                  <p><b>Non necessary requirements fulfilled:</b>  {{requerimientoFila.noNecesarios ? requerimientoFila.noNecesarios : 'None'}}</p>
+                  <p><b>Desirable requirements fulfilled:</b>  {{requerimientoFila.deseables ? requerimientoFila.deseables : 'None'}}</p>
+                  <p><b>Non desirable requirements fulfilled:</b>  {{requerimientoFila.noDeseables ? requerimientoFila.noDeseables : 'None'}}</p>
                 </div>
-                {{requerimientoFila[col.field]}}
+                <div class="text-center" *ngIf="col.field !=='observaciones'">
+                  {{requerimientoFila[col.field]}}
+                </div>
               </td>
             </tr>
           </ng-template>

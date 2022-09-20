@@ -41,6 +41,7 @@ export class GraficosChartComponent implements OnInit {
   divGameplay:any;
   bandera = true;
   tablas:any;
+  ancho:any;
 
   constructor(
     private readonly _proyectoService: ProyectoService,
@@ -50,9 +51,20 @@ export class GraficosChartComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.bandera = this.tipoProyecto === 'C' ? true : false;
+    console.log(this.bandera);
+    console.log(this.tipoProyecto);
+    this.divGameplay= document.getElementById("GamePlay");
+    this.divGameplay.style.display="none";
+    if(this.bandera===false){
+      console.log(this.bandera);
+      this.divGameplay.style.display="";
+    }
+
     const criterioBusqueda = {
       idProyecto: this.idProyecto
     };
+
     let getProyectos$ = this._proyectoService.getDatosInforme(criterioBusqueda);
     getProyectos$
       .subscribe(
@@ -64,13 +76,7 @@ export class GraficosChartComponent implements OnInit {
           console.error(error);
         }
       );
-    this.bandera = this.tipoProyecto === 'C' ? true : false;
-    this.divGameplay= document.getElementById("GamePlay");
-    if(this.bandera===false){
-      this.divGameplay.style.display="";
-    }else{
-      this.divGameplay.style.display="none";
-    }
+
     const criterioBusquedaTabla = {
       proyecto: {
         id: this.idProyecto
@@ -83,7 +89,7 @@ export class GraficosChartComponent implements OnInit {
           if (typeof proyectos.mensaje !== 'string') {
             this.requerimientos = proyectos.mensaje.resultado;
             this.requerimientos.forEach(requerimiento => {
-              console.log(requerimiento);
+              //console.log(requerimiento);
               const resultados = (requerimiento.resultado as ResultadoInterface[])[0];
               const validacionImplementacion = resultados?.necesario;
               const reqIndispensablesCumplidos: string[] = [];
@@ -150,7 +156,7 @@ export class GraficosChartComponent implements OnInit {
               requerimiento.noNecesarios = reqIndispensablesNoCumplidos.join(', ');
               requerimiento.deseables = reqDeseablesCumplidos.join(', ');
               requerimiento.noDeseables = reqDeseablesNoCumplidos.join(', ');
-              console.log(requerimiento);
+              //console.log(requerimiento);
               if (requerimiento.esReqBloque) {
                 this.requerimientosGamePlay.push(requerimiento);
               } else {
@@ -166,13 +172,26 @@ export class GraficosChartComponent implements OnInit {
           console.error(error);
         }
       );
+
+
   }
 
   mostrarGraficas(datos:any){
+    const bgColor={
+      id:'bgColor',
+      beforeDraw:(chart: { width?: any; height?: any; ctx?: any; })=>{
+        const {ctx} = chart;
+        ctx.save();
+        ctx.globalCompositeOperation = 'destination-over';
+        ctx.fillStyle='white';
+        ctx.fillRect(0,0,chart.width, chart.height);
+        ctx.restore();
+      }
+    }
 
     this.ctx = document.getElementById('myChart');
     const myChart = new Chart(this.ctx, {
-      plugins: [ChartDataLabels],
+      plugins: [ChartDataLabels,bgColor],
       type: 'bar',
       data: {
         labels: ['Complete', 'Appropriate', 'Feasible', 'Verifiable', 'Correct'],
@@ -192,8 +211,7 @@ export class GraficosChartComponent implements OnInit {
             'rgba(255, 206, 86, 0.2)',
             'rgba(75, 192, 192, 0.2)',
             'rgba(153, 102, 255, 0.2)',
-            'rgba(255, 159, 64, 0.2)',
-            'rgb(255,255,255)'
+            'rgba(255, 159, 64, 0.2)'
           ],
           borderColor: [
             'rgba(255, 99, 132, 1)',
@@ -219,23 +237,20 @@ export class GraficosChartComponent implements OnInit {
           formatter: (dato) => dato ,
           /* Color del texto */
           color: "black",
-
-
           /* Formato de la fuente,*/
           font: {
             family: '"Arvo", serif',
             size: 12,
             weight: "bold",
           }
-
         }
-      },
+      }
       }
     });
 
     this.ct2 = document.getElementById('myChart2');
     const myChart2 = new Chart(this.ct2, {
-      plugins: [ChartDataLabels],
+      plugins: [ChartDataLabels,bgColor],
       type: 'bar',
       data: {
         labels: ['Unambiguous', 'Singular', 'Traceable', 'Modifiable', 'Consistent','Conforming'],
@@ -256,8 +271,7 @@ export class GraficosChartComponent implements OnInit {
             'rgba(255, 206, 86, 0.2)',
             'rgba(75, 192, 192, 0.2)',
             'rgba(153, 102, 255, 0.2)',
-            'rgba(255, 159, 64, 0.2)',
-            'rgb(255,255,255)'
+            'rgba(255, 159, 64, 0.2)'
           ],
           borderColor: [
             'rgba(255, 99, 132, 1)',
@@ -300,7 +314,7 @@ export class GraficosChartComponent implements OnInit {
     this.ct3 = document.getElementById('myPie');
 
     const myChart3 = new Chart(this.ct3, {
-      plugins: [ChartDataLabels],
+      plugins: [ChartDataLabels,bgColor],
       type: 'pie',
       data: {
         labels: [
@@ -316,8 +330,7 @@ export class GraficosChartComponent implements OnInit {
             ],
           backgroundColor: [
             'rgb(54, 162, 235)',
-            'rgb(255, 99, 132)',
-            'rgb(255,255,255)'
+            'rgb(255, 99, 132)'
           ],
           hoverOffset: 4
         }]
@@ -351,35 +364,45 @@ export class GraficosChartComponent implements OnInit {
     const newPie=this.ct3.toDataURL("image/jpeg",1.0);
     const newEssential= this.ctx.toDataURL("image/jpeg",1.0);
     const newDesirable=this.ct2.toDataURL("image/jpeg",1.0);
-    this.tablas=document.getElementById('tablas');
-    html2canvas(this.tablas).then((canvas) => {
-      let fileWidth = 208;
-      let fileHeight = (canvas.height * fileWidth) / canvas.width;
-      const FILEURI = canvas.toDataURL('image/png');
-      const pdf = new jsPDF('landscape');
-      pdf.setFontSize(20);
-      pdf.text("Total requirements", 125,10);
-      pdf.addImage(newPie,'JPEG',100,15,100,100);
-      pdf.text("Essential requirement ", 45,125);
-      pdf.addImage(newEssential,'JPEG',30,130,100,75);
-      pdf.text("Desirable requirements", 185,125);
-      pdf.addImage(newDesirable,'JPEG',170,130,100,75);
-      pdf.addPage();
-      pdf.addImage(FILEURI, 'PNG', 0, 0, fileWidth, fileHeight);
-      pdf.save('angular-demo.pdf');
-    });
+    this.ancho=document.getElementById('GamePlay');
+    this.tablas=document.getElementById('Cliente');
+    const pdf = new jsPDF('p');
+    pdf.setFontSize(11);
+    pdf.text("Total requirements", 95,10);
+    pdf.addImage(newPie,'JPEG',75,15,75,75);
+    pdf.text("Essential requirement ", 40,125);
+    pdf.addImage(newEssential,'JPEG',20,130,80,65);
+    pdf.text("Desirable requirements", 125,125);
+    pdf.addImage(newDesirable,'JPEG',110,130,80,65);
 
-    /*pdf.html(this.reporte.nativeElement,{
-      callback:(pdf)=>{
-        //save this document
-        pdf.save("Final_report.pdf")
-      }
-    });*/
-
-    //const pdfTable = this.reporte.nativeElement;
-    //var html = htmlToPdfmake(pdfTable.innerHTML);
-    //const documentDefinition = { content: html };
-    //pdfMake.createPdf(documentDefinition).download();
+    if(this.tipoProyecto==="C"){
+      html2canvas(this.tablas).then((canvas) => {
+        let fileWidth = 175;
+        let fileHeight = (canvas.height * fileWidth) / canvas.width;
+        const FILEURI = canvas.toDataURL('image/png');
+        pdf.addPage();
+        pdf.text("Table result", 95,10);
+        pdf.addImage(FILEURI, 'PNG', 20, 15, fileWidth, 250);
+        pdf.save('report.pdf');
+      });
+    }else{
+      html2canvas(this.tablas).then((canvas) => {
+        let fileWidth = 175;
+        let fileHeight = (canvas.height * fileWidth) / canvas.width;
+        const FILEURI = canvas.toDataURL('image/png');
+        pdf.addPage();
+        pdf.text("Table result", 95,10);
+        pdf.addImage(FILEURI, 'PNG', 20, 15, fileWidth, 250);
+      });
+      html2canvas(this.ancho).then((game) => {
+        let fileWidth = 175;
+        let fileHeight = (game.height * fileWidth) / game.width;
+        const FILEURI = game.toDataURL('image/png');
+        pdf.addPage();
+        pdf.addImage(FILEURI, 'PNG', 20, 5, fileWidth, 250);
+        pdf.save('final_report.pdf');
+      });
+    }
 
   }
 
