@@ -370,6 +370,10 @@ export class ListarProyectosComponent implements OnInit {
     this._route.navigate(['/nuevoproyecto', idProyecto]);
   }
 
+  irAReporteGrafico(proyecto: ProyectoInterface) {
+    this._route.navigate(['/proyectos/reporte-grafico', proyecto.id]);
+  }
+
   exportarProyecto(proyectoFila: any) {
     // TRATAMIENTO DATOS
     const criterioBusqueda = {

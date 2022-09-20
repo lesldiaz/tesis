@@ -120,11 +120,11 @@
                     </button>
                     <button
                       *ngIf="proyectoFila['estado']==='F'"
-
+                      (click)="irAReporteGrafico(proyectoFila)"
                       class="btn"
                       data-toggle="tooltip"
                       data-placement="top"
-                      title="Download Report">
+                      title="View Report">
                       <i class="fas fa-file-pdf texto-excel" aria-hidden="true"></i>
                     </button>
                     <button
