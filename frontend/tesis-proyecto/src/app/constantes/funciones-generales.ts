@@ -70,7 +70,7 @@ export const FUNCIONES_GENERALES = {
         requerimiento.titulo = valor['TITLE'] !== 'NONE' ? valor['TITLE'] : undefined;
         requerimiento.descripcion = valor['DESCRIPTION'];
         requerimiento.prioridad = valor['PRIORITY'];
-        requerimiento.esReqBloque = valor['IS IPLUS REQ'];
+        requerimiento.esReqBloque = valor['IS IPLUS REQ'] ? valor['IS IPLUS REQ'] : 0;
         requerimiento.rol = valor['ROLE'] !== 'NONE' ? valor['ROLE'] : undefined;
         requerimiento.padre = valor['PARENT'] !== 'NONE' ? valor['PARENT'] : undefined;
         requerimiento.correcto = valor['CORRECT'] ? valor['CORRECT'] : 0;
@@ -87,9 +87,6 @@ export const FUNCIONES_GENERALES = {
         requerimiento.necesario = valor['NECESSARY'] ? valor['NECESSARY'] : 0;
         requerimiento.proposito = valor['PURPOSES'];
         requerimiento.bloque = valor['BLOCKS'];
-        requerimiento.bloque !== 'NONE' ?
-          requerimiento.esReqBloque = 1 :
-          requerimiento.esReqBloque = 0;
 
 
         datosTratados.push(requerimiento)
