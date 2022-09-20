@@ -51,9 +51,20 @@ export class GraficosChartComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.bandera = this.tipoProyecto === 'C' ? true : false;
+    console.log(this.bandera);
+    console.log(this.tipoProyecto);
+    this.divGameplay= document.getElementById("GamePlay");
+    this.divGameplay.style.display="none";
+    if(this.bandera===false){
+      console.log(this.bandera);
+      this.divGameplay.style.display="";
+    }
+
     const criterioBusqueda = {
       idProyecto: this.idProyecto
     };
+
     let getProyectos$ = this._proyectoService.getDatosInforme(criterioBusqueda);
     getProyectos$
       .subscribe(
@@ -65,13 +76,7 @@ export class GraficosChartComponent implements OnInit {
           console.error(error);
         }
       );
-    this.bandera = this.tipoProyecto === 'C' ? true : false;
-    this.divGameplay= document.getElementById("GamePlay");
-    if(this.bandera===false){
-      this.divGameplay.style.display="";
-    }else{
-      this.divGameplay.style.display="none";
-    }
+
     const criterioBusquedaTabla = {
       proyecto: {
         id: this.idProyecto
@@ -167,6 +172,8 @@ export class GraficosChartComponent implements OnInit {
           console.error(error);
         }
       );
+
+
   }
 
   mostrarGraficas(datos:any){
