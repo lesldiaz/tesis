@@ -14,7 +14,7 @@
 }
 .emergente {
   position: fixed;
-  botton: 20px;
+  bottom: 20px;
   right: 20px;
   box-sizing: border-box;
   opacity: 0.9;
