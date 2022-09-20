@@ -6,7 +6,7 @@
 }
 .btn{
   padding: 10px;
-  background-color: lightseagreen;
+  background-color: #5888A6;
   color: white;
   border-radius: 5px;
   text-decoration: none;
@@ -29,10 +29,10 @@ input[type="file"] {
 }
 .btn-step{
   padding: 5px;
-  background-color: lightseagreen;
+  background-color: #5888A6;
   color: white;
   border-radius: 5px;
   text-decoration: none;
   margin-top: 3px;
-  border-color: lightseagreen;
+  border-color: #5888A6;
 }

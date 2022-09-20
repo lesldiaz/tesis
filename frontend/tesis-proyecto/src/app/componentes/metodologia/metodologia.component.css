@@ -11,7 +11,7 @@ h2{
 }
 .card{
   margin-top: 5px;
-  background-color: #5794D8 ;
+  background-color: #024873 ;
   color: white;
   text-align: center;
   font-size: 16px;
@@ -91,7 +91,7 @@ h2{
 }
 
 .momento:nth-child(even) .descripcion {
-  background-color: #3393FE;
+  background-color: #024873;
   color: white;
 }
 
@@ -99,9 +99,9 @@ h2{
   left: -10px;
   border-top: 10px solid transparent;
   border-bottom: 10px solid transparent;
-  border-right: 12px solid #3393FE;
+  border-right: 12px solid #024873;
   border-left: none;
 }
 .color-morado{
-  background-color: #5dc460;
+  background-color: #038C7F;
 }

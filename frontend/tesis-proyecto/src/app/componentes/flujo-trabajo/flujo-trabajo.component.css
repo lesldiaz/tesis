@@ -22,7 +22,7 @@
 }
 .btn{
   padding: 10px;
-  background-color: lightseagreen;
+  background-color: #5888A6;
   color: white;
   border-radius: 5px;
   text-decoration: none;
@@ -46,8 +46,8 @@
   left: 10px;
   border-radius: 8px 8px 8px 8px;
   width: 200px;
-  background: lightseagreen;
-  border-color: teal;
+  background: #024873;
+  border-color: #024873;
   color: white;
   font-size: 16px;
 }
