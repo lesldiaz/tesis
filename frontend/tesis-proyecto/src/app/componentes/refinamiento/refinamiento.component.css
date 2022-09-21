@@ -1,1 +1,37 @@
+#bar{
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.emergente {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  box-sizing: border-box;
+  opacity: 0.9;
+  animation: fadein 1.5s;
+  z-index: 100;
+}
+.msg-e {
+  background-color: rgba(143, 173, 191, 0.5);
+  padding: 0.5rem;
+  width: 20rem;
+  border-radius: 0.5rem;
+  border: #5888A6 0.1rem solid;
+}
 
+@keyframes fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+.btn-c {
+  color:  rgba(143, 173, 191, 0.9);
+}
+.btn-e {
+  font-size: 2rem;
+}
+
+.texto-vertical {
+  writing-mode: vertical-lr;
+  transform: rotate(180deg);
+  text-align: center;
+}

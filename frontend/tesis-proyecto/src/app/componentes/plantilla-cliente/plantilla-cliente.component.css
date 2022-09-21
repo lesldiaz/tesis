@@ -6,13 +6,14 @@
 }
 .btn{
   padding: 10px;
-  background-color: lightseagreen;
+  background-color: #5888A6;
   color: white;
   border-radius: 5px;
   text-decoration: none;
   margin-top: 3px;
   margin-left: 20px;
 }
+
 .file{
   padding: 16px;
   border: white;
@@ -26,4 +27,13 @@ input[type="file"] {
   display: inline-block;
   padding: 6px 12px;
   cursor: pointer;
+}
+.btn-step{
+  padding: 5px;
+  background-color: #5888A6;
+  color: white;
+  border-radius: 5px;
+  text-decoration: none;
+  margin-top: 3px;
+  border-color: #5888A6;
 }

@@ -1,8 +1,8 @@
 <p-confirmDialog></p-confirmDialog>
 <div>
   <div>
-    <mat-grid-list cols="5" rowHeight="25px">
-      <div  *ngFor="let tile of tiles" id='{{tile.id}}'>
+    <mat-grid-list cols="5" rowHeight="30px" >
+      <div  *ngFor="let tile of tiles" id='{{tile.id}}' >
         <mat-grid-tile
           [colspan]="tile.cols"
           [rowspan]="tile.rows"
@@ -12,8 +12,14 @@
       </div>
     </mat-grid-list>
   </div>
-  <div id="bloq">
 
+  <small class="text-center"><i>Double click on the block to remove it</i></small>
+
+  <div class="contenido">
+    <div id="bloq">
+
+    </div>
   </div>
+
 </div>
 

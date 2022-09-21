@@ -1,10 +1,12 @@
 <app-migaspan [conjuntoMigas]="migasPan"></app-migaspan>
-<div>
-  <mat-stepper linear="true" #stepper="matHorizontalStepper">
-    <mat-step label="Agregar Requerimiento" [stepControl]="firstFormGroup">
+<div class="container-fluid">
+  <div id="mensaje" class="bubble" [(ngModel)]="etapa">You are in stage {{etapa}} </div>
+
+    <mat-stepper  linear="true" #stepper="matHorizontalStepper">
+    <mat-step id="primero" label="Add Requirement" [stepControl]="firstFormGroup">
       <div id="radio-bttn">
         <form [formGroup]="firstFormGroup">
-          <label id="radio-group">Agregar requerimiento mediante</label>
+          <label id="radio-group">Add requirement by</label>
           <mat-radio-group
             aria-labelledby="radio-group"
             class="example-radio-group"
@@ -13,16 +15,16 @@
             required
           >
             <mat-radio-button class="example-radio-button" value="plantilla">
-              Plantilla
-              <svg xmlns="http://www.w3.org/2000/svg" width="40" height="50" fill="#20C997" class="bi bi-filetype-xlsx"
+              Template
+              <svg xmlns="http://www.w3.org/2000/svg" width="40" height="50" fill="#024873" class="bi bi-filetype-xlsx"
                    viewBox="0 0 16 16">
                 <path fill-rule="evenodd"
                       d="M14 4.5V11h-1V4.5h-2A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v9H2V2a2 2 0 0 1 2-2h5.5L14 4.5ZM7.86 14.841a1.13 1.13 0 0 0 .401.823c.13.108.29.192.479.252.19.061.411.091.665.091.338 0 .624-.053.858-.158.237-.105.416-.252.54-.44a1.17 1.17 0 0 0 .187-.656c0-.224-.045-.41-.135-.56a1.002 1.002 0 0 0-.375-.357 2.028 2.028 0 0 0-.565-.21l-.621-.144a.97.97 0 0 1-.405-.176.37.37 0 0 1-.143-.299c0-.156.061-.284.184-.384.125-.101.296-.152.513-.152.143 0 .266.023.37.068a.624.624 0 0 1 .245.181.56.56 0 0 1 .12.258h.75a1.093 1.093 0 0 0-.199-.566 1.21 1.21 0 0 0-.5-.41 1.813 1.813 0 0 0-.78-.152c-.293 0-.552.05-.777.15-.224.099-.4.24-.527.421-.127.182-.19.395-.19.639 0 .201.04.376.123.524.082.149.199.27.351.367.153.095.332.167.54.213l.618.144c.207.049.36.113.462.193a.387.387 0 0 1 .153.326.512.512 0 0 1-.085.29.558.558 0 0 1-.255.193c-.111.047-.25.07-.413.07-.117 0-.224-.013-.32-.04a.837.837 0 0 1-.249-.115.578.578 0 0 1-.255-.384h-.764Zm-3.726-2.909h.893l-1.274 2.007 1.254 1.992h-.908l-.85-1.415h-.035l-.853 1.415H1.5l1.24-2.016-1.228-1.983h.931l.832 1.438h.036l.823-1.438Zm1.923 3.325h1.697v.674H5.266v-3.999h.791v3.325Zm7.636-3.325h.893l-1.274 2.007 1.254 1.992h-.908l-.85-1.415h-.035l-.853 1.415h-.861l1.24-2.016-1.228-1.983h.931l.832 1.438h.036l.823-1.438Z"/>
               </svg>
             </mat-radio-button>
-            <mat-radio-button class="example-radio-button" value="grafico">
-              Método gráfico
-              <svg xmlns="http://www.w3.org/2000/svg" width="40" height="50" fill="#20C997"
+            <mat-radio-button class="example-radio-button" value="grafico" >
+              Graphic method
+              <svg xmlns="http://www.w3.org/2000/svg" width="40" height="50" fill="#024873"
                    class="bi bi-file-earmark-richtext" viewBox="0 0 16 16">
                 <path
                   d="M14 4.5V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h5.5L14 4.5zm-3 0A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5h-2z"/>
@@ -32,7 +34,7 @@
             </mat-radio-button>
           </mat-radio-group>
           <div class="next-btt">
-            <button type="button" class="btn" (click)="eleccion()">Añadir Requerimientos</button>
+            <button type="button" class="btn" (click)="eleccion()">Add</button>
           </div>
         </form>
       </div>
@@ -43,32 +45,34 @@
           (requerimientosCargadosPJ)="recibirRequerimientosJ($event)"
         ></app-pestana-plantilla>
         <div id="select" class="right" [formGroup]="firstFormGroup">
-          <button class="btn" type="button" (click)="guardarRequerimientosIngresados()" mat-button>Continuar</button>
+          <button class="btn" type="button" (click)="guardarRequerimientosIngresados()" mat-button>Next</button>
         </div>
       </div>
     </mat-step>
-    <mat-step label="Visualización de requerimiento" #paso_2>
+    <mat-step id="segundo" label="Requirement display" #paso_2>
       <ng-container *ngIf="stepper.selected === paso_2">
-        <div>
-          <button class="btn " type="button" mat-button (click)="actualizaEstadoProyecto()">Continuar</button>
+        <div class="right">
+          <button class="btn " type="button" mat-button (click)="actualizaEstadoProyecto()">Next</button>
         </div>
         <div id="metodo-grafico">
           <app-pestana [tipoProyecto]="tipoProyecto" [idProyecto]="idProyecto"></app-pestana>
         </div>
       </ng-container>
     </mat-step>
-    <mat-step label="Refinamiento" #paso_3>
+    <mat-step id="tercero" label="Refinement" #paso_3>
       <ng-container *ngIf="stepper.selected === paso_3">
-      <div>
-        <button class="btn" type="button" (click)="refinar()" mat-button>Continuar</button>
+      <div class="right">
+        <button class="btn" type="button" (click)="mover(false)" mat-button matStepperPrevious>Back</button>
+        <button class="btn" type="button" (click)="refinar()" mat-button>Next</button>
       </div>
       <app-refinamiento [idProyecto]="idProyecto" [tipoProyecto]="tipoProyecto"></app-refinamiento>
       </ng-container>
     </mat-step>
-    <mat-step label="Resultados" #paso_4>
+    <mat-step id="cuarto" label="Results" #paso_4>
       <ng-container *ngIf="stepper.selected === paso_4">
-      <div>
-        <button class="btn" type="button" (click)="irAProyectos()" mat-button>Finalizar</button>
+      <div class="right">
+        <button class="btn" type="button" (click)="mover(false)" mat-button matStepperPrevious>Back</button>
+        <button class="btn" type="button" (click)="irAProyectos()" mat-button>Finish</button>
       </div>
       <app-resultado [idProyecto]="idProyecto" [tipoProyecto]="tipoProyecto"></app-resultado>
       </ng-container>

@@ -2,7 +2,6 @@ import {Component, DoCheck, Input, OnChanges, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {UsuarioInterface} from 'src/app/constantes/interfaces/usuario.interface';
 import {AuthService} from 'src/app/servicios/auth.service';
-import {CookieUsuarioService} from '../../servicios/cookie.service';
 
 @Component({
   selector: 'app-menu',
@@ -11,7 +10,7 @@ import {CookieUsuarioService} from '../../servicios/cookie.service';
 })
 export class MenuComponent implements DoCheck  {
   usuarioActual: UsuarioInterface | undefined;
-  nombreUsuario = 'Invitado';
+  nombreUsuario = 'Guest';
 
   constructor(private readonly _authService: AuthService,
               private readonly _route: Router) {
@@ -26,7 +25,7 @@ export class MenuComponent implements DoCheck  {
 
   cerrarSesion() {
     this._authService.logout();
-    this.nombreUsuario = 'Invitado';
+    this.nombreUsuario = 'Guest';
     this._route.navigate(['login']);
   }
 

@@ -1,86 +1,70 @@
-<div class="container-fluid centro">
-  <div class="row" style="padding-top: 1rem">
-    <div class="col-sm-12">
-      <h2>Inicia Sesión</h2>
+<div class="col d-flex justify-content-center">
+  <div class="card text-center" style="width: 30vw; height: 100%; line-height: 5vh; margin-top: 5vh">
+    <div class="card-header">
+      <img
+        width="50%"
+        src="https://economia.epn.edu.ec/images/img/150.png">
     </div>
-  </div>
-  <div class="container inicio login">
-    <form [formGroup]="formularioRegistro" novalidate>
-      <div class="row">
-        <div class="col-sm-4">
-          <label for="nombreUsuario">Nombre de Usuario</label>
-        </div>
-        <div class="col-sm-8">
+    <div class="card-body">
+      <form [formGroup]="formularioRegistro" novalidate>
+        <h2>SIGN UP</h2>
+        <div style="padding-top: 0.8rem"></div>
+        <span class="p-float-label">
           <input
-            type="text"
-            class="form-control"
+            style="width: 100%"
             id="nombreUsuario"
+            type="text"
             aria-describedby="nombreUsuarioHelp"
             [formControlName]="'nombreUsuario'"
-            placeholder="Ingrese su nombre de usuario">
-        </div>
-        <div *ngIf="arregloMensajesErrorCampoNombreUsuario.length > 0" class="alert alert-info" role="alert">
+            pInputText>
+          <label for="nombreUsuario">Username</label>
+        </span>
+        <div *ngIf="arregloMensajesErrorCampoNombreUsuario.length > 0" class="alert alert-warning" role="alert">
           <div *ngFor="let mensajeError of arregloMensajesErrorCampoNombreUsuario">
-            <div>{{mensajeError}}</div>
+            <small>{{mensajeError}}</small>
           </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="col-sm-4">
-          <label for="email">Correo Electrónico</label>
-        </div>
-        <div class="col-sm-8">
+        <div style="padding-top: 1.8rem"></div>
+        <span class="p-float-label">
           <input
-            type="text"
-            class="form-control"
+            style="width: 100%"
             id="email"
+            type="email"
             aria-describedby="emailHelp"
             [formControlName]="'email'"
-            placeholder="Ingrese su correo electrónico">
-        </div>
-        <div *ngIf="arregloMensajesErrorCampoEmail.length > 0" class="alert alert-info" role="alert">
+            pInputText>
+          <label for="email">Email</label>
+        </span>
+        <div *ngIf="arregloMensajesErrorCampoEmail.length > 0" class="alert alert-warning" role="alert">
           <div *ngFor="let mensajeError of arregloMensajesErrorCampoEmail">
-            <div>{{mensajeError}}</div>
+            <small>{{mensajeError}}</small>
           </div>
         </div>
-      </div>
-      <div class="separador"></div>
-      <div class="row">
-        <div class="col-sm-4">
-          <label for="contrasena">Contraseña</label>
-        </div>
-        <div class="col-sm-8">
+        <div style="padding-top: 1.8rem"></div>
+        <span class="p-float-label">
           <input
-            type="password"
-            class="form-control"
+            style="width: 100%"
             id="contrasena"
+            type="password"
             aria-describedby="contrasenaHelp"
             [formControlName]="'contrasena'"
-            placeholder="Ingrese su contraseña">
-        </div>
-        <div *ngIf="arregloMensajesErrorCampoContrasenia.length > 0" class="alert alert-info" role="alert">
+            pInputText >
+          <label for="contrasena">Password</label>
+        </span>
+        <div *ngIf="arregloMensajesErrorCampoContrasenia.length > 0" class="alert alert-warning" role="alert">
           <div *ngFor="let mensajeError of arregloMensajesErrorCampoContrasenia">
-            <div>{{mensajeError}}</div>
+            <small>{{mensajeError}}</small>
           </div>
         </div>
-      </div>
-
-      <div class="separador"></div>
-      <div class="row" *ngIf="errorRegistro">
-        <div class="col-sm-12">
-          <p class="text-danger">¡El nombre de usuario ya esta en uso!</p>
+        <div *ngIf="errorRegistro">
+            <p class="text-danger">Username or email is already in use!</p>
         </div>
-      </div>
-      <div class="separador"></div>
-      <div class="row">
-        <div class="col-sm-6"></div>
-        <div class="col-sm-3 justify-content-end">
-          <button class="btn btn-info" [disabled]="!formularioValido" (click)="enviarFormularioRegistro()">Registrarse</button>
+        <div style="padding-top: 1rem"></div>
+        <div>
+          <button style="width: 100%" class="btn btn-login" [disabled]="!formularioValido" (click)="enviarFormularioRegistro()">Sign up</button>
+          <button style="width: 100%; margin-top: 0.5rem" class="btn btn-outline-dark" (click)="irALogin()" >Back</button>
         </div>
-        <div class="col-sm-3 justify-content-end">
-          <button class=" serparador-boton btn btn-secondary"(click)="irALogin()">Regresar</button>
-        </div>
-      </div>
-    </form>
+      </form>
+    </div>
   </div>
 </div>

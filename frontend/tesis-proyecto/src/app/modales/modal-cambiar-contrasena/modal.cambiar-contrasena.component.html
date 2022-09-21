@@ -1,26 +1,25 @@
-<h1 mat-dialog-title class="text-center">Cambiar Contraseña</h1>
+<h1 mat-dialog-title class="text-center">CHANGE PASSWORD</h1>
 <div mat-dialog-content>
   <form [formGroup]="cambiarContrasenaFormulario" (ngSubmit)="enviarDatos()" novalidate>
     <div class="row">
-      <label for="contrasena">Contraseña</label>
+      <label for="contrasena">Password</label>
       <input
-        type="text"
+        type="password"
         class="form-control"
         id="contrasena"
         aria-describedby="contrasenalHelp"
-        [formControlName]="'contrasena'"
-        placeholder="Ingrese contrasena">
-      <small id="contrasenaHelp" class="form-text text-muted">Ingrese contraseña</small>
-      <div *ngIf="arregloMensajesErrorCampoContrasena.length > 0" class="alert alert-info" role="alert">
+        [formControlName]="'contrasena'">
+      <small id="contrasenaHelp" class="form-text text-muted">Enter your new password</small>
+      <div *ngIf="arregloMensajesErrorCampoContrasena.length > 0" class="alert alert-warning" role="alert">
         <div *ngFor="let mensajeError of arregloMensajesErrorCampoContrasena">
-          <div>{{mensajeError}}</div>
+          <small>{{mensajeError}}</small>
         </div>
       </div>
     </div>
   </form>
 </div>
-<div class="row justify-content-end" mat-dialog-actions>
-    <button class="btn btn-outline-dark" (click)="cancelarModal()">Cancelar</button>
+<div mat-dialog-actions class="justify-content-end">
+    <button class="btn color-btn-cancelar" (click)="cancelarModal()">Cancel</button>
     <div style="padding-right: 1rem"></div>
-    <button class="btn btn-info" [disabled]="!formularioValido" (click)="enviarDatos()">Aceptar</button>
+    <button class="btn color-btn-primario" [disabled]="!formularioValido" (click)="enviarDatos()">Accept</button>
 </div>

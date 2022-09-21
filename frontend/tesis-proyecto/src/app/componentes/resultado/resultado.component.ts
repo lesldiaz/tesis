@@ -20,11 +20,11 @@ export class ResultadoComponent implements OnInit {
   requerimientosCliente: RequerimientoInterface[] = [];
   requerimientosGamePlay: RequerimientoInterface[] = [];
   cols: any[] = [
-    {field: 'idRequerimiento', header: 'Identificador'},
-    {field: 'descripcion', header: 'Descripción'},
-    {field: 'esValido', header: 'Es Válido'},
-    {field: 'caracteristicasCumplidas', header: 'Características Cumplidas'},
-    {field: 'observaciones', header: 'Observaciones'},
+    {field: 'idRequerimiento', header: 'Identifier'},
+    {field: 'descripcion', header: 'Description'},
+    {field: 'esValido', header: 'Is Valid'},
+    {field: 'caracteristicasCumplidas', header: 'Fulfilled properties'},
+    {field: 'observaciones', header: 'Observations'},
   ];
 
   constructor(
@@ -47,6 +47,74 @@ export class ResultadoComponent implements OnInit {
           if (typeof proyectos.mensaje !== 'string') {
             this.requerimientos = proyectos.mensaje.resultado;
             this.requerimientos.forEach(requerimiento => {
+              console.log(requerimiento);
+              const resultados = (requerimiento.resultado as ResultadoInterface[])[0];
+              const validacionImplementacion = resultados?.necesario;
+              const reqIndispensablesCumplidos: string[] = [];
+              const reqIndispensablesNoCumplidos: string[] = [];
+              if (resultados?.correcto) {
+                reqIndispensablesCumplidos.push('Correct');
+              } else {
+                reqIndispensablesNoCumplidos.push('Correct');
+              }
+              if (resultados?.apropiado) {
+                reqIndispensablesCumplidos.push('Appropiate');
+              } else {
+                reqIndispensablesNoCumplidos.push('Appropiate');
+              }
+              if (resultados?.completo) {
+                reqIndispensablesCumplidos.push('Complete');
+              } else {
+                reqIndispensablesNoCumplidos.push('Complete');
+              }
+              if (resultados?.verificable) {
+                reqIndispensablesCumplidos.push('Verifiable');
+              } else {
+                reqIndispensablesNoCumplidos.push('Verifiable');
+              }
+              if (resultados?.factible) {
+                reqIndispensablesCumplidos.push('Feasible');
+              } else {
+                reqIndispensablesNoCumplidos.push('Feasible');
+              }
+              const reqDeseablesCumplidos: string[] = [];
+              const reqDeseablesNoCumplidos: string[] = [];
+              if (resultados?.sinAmbiguedad) {
+                reqDeseablesCumplidos.push('Unambiguous');
+              } else {
+                reqDeseablesNoCumplidos.push('Unambiguous');
+              }
+              if (resultados?.singular) {
+                reqDeseablesCumplidos.push('Singular');
+              } else {
+                reqDeseablesNoCumplidos.push('Singular');
+              }
+              if (resultados?.trazable) {
+                reqDeseablesCumplidos.push('Traceable');
+              } else {
+                reqDeseablesNoCumplidos.push('Traceable');
+              }
+              if (resultados?.modificable) {
+                reqDeseablesCumplidos.push('Modifiable');
+              } else {
+                reqDeseablesNoCumplidos.push('Modifiable');
+              }
+              if (resultados?.consistente) {
+                reqDeseablesCumplidos.push('Consistent');
+              } else {
+                reqDeseablesNoCumplidos.push('Consistent');
+              }
+              if (resultados?.conforme) {
+                reqDeseablesCumplidos.push('Conforming');
+              } else {
+                reqDeseablesNoCumplidos.push('Conforming');
+              }
+
+              requerimiento.necesarios = reqIndispensablesCumplidos.join(', ');
+              requerimiento.noNecesarios = reqIndispensablesNoCumplidos.join(', ');
+              requerimiento.deseables = reqDeseablesCumplidos.join(', ');
+              requerimiento.noDeseables = reqDeseablesNoCumplidos.join(', ');
+              console.log(requerimiento);
               if (requerimiento.esReqBloque) {
                 this.requerimientosGamePlay.push(requerimiento);
               } else {
@@ -71,22 +139,22 @@ export class ResultadoComponent implements OnInit {
   exportExcel(tipo: 'C' | 'J' = 'C') {
     import("xlsx").then(xlsx => {
       const cabecera = [
-        ["Identificador", "Descripción", "Válido", "Características Cumplidas", "Observaciones"]
+        ["Identifier", "Description", "Valid", "Fulfilled properties", "Observations"]
       ];
       let worksheet;
       let nombreArchivo;
       if (tipo === 'C') {
-        nombreArchivo = 'resultadosCliente';
+        nombreArchivo = 'resultsClient';
         worksheet = xlsx.utils.json_to_sheet(this.requerimientosCliente);
         xlsx.utils.sheet_add_aoa(worksheet, cabecera);
         xlsx.utils.sheet_add_json(worksheet, this.requerimientosCliente, {origin: 'A2', skipHeader: true});
       } else {
-        nombreArchivo = 'resultadosGamePlay';
+        nombreArchivo = 'resultsGamePlay';
         worksheet = xlsx.utils.json_to_sheet(this.requerimientosGamePlay);
         xlsx.utils.sheet_add_aoa(worksheet, cabecera);
         xlsx.utils.sheet_add_json(worksheet, this.requerimientosGamePlay, {origin: 'A2', skipHeader: true});
       }
-      const workbook = {Sheets: {'Resultado': worksheet}, SheetNames: ['Resultado']};
+      const workbook = {Sheets: {'Output': worksheet}, SheetNames: ['Output']};
       const excelBuffer: any = xlsx.write(workbook, {bookType: 'xlsx', type: 'array'});
       this.saveAsExcelFile(excelBuffer, nombreArchivo);
     });

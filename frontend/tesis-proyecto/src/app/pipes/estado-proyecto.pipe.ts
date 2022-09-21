@@ -6,11 +6,11 @@ import {Pipe, PipeTransform} from '@angular/core';
 export class EstadoProyectoPipe implements PipeTransform {
   transform(input: string): any {
     if (input === 'F') {
-      return 'Finalizado';
+      return 'Completed';
     } else if (input === 'P') {
-      return 'En Proceso';
+      return 'Pending';
     } else {
-      return 'Iniciado';
+      return 'Started';
     }
   }
 }

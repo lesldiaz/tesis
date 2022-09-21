@@ -19,7 +19,7 @@ export class PropositoEntity extends EntityGenerico {
         type: 'tinyint',
         default: 0
     })
-    esPrincipal: 1 | 0 = 0;
+    esPrincipal?: 1 | 0 = 0;
 
     @ManyToOne(
         type => RequerimientoEntity,

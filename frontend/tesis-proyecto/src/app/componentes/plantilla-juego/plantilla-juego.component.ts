@@ -9,8 +9,9 @@ import * as XLSX from 'xlsx';
   styleUrls: ['./plantilla-juego.component.css']
 })
 export class PlantillaJuegoComponent implements OnInit {
-  @Output() requerimientosCargados: EventEmitter<object[]> = new EventEmitter<object[]>();
-  nombreArchivo = 'Sin Selección';
+  @Output() requerimientosCargadosJ: EventEmitter<object[]> = new EventEmitter<object[]>();
+  nombreArchivo = 'No Selection';
+  nroReqCargados = 0;
   resultado: ExcelPlantillaHuInterface[] = [];
   constructor() { }
 
@@ -34,7 +35,10 @@ export class PlantillaJuegoComponent implements OnInit {
 
       const data = XLSX.utils.sheet_to_json(ws, {range: 5}); // to get 2d array pass 2nd parameter as object {header: 1}
       this.resultado = FUNCIONES_GENERALES.tratamientoDatosExcel(data as any);
-      this.requerimientosCargados.emit(this.resultado);
+      console.log(this.resultado);
+      this.nroReqCargados = this.resultado.length;
+      this.requerimientosCargadosJ.emit(this.resultado);
     }
+    console.log("file juego");
   }
 }

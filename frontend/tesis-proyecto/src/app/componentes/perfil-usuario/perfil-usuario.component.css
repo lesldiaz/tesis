@@ -1,11 +1,8 @@
 .gradient-custom {
   /* fallback for old browsers */
-  background: #17a2b8;
-
-  /* Chrome 10-25, Safari 5.1-6 */
-
-  background: -webkit-linear-gradient(to right bottom, rgba(23, 162, 184, 1), rgba(23, 137, 184, 1));
-
-  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-  background: linear-gradient(to right bottom, rgba(23, 162, 184, 1), rgba(23, 137, 184, 1))
+  background: #5888a6;
+}
+.boton-limpio {
+  border: none;
+  background: none;
 }

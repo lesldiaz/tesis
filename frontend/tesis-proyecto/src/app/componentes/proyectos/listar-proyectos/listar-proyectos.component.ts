@@ -18,6 +18,7 @@ import {
   ModalDuplicarProyectoComponent
 } from 'src/app/modales/modal-duplicar-proyecto/modal-duplicar-proyecto.component';
 import {ModalEliminarComponent} from 'src/app/modales/modal-eliminar/modal-eliminar.component';
+import { ModalExportarProyectoComponent } from 'src/app/modales/modal-exportar-proyecto/modal-exportar-proyecto.component';
 import {AuthService} from 'src/app/servicios/auth.service';
 import {ProyectoService} from 'src/app/servicios/proyecto.service';
 import { RequerimientoService } from 'src/app/servicios/requerimiento.service';
@@ -32,11 +33,11 @@ export class ListarProyectosComponent implements OnInit {
   proyectos: ProyectoInterface[] = [];
   usuarioActual: UsuarioInterface;
   cols: any[] = [
-    {field: 'idProyecto', header: 'Identificador'},
-    {field: 'nombre', header: 'Nombre'},
-    {field: 'descripcion', header: 'Descripción'},
-    {field: 'proyecto', header: 'Información Relevante'},
-    {field: 'id', header: 'Opciones'}
+    {field: 'idProyecto', header: 'Identifier'},
+    {field: 'nombre', header: 'Name'},
+    {field: 'descripcion', header: 'Description'},
+    {field: 'proyecto', header: 'Relevant information'},
+    {field: 'id', header: 'Options'}
   ];
   total: number = 0;
   formularioBuscarProyecto: FormGroup;
@@ -53,8 +54,8 @@ export class ListarProyectosComponent implements OnInit {
       terminoBusqueda: new FormControl('')
     });
     this.tiposProyecto = [
-      {nombre: 'Requerimientos de Cliente', codigo: 'C'},
-      {nombre: 'Requerimientos de Juego Serio', codigo: 'J'},
+      {nombre: 'Requerimientos de Software', codigo: 'C'},
+      {nombre: 'Requerimientos de iPlus', codigo: 'J'},
     ];
 
     this.usuarioActual = this._authService.currentUserValue as UsuarioInterface;
@@ -141,10 +142,46 @@ export class ListarProyectosComponent implements OnInit {
                   } else {
                     this.proyectos.push(value);
                   }
-                  this._toasterService.success('Registro creado correctamente', 'Éxito');
+                  this._toasterService.success('Record created successfully', 'Success');
                 },
                 error => {
+                  this._toasterService.error('An error occurred while creating the project', 'Error');
                   console.error('Error al crear proyecto', error);
+                }
+              );
+          }
+        },
+        error => {
+          console.error('Error despues de cerrar modal', error);
+        }
+      );
+  }
+  abrirModalImportar() {
+    const modalCrear = this._dialog.open(ModalExportarProyectoComponent, {
+      width: '500px',
+      data: false
+    });
+    modalCrear.afterClosed()
+      .subscribe(
+        respuestaModalCrear => {
+          if (respuestaModalCrear) {
+            respuestaModalCrear.usuario = this.usuarioActual.id;
+            this._proyectoService.postProyectoImportado(respuestaModalCrear)
+              .subscribe(
+                value => {
+                  if (this.proyectos && this.proyectos.length) {
+                    this.proyectos.unshift(value);
+                    if (this.proyectos.length > 5) {
+                      this.proyectos.pop();
+                    }
+                  } else {
+                    this.proyectos.push(value);
+                  }
+                  this._toasterService.success('Record imported successfully', 'Success');
+                },
+                error => {
+                  this._toasterService.error('Error importing project', 'Error');
+                  console.error('Error importing project', error);
                 }
               );
           }
@@ -177,10 +214,10 @@ export class ListarProyectosComponent implements OnInit {
                   filaProyecto.nombre = proyectoActualizado.nombre;
                   filaProyecto.descripcion = proyectoActualizado.descripcion;
                   filaProyecto.tipoProyecto = proyectoActualizado.tipoProyecto;
-                  this._toasterService.success('Registro editado correctamente', 'Éxito');
+                  this._toasterService.success('Record edited successfully', 'Success');
                 },
                 error => {
-                  this._toasterService.error('Error al actualizar', 'Error');
+                  this._toasterService.error('Failed to update', 'Error');
                   console.error('Error al actualizar proyecto', error);
                 }
               );
@@ -203,12 +240,12 @@ export class ListarProyectosComponent implements OnInit {
           if (proyectoADuplicar) {
             const proyectoDuplicado = JSON.parse(JSON.stringify(proyectoADuplicar));
             proyectoDuplicado.duplicado = 1;
-            proyectoDuplicado.nombre = proyectoDuplicado.nombre + ' - Copia';
+            proyectoDuplicado.nombre = proyectoDuplicado.nombre + ' - Copy';
             proyectoDuplicado.usuario = proyectoDuplicado.usuario.id;
             proyectoDuplicado.estado = proyectoDuplicado.estado === 'F' ? 'P' : proyectoDuplicado.estado;
             delete proyectoDuplicado.idProyecto
-            delete proyectoDuplicado.id
-            this._proyectoService.postProyecto(proyectoDuplicado)
+            /*delete proyectoDuplicado.id*/
+            this._proyectoService.postDuplicarProyecto(proyectoDuplicado)
               .subscribe(
                 value => {
                   console.log(value);
@@ -216,9 +253,10 @@ export class ListarProyectosComponent implements OnInit {
                   if (this.proyectos.length > 5) {
                     this.proyectos.pop();
                   }
-                  this._toasterService.success('Registro duplicado correctamente', 'Éxito');
+                  this._toasterService.success('Duplicate record successfully', 'Success');
                 },
                 error => {
+                  this._toasterService.error('Failed to duplicate record', 'Error');
                   console.error('Error al duplicar proyecto', error);
                 }
               );
@@ -242,16 +280,15 @@ export class ListarProyectosComponent implements OnInit {
             this._proyectoService.deleteProyecto(filaProyecto.id)
               .subscribe(
                 value => {
-                  //this.proyectos = FUNCIONES_GENERALES.eliminarElemento(this.proyectos, filaProyecto);
                   this.proyectos.indexOf(filaProyecto) < 0
                     ? this.proyectos
                     : this.proyectos.splice(this.proyectos.indexOf(filaProyecto), 1);
                   this.proyectos = [...this.proyectos];
-                  this._toasterService.info('Registro eliminado', 'Éxito');
+                  this._toasterService.info('Record deleted', 'Success');
 
                 },
                 error => {
-                  this._toasterService.error('Ocurrió un error al eliminar', 'Error');
+                  this._toasterService.error('An error occurred while deleting', 'Error');
                   console.error('Error al eliminar proyecto', error);
                 }
               );
@@ -277,7 +314,11 @@ export class ListarProyectosComponent implements OnInit {
           if (typeof proyectos.mensaje !== 'string') {
             requerimientos = proyectos.mensaje?.resultado;
             requerimientos = FUNCIONES_GENERALES.generarObjetoResExcel(requerimientos);
-            this.exportExcel(requerimientos);
+            const cabecera = [
+              ["IDENTIFIER", "DESCRIPTION", "VALID", "FULFILLED PROPERTIES", "OBSERVATIONS"]
+            ];
+            const nombreArchivo = 'projectResults';
+            this.exportExcel(requerimientos, cabecera, nombreArchivo);
           }
         },
         (error: any) => {
@@ -286,19 +327,31 @@ export class ListarProyectosComponent implements OnInit {
       );
   }
 
-  exportExcel(requerimientos: RequerimientoInterface[]) {
+  exportExcel(requerimientos: RequerimientoInterface[], cabecera: string[][], nombreArchivo: string) {
     import("xlsx").then(xlsx => {
-      const cabecera = [
-        ["Identificador", "Descripción", "Válido", "Características Cumplidas", "Observaciones"]
-      ];
       let worksheet;
-      let nombreArchivo;
-      nombreArchivo = 'resultadosProyecto';
       worksheet = xlsx.utils.json_to_sheet(requerimientos);
       xlsx.utils.sheet_add_aoa(worksheet, cabecera);
       xlsx.utils.sheet_add_json(worksheet, requerimientos, {origin: 'A2', skipHeader: true});
 
-      const workbook = {Sheets: {'Resultado': worksheet}, SheetNames: ['Resultado']};
+      const workbook = {Sheets: {'Output': worksheet}, SheetNames: ['Output']};
+      const excelBuffer: any = xlsx.write(workbook, {bookType: 'xlsx', type: 'array'});
+      this.saveAsExcelFile(excelBuffer, nombreArchivo);
+    });
+  }
+
+  exportExcelDoble(requerimientos: RequerimientoInterface[], proyecto: any, cabeceraR: string[][],cabeceraP: string[][], nombreArchivo: string) {
+    import("xlsx").then(xlsx => {
+      let worksheet;
+      let worksheet2;
+      worksheet = xlsx.utils.json_to_sheet(requerimientos);
+      xlsx.utils.sheet_add_aoa(worksheet, cabeceraR);
+      xlsx.utils.sheet_add_json(worksheet, requerimientos, {origin: 'A2', skipHeader: true});
+      worksheet2 = xlsx.utils.json_to_sheet(proyecto);
+      xlsx.utils.sheet_add_aoa(worksheet2, cabeceraP);
+      xlsx.utils.sheet_add_json(worksheet2, proyecto, {origin: 'A2', skipHeader: true});
+
+      const workbook = {Sheets: {'Output': worksheet, 'Project': worksheet2}, SheetNames: ['Output', 'Project']};
       const excelBuffer: any = xlsx.write(workbook, {bookType: 'xlsx', type: 'array'});
       this.saveAsExcelFile(excelBuffer, nombreArchivo);
     });
@@ -315,5 +368,74 @@ export class ListarProyectosComponent implements OnInit {
 
   irANuevoProyecto(idProyecto: number) {
     this._route.navigate(['/nuevoproyecto', idProyecto]);
+  }
+
+  irAReporteGrafico(proyecto: ProyectoInterface) {
+    this._route.navigate(['/proyectos/reporte-grafico', proyecto.id]);
+    console.log(proyecto.id);
+  }
+
+  exportarProyecto(proyectoFila: any) {
+    // TRATAMIENTO DATOS
+    const criterioBusqueda = {
+      proyecto: {
+        id: proyectoFila.id
+      }
+    };
+    let requerimientos: RequerimientoInterface[] = [];
+    let getProyectos$ = this._requerimientoService.getRequerimientosFiltro(0, 0, criterioBusqueda);
+    getProyectos$
+      .subscribe(
+        (proyectos: any) => {
+          if (typeof proyectos.mensaje !== 'string') {
+            requerimientos = proyectos.mensaje?.resultado;
+            const infoProyecto = requerimientos[0].proyecto as ProyectoInterface;
+            requerimientos = FUNCIONES_GENERALES.generarObjetoExport(requerimientos);
+            const cabeceraR = [
+              [
+                "IDENTIFIER",
+                "TITLE",
+                "DESCRIPTION",
+                "PRIORITY",
+                "IS IPLUS REQ",
+                "ROLE",
+                "PARENT",
+                "BLOCKS",
+                "PURPOSES",
+                "CORRECT",
+                "APPROPRIATE",
+                "COMPLETE",
+                "VERIFIABLE",
+                "FEASIBLE",
+                "UNAMBIGUOUS",
+                "SINGULAR",
+                "TRACEABLE",
+                "MODIFIABLE",
+                "CONSISTENT",
+                "CONFORMING",
+                "NECESSARY",
+              ]
+            ];
+            const cabeceraP = [
+              [
+                "PROJECT TYPE",
+                "IS DUPLICATED",
+                "NAME",
+                "DESCRIPTION",
+              ]
+            ];
+            delete infoProyecto.idProyecto;
+            delete infoProyecto.id;
+            delete infoProyecto.estado;
+            delete infoProyecto.updatedAt;
+            delete infoProyecto.createdAt;
+            const nombreArchivo = 'ProjectExport';
+            this.exportExcelDoble(requerimientos,[infoProyecto], cabeceraR, cabeceraP, nombreArchivo);
+          }
+        },
+        (error: any) => {
+          console.error(error);
+        }
+      );
   }
 }

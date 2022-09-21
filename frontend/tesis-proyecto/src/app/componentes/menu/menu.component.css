@@ -1,5 +1,5 @@
 .menu {
-  background-color: #17a2b8;
+  background-color: #012840;
 }
 p.menu{
   color: white;
@@ -33,7 +33,7 @@ a.menu:hover {
 }
 
 .dropbtn {
-  background-color: #17a2b8;
+  background-color: #012840;
   color: white;
   font-size: medium;
   border: none;
@@ -70,5 +70,5 @@ a.menu:hover {
 }
 
 .dropdown:hover .dropbtn {
-  background-color: #17a2b8;
+  background-color: #012840;
 }

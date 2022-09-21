@@ -69,10 +69,10 @@ export class MetodoGraficoJuegoComponent implements OnInit {
             requerimientoGuardar['id'] = requerimiento.id;
             requerimientoGuardar['idRequerimiento'] = requerimiento.idRequerimiento;
             this.datos.push(requerimientoGuardar);
-            this._toasterService.success('Requerimiento guardado correctamente', 'Éxito');
+            this._toasterService.success('Record saved successfully', 'Success');
           }
         }, error => {
-          this._toasterService.error('Ocurrió un error al guardar', 'Error');
+          this._toasterService.error('An error occurred while saving', 'Error');
         });
     } else {
       this.actualizar();
@@ -100,6 +100,7 @@ export class MetodoGraficoJuegoComponent implements OnInit {
       this.blockEnvio.push(block.bloque);
     }
     this.bandera = false;
+    document.location.href ='nuevoproyecto/'+this.idProyecto+'#met-game-graph';
   }
 
   actualizar() {
@@ -128,10 +129,10 @@ export class MetodoGraficoJuegoComponent implements OnInit {
               }
             }
           );
-          this._toasterService.success('Requerimiento editado correctamente', 'Éxito');
+          this._toasterService.success('Record edited successfully', 'Success');
         }
       }, error => {
-        this._toasterService.error('Ocurrió un error al editar', 'Error');
+        this._toasterService.error('An error occurred while editing', 'Error');
       });
     this.limpiar();
   }
@@ -144,7 +145,7 @@ export class MetodoGraficoJuegoComponent implements OnInit {
           ? this.datos
           : this.datos.splice(this.datos.indexOf(requerimientoEliminar as RequerimientoInterface), 1);
         this.requerimientoSeleccionado = undefined;
-        this._toasterService.info('Eliminado correctamente', 'Éxito');
+        this._toasterService.info('Record deleted successfully', 'Success');
       });
     this.limpiar();
 

@@ -3,7 +3,6 @@ import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/form
 import {ActivatedRoute, Router} from '@angular/router';
 import {debounceTime, first} from 'rxjs/operators';
 import {UsuarioService} from '../../servicios/usuario.service';
-import {CookieUsuarioService} from '../../servicios/cookie.service';
 import {MatDialog} from '@angular/material/dialog';
 import {AuthService} from 'src/app/servicios/auth.service';
 import {UsuarioSesionService} from 'src/app/servicios/usuario-sesion.service';
@@ -13,7 +12,7 @@ import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-login',
   templateUrl: 'login.component.html',
-  styleUrls: ['login.component.sass']
+  styleUrls: ['login.component.css']
 })
 export class LoginComponent implements OnInit {
   formularioLogin: FormGroup;
@@ -22,10 +21,10 @@ export class LoginComponent implements OnInit {
   arregloMensajesErrorCampoContrasenia: string [] = [];
   arregloMensajesErrorCampoNombreUsuario: string [] = [];
   mensajesErrorCampoContrasenia = {
-    required: 'El campo contraseña es requerido',
+    required: 'Password field is required',
   };
   mensajesErrorCampoNombreUsuario = {
-    required: 'El campo nombre de usuario es requerido',
+    required: 'Username field is required',
     // validacionCedulaYaExiste: 'No existe un usuario registrado con esa cedula'
   };
 
@@ -118,14 +117,14 @@ export class LoginComponent implements OnInit {
                 fechaInicioSesionActual: moment().format().toString()
               }
             ).subscribe(value => {
-                this._toasterService.success('Bienvenido '+nombreUsuario+'!', 'Éxito');
+                this._toasterService.success('Welcome '+nombreUsuario+'!', 'Success');
                 this._route.navigate(['inicio']);
               }
             );
 
           },
           error => {
-            this._toasterService.error('Ocurrió un error', 'Error');
+            this._toasterService.error('An error occurred', 'Error');
             this.errorIniciarSesion = true;
           });
     }

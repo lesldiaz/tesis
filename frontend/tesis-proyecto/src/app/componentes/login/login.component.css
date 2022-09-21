@@ -1,0 +1,21 @@
+a {
+  color: rgba(90, 120, 146, 0.92);
+  display:inline-block;
+}
+
+h2 {
+  text-align: center;
+  font-size: 20px;
+  text-transform: uppercase;
+  display:inline-block;
+  margin: auto;
+}
+.btn-login {
+  color: white;
+  background-color: #6a93d1;
+}
+.icono-sns{
+  width: 7%;
+  height: 5%;
+  padding: 0.3rem;
+}

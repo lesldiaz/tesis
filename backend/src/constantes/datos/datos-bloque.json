@@ -1,62 +1,62 @@
 [
   {
     "id" : 1,
-    "nombre": "Responder"
+    "nombre": "Answer"
   },
   {
     "id" : 2,
-    "nombre": "Gestionar"
+    "nombre": "Manage"
   },
   {
     "id" : 3,
-    "nombre": "Tener suerte"
+    "nombre": "Get luck"
   },
   {
     "id" : 4,
-    "nombre": "Disparar"
+    "nombre": "Shoot"
   },
   {
     "id" : 5,
-    "nombre": "Crear"
+    "nombre": "Create"
   },
   {
     "id" : 6,
-    "nombre": "Bloquear"
+    "nombre": "Block"
   },
   {
     "id" : 7,
-    "nombre": "Recoger"
+    "nombre": "Pick up"
   },
   {
     "id" : 8,
-    "nombre": "Destruir"
+    "nombre": "Destroy"
   },
   {
     "id" : 9,
-    "nombre": "Mover"
+    "nombre": "Move"
   },
   {
     "id" : 10,
-    "nombre": "Evitar"
+    "nombre": "Avoid"
   },
   {
     "id" : 11,
-    "nombre": "Mantener"
+    "nombre": "Hold"
   },
   {
     "id" : 12,
-    "nombre": "Posición"
+    "nombre": "Position"
   },
   {
     "id" : 13,
-    "nombre": "Tiempo"
+    "nombre": "Time"
   },
   {
     "id" : 14,
-    "nombre": "Puntuación"
+    "nombre": "Score"
   },
   {
     "id" : 15,
-    "nombre": "Juguete"
+    "nombre": "Toy"
   }
 ]

@@ -9,7 +9,7 @@ import { UsuarioService } from 'src/app/servicios/usuario.service';
 @Component({
   selector: 'app-registro-usuario',
   templateUrl: './registro-usuario.component.html',
-  styleUrls: ['./registro-usuario.component.sass']
+  styleUrls: ['./registro-usuario.component.css']
 })
 export class RegistroUsuarioComponent implements OnInit {
   formularioRegistro: FormGroup;
@@ -18,19 +18,19 @@ export class RegistroUsuarioComponent implements OnInit {
   arregloMensajesErrorCampoNombreUsuario: string [] = [];
   arregloMensajesErrorCampoEmail: string [] = [];
   mensajesErrorCampoContrasenia = {
-    required: 'El campo contraseña es requerido',
-    maxlength: 'El campo contraseña debe tener maximo 20 caracteres',
-    minlength: 'El campo contraseña debe tener minimo 8 caracteres',
+    required: 'Password field is required',
+    maxlength: 'Password field must have a maximum of 20 characters',
+    minlength: 'Password field must have at least 8 characters',
   };
   mensajesErrorCampoNombreUsuario = {
-    required: 'El campo nombre de usuario es requerido',
-    maxlength: 'El campo nombre debe tener maximo 18 caracteres',
-    pattern: 'El campo nombre debe tener solo letras y números'
+    required: 'Name field is required',
+    maxlength: 'Name field must have a maximum of 18 characters',
+    pattern: 'Name field must have only letters and numbers'
   };
   mensajesErrorCampoEmail = {
-    required: 'El campo email es requerido',
-    maxlength: 'El campo email debe tener máximo 200 caracteres',
-    email: 'El email no es valido'
+    required: 'Email field is required',
+    maxlength: 'Email field must have a maximum of 200 characters',
+    email: 'Email field is not valid'
   };
 
   formularioValido: boolean = false;
@@ -147,10 +147,11 @@ export class RegistroUsuarioComponent implements OnInit {
       this._usuarioService.registro(nuevoUsuario)
         .subscribe(
           usuarioLogeado => {
-            this._toasterService.success('Registro completado', 'Éxito');
+            this._toasterService.success('Registration completed', 'Success');
             this._route.navigate(['login']);
           },
           error => {
+            this._toasterService.error('An error occurred', 'Error');
             this.errorRegistro = true;
           });
     }

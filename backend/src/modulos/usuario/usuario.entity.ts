@@ -8,7 +8,7 @@ import { UsuarioSesionEntity } from '../usuario-sesion/usuario.sesion.entity';
 export class UsuarioEntity extends EntityGenerico{
 
     @Column({
-        name: 'usuario',
+        name: 'nombreUsuario',
         type: 'varchar',
         length: 50,
         nullable: false
@@ -30,6 +30,14 @@ export class UsuarioEntity extends EntityGenerico{
         nullable: false
     })
     contrasena: string;
+
+    @Column({
+        name: 'contraseniaTemporal',
+        type: 'varchar',
+        length: 10,
+        nullable: true
+    })
+    contrasenaTemporal?: string;
 
     @OneToMany(
         type => UsuarioSesionEntity,

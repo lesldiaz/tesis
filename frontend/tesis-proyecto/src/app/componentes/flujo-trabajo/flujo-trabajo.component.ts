@@ -35,6 +35,15 @@ export class FlujoTrabajoComponent implements OnInit {
   paso2 = false;
   paso4 = false;
 
+  etapa=1;
+  posicion:any;
+  elemento:any;
+  flecha:any;
+  constX=10;
+  stepPos:any;
+  stepPos3:any;
+  stepPos4:any;
+
   constructor(
     private readonly _activatedRoute: ActivatedRoute,
     private readonly _toasterService: ToastrService,
@@ -48,7 +57,11 @@ export class FlujoTrabajoComponent implements OnInit {
   ngOnInit(): void {
     this.migasPan = [
       {
-        label: 'Refinamiento'
+        label: 'App',
+        routerLink: '/aplicacion'
+      },
+      {
+        label: 'Refinement'
       }
     ];
     this.firstFormGroup = this._formBuilder.group({
@@ -91,6 +104,7 @@ export class FlujoTrabajoComponent implements OnInit {
     }
     if (this.radiobuttons == "grafico") {
       (this.myStepper as MatStepper).next();
+      this.mover(true);
     }
   }
 
@@ -109,8 +123,9 @@ export class FlujoTrabajoComponent implements OnInit {
         },
         error => {
           console.log(error)
-          this._toasterService.error('Ocurrió un error al guardar los requerimientos ingresados', 'Error')
+          this._toasterService.error('An error occurred while saving the entered requirements', 'Error')
         });
+    this.mover(true);
   }
 
   refinar() {
@@ -118,8 +133,9 @@ export class FlujoTrabajoComponent implements OnInit {
       .subscribe(value => {
         (this.myStepper as MatStepper).next();
       }, (error) => {
-        this._toasterService.error('Ocurrió un error al refinar', 'Error')
+        this._toasterService.error('An error occurred while refining', 'Error')
       });
+    this.mover(true);
   }
 
   irAProyectos() {
@@ -133,7 +149,47 @@ export class FlujoTrabajoComponent implements OnInit {
       .subscribe(value => {
         (this.myStepper as MatStepper).next();
       }, (error) => {
-        this._toasterService.error('Ocurrió un error al editar proyecto', 'Error')
+        this._toasterService.error('An error occurred while editing project', 'Error')
       });
+    this.mover(true);
+  }
+
+  mover(bnd:boolean){
+
+    this.posicion= document.getElementById("mensaje");
+    if(bnd==false){
+      this.etapa=this.etapa-1;
+      if(this.etapa ==3){
+        this.posicion.style.left= this.stepPos3 +'px';
+        this.constX=this.constX-500;
+      }else if(this.etapa==2){
+        this.posicion.style.left= 410 +'px';
+        this.constX=this.constX-400;
+      }else if(this.etapa==4){
+        this.posicion.style.left= this.stepPos4 +'px';
+        this.constX=this.constX-400;
+      }
+
+    }else{
+      this.etapa=this.etapa+1;
+      if(this.etapa ==3){
+        this.constX=this.constX+500;
+        this.posicion.style.left= this.constX +'px';
+        this.stepPos3=this.constX;
+      }
+      else{
+        this.constX=this.constX+400;
+        this.posicion.style.left= this.constX +'px';
+        this.stepPos4=this.constX;
+      }
+    }
+  }
+  obtenerPos(){
+    this.stepPos=document.getElementById('segundo');
+    this.stepPos3=document.getElementById('tercero');
+    this.stepPos4=document.getElementById('cuarto');
+    console.log(this.stepPos.style.left);
+    console.log(this.stepPos3.style.left);
+    console.log(this.stepPos4.style.left);
   }
 }

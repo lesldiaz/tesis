@@ -3,6 +3,12 @@ import * as XLSX from 'xlsx';
 import {RequerimientoInterface} from "./interfaces/requerimiento.interface";
 import {ExcelPlantillaResInterface} from "./interfaces/excel-plantilla-res.interface";
 import {ResultadoInterface} from "./interfaces/resultado.interface";
+import {ExcelPlantillaExportInterface} from "./interfaces/excel-plantilla-export.interface";
+import {RequerimientoBloqueInterface} from "./interfaces/requerimiento-bloque.interface";
+import {PropositoInterface} from "./interfaces/proposito.interface";
+import {BloqueInterface} from "./interfaces/bloque.interface";
+import {RolInterface} from "./interfaces/rol.interface";
+import {ProyectoInterface} from "./interfaces/proyecto.interface";
 
 export const FUNCIONES_GENERALES = {
   queryAObjeto: (objeto: any) => {
@@ -20,6 +26,21 @@ export const FUNCIONES_GENERALES = {
     datos.map((valor: any) => {
       const requerimiento: ExcelPlantillaHuInterface = {}
       if (valor['Descripción']) {
+        /*requerimiento.identificador = valor['IDENTIFIER'];
+        requerimiento.descripcion = valor['DESCRIPTION'];
+        requerimiento.correcto = valor['CORRECT'] ? valor['CORRECT'] : 0;
+        requerimiento.apropiado = valor['APPROPRIATE'] ? valor['APPROPRIATE'] : 0;
+        requerimiento.verificable = valor['VERIFIABLE'] ? valor['VERIFIABLE'] : 0;
+        requerimiento.factible = valor['FEASIBLE'] ? valor['FEASIBLE'] : 0;
+        requerimiento.sinAmbiguedad = valor['UNAMBIGUOUS'] ? valor['UNAMBIGUOUS'] : 0;
+        requerimiento.singular = valor['SINGULAR'] ? valor['SINGULAR'] : 0;
+        requerimiento.trazable = valor['TRACEABLE'] ? valor['TRACEABLE'] : 0;
+        requerimiento.modificable = valor['MODIFIABLE'] ? valor['MODIFIABLE'] : 0;
+        requerimiento.consistente = valor['CONSISTENT'] ? valor['CONSISTENT'] : 0;
+        requerimiento.conforme = valor['CONFORMING'] ? valor['CONFORMING'] : 0;
+        requerimiento.necesario = valor['NECESSARY'] ? valor['NECESSARY'] : 0;
+        requerimiento.completo = valor['COMPLETE'] ? valor['COMPLETE'] : 0;*/
+
         requerimiento.identificador = valor['Identificador'];
         requerimiento.descripcion = valor['Descripción'];
         requerimiento.correcto = valor['CORRECTO'] ? valor['CORRECTO'] : 0;
@@ -28,16 +49,59 @@ export const FUNCIONES_GENERALES = {
         requerimiento.factible = valor['FACTIBLE'] ? valor['FACTIBLE'] : 0;
         requerimiento.sinAmbiguedad = valor['SIN AMBIGÜEDAD'] ? valor['SIN AMBIGÜEDAD'] : 0;
         requerimiento.singular = valor['SINGULAR'] ? valor['SINGULAR'] : 0;
-        requerimiento.trazable = valor['TRAZABILIDAD'] ? valor['TRAZABILIDAD'] : 0;
+        requerimiento.trazable = valor['TRAZABLE'] ? valor['TRAZABLE'] : 0;
         requerimiento.modificable = valor['MODIFICABLE'] ? valor['MODIFICABLE'] : 0;
         requerimiento.consistente = valor['CONSISTENTE'] ? valor['CONSISTENTE'] : 0;
         requerimiento.conforme = valor['CONFORME'] ? valor['CONFORME'] : 0;
         requerimiento.necesario = valor['NECESARIO'] ? valor['NECESARIO'] : 0;
         requerimiento.completo = valor['COMPLETO'] ? valor['COMPLETO'] : 0;
+
         datosTratados.push(requerimiento)
       }
     })
     return datosTratados;
+  },
+  tratamientoDatosExcelRequerimiento: (datos: object[]) => {
+    const datosTratados: ExcelPlantillaExportInterface[] = [];
+    datos.map((valor: any) => {
+      const requerimiento: ExcelPlantillaExportInterface = {}
+      if (valor['DESCRIPTION']) {
+        requerimiento.identificador = valor['IDENTIFIER'];
+        requerimiento.titulo = valor['TITLE'] !== 'NONE' ? valor['TITLE'] : undefined;
+        requerimiento.descripcion = valor['DESCRIPTION'];
+        requerimiento.prioridad = valor['PRIORITY'];
+        requerimiento.esReqBloque = valor['IS IPLUS REQ'] ? valor['IS IPLUS REQ'] : 0;
+        requerimiento.rol = valor['ROLE'] !== 'NONE' ? valor['ROLE'] : undefined;
+        requerimiento.padre = valor['PARENT'] !== 'NONE' ? valor['PARENT'] : undefined;
+        requerimiento.correcto = valor['CORRECT'] ? valor['CORRECT'] : 0;
+        requerimiento.apropiado = valor['APPROPRIATE'] ? valor['APPROPRIATE'] : 0;
+        requerimiento.completo = valor['COMPLETE'] ? valor['COMPLETE'] : 0;
+        requerimiento.verificable = valor['VERIFIABLE'] ? valor['VERIFIABLE'] : 0;
+        requerimiento.factible = valor['FEASIBLE'] ? valor['FEASIBLE'] : 0;
+        requerimiento.sinAmbiguedad = valor['UNAMBIGUOUS'] ? valor['UNAMBIGUOUS'] : 0;
+        requerimiento.singular = valor['SINGULAR'] ? valor['SINGULAR'] : 0;
+        requerimiento.trazable = valor['TRACEABLE'] ? valor['TRACEABLE'] : 0;
+        requerimiento.modificable = valor['MODIFIABLE'] ? valor['MODIFIABLE'] : 0;
+        requerimiento.consistente = valor['CONSISTENT'] ? valor['CONSISTENT'] : 0;
+        requerimiento.conforme = valor['CONFORMING'] ? valor['CONFORMING'] : 0;
+        requerimiento.necesario = valor['NECESSARY'] ? valor['NECESSARY'] : 0;
+        requerimiento.proposito = valor['PURPOSES'];
+        requerimiento.bloque = valor['BLOCKS'];
+
+
+        datosTratados.push(requerimiento)
+      }
+    })
+    return datosTratados;
+  },
+  tratamientoDatosExcelProyecto: (datos: object[]) => {
+    const proyectoExcel = datos[0] as any;
+    const proyecto: ProyectoInterface = {};
+    proyecto.tipoProyecto = proyectoExcel['PROJECT TYPE'];
+    proyecto.duplicado = proyectoExcel['IS DUPLICATED'];
+    proyecto.nombre = proyectoExcel['NAME'];
+    proyecto.descripcion = proyectoExcel['DESCRIPTION'] !== 'NONE' ? proyectoExcel['DESCRIPTION'] : delete proyecto.descripcion;
+    return proyecto;
   },
   leerPlantillaRequerimientos: (event: any) => {
     const target: DataTransfer = <DataTransfer>(event.target);
@@ -111,12 +175,73 @@ export const FUNCIONES_GENERALES = {
       const numReqValidos = FUNCIONES_GENERALES.caracteristicasCumplidasCount(resultado);
       objetoExcel.idRequerimiento = requerimiento.idRequerimiento as string;
       objetoExcel.descripcion = requerimiento.descripcion;
-      objetoExcel.esValido = requerimiento.estado ? 'SI' : 'NO';
+      objetoExcel.esValido = requerimiento.estado ? 'YES' : 'NO';
       objetoExcel.caracteristicasCumplidas = numReqValidos
       objetoExcel.observaciones = resultado.observaciones;
+      objetoExcel.necesarios = requerimiento.necesarios;
+      objetoExcel.noNecesarios = requerimiento.noNecesarios;
+      objetoExcel.deseables = requerimiento.deseables;
+      objetoExcel.noDeseables = requerimiento.noDeseables;
+
       datosExcel.push(objetoExcel);
     });
     return datosExcel;
+  },
+  generarObjetoExport: (requirementos: RequerimientoInterface[]) => {
+    const datosExport: ExcelPlantillaResInterface[] = [];
+    requirementos.forEach((requerimiento: RequerimientoInterface) => {
+      const objetoExcel: ExcelPlantillaExportInterface = {};
+      const resultado = (requerimiento.resultado as ResultadoInterface[])[0];
+      objetoExcel.identificador = requerimiento.idRequerimiento as string;
+      objetoExcel.titulo = requerimiento.titulo ? requerimiento.titulo : "NONE";
+      objetoExcel.descripcion = requerimiento.descripcion;
+      objetoExcel.prioridad = requerimiento.prioridad;
+      objetoExcel.esReqBloque = requerimiento.esReqBloque;
+      if (requerimiento.rol) {
+        objetoExcel.rol = (requerimiento.rol as RolInterface).id ? (requerimiento.rol as RolInterface)?.id?.toString() : "NONE";
+      } else {
+        objetoExcel.rol = "NONE";
+      }
+
+      objetoExcel.padre = requerimiento.requerimientoPadre ? requerimiento.requerimientoPadre.toString() : "NONE";
+      const bloques = requerimiento.requerimientoBloque as RequerimientoBloqueInterface[];
+      if (bloques.length > 0) {
+        const bloquesExp: string[] = [];
+        bloques.forEach(bloqueE => {
+          const bloqueN = bloqueE.bloque as BloqueInterface;
+          bloquesExp.push(bloqueN.nombre as string);
+        });
+        objetoExcel.bloque = bloquesExp.join(',');
+      } else {
+        objetoExcel.bloque = "NONE";
+      }
+      const propositos = requerimiento.proposito as PropositoInterface[];
+      if (propositos.length > 0) {
+        const propositosExp: string[] = [];
+        propositos.forEach(proposito => {
+          propositosExp.push(proposito.descripcion);
+        });
+        objetoExcel.proposito = propositosExp.join(';');
+      } else {
+        objetoExcel.proposito = "NONE";
+      }
+      //caracteristicas
+      objetoExcel.correcto = resultado.correcto;
+      objetoExcel.apropiado = resultado.apropiado;
+      objetoExcel.completo = resultado.completo;
+      objetoExcel.verificable = resultado.verificable;
+      objetoExcel.factible = resultado.factible;
+      objetoExcel.sinAmbiguedad = resultado.sinAmbiguedad;
+      objetoExcel.singular = resultado.singular;
+      objetoExcel.trazable = resultado.trazable;
+      objetoExcel.modificable = resultado.modificable;
+      objetoExcel.consistente = resultado.consistente;
+      objetoExcel.conforme = resultado.conforme;
+      objetoExcel.necesario = resultado.necesario;
+
+      datosExport.push(objetoExcel);
+    });
+    return datosExport;
   },
   generarLightColorHex: () => {
     let color = "#";

@@ -58,6 +58,15 @@ export class ProyectoService {
   postProyecto(nuevoProyecto: ProyectoInterface) {
     return this._httpClient.post(this.url, nuevoProyecto);
   }
+  postProyectoImportado(nuevoProyecto: ProyectoInterface) {
+    return this._httpClient.post(this.url + 'proyecto-importado', nuevoProyecto);
+  }
+  getDatosInforme(proyecto: any) {
+    return this._httpClient.post(this.url + 'generar-datos-informe', proyecto);
+  }
+  postDuplicarProyecto(nuevoProyecto: ProyectoInterface) {
+    return this._httpClient.post(this.url + "duplicar-proyecto", nuevoProyecto);
+  }
 
   putProyecto(nuevoProyecto: ProyectoInterface, idProyecto: number) {
     return this._httpClient.put(this.url + idProyecto, nuevoProyecto);

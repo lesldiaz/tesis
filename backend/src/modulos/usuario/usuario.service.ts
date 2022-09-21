@@ -3,7 +3,9 @@ import {UsuarioEntity} from "./usuario.entity";
 import {Repository} from "typeorm";
 import {InjectRepository} from "@nestjs/typeorm";
 import * as moment from 'moment';
+import * as nodemailer from 'nodemailer';
 import {ServiceGeneral} from "../../constantes/clases-genericas/service.generico";
+import {FUNCIONES_GENERALES} from 'src/constantes/metodos/funciones-generales.metodo';
 
 @Injectable()
 export class UsuarioService extends ServiceGeneral<UsuarioEntity> {
@@ -17,10 +19,16 @@ export class UsuarioService extends ServiceGeneral<UsuarioEntity> {
     async autenticacion(usuario): Promise<UsuarioEntity | string> {
         try {
             const encontrar = await this._usuarioRepository.findOne({
-                where: {
-                    nombreUsuario: usuario.nombreUsuario,
-                    contrasena: usuario.contrasena
-                }
+                where: [
+                    {
+                        nombreUsuario: usuario.nombreUsuario,
+                        contrasena: usuario.contrasena
+                    },
+                    {
+                        nombreUsuario: usuario.nombreUsuario,
+                        contrasenaTemporal: usuario.contrasena
+                    }
+                ]
             });
             if (encontrar) {
                 return encontrar;
@@ -45,9 +53,11 @@ export class UsuarioService extends ServiceGeneral<UsuarioEntity> {
             const respuestaUsuarios =
                 await this._usuarioRepository
                     .find({
-                        where: {
-                            nombreUsuario: usuario.nombreUsuario
-                        }
+                        where: [
+                            {nombreUsuario: usuario.nombreUsuario},
+                            {email: usuario.email}
+                        ]
+
                     });
             const usuarioNoEncontrado: boolean =
                 respuestaUsuarios.length === 0;
@@ -56,9 +66,111 @@ export class UsuarioService extends ServiceGeneral<UsuarioEntity> {
                 return usuarioCreado;
             } else {
                 return new Promise((resolve, reject) =>
-                    reject('El nombre de usuario ya esta en uso'),
+                    reject('El nombre de usuario o correo electrónico ya esta en uso'),
                 );
             }
+        } catch (e) {
+            return new Promise((resolve, reject) =>
+                reject(`Error de servidor. ${e.name}: ${e.message}`),
+            );
+        }
+    }
+
+    async recuperarContraseña(usuario): Promise<any> {
+        try {
+            const encontrar = await this._usuarioRepository.findOne({
+                where: {
+                    nombreUsuario: usuario.nombreUsuario
+                }
+            });
+            if (encontrar) {
+                const contraseñaSeguraArray = [];
+                for (let i = 0; i < 9; i++) {
+                    const caracter = FUNCIONES_GENERALES.generaCaracter();
+                    contraseñaSeguraArray.push(caracter);
+                }
+                const emailUsuario = encontrar.email;
+                const contrasenaSegura = contraseñaSeguraArray.join('');
+                const respuestaEditar =
+                    await this._usuarioRepository
+                        .update(
+                            encontrar.id,
+                            {
+                                contrasenaTemporal: contrasenaSegura,
+                                contrasena: contrasenaSegura
+                            });
+                const actualizacionExitosa: boolean =
+                    respuestaEditar.affected > 0;
+                if (actualizacionExitosa) {
+                    let transporter = nodemailer.createTransport({
+                        host: "smtp.gmail.com",
+                        port: 465,
+                        secure: true, // true for 465, false for other ports
+                        auth: {
+                            user: 'vraw2022@gmail.com', // generated ethereal user
+                            pass: 'sgqcmsguzvhlgpzj', // generated ethereal password
+                        },tls: {
+                            rejectUnauthorized: false
+                        }
+                    });
+                    let info = await transporter.sendMail({
+                        from: '"AVaRS" <vraw2022@gmail.com>', // sender address
+                        to: emailUsuario, // list of receivers
+                        subject: "Recuperar Contraseña", // Subject line
+                        // text: "Hello world?", plain text body
+                        html: " <p>Hola,</p>" +
+                            "<p>Alguien solicito una nueva contraseña para tu cuenta en AVaRS.</p>" +
+                            "<p>Tu contraseña temporal es <b>" + contrasenaSegura + "</b></p>" +
+                            "<p>Si no lo solicitaste, por favor cambia tu contraseña lo más pronto posible. 🙂</p>",
+                    });
+                    return new Promise((resolve, reject) =>
+                        resolve(
+                            { mensaje: 'Completado'}
+                        ),
+                    );
+                } else {
+                    return new Promise((resolve, reject) =>
+                        reject('Ocurrió un error al crear id del proyecto'),
+                    );
+                }
+
+            } else {
+                return new Promise((resolve, reject) =>
+                    reject(
+                        'Usuario no encontrado'
+                    ),
+                );
+            }
+        } catch (e) {
+            return new Promise((resolve, reject) =>
+                reject(`Error de servidor. ${e.name}: ${e.message}`),
+            );
+        }
+    }
+
+    async cambiarContraseña(usuario): Promise<UsuarioEntity | string> {
+        try {
+            const encontrar = await this._usuarioRepository.findOne({
+                where: {
+                    id: usuario.id,
+                }
+            });
+            if (encontrar) {
+                const contraseñaSeguraArray = [];
+                for (let i = 0; i < 9; i++) {
+                    const caracter = FUNCIONES_GENERALES.generaCaracter();
+                    contraseñaSeguraArray.push(caracter);
+                }
+                const contraseñaSegura = contraseñaSeguraArray.join('');
+
+            } else {
+                return new Promise((resolve, reject) =>
+                    reject(
+                        'Usuario no encontrado'
+                    ),
+                );
+            }
+
         } catch (e) {
             return new Promise((resolve, reject) =>
                 reject(`Error de servidor. ${e.name}: ${e.message}`),
