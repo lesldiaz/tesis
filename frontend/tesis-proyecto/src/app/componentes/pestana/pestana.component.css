@@ -22,11 +22,11 @@
   z-index: 100;
 }
 .msg-e {
-  background-color: #e4f9f7;
+  background-color: rgba(143, 173, 191, 0.5);
   padding: 0.5rem;
   width: 20rem;
   border-radius: 0.5rem;
-  border: #acede7 0.1rem solid;
+  border: #5888A6 0.1rem solid;
 }
 
 @keyframes fadein {
@@ -34,7 +34,7 @@
   to   { opacity: 1; }
 }
 .btn-c {
-  color: #82c5be;
+  color: rgba(143, 173, 191, 0.9);
 }
 .btn-e {
   font-size: 2rem;

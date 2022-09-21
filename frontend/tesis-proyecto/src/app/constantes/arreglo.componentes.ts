@@ -2,9 +2,6 @@ import {FooterComponent} from '../componentes/footer/footer.component';
 import {MenuComponent} from '../componentes/menu/menu.component';
 import {InicioComponent} from '../componentes/inicio/inicio.component';
 import {TarjetaModuloComponent} from '../componentes/tarjetaModulo/tarjeta.modulo.component';
-import {CrearEditarUsuarioComponent} from '../componentes/usuario/crear-editar/crear.editar.component';
-import {InicioUsuarioComponent} from '../componentes/usuario/inicio-usuario/inicio.usuario.component';
-import {ListarUsuarioComponent} from '../componentes/usuario/listar/listar.usuario.component';
 import {LoginComponent} from '../componentes/login/login.component';
 import {MetodologiaComponent} from '../componentes/metodologia/metodologia.component';
 import {AplicacionComponent} from '../componentes/aplicacion/aplicacion.component';
@@ -19,11 +16,6 @@ import {FlujoTrabajoComponent} from '../componentes/flujo-trabajo/flujo-trabajo.
 import {PlantillaClienteComponent} from '../componentes/plantilla-cliente/plantilla-cliente.component';
 import {PestanaPlantillaComponent} from '../componentes/pestana-plantilla/pestana-plantilla.component';
 import {PlantillaJuegoComponent} from '../componentes/plantilla-juego/plantilla-juego.component';
-import {ParticipantesComponent} from '../componentes/participantes/participantes.component';
-import {
-  CrearEditarParticipanteComponent
-} from '../componentes/participantes/crear-editar/crear-editar-participante.component';
-import {ListarParticipantesComponent} from '../componentes/participantes/listar/listar-participantes.component';
 import {MigasPanComponent} from '../componentes/migaspan/migaspan.component';
 import {
   TablaPrevisualReqPlantillaComponent
@@ -47,9 +39,6 @@ export const ARREGLO_COMPONENTES = [
   MenuComponent,
   InicioComponent,
   TarjetaModuloComponent,
-  InicioUsuarioComponent,
-  ListarUsuarioComponent,
-  CrearEditarUsuarioComponent,
   LoginComponent,
   MetodologiaComponent,
   AplicacionComponent,
@@ -64,9 +53,6 @@ export const ARREGLO_COMPONENTES = [
   PlantillaClienteComponent,
   PestanaPlantillaComponent,
   PlantillaJuegoComponent,
-  ParticipantesComponent,
-  ListarParticipantesComponent,
-  CrearEditarParticipanteComponent,
   MigasPanComponent,
   TablaPrevisualReqPlantillaComponent,
   ProyectosComponent,

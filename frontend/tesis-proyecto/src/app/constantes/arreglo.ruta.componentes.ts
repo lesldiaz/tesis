@@ -4,7 +4,6 @@ import { RutaLoginUsuarioComponent } from "../rutas/ruta-login-usuario/ruta-logi
 import { RutaManualUsuarioComponent } from "../rutas/ruta-manual-usuario/ruta-manual-usuario.component";
 import { RutaMetodologiaComponent } from "../rutas/ruta-metodologia/ruta-metodologia.component";
 import { RutaNuevoProyectoComponent } from "../rutas/ruta-nuevo-proyecto/ruta-nuevo-proyecto.component";
-import { RutaParticipantesComponent } from "../rutas/ruta-participantes/ruta-participantes.component";
 import { RutaPerfilUsuarioComponent } from "../rutas/ruta-perfil-usuario/ruta-perfil-usuario.component";
 import { RutaProyectosComponent } from "../rutas/ruta-proyectos/ruta-proyectos.component";
 import { RutaRecuperarContrasenaComponent } from "../rutas/ruta-recuperar-contrasena/ruta-recuperar-contrasena.component";
@@ -26,7 +25,6 @@ export const ARREGLO_RUTA_COMPONENTES = [
   RutaMetodologiaComponent,
   RutaProyectosComponent,
   RutaNuevoProyectoComponent,
-  RutaParticipantesComponent,
   RutaRecuperarContrasenaComponent,
   RutaReporteGraficoComponent,
 ];

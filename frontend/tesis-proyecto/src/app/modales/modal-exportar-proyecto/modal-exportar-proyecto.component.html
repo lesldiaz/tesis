@@ -4,7 +4,7 @@
                                  (habilitarBotonSubmit)="habilitarBoton($event)"></app-importar-proyecto>
 </div>
 <div mat-dialog-actions class="justify-content-end">
-    <button class="btn btn-info texto-blanco" [disabled]="!habilitarBotonSubmit" (click)="enviarDatos()">Accept
+    <button class="btn color-btn-primario" [disabled]="!habilitarBotonSubmit" (click)="enviarDatos()">Accept
     </button>
-    <button class="btn btn-outline-dark" style="margin-left: 0.5rem" (click)="cancelarModal()">Cancel</button>
+    <button class="btn color-btn-cancelar" style="margin-left: 0.5rem" (click)="cancelarModal()">Cancel</button>
 </div>

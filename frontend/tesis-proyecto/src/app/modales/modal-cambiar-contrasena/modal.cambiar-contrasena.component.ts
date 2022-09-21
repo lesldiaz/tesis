@@ -1,7 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {ListarUsuarioComponent} from '../../componentes/usuario/listar/listar.usuario.component';
-import {CookieUsuarioService} from '../../servicios/cookie.service';
 import {Router} from '@angular/router';
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
 import {debounceTime} from 'rxjs/operators';
@@ -14,10 +12,9 @@ import {UsuarioService} from '../../servicios/usuario.service';
 })
 export class ModalCambiarContrasenaComponent implements OnInit {
   constructor(@Inject(MAT_DIALOG_DATA) private readonly _data: any,
-              private readonly _cookieService: CookieUsuarioService,
               private readonly _usuarioService: UsuarioService,
               private readonly _route: Router,
-              private readonly _dialogRef: MatDialogRef<ListarUsuarioComponent>) {
+              private readonly _dialogRef: MatDialogRef<any>) {
     this.cambiarContrasenaFormulario = new FormGroup({
       contrasena: new FormControl('', [
         Validators.required,

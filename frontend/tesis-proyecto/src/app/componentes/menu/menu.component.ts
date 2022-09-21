@@ -2,7 +2,6 @@ import {Component, DoCheck, Input, OnChanges, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {UsuarioInterface} from 'src/app/constantes/interfaces/usuario.interface';
 import {AuthService} from 'src/app/servicios/auth.service';
-import {CookieUsuarioService} from '../../servicios/cookie.service';
 
 @Component({
   selector: 'app-menu',

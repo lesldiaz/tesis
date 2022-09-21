@@ -3,7 +3,6 @@ import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/form
 import {ActivatedRoute, Router} from '@angular/router';
 import {debounceTime, first} from 'rxjs/operators';
 import {UsuarioService} from '../../servicios/usuario.service';
-import {CookieUsuarioService} from '../../servicios/cookie.service';
 import {MatDialog} from '@angular/material/dialog';
 import {AuthService} from 'src/app/servicios/auth.service';
 import {UsuarioSesionService} from 'src/app/servicios/usuario-sesion.service';

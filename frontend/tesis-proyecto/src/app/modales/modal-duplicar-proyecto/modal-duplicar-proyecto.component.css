@@ -1,0 +1,14 @@
+.color-btn-primario {
+  background-color: #024863;
+  color: white;
+}
+
+.color-btn-cancelar {
+  border: #011826 solid 1px;
+  background-color: white;
+  color: #011826;
+}
+.color-btn-cancelar:hover {
+  background-color: #011826;
+  color: white;
+}

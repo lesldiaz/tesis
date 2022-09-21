@@ -1,7 +1,11 @@
 .container{
-  background-color: rgba(143, 173, 191, 1);
-  border-radius: 10px;
+  background-color: rgba(143, 173, 191, 0.3);
+  padding-top: 20px;
+  border-radius: 0.5rem;
   margin-top: 20px;
   margin-bottom: 20px;
   padding-bottom: 20px;
+}
+.color-btn-wtext{
+  color: #012840;
 }
