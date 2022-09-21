@@ -34,21 +34,11 @@ export class RutaReporteGraficoComponent implements OnInit {
       }
     ];
     this._activatedRoute.params.subscribe(
-      parametroRuta => {
+      (parametroRuta:any) => {
         this.idProyecto = parametroRuta['id'];
       }
     );
-    this._proyectoService.getProyecto(this.idProyecto as number)
-      .subscribe(
-        (proyecto: any) => {
-          if ( typeof proyecto.mensaje.resultado !== 'string') {
-            this.proyecto = proyecto.mensaje.resultado;
-            this.tipoProyecto = proyecto.mensaje.resultado.tipoProyecto;
-          }
 
-        }
-      );
-    console.log("dsfsf aqui", this.idProyecto, this.tipoProyecto)
   }
 
 }

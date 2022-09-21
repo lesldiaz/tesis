@@ -372,6 +372,7 @@ export class ListarProyectosComponent implements OnInit {
 
   irAReporteGrafico(proyecto: ProyectoInterface) {
     this._route.navigate(['/proyectos/reporte-grafico', proyecto.id]);
+    console.log(proyecto.id);
   }
 
   exportarProyecto(proyectoFila: any) {

@@ -7,8 +7,8 @@ export const CONFIGURACIONES = {
             password: 'mysqlpw',
             database: 'vraw',
             synchronize: true, // consumir la base, no crear --> false
-            dropSchema: true, // false para build
+            dropSchema: false, // false para build
         },
-        crearDatosTest: true // false para build
+        crearDatosTest: false// false para build
     }
 ;

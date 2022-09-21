@@ -8,6 +8,7 @@ import { RequerimientoService } from 'src/app/servicios/requerimiento.service';
 import { FUNCIONES_GENERALES } from 'src/app/constantes/funciones-generales';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+import { ProyectoInterface } from 'src/app/constantes/interfaces/proyecto.interface';
 //const htmlToPdfmake = require("html-to-pdfmake");
 //import pdfMake from 'pdfmake/build/pdfmake';
 //import pdfFonts from 'pdfmake/build/vfs_fonts';
@@ -25,8 +26,8 @@ export class GraficosChartComponent implements OnInit {
   ctx: any;
   ct2: any;
   ct3: any;
-
-  @Input() tipoProyecto: 'C' | 'J' | undefined;
+  proyecto: ProyectoInterface | undefined;
+  tipoProyecto: 'C' | 'J' | undefined;
   @Input() idProyecto: number | undefined;
   requerimientos: RequerimientoInterface[] = [];
   requerimientosCliente: RequerimientoInterface[] = [];
@@ -51,15 +52,27 @@ export class GraficosChartComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.bandera = this.tipoProyecto === 'C' ? true : false;
-    console.log(this.bandera);
-    console.log(this.tipoProyecto);
-    this.divGameplay= document.getElementById("GamePlay");
-    this.divGameplay.style.display="none";
-    if(this.bandera===false){
-      console.log(this.bandera);
-      this.divGameplay.style.display="";
-    }
+    this._proyectoService.getProyecto(this.idProyecto as number)
+      .subscribe(
+        (proyecto: any) => {
+          if ( typeof proyecto.mensaje.resultado !== 'string') {
+            this.proyecto = proyecto.mensaje.resultado;
+            this.tipoProyecto = proyecto.mensaje.resultado.tipoProyecto;
+            this.bandera = this.tipoProyecto === 'C' ? true : false;
+            console.log(this.bandera);
+            console.log(this.tipoProyecto);
+            this.divGameplay= document.getElementById("GamePlay");
+            this.divGameplay.style.display="none";
+            if(this.bandera===false){
+              console.log(this.bandera);
+              this.divGameplay.style.display="";
+            }
+            console.log(this.idProyecto);
+          }
+
+        }
+      );
+
 
     const criterioBusqueda = {
       idProyecto: this.idProyecto
