@@ -1,7 +1,7 @@
 export const CONFIGURACIONES = {
         bdd: {
             type: 'mysql',
-            host: 'localhost', //url servidor bdd
+            host: 'localhost', // host servidor bdd
             port: 3306, // puerto servidor bdd
             username: 'root', //credenciales bdd
             password: 'root2022', //credenciales bdd
