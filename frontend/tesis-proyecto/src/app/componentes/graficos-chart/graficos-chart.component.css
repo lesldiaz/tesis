@@ -15,6 +15,11 @@
 .btn{
   background-color: #5888A6;
   color: white;
+  margin-top: 8px;
+  margin-right: 10px;
+}
+.right{
+  text-align: right;
 }
 .tabla{
   margin-left: auto;
