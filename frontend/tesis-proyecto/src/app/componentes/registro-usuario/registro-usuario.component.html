@@ -1,0 +1,70 @@
+<div class="col d-flex justify-content-center">
+  <div class="card text-center" style="width: 30vw; height: 100%; line-height: 5vh; margin-top: 5vh">
+    <div class="card-header">
+      <img
+        width="50%"
+        src="https://economia.epn.edu.ec/images/img/150.png">
+    </div>
+    <div class="card-body">
+      <form [formGroup]="formularioRegistro" novalidate>
+        <h2>SIGN UP</h2>
+        <div style="padding-top: 0.8rem"></div>
+        <span class="p-float-label">
+          <input
+            style="width: 100%"
+            id="nombreUsuario"
+            type="text"
+            aria-describedby="nombreUsuarioHelp"
+            [formControlName]="'nombreUsuario'"
+            pInputText>
+          <label for="nombreUsuario">Username</label>
+        </span>
+        <div *ngIf="arregloMensajesErrorCampoNombreUsuario.length > 0" class="alert alert-warning" role="alert">
+          <div *ngFor="let mensajeError of arregloMensajesErrorCampoNombreUsuario">
+            <small>{{mensajeError}}</small>
+          </div>
+        </div>
+        <div style="padding-top: 1.8rem"></div>
+        <span class="p-float-label">
+          <input
+            style="width: 100%"
+            id="email"
+            type="email"
+            aria-describedby="emailHelp"
+            [formControlName]="'email'"
+            pInputText>
+          <label for="email">Email</label>
+        </span>
+        <div *ngIf="arregloMensajesErrorCampoEmail.length > 0" class="alert alert-warning" role="alert">
+          <div *ngFor="let mensajeError of arregloMensajesErrorCampoEmail">
+            <small>{{mensajeError}}</small>
+          </div>
+        </div>
+        <div style="padding-top: 1.8rem"></div>
+        <span class="p-float-label">
+          <input
+            style="width: 100%"
+            id="contrasena"
+            type="password"
+            aria-describedby="contrasenaHelp"
+            [formControlName]="'contrasena'"
+            pInputText >
+          <label for="contrasena">Password</label>
+        </span>
+        <div *ngIf="arregloMensajesErrorCampoContrasenia.length > 0" class="alert alert-warning" role="alert">
+          <div *ngFor="let mensajeError of arregloMensajesErrorCampoContrasenia">
+            <small>{{mensajeError}}</small>
+          </div>
+        </div>
+        <div *ngIf="errorRegistro">
+            <p class="text-danger">Username or email is already in use!</p>
+        </div>
+        <div style="padding-top: 1rem"></div>
+        <div>
+          <button style="width: 100%" class="btn btn-login" [disabled]="!formularioValido" (click)="enviarFormularioRegistro()">Sign up</button>
+          <button style="width: 100%; margin-top: 0.5rem" class="btn btn-outline-dark" (click)="irALogin()" >Back</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

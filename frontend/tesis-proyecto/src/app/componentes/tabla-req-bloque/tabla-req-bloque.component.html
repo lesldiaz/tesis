@@ -1,0 +1,49 @@
+
+<p-table
+  [value]="requerimientos"
+  [responsive]="true"
+  selectionMode="single"
+  (onRowSelect)="onRowSelect($event)"
+  [(selection)]="selectedRequerimiento"
+  dataKey="id"
+  styleClass="mt-3"
+>
+  <ng-template pTemplate="header">
+    <tr>
+      <th class="text-center">Identifier</th>
+      <th class="text-center">Description</th>
+      <th class="text-center">Relevant information</th>
+      <th class="text-center">Ideas</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-datoFila>
+    <tr [pSelectableRow]="datoFila">
+      <td class="text-center">
+        {{datoFila['idRequerimiento']}}
+      </td>
+      <td class="text-center">
+        <div *ngIf="datoFila['titulo']">
+          <b>Title:</b> {{datoFila['titulo']}}<br>
+        </div>
+        <b>Description:</b> {{datoFila['descripcion']}}
+      </td>
+      <td class="text-center">
+        <b>Priority: </b>{{datoFila['prioridad']| ldprioridadreq}}<br>
+        <b>Role: </b>{{datoFila['rol']? datoFila['rol'].nombre : 'None'}}<br>
+        <b>Parent: </b>{{datoFila['requerimientoPadre'] ? datoFila['requerimientoPadre'] : 'None'}}
+      </td>
+      <td class="text-center">
+        <div *ngFor="let pos of datoFila['proposito']">
+          <p>{{pos.descripcion}}</p>
+        </div>
+      </td>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="emptymessage">
+    <tr>
+      <td [attr.colspan]="5">
+        No results
+      </td>
+    </tr>
+  </ng-template>
+</p-table>

@@ -1,0 +1,63 @@
+.mat-stepper-horizontal {
+  margin-top: 8px;
+}
+::ng-deep .mat-horizontal-stepper-header {
+  pointer-events: none !important;
+}
+.mat-form-field {
+  margin-top: 16px;
+}
+.example-radio-group {
+  display: flex;
+  flex-direction: column;
+  margin: 15px ;
+  align-items: center;
+}
+
+.example-radio-button {
+  margin: 5px;
+}
+#radio-bttn{
+  text-align: center;
+}
+.btn{
+  padding: 10px;
+  background-color: #5888A6;
+  color: white;
+  border-radius: 5px;
+  text-decoration: none;
+  margin-top: 8px;
+  margin-right: 10px;
+}
+.right{
+  text-align: right;
+}
+.new-rbttn{
+  align-content: center;
+  align-items: center;
+}
+.next-btt{
+ align-content: center;
+}
+.bubble {
+  margin: 20px;
+  padding: 20px;
+  position: relative;
+  left: 10px;
+  border-radius: 8px 8px 8px 8px;
+  width: 200px;
+  background: #024873;
+  border-color: #024873;
+  color: white;
+  font-size: 16px;
+}
+.bubble:after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 20px;
+  border-top: 20px solid blue;
+  border-top-color: inherit;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+}

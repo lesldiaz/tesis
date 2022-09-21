@@ -1,0 +1,11 @@
+a {
+  color: rgba(90, 120, 146, 0.92);
+  display:inline-block;
+}
+a:link {
+  text-decoration: cadetblue;
+}
+.btn-login {
+  color: white;
+  background-color: #6a93d1;
+}

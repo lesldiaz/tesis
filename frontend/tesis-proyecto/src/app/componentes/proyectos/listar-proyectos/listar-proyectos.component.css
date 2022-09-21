@@ -1,0 +1,64 @@
+.cienporcierto{
+  width: 100%;
+  justify-content: center;
+}
+#labelbusqueda {
+  text-align-last: center;
+  padding-top: 0.5rem;
+  font-size: medium;
+}
+.texto-blanco {
+  color: white;
+}
+.texto-rojo {
+  color: red;
+}
+.texto-botones {
+  color: #5888A6;
+}
+.texto-excel {
+  color: #024873;
+}
+
+.separador{
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+.separadorlf{
+  margin-right: 0.5rem;
+  margin-left: 0.5rem;
+}
+.separador-top{
+  padding-top: 1rem;
+}
+.separador-botton{
+  padding-bottom: 1rem;
+}
+.negrilla {
+  font-weight: bold;
+}
+.btn-refinamiento {
+  background: #5888A6;
+  color: white;
+}
+.btn-refinamiento:hover {
+  border: #5888A6 1px solid;
+  background: white;
+  color: #5888A6;
+}
+.btn-sea {
+  color: #5888A6;
+  font-size: 1rem;
+}
+.btn-import {
+  background: #038C7F;
+  color: white;
+}
+.boton-limpio {
+  border: none;
+  background: none;
+}
+.color-btn-primario {
+  background-color: #024863;
+  color: white;
+}

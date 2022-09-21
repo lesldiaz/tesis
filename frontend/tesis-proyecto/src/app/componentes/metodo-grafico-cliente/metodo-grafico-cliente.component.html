@@ -1,0 +1,169 @@
+<div id="met-client-graph" class="container">
+  <form  #forma="ngForm">
+    <div class="row">
+      <div class="col-sm-3">
+        <div class="row">
+          <div class="col-sm-4" style="width: 100%">
+            <b class="text-center">Identifier</b>
+          </div>
+          <div class="col-sm-8" style="width: 100%">
+            <input
+              type="text"
+              pInputText
+              class="form-control"
+              id="id"
+              [disabled]="true">
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="row">
+          <div class="col-sm-4" style="width: 100%">
+            <b class="text-center">Role</b>
+          </div>
+          <div class="col-sm-8" style="width: 100%">
+            <p-dropdown
+              name="selectRol"
+              dataKey="rol"
+              placeholder="Select a role"
+              [options]="roles"
+              [(ngModel)]="rolSeleccionado"
+              [editable]="true"
+              optionLabel="nombre"
+              optionValue="id"></p-dropdown>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="row">
+          <div class="col-sm-4"  style="width: 100%">
+            <b class="text-center">Parent</b>
+          </div>
+          <div class="col-sm-8" style="width: 100%">
+            <p-dropdown
+              [virtualScroll]="true"
+              name="selectPadre"
+              dataKey="padre"
+              placeholder="Select a parent"
+              [options]="datos"
+              [(ngModel)]="reqPadreSeleccionado"
+              [showClear]="true"
+              [filter]="true"
+              filterBy="descripcion"
+              emptyMessage="No records"
+              emptyFilterMessage="No results"
+              optionLabel="descripcion"
+              optionValue="idRequerimiento"></p-dropdown>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="row" style="width: 100%">
+          <div class="col-sm-4" style="margin-top: 1rem">
+            <button
+              type="button"
+              class="btn color-btn-wtext"
+              data-toggle="tooltip"
+              data-placement="top"
+              title="Save"
+              (click)="guardarRequerimiento()">
+              <i class="fa fa-floppy-disk"></i>
+            </button>
+          </div>
+          <div class="col-sm-4" style="margin-top: 1rem" >
+            <button
+              data-toggle="tooltip"
+              data-placement="top"
+              title="Clear form"
+              type="button"
+              class="btn color-btn-wtext"
+              (click)="cancelar()">
+              <i class="fa fa-ban"></i>
+            </button>
+          </div>
+          <div class="col-sm-4" style="margin-top: 1rem">
+            <button
+              type="button"
+              class="btn color-btn-wtext"
+              id="eliminar"
+              data-toggle="tooltip"
+              data-placement="top"
+              title="Delete"
+              *ngIf="requerimientoSeleccionado" (click)="eliminar()">
+              <i class="fa fa-trash"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top: 1rem"></div>
+    <div class="row">
+      <div class="col-sm-9">
+        <div class="row">
+          <div class="col-sm-4" style="width: 100%">
+            <b class="text-center">Title</b>
+          </div>
+          <div class="col-sm-8" style="width: 100%">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Enter requirement title"
+              id="titulo"
+              required
+            />
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="row">
+          <div class="col-sm-4" style="width: 100%">
+            <b class="text-center">Priority</b>
+          </div>
+          <div class="col-sm-8" style="width: 100%">
+            <p-rating
+              name="prioridad"
+              class="color-btn-wtext"
+              [cancel]="false"
+              [stars]="3"
+              [(ngModel)]="prioridad"></p-rating>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top: 1rem"></div>
+
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="row">
+          <div class="col-sm-4" style="width: 100%">
+            <b class="text-center">Description</b>
+          </div>
+          <div class="col-sm-8" style="width: 100%">
+             <textarea
+               class="form-control"
+               id="textarea1"
+               rows="2"
+               class="form-control"
+             ></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top: 1rem"></div>
+    <div class="row">
+      <b class="text-center">Related ideas</b>
+      <div style="margin-top: 1rem"></div>
+      <small class="text-center"><i>Double click on the idea to delete it</i></small>
+      <div>
+        <app-post-it (devuelveDatos)="mostrarPostIt($event)" [bnd]="bandera" [blockRec]="blockEnvio"></app-post-it>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="row">
+  <div class="col-sm-12">
+    <app-tabla-req-bloque [idProyecto]="idProyecto" (devuelveDatos)="recuperarSeleccionado($event)" [datos]="datos"></app-tabla-req-bloque>
+  </div>
+</div>

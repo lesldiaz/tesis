@@ -1,0 +1,56 @@
+<form [formGroup]="formularioProyecto" (ngSubmit)="enviarFormularioProyecto()" novalidate>
+  <div class="row separador">
+    <div class="col-sm-4 centrarlabel">
+      <label>Project type</label>
+    </div>
+    <div class="col-sm-8">
+      <p-dropdown
+        placeholder="Select project type"
+        id="tipoProyecto"
+        [formControlName]="'tipoProyecto'"
+        [options]="tiposProyecto"
+        optionLabel="nombre"
+      ></p-dropdown>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-4 centrarlabel">
+      <label for="nombre">Project name</label>
+    </div>
+    <div class="col-sm-8">
+      <input
+        type="text"
+        class="form-control"
+        id="nombre"
+        aria-describedby="nombrelHelp"
+        [formControlName]="'nombre'"
+        placeholder="Ex. Requirements validation">
+      <small id="nombreHelp" class="form-text text-muted">Enter project name</small>
+      <div *ngIf="arregloMensajesErrorCampoNombre.length > 0" class="alert alert-info" role="alert">
+        <div *ngFor="let mensajeError of arregloMensajesErrorCampoNombre">
+          <div>{{mensajeError}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-4 centrarlabel">
+      <label for="descripcion">Description</label>
+    </div>
+    <div class="col-sm-8">
+      <input
+        type="text"
+        class="form-control"
+        id="descripcion"
+        aria-describedby="descripcionlHelp"
+        [formControlName]="'descripcion'"
+        placeholder="Ex. Project for software requirements refinement">
+      <small id="descripcionHelp" class="form-text text-muted">Enter project description</small>
+      <div *ngIf="arregloMensajesErrorCampoDescripcion.length > 0" class="alert alert-info" role="alert">
+        <div *ngFor="let mensajeError of arregloMensajesErrorCampoDescripcion">
+          <div>{{mensajeError}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

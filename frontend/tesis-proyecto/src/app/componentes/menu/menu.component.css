@@ -1,0 +1,74 @@
+.menu {
+  background-color: #012840;
+}
+p.menu{
+  color: white;
+  font-size: large;
+  padding-top: 1rem;
+  padding-left: 1rem;
+  padding-bottom: 0;
+}
+
+a.menu {
+  text-decoration: none;
+}
+
+a.menu:hover {
+  color: white;
+}
+
+.link-boton {
+  background-color: white;
+  border: white 0;
+  color: black;
+  padding-top: 1rem;
+  padding-left: 1rem;
+  padding-bottom: 1rem;
+  width: 100%;
+  text-align: left;
+}
+
+.img-fluid.perfil {
+  max-width: 100%;
+}
+
+.dropbtn {
+  background-color: #012840;
+  color: white;
+  font-size: medium;
+  border: none;
+  cursor: pointer;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 100%;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  right: 0;
+}
+
+.dropdown-content a {
+  color: black;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content button:hover {
+  background-color: white;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown:hover .dropbtn {
+  background-color: #012840;
+}

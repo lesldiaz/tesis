@@ -1,0 +1,28 @@
+.tarjeta {
+  background-color: white;
+  border: #012840 0.1rem solid;
+  color: #012840;
+  border-radius: 1rem;
+  align-content: center;
+  text-align: center;
+  display: block;
+  white-space: pre-line;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  height: 100%;
+  box-shadow: 2px 2px 5px #999;
+}
+
+.tarjeta .imagen-tarjeta {
+  padding: 2rem;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  max-width: 100%;
+}
+
+.tarjeta .titulo-tarjeta {
+  font-size: large;
+}
+
+

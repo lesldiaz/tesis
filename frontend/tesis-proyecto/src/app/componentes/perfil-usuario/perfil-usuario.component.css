@@ -1,0 +1,8 @@
+.gradient-custom {
+  /* fallback for old browsers */
+  background: #5888a6;
+}
+.boton-limpio {
+  border: none;
+  background: none;
+}

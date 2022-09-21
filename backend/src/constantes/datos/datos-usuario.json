@@ -1,0 +1,38 @@
+[
+  {
+    "id" : 1,
+    "nombreUsuario": "HoltRosa",
+    "email": "holtrosa@comfirm.com",
+    "contrasena": 12345678
+  },
+  {
+    "id" : 2,
+    "nombreUsuario": "HodgesPage",
+    "email": "hodgespage@comfirm.com",
+    "contrasena": 12345678
+  },
+  {
+    "id" : 3,
+    "nombreUsuario": "OlaSalas",
+    "email": "olasalas@comfirm.com",
+    "contrasena": 12345678
+  },
+  {
+    "id" : 4,
+    "nombreUsuario": "BettieMoreno",
+    "email": "bettiemoreno@comfirm.com",
+    "contrasena": 12345678
+  },
+  {
+    "id" : 5,
+    "nombreUsuario": "GuerraStout",
+    "email": "guerrastout@comfirm.com",
+    "contrasena": 12345678
+  },
+  {
+    "id" : 6,
+    "nombreUsuario": "lesliediaz",
+    "email": "lmdiaz36@gmail.com",
+    "contrasena": "1030405i"
+  }
+]

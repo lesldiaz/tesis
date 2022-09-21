@@ -1,0 +1,39 @@
+<p-table
+  [value]="requerimientos"
+  [responsive]="true"
+  selectionMode="single"
+  (onRowSelect)="onRowSelect($event)"
+  [(selection)]="selectedRequerimiento"
+  dataKey="id"
+  styleClass="mt-3"
+>
+  <ng-template pTemplate="header">
+    <tr>
+      <th class="text-center">Identifier</th>
+      <th class="text-center">Description</th>
+      <th class="text-center">Blocks</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-datoFila>
+    <tr [pSelectableRow]="datoFila">
+      <td class="text-center">
+        {{datoFila['idRequerimiento']}}
+      </td>
+      <td class="text-center">
+         {{datoFila['descripcion']}}
+      </td>
+      <td class="text-center">
+        <div *ngFor="let pos of datoFila['requerimientoBloque']">
+          <p>{{pos.bloque.nombre}}</p>
+        </div>
+      </td>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="emptymessage">
+    <tr>
+      <td [attr.colspan]="3">
+        No results
+      </td>
+    </tr>
+  </ng-template>
+</p-table>

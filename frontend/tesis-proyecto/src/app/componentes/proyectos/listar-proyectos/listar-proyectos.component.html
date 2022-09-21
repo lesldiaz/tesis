@@ -1,0 +1,170 @@
+<div class="container">
+  <!--  titulo gestion -->
+  <div class="row separador">
+    <div class="col-sm-12">
+      <h1 style="text-align: center">Projects management</h1>
+    </div>
+  </div>
+  <!--  crear/buscar-->
+  <div class="row separador-botton">
+    <div class="col-sm-2">
+      <button class="btn cienporcierto color-btn-primario" (click)="abrirModalCrear()" type="button">New</button>
+    </div>
+    <div class="col-sm-2">
+      <button class="btn cienporcierto btn-import" (click)="abrirModalImportar()" type="button">Import</button>
+    </div>
+    <div class="col-sm-8">
+      <form [formGroup]="formularioBuscarProyecto" novalidate>
+        <div class="row">
+          <div class="col-sm-2" id="labelbusqueda">
+            <label for="terminoBusqueda">Search: </label>
+          </div>
+          <div class="col-sm-10">
+            <input
+              type="text"
+              class="form-control"
+              id="terminoBusqueda"
+              [formControlName]="'terminoBusqueda'"
+              placeholder="Please enter your search term">
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <!--  tabla-->
+  <div class="row separador-top">
+    <div class="col-sm-12">
+      <p-table [responsive]="true" [value]="proyectos"
+               [paginator]="true"
+               [lazy]="true"
+               (onLazyLoad)="cargarMasDatos($event)"
+               [totalRecords]="total"
+               [rows]="5">
+        <ng-template pTemplate="header">
+          <tr>
+            <th class="text-center" *ngFor="let col of cols">
+              {{col.header}}
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-proyectoFila>
+          <tr>
+            <td *ngFor="let col of cols">
+              <div class="text-center" *ngIf="col.field === 'idProyecto'">
+                {{proyectoFila[col.field]}}
+              </div>
+              <div *ngIf="col.field === 'nombre'">
+
+                {{proyectoFila[col.field]}}
+              </div>
+              <div *ngIf="col.field === 'descripcion'">
+                {{proyectoFila[col.field] ? proyectoFila[col.field] : 'None'}}
+              </div>
+              <div *ngIf="col.field === 'proyecto'">
+                <p><b>State:</b> {{proyectoFila['estado'] | ldestadoproyecto }}
+                  <button
+                    class="boton-limpio"
+                          #tooltip="matTooltip"
+                          (click)="tooltip.toggle()"
+                          matTooltip="Project States: Started (project is empty); Pending (changes have been made); Completed (cannot be modified)"
+                          matTooltipPosition="right">
+                    <i class="fa btn-sea fa-circle-info"></i>
+                  </button>
+                <p><b>Project type:</b> {{proyectoFila['tipoProyecto'] | ldtiproyecto}}</p>
+                <small *ngIf="proyectoFila['duplicado']">It's a duplicate project</small>
+              </div>
+              <div class="cienporcierto" *ngIf="col.field === 'id'">
+                <div class="row justify-content-center">
+                  <div class="col-sm-12">
+                    <button
+                      [disabled]="proyectoFila['estado']==='F'"
+                      (click)="abrirModalEditar(proyectoFila)"
+                      class="btn"
+                      data-toggle="tooltip"
+                      data-placement="top"
+                      title="Edit">
+                      <i class="fa fa-pen texto-botones" aria-hidden="true"></i>
+                    </button>
+                    <button
+                      (click)="abrirModalDuplicar(proyectoFila)"
+                      class="btn"
+                      data-toggle="tooltip"
+                      data-placement="top"
+                      title="Duplicate Project">
+                      <i class="fa fa-clone texto-botones" aria-hidden="true"></i>
+                    </button>
+                    <button
+                      class="btn"
+                      data-toggle="tooltip"
+                      data-placement="top"
+                      title="Gestionar Proyectos"
+                      hidden>
+                      <i class="fa fa-people-group texto-botones" aria-hidden="true"></i>
+                    </button>
+                    <button
+                      (click)="abrirModalEliminar(proyectoFila)"
+                      class="btn"
+                      data-toggle="tooltip"
+                      data-placement="top"
+                      title="Delete">
+                      <i class="fa fa-trash texto-rojo" aria-hidden="true"></i>
+                    </button>
+                    <button
+                      *ngIf="proyectoFila['estado']==='F'"
+                      (click)="descargarExcel(proyectoFila)"
+                      class="btn"
+                      data-toggle="tooltip"
+                      data-placement="top"
+                      title="Download Results">
+                      <i class="fa fa-file-excel texto-excel" aria-hidden="true"></i>
+                    </button>
+                    <button
+                      *ngIf="proyectoFila['estado']==='F'"
+                      (click)="irAReporteGrafico(proyectoFila)"
+                      class="btn"
+                      data-toggle="tooltip"
+                      data-placement="top"
+                      title="View Report">
+                      <i class="fas fa-file-pdf texto-excel" aria-hidden="true"></i>
+                    </button>
+                    <button
+                      *ngIf="proyectoFila['estado']==='F'"
+                      (click)="exportarProyecto(proyectoFila)"
+                      class="btn"
+                      data-toggle="tooltip"
+                      data-placement="top"
+                      title="Export Project">
+                      <i class="fa fa-file-export text-black" aria-hidden="true"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="row justify-content-center">
+                  <div class="col-sm-12">
+                    <button
+                      [disabled]="proyectoFila['estado']==='F'"
+                      (click)="irANuevoProyecto(proyectoFila.id)"
+                      class="btn btn-refinamiento"
+                      data-toggle="tooltip"
+                      data-placement="top"
+                      title="Refinement">
+                      <i class="fa fa-play" aria-hidden="true"></i> Start
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td [attr.colspan]="cols.length">
+              No results
+            </td>
+          </tr>
+        </ng-template>
+
+      </p-table>
+    </div>
+  </div>
+</div>
+

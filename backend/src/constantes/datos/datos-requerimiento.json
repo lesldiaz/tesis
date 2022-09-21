@@ -1,0 +1,56 @@
+[
+  {
+    "id" : 1,
+    "titulo": "pariatur duis",
+    "descripcion": "Proident pariatur qui non do nisi fugiat cupidatat ullamco ullamco aliqua id mollit.",
+    "prioridad": 1,
+    "estado": 0,
+    "rol": 1,
+    "proyecto": 5
+  },
+  {
+    "id" : 2,
+    "titulo": "ex elit",
+    "descripcion": "Amet non elit cupidatat et.",
+    "prioridad": 1,
+    "estado": 0,
+    "rol": 2,
+    "proyecto": 1
+  },
+  {
+    "id" : 3,
+    "titulo": "labore et",
+    "descripcion": "Non exercitation cillum dolor duis laboris in cupidatat magna magna velit.",
+    "prioridad": 1,
+    "estado": 0,
+    "rol": 3,
+    "proyecto": 4
+  },
+  {
+    "id" : 4,
+    "titulo": "amet duis",
+    "descripcion": "Nisi elit amet reprehenderit minim incididunt nostrud elit aliquip commodo quis consequat ex.",
+    "prioridad": 3,
+    "estado": 0,
+    "rol": 1,
+    "proyecto": 1
+  },
+  {
+    "id" : 5,
+    "titulo": "non laborum",
+    "descripcion": "Dolor et laboris ad minim adipisicing nisi sint aute enim reprehenderit sint do Lorem amet.",
+    "prioridad": 3,
+    "estado": 0,
+    "rol": 3,
+    "proyecto": 1
+  },
+  {
+    "id" : 6,
+    "titulo": "sit id",
+    "descripcion": "Enim mollit esse Lorem eiusmod ullamco sunt eu proident nulla incididunt.",
+    "prioridad": 3,
+    "estado": 0,
+    "rol": 3,
+    "proyecto": 1
+  }
+]

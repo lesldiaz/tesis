@@ -1,0 +1,10 @@
+<h1 mat-dialog-title class="text-center">UPLOAD PROJECT</h1>
+<div mat-dialog-content>
+  <app-importar-proyecto (proyectoACrearOEditar)="recibirProyecto($event)"
+                                 (habilitarBotonSubmit)="habilitarBoton($event)"></app-importar-proyecto>
+</div>
+<div mat-dialog-actions class="justify-content-end">
+    <button class="btn color-btn-primario" [disabled]="!habilitarBotonSubmit" (click)="enviarDatos()">Accept
+    </button>
+    <button class="btn color-btn-cancelar" style="margin-left: 0.5rem" (click)="cancelarModal()">Cancel</button>
+</div>

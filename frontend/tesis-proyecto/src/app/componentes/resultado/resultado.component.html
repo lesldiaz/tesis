@@ -1,0 +1,119 @@
+<mat-tab-group mat-align-tabs="center">
+  <mat-tab label="Client">
+    <div class="row">
+      <div class="col-sm-12">
+        <p-table
+          [value]="requerimientosCliente"
+          [columns]="cols"
+          [responsive]="true"
+          styleClass="mt-3">
+          <ng-template pTemplate="caption">
+              <div class="flex align-items-center justify-content-between">
+                <p class="text-center">Client Requirements</p>
+                <button
+                  type="button"
+                  (click)="exportExcel()"
+                  class="btn btn-verde mr-2"
+                  pTooltip="Download Results"
+                  tooltipPosition="top">
+                  <i class="fa fa-file-excel"></i></button>
+              </div>
+          </ng-template>
+          <ng-template pTemplate="header">
+            <tr>
+              <th class="text-center">Identifier</th>
+              <th class="text-center">Description</th>
+              <th pSortableColumn="esValido">Is Valid
+                <p-sortIcon field="esValido"></p-sortIcon>
+              </th>
+              <th class="text-center">Fulfilled properties</th>
+              <th class="text-center">Observations</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-requerimientoFila>
+            <tr>
+              <td *ngFor="let col of cols">
+                <div *ngIf="col.field ==='observaciones'">
+                  {{requerimientoFila[col.field] ? requerimientoFila[col.field] : 'None'}}
+                  <p><b>Necessary requirements fulfilled:</b>  {{requerimientoFila.necesarios ? requerimientoFila.necesarios : 'None'}}</p>
+                  <p><b>Non necessary requirements fulfilled:</b>  {{requerimientoFila.noNecesarios ? requerimientoFila.noNecesarios : 'None'}}</p>
+                  <p><b>Desirable requirements fulfilled:</b>  {{requerimientoFila.deseables ? requerimientoFila.deseables : 'None'}}</p>
+                  <p><b>Non desirable requirements fulfilled:</b>  {{requerimientoFila.noDeseables ? requerimientoFila.noDeseables : 'None'}}</p>
+                </div>
+                <div class="text-center" *ngIf="col.field !=='observaciones'">
+                {{requerimientoFila[col.field]}}
+                </div>
+              </td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="emptymessage">
+            <tr>
+              <td [attr.colspan]="cols.length">
+                No results
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+  </mat-tab>
+  <mat-tab label="GamePlay" [disabled]="tipoProyecto==='C'">
+    <div class="row">
+      <div class="col-sm-12">
+        <p-table
+          [value]="requerimientosGamePlay"
+          [columns]="cols"
+          [responsive]="true"
+          styleClass="mt-3">
+          <ng-template pTemplate="caption">
+            <div class="flex align-items-center justify-content-between">
+              <p class="text-center">GamePlay Requirements</p>
+              <button
+                type="button"
+                (click)="exportExcel('J')"
+                class="btn btn-verde mr-2"
+                pTooltip="Donwload Results"
+                tooltipPosition="top">
+                <i class="fa fa-file-excel"></i></button>
+            </div>
+          </ng-template>
+          <ng-template pTemplate="header">
+            <tr>
+              <th class="text-center">Identifier</th>
+              <th class="text-center">Description</th>
+              <th pSortableColumn="esValido">Is Valid
+                <p-sortIcon field="esValido"></p-sortIcon>
+              </th>
+              <th class="text-center">Fulfilled properties</th>
+              <th class="text-center">Observations</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-requerimientoFila>
+            <tr>
+              <td  *ngFor="let col of cols">
+
+                <div *ngIf="col.field ==='observaciones'">
+                  {{requerimientoFila[col.field] ? requerimientoFila[col.field] : 'None'}}
+                  <p><b>Necessary requirements fulfilled:</b>  {{requerimientoFila.necesarios ? requerimientoFila.necesarios : 'None'}}</p>
+                  <p><b>Non necessary requirements fulfilled:</b>  {{requerimientoFila.noNecesarios ? requerimientoFila.noNecesarios : 'None'}}</p>
+                  <p><b>Desirable requirements fulfilled:</b>  {{requerimientoFila.deseables ? requerimientoFila.deseables : 'None'}}</p>
+                  <p><b>Non desirable requirements fulfilled:</b>  {{requerimientoFila.noDeseables ? requerimientoFila.noDeseables : 'None'}}</p>
+                </div>
+                <div class="text-center" *ngIf="col.field !=='observaciones'">
+                  {{requerimientoFila[col.field]}}
+                </div>
+              </td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="emptymessage">
+            <tr>
+              <td [attr.colspan]="cols.length">
+                No results
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+  </mat-tab>
+</mat-tab-group>

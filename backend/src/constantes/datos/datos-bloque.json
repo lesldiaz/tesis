@@ -1,0 +1,62 @@
+[
+  {
+    "id" : 1,
+    "nombre": "Answer"
+  },
+  {
+    "id" : 2,
+    "nombre": "Manage"
+  },
+  {
+    "id" : 3,
+    "nombre": "Get luck"
+  },
+  {
+    "id" : 4,
+    "nombre": "Shoot"
+  },
+  {
+    "id" : 5,
+    "nombre": "Create"
+  },
+  {
+    "id" : 6,
+    "nombre": "Block"
+  },
+  {
+    "id" : 7,
+    "nombre": "Pick up"
+  },
+  {
+    "id" : 8,
+    "nombre": "Destroy"
+  },
+  {
+    "id" : 9,
+    "nombre": "Move"
+  },
+  {
+    "id" : 10,
+    "nombre": "Avoid"
+  },
+  {
+    "id" : 11,
+    "nombre": "Hold"
+  },
+  {
+    "id" : 12,
+    "nombre": "Position"
+  },
+  {
+    "id" : 13,
+    "nombre": "Time"
+  },
+  {
+    "id" : 14,
+    "nombre": "Score"
+  },
+  {
+    "id" : 15,
+    "nombre": "Toy"
+  }
+]
