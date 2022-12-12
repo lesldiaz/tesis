@@ -1,4 +1,4 @@
-import {Like, Repository} from 'typeorm';
+import {FindOptionsWhere, Like, Repository} from 'typeorm';
 import {RespuestaInterface} from '../../interfaces/respuesta.interface';
 import {RespuestaBuscarInterface} from '../../interfaces/respuesta.buscar.interface';
 import * as moment from 'moment';
@@ -36,7 +36,7 @@ export class ServiceGeneral<Entity> {
         objeto: Entity | any,
     ): Promise<RespuestaInterface<Entity> | string> {
         try {
-            const existeObjeto = await this._repository.findOne({where: {id}});
+            const existeObjeto = await this._repository.findOne({where: {id}} as FindOptionsWhere<any>);
             if (existeObjeto) {
                 objeto.updatedAt = moment().format().toString();
                 const respuestaEditar = await this._repository.update(id, objeto);
@@ -71,7 +71,7 @@ export class ServiceGeneral<Entity> {
 
     async eliminar(id: number): Promise<RespuestaInterface<Entity> | string> {
         try {
-            const encontrar = await this._repository.findOne({where: {id}}
+            const encontrar = await this._repository.findOne({where: {id}} as FindOptionsWhere<any>
             );
             if (encontrar) {
                 const respuestaEliminar = await this._repository.delete(id);
@@ -110,7 +110,7 @@ export class ServiceGeneral<Entity> {
                     {
                         where: {
                             id: objetoAEliminar,
-                        }
+                        } as FindOptionsWhere<any>
                     }
                 );
                 if (encontrar) {
@@ -146,7 +146,7 @@ export class ServiceGeneral<Entity> {
     async buscarPorId(id: number): Promise<RespuestaInterface<Entity> | string> {
         try {
             const encontrar = await this._repository.findOne(
-                {where: {id: id}}
+                {where: {id: id}} as FindOptionsWhere<any>
             );
             if (encontrar) {
                 const resultado: RespuestaBuscarInterface<Entity> = {
