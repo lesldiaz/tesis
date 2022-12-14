@@ -45,7 +45,9 @@ export class RequerimientoService extends ServiceGeneral<RequerimientoEntity> {
                 let contador;
                 let requerimientosProyecto = await this._requerimientoRepository.count({
                     where: {
-                        proyecto: idProyecto
+                        proyecto: {
+                            id: idProyecto
+                        }
                     }
                 });
                 contador = requerimientosProyecto + 1;
@@ -128,10 +130,12 @@ export class RequerimientoService extends ServiceGeneral<RequerimientoEntity> {
                     const requerimientoCreado = await this._requerimientoRepository.save(requerimiento);
                     let requerimientosProyecto = await this._requerimientoRepository.count({
                         where: {
-                            proyecto: requerimiento.proyecto
+                            proyecto: {
+                                id: requerimiento.proyecto
+                            }
                         }
                     });
-                    requerimientosProyecto+=1;
+                    requerimientosProyecto += 1;
                     requerimientoCreado.idRequerimiento = FUNCIONES_GENERALES.generarIdRequerimiento(requerimientosProyecto, proyecto.tipoProyecto);
 
 
@@ -166,10 +170,12 @@ export class RequerimientoService extends ServiceGeneral<RequerimientoEntity> {
                 const requerimientoCreado = await this._requerimientoRepository.save(objeto);
                 let requerimientosProyecto = await this._requerimientoRepository.count({
                     where: {
-                        proyecto: objeto.proyecto
+                        proyecto: {
+                            id: objeto.proyecto
+                        }
                     }
                 });
-                requerimientosProyecto+=1;
+                requerimientosProyecto += 1;
                 requerimientoCreado.idRequerimiento = FUNCIONES_GENERALES.generarIdRequerimiento(requerimientosProyecto, proyecto.tipoProyecto);
 
                 const respuestaEditar =
@@ -216,10 +222,12 @@ export class RequerimientoService extends ServiceGeneral<RequerimientoEntity> {
             const requerimientoCreado = await this._requerimientoRepository.save(objeto);
             let requerimientosProyecto = await this._requerimientoRepository.count({
                 where: {
-                    proyecto: objeto.proyecto
+                    proyecto: {
+                        id: objeto.proyecto
+                    }
                 }
             });
-            requerimientosProyecto+=1;
+            requerimientosProyecto += 1;
             requerimientoCreado.idRequerimiento = FUNCIONES_GENERALES.generarIdRequerimiento(requerimientosProyecto, proyecto.tipoProyecto);
             const respuestaEditar =
                 await this._requerimientoRepository
@@ -317,10 +325,12 @@ export class RequerimientoService extends ServiceGeneral<RequerimientoEntity> {
             const requerimientoCreado = await this._requerimientoRepository.save(objeto);
             let requerimientosProyecto = await this._requerimientoRepository.count({
                 where: {
-                    proyecto: objeto.proyecto
+                    proyecto: {
+                        id: objeto.proyecto
+                    }
                 }
             });
-            requerimientosProyecto+=1;
+            requerimientosProyecto += 1;
             requerimientoCreado.idRequerimiento = FUNCIONES_GENERALES.generarIdRequerimiento(requerimientosProyecto, proyecto.tipoProyecto);
             const respuestaEditar =
                 await this._requerimientoRepository
@@ -581,19 +591,20 @@ export class RequerimientoService extends ServiceGeneral<RequerimientoEntity> {
                 }
                 const msjMinimo = 'The requirement meets the minimum properties to be considered well formed.';
                 const msjMinimoNV = 'The requirement doesn\'t meet the minimum properties to be considered well formed.';
-/*                const msjImplementacion = 'Característica indispensable de implementación cumplida: Necesario.';
-                const msjImplementacionNV = 'Característica indispensable de implementación no cumplida: Necesario.';
-                const msjCaracteristicasInd = 'Características indispensables cumplidas: ';
-                const msjCaracteristicasIndNV = 'Características indispensables no cumplidas: ';
-                const msjCaracteristicasDes = 'Características deseables cumplidas: ';
-                const msjCaracteristicasDesNV = 'Características deseables no cumplidas: ';*/
+                /*                const msjImplementacion = 'Característica indispensable de implementación cumplida: Necesario.';
+                                const msjImplementacionNV = 'Característica indispensable de implementación no cumplida: Necesario.';
+                                const msjCaracteristicasInd = 'Características indispensables cumplidas: ';
+                                const msjCaracteristicasIndNV = 'Características indispensables no cumplidas: ';
+                                const msjCaracteristicasDes = 'Características deseables cumplidas: ';
+                                const msjCaracteristicasDesNV = 'Características deseables no cumplidas: ';*/
 
-               /* const indispensables = reqIndispensablesCumplidos.length ? (msjCaracteristicasInd + reqIndispensablesCumplidos.join(', ') + saltoLinea) : '';
-                const noIndispensables = reqIndispensablesNoCumplidos.length ? (msjCaracteristicasIndNV + reqIndispensablesNoCumplidos.join(', ') + saltoLinea) : '';
-                const implementacion = validacionImplementacion ? (msjImplementacion + saltoLinea) : (msjImplementacionNV + saltoLinea);
-                const deseables = reqDeseablesCumplidos.length ? (msjCaracteristicasDes + reqDeseablesCumplidos.join(', ') + saltoLinea) : '';
-                const noDeseables = reqDeseablesNoCumplidos.length ? (msjCaracteristicasDesNV + reqDeseablesNoCumplidos.join(', ') + saltoLinea) : '';
-               */ if (validacionMin) {
+                /* const indispensables = reqIndispensablesCumplidos.length ? (msjCaracteristicasInd + reqIndispensablesCumplidos.join(', ') + saltoLinea) : '';
+                 const noIndispensables = reqIndispensablesNoCumplidos.length ? (msjCaracteristicasIndNV + reqIndispensablesNoCumplidos.join(', ') + saltoLinea) : '';
+                 const implementacion = validacionImplementacion ? (msjImplementacion + saltoLinea) : (msjImplementacionNV + saltoLinea);
+                 const deseables = reqDeseablesCumplidos.length ? (msjCaracteristicasDes + reqDeseablesCumplidos.join(', ') + saltoLinea) : '';
+                 const noDeseables = reqDeseablesNoCumplidos.length ? (msjCaracteristicasDesNV + reqDeseablesNoCumplidos.join(', ') + saltoLinea) : '';
+                */
+                if (validacionMin) {
                     await this._requerimientoRepository.update(requerimientoARefinar.id, {
                         estado: 1
                     });
@@ -611,7 +622,7 @@ export class RequerimientoService extends ServiceGeneral<RequerimientoEntity> {
             await this._proyectoRepository.update(idProyecto, {
                 estado: 'F'
             });
-           return new Promise((resolve, reject) =>
+            return new Promise((resolve, reject) =>
                 resolve({mensaje: 'Completo', codigoRespuesta: 200}),
             );
         } catch (e) {
