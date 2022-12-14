@@ -1,7 +1,7 @@
 import {Injectable} from '@nestjs/common';
 import {ServiceGeneral} from "../../constantes/clases-genericas/service.generico";
 import {ProyectoEntity} from "./proyecto.entity";
-import {Like, Repository} from "typeorm";
+import {FindOptionsWhere, Like, Repository} from "typeorm";
 import {InjectRepository} from "@nestjs/typeorm";
 import {FUNCIONES_GENERALES} from 'src/constantes/metodos/funciones-generales.metodo';
 import * as moment from 'moment';
@@ -251,7 +251,7 @@ export class ProyectoService extends ServiceGeneral<ProyectoEntity> {
                                     async bloqueR => {
                                         const bloqueBase = await this._bloqueRepository.findOne({
                                             nombre: bloqueR
-                                        });
+                                        } as FindOptionsWhere<any>);
                                         if (bloqueBase){
                                             const bloqNuevo: RequerimientoBloqueEntity = {
                                                 requerimiento: requerimientoDuplicado.id,
